@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="随记">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
+<meta property="og:site_name" content="随记">
+<meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="随记">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="随记" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -46,7 +46,7 @@
 			<img src class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">花皮松</a></h1>
 		</hgroup>
 		
 
@@ -104,7 +104,7 @@
 				<img src class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">John Doe</h1>
+			  <h1 class="header-author js-header-author">花皮松</h1>
 			</hgroup>
 			
 			
@@ -151,6 +151,1130 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/04/node/">node.js yeoman grunt 快速构建项目</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/04/node/" class="archive-article-date">
+  	<time datetime="2019-04-04T09:51:19.518Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>####1. node.js 安装</p>
+<p>####2. yeoman grunt安装<br>    npm install -g bower<br>    npm install –global yo<br>    npm install -g grunt-cli<br>    yo –version &amp;&amp; bower –version &amp;&amp; grunt –version<br>    npm install -g <a href="mailto:generator-angular@0.7.1" target="_blank" rel="noopener">generator-angular@0.7.1</a></p>
+<p>####3. 创建项目 安装bower、node、grunt<br>    $ cd d:<br>    $ mkdir myApp<br>    $ cd mytodo<br>    $ yo angular</p>
+<pre><code># 报错少 grunt-contrib-imagemin
+# 安装 grunt-contrib-imagemin
+$ npm install grunt-contrib-imagemin --save-dev
+
+$ npm install
+$ bower install
+$ npm install grunt --save-dev
+# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
+</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code>#Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
+$ npm install -g cordova
+</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
+#要知道这个命令完整的选项，键入cordova help create。
+$ cordova create MyApp
+</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code>#在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
+#为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
+#为了知道你可以添加的平台，你可以运行cordova platform。
+$ cd MyApp 
+# browser andriod ios
+$ cordova platform add browser
+# $ cordova platform remove android
+</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
+# browser andriod ios
+$ cordova run browser
+</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用。</h4><pre><code>$ cordova build android
+</code></pre><h4 id="6、进行仿真"><a href="#6、进行仿真" class="headerlink" title="6、进行仿真"></a>6、进行仿真</h4><pre><code>$ cordova emulate android
+</code></pre><h3 id="phoneGap"><a href="#phoneGap" class="headerlink" title="phoneGap"></a>phoneGap</h3><h4 id="1-Install-our-desktop-app"><a href="#1-Install-our-desktop-app" class="headerlink" title="1.Install our desktop app"></a>1.Install our desktop app</h4><pre><code>$ npm install -g phonegap
+</code></pre><h4 id="2-Install-our-mobile-app"><a href="#2-Install-our-mobile-app" class="headerlink" title="2.Install our mobile app"></a>2.Install our mobile app</h4><pre><code>$
+</code></pre><h4 id="3-Create-your-new-PhoneGap-app"><a href="#3-Create-your-new-PhoneGap-app" class="headerlink" title="3.Create your new PhoneGap app"></a>3.Create your new PhoneGap app</h4><p>这种时候，我们可以通过有Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
+<p>1、中科院开源协会镜像站地址:</p>
+<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
+<p>2、北京化工大学镜像服务器地址：</p>
+<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
+<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
+<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>  端口：80</p>
+<p>3、大连东软信息学院镜像服务器地址:</p>
+<p><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
+<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
+# npm update -g cordova ionic
+$ npm install -g ionic
+$ ionic start myApp tabs
+# demo
+$ ionic start myproject --type ionic1
+# 启动
+$ ionic serve
+# 启动 指定IP地址
+$ ionic serve --address 192.168.20.45
+</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>$ cd myApp
+$ ionic platform add android
+$ ionic build android
+$ ionic emulate android
+</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>$ cd myApp
+$ ionic platform add ios
+$ ionic build ios
+$ ionic emulate ios    
+</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>$ ionic serve
+</code></pre><p>通过Ionic创建一个项目</p>
+<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
+<pre><code>ionic start myApp blank  创建一个空白的app项目 
+
+ionic start myApp tabs 创建一个带有tabs项目
+
+ionic start myApp sidemenu 创建一个带有滑动的项目
+</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
+<pre><code>npm install -g ios-sim
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/04/node/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/">3.服务器上的iptables防火墙应该如何配置才能更安全</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/" class="archive-article-date">
+  	<time datetime="2019-04-04T09:28:40.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>3.1 背景</p>
+<pre><code>新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
+公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
+下面流程化说明防火墙配置步骤
+</code></pre><p>3.2 封口</p>
+<p>将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配置规则。这里值得提醒的是此操作需要在本机执行，因为 telnet 或者 ssh 的连接会当即断开。</p>
+<pre><code> # 丢弃输入数据流向 
+iptables -P INPUT DROP
+ # 丢弃输出数据流向 
+iptables -P OUTPUT DROP
+# 丢弃转向数据流向 
+iptables -P FORWARD DROP
+</code></pre><p>3.3 开放SSH服务</p>
+<p>首先确保 ssh 远程连接开放，添加对 ssh 服务的出入站规则，正常端口为22（端口应该更换成非22）</p>
+<pre><code># 允许任务来源接入服务器的22端口
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+# 允许服务器通过22端口向任何来源发送数据包
+iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
+做好以上的 ssh 服务规则后，任何来源等可以连接，若要求更高级的安全则可以添加准入IP，可以添加多条，其他服务同理。
+# 允许来源IP为221.4.12.28的地址访问服务器的22端口，即ssh服务
+iptables -I INPUT -s 221.4.12.28 -p tcp --dport 22 -j ACCEPT
+</code></pre><p>3.4 启用Ping命令</p>
+<p>当执行 ping 命令时，其实是向目标地址发送 icmp 的数据包并得到回显信息。在服务器内部 ping 外部地址时，属于 OUTPUT，由于服务器的输出已经被DROP掉，所以服务器目前 ping 不通任何外部 IP 地址，考虑到运维的需要，添加允许 ping 外部IP的规则。</p>
+<pre><code># 允许服务器向外部发送icmp的数据包
+iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+# 允许服务器接收来自外部服务器返回的icmp数据包
+iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</code></pre><p>目前服务器可以 ping 外部IP地址了，但外部来源 ping 服务器是不通的。选择不开放来自外部的 ping 请求或许是一个好想法，这样可以迷惑扫描工具避免暴露主机的存活性(高级的扫描工具除外，如 nmap)。<br>下面是服务器接收和响应 ping 请求的出入站规则</p>
+<pre><code># 允许任何来源向服务器发送icmp的数据包
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+# 允许服务器向任何来源回显icmp的数据包
+iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</code></pre><p>3.5 启用DNS服务<br>服务器 ping 外部IP地址正常了，但 ping 外部的域名时则会显示 unknown host 的错误，这是因为 DNS 服务的53端口没有配置出入站规则。<br>下面是 DNS 服务的规则:</p>
+<pre><code>iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
+iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
+</code></pre><p>3.6 下载软件<br>现在服务器需要从外部下载某些软件，通常我们会使用 wget 或者 curl 这样的工具，执行时发现一直卡着不动。这是因为服务器访问外网的80端口出站和入站规则没有配置，需要添加，如下：</p>
+<pre><code>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --sport 80 -j ACCEPT
+</code></pre><p>备注：使用类似与nginx代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443的服务，规则如下：<br>    iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>    iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
+<pre><code>iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+</code></pre><p>当需要开放本地端口，如127.0.0.1或者localhost的端口时，可以使用以下命令使 通过127.0.0.1的访问全部通过<br>    iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
+<pre><code>iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 443 -j ACCEPT
+</code></pre><p>3.9 删除规则</p>
+<pre><code>iptables -L -n --line-number
+iptables -D INPUT 15
+iptables -D OUTPUT 13
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2.在Centos7下的nginx编译安装" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/04/2.在Centos7下的nginx编译安装/">2.在Centos7下的nginx编译安装</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/04/2.在Centos7下的nginx编译安装/" class="archive-article-date">
+  	<time datetime="2019-04-04T09:28:23.648Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2.1 安装依赖</p>
+<pre><code>yum -y install gcc gcc-c++ autoconf automake
+yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
+</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
+<pre><code># 解压缩
+tar -zxvf nginx-1.10.2.tar.gz
+
+# 进入压缩目录
+cd nginx-1.10.2
+
+# 进行模块配置
+./configure \
+  --prefix=/usr \
+  --sbin-path=/usr/sbin/nginx \
+  --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/var/log/nginx/error.log \
+  --http-log-path=/var/log/nginx/access.log \
+  --pid-path=/var/run/nginx/nginx.pid  \
+  --lock-path=/var/lock/nginx.lock \
+  --user=nginx \
+  --group=nginx \
+  --with-http_ssl_module \
+  --with-http_flv_module \
+  --with-http_stub_status_module \
+  --with-http_gzip_static_module \
+  --http-client-body-temp-path=/var/tmp/nginx/client/ \
+  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
+  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
+  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+  --http-scgi-temp-path=/var/tmp/nginx/scgi \
+  --with-pcre
+
+# 编译安装
+make &amp;&amp; make install
+</code></pre><p>2.5 安装路径</p>
+<pre><code># 名称路径日志目录
+/var/log/nginx
+# 配置目录
+/etc/nginx
+# PID文件
+/var/run/nginx/nginx.pid
+# 启动文件
+/usr/sbin/nginx
+</code></pre><p>2.6 centos6服务脚本</p>
+<pre><code>#创建文件
+touch /etc/rc.d/init.d/nginx
+chmod +x /etc/rc.d/init.d/nginx
+</code></pre><p>启动脚本</p>
+<pre><code>#!/bin/sh  
+#  
+# nginx - this script starts and stops the nginx daemon  
+#  
+# chkconfig:   - 85 15  
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
+#               proxy and IMAP/POP3 proxy server  
+# processname: nginx  
+
+# Source function library.  
+. /etc/rc.d/init.d/functions  
+
+# Source networking configuration.  
+. /etc/sysconfig/network  
+
+# Check that networking is up.  
+[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
+
+nginx=&quot;/usr/sbin/nginx&quot;  
+prog=$(basename $nginx)  
+
+sysconfig=&quot;/etc/sysconfig/$prog&quot;  
+lockfile=&quot;/var/lock/nginx.lock&quot;  
+pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
+
+NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
+
+[ -f $sysconfig ] &amp;&amp; . $sysconfig  
+
+start() {  
+    [ -x $nginx ] || exit 5  
+    [ -f $NGINX_CONF_FILE ] || exit 6  
+    echo -n $&quot;Starting $prog: &quot;  
+    daemon $nginx -c $NGINX_CONF_FILE  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
+    return $retval  
+}  
+
+stop() {  
+    echo -n $&quot;Stopping $prog: &quot;  
+    killproc -p $pidfile $prog  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
+    return $retval  
+}  
+
+restart() {  
+    configtest_q || return 6  
+    stop  
+    start  
+}  
+
+reload() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reloading $prog: &quot;  
+    killproc -p $pidfile $prog -HUP  
+    echo  
+}  
+
+configtest() {  
+    $nginx -t -c $NGINX_CONF_FILE  
+}  
+
+configtest_q() {  
+    $nginx -t -q -c $NGINX_CONF_FILE  
+}  
+
+rh_status() {  
+    status $prog  
+}  
+
+rh_status_q() {  
+    rh_status &gt;/dev/null 2&gt;&amp;1  
+}  
+
+# Upgrade the binary with no downtime.  
+upgrade() {  
+    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
+
+    configtest_q || return 6  
+    echo -n $&quot;Upgrading $prog: &quot;  
+    killproc -p $pidfile $prog -USR2  
+    retval=$?  
+    sleep 1  
+    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
+        killproc -p $oldbin_pidfile $prog -QUIT  
+        success $&quot;$prog online upgrade&quot;  
+        echo   
+        return 0  
+    else  
+        failure $&quot;$prog online upgrade&quot;  
+        echo  
+        return 1  
+    fi  
+}  
+
+# Tell nginx to reopen logs  
+reopen_logs() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reopening $prog logs: &quot;  
+    killproc -p $pidfile $prog -USR1  
+    retval=$?  
+    echo  
+    return $retval  
+}
+
+case &quot;$1&quot; in
+    start)
+        rh_status_q &amp;&amp; exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest|reopen_logs)
+        $1
+        ;;
+    force-reload|upgrade)
+        rh_status_q || exit 7
+        upgrade
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status|status_q)
+        rh_$1
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 7
+        restart
+        ;;
+    *)
+        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
+        exit 2
+esac
+</code></pre><p>开机启动方式</p>
+<pre><code># 开机启动
+chkconfig --add nginx
+chkconfig --level 345 nginx on
+chkconfig --list nginx
+
+# 开机不启动
+chkconfig nginx off
+chkconfig --list nginx
+</code></pre><p>2.7 centos7服务脚本</p>
+<pre><code># 创建文件
+touch /usr/lib/systemd/system/nginx.service
+# 启动脚本
+[Unit]
+Description=nginx
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+# 开机启动方式
+
+# 开机启动
+systemctl enable nginx.service
+
+# 开机不启动
+systemctl disable nginx.service
+
+# 其他操作
+systemcl ( status | start | stop | reload | restart ) nginx.service
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/04/2.在Centos7下的nginx编译安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-1.ssh用户权限配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/04/1.ssh用户权限配置/">1.ssh用户权限配置</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/04/1.ssh用户权限配置/" class="archive-article-date">
+  	<time datetime="2019-04-04T09:26:17.888Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
+<pre><code>1. 添加用户
+
+adduser huapisong  //添加一个名为huapisong的用户
+passwd huapisong   //修改密码
+Changing password for user huapisong.
+New UNIX password:     //在这里输入新密码
+Retype new UNIX password:  //再次输入新密码
+passwd: all authentication tokens updated successfully.
+
+2. 赋予root权限
+
+方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
+## Allows people in group wheel to run all commands
+%wheel    ALL=(ALL)    ALL
+# 然后修改用户，使其属于root组（wheel），命令如下：
+
+usermod -g root huapisong
+# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
+
+方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
+## Allow root to run any commands anywhere
+root    ALL=(ALL)     ALL
+huapisong   ALL=(ALL)     ALL
+#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
+
+3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
+如下：
+vi /etc/ssh/sshd_config 
+#添加
+AllowUsers root huapisong
+#多个用户用空格隔开
+
+4. 然后重启sshd服务生效即可，重启命令可以使用:
+#shell
+service sshd restart
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/04/1.ssh用户权限配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-初识git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/04/初识git/">初识git</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/04/初识git/" class="archive-article-date">
+  	<time datetime="2019-04-04T08:31:56.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<pre><code>ssh-keygen -t rsa -C &quot;gitcafe 注册邮箱&quot;  
+</code></pre><p>密码一定要设置，这是为了防止别人往你的项目里乱push 东西。</p>
+<hr>
+<pre><code>less ~/.ssh/id_rsa.pub  
+</code></pre><p>就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。</p>
+<p>之后进行一下git 的全局设置</p>
+<hr>
+<pre><code>git config --global user.name &quot;gitcafe 用户名&quot;  
+git config --global user.email &quot;gitcafe 注册邮箱&quot;  
+</code></pre><p>下面选择你的项目目录，假设是「~/gitcafe/hello」吧，cd 进去，里面新建一个测试文件。</p>
+<p>配置一下你的项目（和目录同名不同名无所谓）</p>
+<hr>
+<pre><code>git init  
+git remote add origin git@gitcafe.com:用户名/项目名.git  
+</code></pre><p>上面第二行「git remote add」其实还设置了一个别称，以后输入origin 这个更加简短的别称就可以了。</p>
+<p>然后add 下文件，第一次先把整个当前目录add 进去就行</p>
+<hr>
+<pre><code>git add .  
+</code></pre><p>然后你可以看下当前你的项目里各个文件的提交状态</p>
+<hr>
+<pre><code>git status  
+</code></pre><p>这时候你还不能push，因为你的gitcafe 还没有建立这个项目呢（虽然你git remote add 在本地添加了）。进去你的gitcafe，新建一个和你本地指定的项目名字一样的项目（不一定是你的项目的目录名，是git remote add 指定的那个）。这时候选择那个「初始化项目README.md 文件」之类的东西吧，正好练习下怎么整合远程变更，因为当很多人做项目的时候，别人push 了你这边就需要整合下变更才能push。</p>
+<p>先写一个commit 信息并且push 一下（默认的分支名称是master）</p>
+<hr>
+<pre><code>git commit -m &quot;hello gitcafe&quot;  
+git push -u origin master  
+</code></pre><p>因为gitcafe 上有本地不存在的两个文件「README.md」和「.gitignore」，所以这次push 肯定是失败的。</p>
+<p>把gitcafe 上的文件都pull 过来</p>
+<hr>
+<pre><code>git pull origin master  
+</code></pre><p>这个时候本地和gitcafe 就一致了，这个时候push 就可以了。</p>
+<p>如果想删除项目中的文件，例如删除hello 项目中的「README.md」和「.gitignore」（就像git add 那样）</p>
+<hr>
+<pre><code>git commit -m &quot;delete README.md .gitignore&quot;  
+git rm README.md .gitignore  
+</code></pre><p>写个commit 信息然后push 一下，你的项目里（无论本地和gitcafe）就没有这两个文件了。</p>
+<p>这就是看了百度了半小时git 使用方法依葫芦画瓢学的，很少一点东西，而且感觉比右键拯救世界的TortoiseSVN 麻烦好多=。=</p>
+<p>#2. git 常用指令<br>只是记录备用</p>
+<p>git branch 查看本地所有分支<br>git status 查看当前状态<br>git commit 提交<br>git branch -a 查看所有的分支<br>git branch -r 查看远程所有分支<br>git commit -am “init” 提交并且加注释<br>git remote add origin <a href="mailto:git@192.168.1.119" target="_blank" rel="noopener">git@192.168.1.119</a>:ndshow 增加一个远程服务器端<br>git push origin master 将文件给推到服务器上<br>git remote show origin 显示远程库origin里的资源<br>git push origin master:develop<br>git push origin master:hb-dev 将本地库与服务器上的库进行关联<br>git checkout –track origin/dev 切换到远程dev分支<br>git branch -D master develop 删除本地库develop<br>git checkout -b dev 建立一个新的本地分支dev<br>git merge origin/dev 将分支dev与当前分支进行合并<br>git checkout dev 切换到本地dev分支<br>git remote show 查看远程库<br>git add . 添加当前目录<br>git rm 文件名(包括路径) 从git中删除指定文件<br>git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来<br>git config –list 看所有用户<br>git ls-files 看已经被提交的<br>git rm [file name] 删除一个文件<br>git commit -a 提交当前repos的所有的改变<br>git add [file name] 添加一个文件到git index<br>git commit -v 当你用－v参数的时候可以看commit的差异<br>git commit -m “This is the message describing the commit” 添加commit信息<br>git commit -a -a是代表add，把所有的change加到git index里然后再commit<br>git commit -a -v 一般提交命令<br>git log 看你commit的日志<br>git diff 查看尚未暂存的更新<br>git rm a.a 移除文件(从暂存区和工作区中删除)<br>git rm –cached a.a 移除文件(只从暂存区中删除)<br>git commit -m “remove” 移除文件(从Git中删除)<br>git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)<br>git diff –cached 或 $ git diff –staged 查看尚未提交的更新<br>git stash push 将文件给push到一个临时空间中</p>
+<h2 id="git-stash-pop-将文件从临时空间pop下来"><a href="#git-stash-pop-将文件从临时空间pop下来" class="headerlink" title="git stash pop 将文件从临时空间pop下来"></a>git stash pop 将文件从临时空间pop下来</h2><p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:username/Hello-World.git</p>
+<h2 id="git-push-origin-master-将本地项目给提交到服务器中"><a href="#git-push-origin-master-将本地项目给提交到服务器中" class="headerlink" title="git push origin master 将本地项目给提交到服务器中"></a>git push origin master 将本地项目给提交到服务器中</h2><h2 id="git-pull-本地与服务器端同步"><a href="#git-pull-本地与服务器端同步" class="headerlink" title="git pull 本地与服务器端同步"></a>git pull 本地与服务器端同步</h2><p>git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。</p>
+<h2 id="git-push-origin-serverfix-awesomebranch"><a href="#git-push-origin-serverfix-awesomebranch" class="headerlink" title="git push origin serverfix:awesomebranch"></a>git push origin serverfix:awesomebranch</h2><p>git fetch 相当于是从远程获取最新版本到本地，不会自动merge<br>git commit -a -m “log_message” (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ：<br>git branch branch_0.1 master 从主分支master创建branch_0.1分支<br>git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0<br>git checkout branch_1.0/master 切换到branch_1.0/master分支</p>
+<hr>
+<p>git branch 删除远程branch<br>git push origin :branch_remote_name<br>git branch -r -d branch_remote_name</p>
+<p>#3. git 指令速查表</p>
+<p>至于这一堆高达上的表格？这个是凑字数的，我还不知道这辈子能不能用到呢！</p>
+<p>###1、常用的Git命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git add</p>
+<p>添加至暂存区</p>
+<p>git add–interactive</p>
+<p>交互式添加</p>
+<p>git apply</p>
+<p>应用补丁</p>
+<p>git am</p>
+<p>应用邮件格式补丁</p>
+<p>git annotate</p>
+<p>同义词，等同于 git blame</p>
+<p>git archive</p>
+<p>文件归档打包</p>
+<p>git bisect</p>
+<p>二分查找</p>
+<p>git blame</p>
+<p>文件逐行追溯</p>
+<p>git branch</p>
+<p>分支管理</p>
+<p>git cat-file</p>
+<p>版本库对象研究工具</p>
+<p>git checkout</p>
+<p>检出到工作区、切换或创建分支</p>
+<p>git cherry-pick</p>
+<p>提交拣选</p>
+<p>git citool</p>
+<p>图形化提交，相当于 git gui 命令</p>
+<p>git clean</p>
+<p>清除工作区未跟踪文件</p>
+<p>git clone</p>
+<p>克隆版本库</p>
+<p>git commit</p>
+<p>提交</p>
+<p>git config</p>
+<p>查询和修改配置</p>
+<p>git describe</p>
+<p>通过里程碑直观地显示提交ID</p>
+<p>git diff</p>
+<p>差异比较</p>
+<p>git difftool</p>
+<p>调用图形化差异比较工具</p>
+<p>git fetch</p>
+<p>获取远程版本库的提交</p>
+<p>git format-patch</p>
+<p>创建邮件格式的补丁文件。参见 git am 命令</p>
+<p>git grep</p>
+<p>文件内容搜索定位工具</p>
+<p>git gui</p>
+<p>基于Tcl/Tk的图形化工具，侧重提交等操作</p>
+<p>git help</p>
+<p>帮助</p>
+<p>git init</p>
+<p>版本库初始化</p>
+<p>git init-db*</p>
+<p>同义词，等同于 git init</p>
+<p>git log</p>
+<p>显示提交日志</p>
+<p>git merge</p>
+<p>分支合并</p>
+<p>git mergetool</p>
+<p>图形化冲突解决</p>
+<p>git mv</p>
+<p>重命名</p>
+<p>git pull</p>
+<p>拉回远程版本库的提交</p>
+<p>git push</p>
+<p>推送至远程版本库</p>
+<p>git rebase</p>
+<p>分支变基</p>
+<p>git rebase–interactive</p>
+<p>交互式分支变基</p>
+<p>git reflog</p>
+<p>分支等引用变更记录管理</p>
+<p>git remote</p>
+<p>远程版本库管理</p>
+<p>git repo-config*</p>
+<p>同义词，等同于 git config</p>
+<p>git reset</p>
+<p>重置改变分支“游标”指向</p>
+<p>git rev-parse</p>
+<p>将各种引用表示法转换为哈希值等</p>
+<p>git revert</p>
+<p>反转提交</p>
+<p>git rm</p>
+<p>删除文件</p>
+<p>git show</p>
+<p>显示各种类型的对象</p>
+<p>git stage*</p>
+<p>同义词，等同于 git add</p>
+<p>git stash</p>
+<p>保存和恢复进度</p>
+<p>git status</p>
+<p>显示工作区文件状态</p>
+<p>git tag</p>
+<p>里程碑管理</p>
+<p>###2、对象库操作相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git commit-tree</p>
+<p>从树对象创建提交</p>
+<p>git hash-object</p>
+<p>从标准输入或文件计算哈希值或创建对象</p>
+<p>git ls-files</p>
+<p>显示工作区和暂存区文件</p>
+<p>git ls-tree</p>
+<p>显示树对象包含的文件</p>
+<p>git mktag</p>
+<p>读取标准输入创建一个里程碑对象</p>
+<p>git mktree</p>
+<p>读取标准输入创建一个树对象</p>
+<p>git read-tree</p>
+<p>读取树对象到暂存区</p>
+<p>git update-index</p>
+<p>工作区内容注册到暂存区及暂存区管理</p>
+<p>git unpack-file</p>
+<p>创建临时文件包含指定 blob 的内容</p>
+<p>git write-tree</p>
+<p>从暂存区创建一个树对象</p>
+<p>###3、引用操作相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git check-ref-format</p>
+<p>检查引用名称是否符合规范</p>
+<p>git for-each-ref</p>
+<p>引用迭代器，用于shell编程</p>
+<p>git ls-remote</p>
+<p>显示远程版本库的引用</p>
+<p>git name-rev</p>
+<p>将提交ID显示为友好名称</p>
+<p>git peek-remote*</p>
+<p>过时命令，请使用 git ls-remote</p>
+<p>git rev-list</p>
+<p>显示版本范围</p>
+<p>git show-branch</p>
+<p>显示分支列表及拓扑关系</p>
+<p>git show-ref</p>
+<p>显示本地引用</p>
+<p>git symbolic-ref</p>
+<p>显示或者设置符号引用</p>
+<p>git update-ref</p>
+<p>更新引用的指向</p>
+<p>git verify-tag</p>
+<p>校验 GPG 签名的Tag</p>
+<p>###4、版本库管理相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git count-objects</p>
+<p>显示松散对象的数量和磁盘占用</p>
+<p>git filter-branch</p>
+<p>版本库重构</p>
+<p>git fsck</p>
+<p>对象库完整性检查</p>
+<p>git fsck-objects*</p>
+<p>同义词，等同于 git fsck</p>
+<p>git gc</p>
+<p>版本库存储优化</p>
+<p>git index-pack</p>
+<p>从打包文件创建对应的索引文件</p>
+<p>git lost-found*</p>
+<p>过时，请使用 git fsck –lost-found 命令</p>
+<p>git pack-objects</p>
+<p>从标准输入读入对象ID，打包到文件</p>
+<p>git pack-redundant</p>
+<p>查找多余的 pack 文件</p>
+<p>git pack-refs</p>
+<p>将引用打包到 .git/packed-refs 文件中</p>
+<p>git prune</p>
+<p>从对象库删除过期对象</p>
+<p>git prune-packed</p>
+<p>将已经打包的松散对象删除</p>
+<p>git relink</p>
+<p>为本地版本库中相同的对象建立硬连接</p>
+<p>git repack</p>
+<p>将版本库未打包的松散对象打包</p>
+<p>git show-index</p>
+<p>读取包的索引文件，显示打包文件中的内容</p>
+<p>git unpack-objects</p>
+<p>从打包文件释放文件</p>
+<p>git verify-pack</p>
+<p>校验对象库打包文件</p>
+<p>###5、数据传输相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git fetch-pack</p>
+<p>执行 git fetch 或 git pull 命令时在本地执行此命令，用于从其他版本库获取缺失的对象</p>
+<p>git receive-pack</p>
+<p>执行 git push 命令时在远程执行的命令，用于接受推送的数据</p>
+<p>git send-pack</p>
+<p>执行 git push 命令时在本地执行的命令，用于向其他版本库推送数据</p>
+<p>git upload-archive</p>
+<p>执行 git archive –remote 命令基于远程版本库创建归档时，远程版本库执行此命令传送归档</p>
+<p>git upload-pack</p>
+<p>执行 git fetch 或 git pull 命令时在远程执行此命令，将对象打包、上传</p>
+<p>6、邮件相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git imap-send</p>
+<p>将补丁通过 IMAP 发送</p>
+<p>git mailinfo</p>
+<p>从邮件导出提交说明和补丁</p>
+<p>git mailsplit</p>
+<p>将 mbox 或 Maildir 格式邮箱中邮件逐一提取为文件</p>
+<p>git request-pull</p>
+<p>创建包含提交间差异和执行PULL操作地址的信息</p>
+<p>git send-email</p>
+<p>发送邮件</p>
+<p>7、协议相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git daemon</p>
+<p>实现Git协议</p>
+<p>git http-backend</p>
+<p>实现HTTP协议的CGI程序，支持智能HTTP协议</p>
+<p>git instaweb</p>
+<p>即时启动浏览器通过 gitweb 浏览当前版本库</p>
+<p>git shell</p>
+<p>受限制的shell，提供仅执行Git命令的SSH访问</p>
+<p>git update-server-info</p>
+<p>更新哑协议需要的辅助文件</p>
+<p>git http-fetch</p>
+<p>通过HTTP协议获取版本库</p>
+<p>git http-push</p>
+<p>通过HTTP/DAV协议推送</p>
+<p>git remote-ext</p>
+<p>由Git命令调用，通过外部命令提供扩展协议支持</p>
+<p>git remote-fd</p>
+<p>由Git命令调用，使用文件描述符作为协议接口</p>
+<p>git remote-ftp</p>
+<p>由Git命令调用，提供对FTP协议的支持</p>
+<p>git remote-ftps</p>
+<p>由Git命令调用，提供对FTPS协议的支持</p>
+<p>git remote-http</p>
+<p>由Git命令调用，提供对HTTP协议的支持</p>
+<p>git remote-https</p>
+<p>由Git命令调用，提供对HTTPS协议的支持</p>
+<p>git remote-testgit</p>
+<p>协议扩展示例脚本</p>
+<p>8、版本库转换和交互相关命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git archimport</p>
+<p>导入Arch版本库到Git</p>
+<p>git bundle</p>
+<p>提交打包和解包，以便在不同版本库间传递</p>
+<p>git cvsexportcommit</p>
+<p>将Git的一个提交作为一个CVS检出</p>
+<p>git cvsimport</p>
+<p>导入CVS版本库到Git。或者使用 cvs2git</p>
+<p>git cvsserver</p>
+<p>Git的CVS协议模拟器，可供CVS命令访问Git版本库</p>
+<p>git fast-export</p>
+<p>将提交导出为 git-fast-import 格式</p>
+<p>git fast-import</p>
+<p>其他版本库迁移至Git的通用工具</p>
+<p>git svn</p>
+<p>Git 作为前端操作 Subversion</p>
+<p>9、合并相关的辅助命令</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git merge-base</p>
+<p>供其他脚本调用，找到两个或多个提交最近的共同祖先</p>
+<p>git merge-file</p>
+<p>针对文件的两个不同版本执行三向文件合并</p>
+<p>git merge-index</p>
+<p>对index中的冲突文件调用指定的冲突解决工具</p>
+<p>git merge-octopus</p>
+<p>合并两个以上分支。参见 git merge 的octopus合并策略</p>
+<p>git merge-one-file</p>
+<p>由 git merge-index 调用的标准辅助程序</p>
+<p>git merge-ours</p>
+<p>合并使用本地版本，抛弃他人版本。参见 git merge 的ours合并策略</p>
+<p>git merge-recursive</p>
+<p>针对两个分支的三向合并。参见 git merge 的recursive合并策略</p>
+<p>git merge-resolve</p>
+<p>针对两个分支的三向合并。参见 git merge 的resolve合并策略</p>
+<p>git merge-subtree</p>
+<p>子树合并。参见 git merge 的 subtree 合并策略</p>
+<p>git merge-tree</p>
+<p>显式三向合并结果，不改变暂存区</p>
+<p>git fmt-merge-msg</p>
+<p>供执行合并操作的脚本调用，用于创建一个合并提交说明</p>
+<p>git rerere</p>
+<p>重用所记录的冲突解决方案</p>
+<p>10、 杂项</p>
+<p>命令</p>
+<p>简要说明</p>
+<p>git bisect–helper</p>
+<p>由 git bisect 命令调用，确认二分查找进度</p>
+<p>git check-attr</p>
+<p>显示某个文件是否设置了某个属性</p>
+<p>git checkout-index</p>
+<p>从暂存区拷贝文件至工作区</p>
+<p>git cherry</p>
+<p>查找没有合并到上游的提交</p>
+<p>git diff-files</p>
+<p>比较暂存区和工作区，相当于 git diff –raw</p>
+<p>git diff-index</p>
+<p>比较暂存区和版本库，相当于 git diff –cached –raw</p>
+<p>git diff-tree</p>
+<p>比较两个树对象，相当于 git diff –raw A B</p>
+<p>git difftool–helper</p>
+<p>由 git difftool 命令调用，默认要使用的差异比较工具</p>
+<p>git get-tar-commit-id</p>
+<p>从 git archive 创建的 tar 包中提取提交ID</p>
+<p>git gui–askpass</p>
+<p>命令 git gui 的获取用户口令输入界面</p>
+<p>git notes</p>
+<p>提交评论管理</p>
+<p>git patch-id</p>
+<p>补丁过滤行号和空白字符后生成补丁唯一ID</p>
+<p>git quiltimport</p>
+<p>将Quilt补丁列表应用到当前分支</p>
+<p>git replace</p>
+<p>提交替换</p>
+<p>git shortlog</p>
+<p>对 git log 的汇总输出，适合于产品发布说明</p>
+<p>git stripspace</p>
+<p>删除空行，供其他脚本调用</p>
+<p>git submodule</p>
+<p>子模组管理</p>
+<p>git tar-tree</p>
+<p>过时命令，请使用 git archive</p>
+<p>git var</p>
+<p>显示 Git 环境变量</p>
+<p>git web–browse</p>
+<p>启动浏览器以查看目录或文件</p>
+<p>git whatchanged</p>
+<p>显示提交历史及每次提交的改动</p>
+<p>git-mergetool–lib</p>
+<p>包含于其他脚本中，提供合并/差异比较工具的选择和执行</p>
+<p>git-parse-remote</p>
+<p>包含于其他脚本中，提供操作远程版本库的函数</p>
+<p>git-sh-setup</p>
+<p>包含于其他脚本中，提供 shell 编程的函数库</p>
+<h3 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h3><pre><code>#删除分支&amp;添加分支
+ # 添加本地关联的远程库
+git remote add zqs git@172.81.205.48:scf-service/scf-service.git
+git remote add zqs git@172.81.205.48:scf-service/scf_modules_app.git
+
+# 删除本地关联的远程库
+git remote remove zqs
+
+# 将某个远程主机的更新，全部取回本地
+$ git fetch --all
+# 将某个远程主机分支最新更新，取回本地
+$ git reset --hard origin/development 
+# 合并版本 根据 commit id 
+git cherry-pick 134ceeb9aa3c3e4c1565978b07311cb308eefebe
+ # 打包 commit 版本
+ git diff-tree -r -no-commit-id --name-only 41242f6f3cfe6f712a9cd2e1858d94de8a51ee09 | xargs tar -rf dev_061401.tar
+
+# 合并版本 根据 commit id 
+git cherry-pick 134ceeb9aa3c3e4c1565978b07311cb308eefebe aa2eb06db72615d1369fd4bd889526a580de37d7
+----------------------------------添加项目------------------------------
+
+--Git global setup
+
+git config --global user.name &quot;zangqisong&quot;
+git config --global user.email &quot;zangqisong@cangoonline.com&quot;
+
+--Create a new repository
+
+mkdir scf-service
+cd scf-service
+git init
+--touch README.md
+git add .
+git commit -m &quot;first commit&quot;
+git remote add origin git@172.81.205.48:scf-service/scf-service.git
+git push -u origin master
+
+--Push an existing Git repository
+
+cd scf-service
+git remote add origin git@172.81.205.48:scf-service/scf-service.git
+git push -u origin master
+----------------------------------添加项目------------------------------
+
+----------------------------------忽略文件------------------------------
+# 添加忽略文件
+touch .gitignore
+#   清除记录
+git rm -r --cached .
+# 添加记录
+git add .
+git commit -m &quot;update .gitignore&quot;
+----------------------------------忽略文件------------------------------
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/04/初识git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -223,6 +1347,112 @@
 
 
   
+    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/">4.使用Lets Encrypt为站点快速部署SSL证书</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/" class="archive-article-date">
+  	<time datetime="2019-03-20T02:22:17.869Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>4.1.使用背景</p>
+<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+</code></pre><p>4.2.下载安装脚本</p>
+<pre><code>下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
+
+# 赋予执行权限
+chmod +x letsencrypt.sh
+</code></pre><p>4.3.配置相关信息</p>
+<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
+# only modify the values, key files will be generated automaticly.
+ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
+DOMAIN_KEY=&quot;tiger.com.key&quot;
+DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
+DOMAINS=&quot;DNS:test.tiger.com&quot;
+#ECC=TRUE
+#LIGHTTPD=TRUE
+</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
+<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
+<p>4.4.执行证书生成</p>
+<pre><code>./letsencrypt.sh ./letsencrypt.conf
+</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
+<pre><code>letsencrypt-account.key
+tiger.crt
+tiger.csr
+tiger.chained.crt
+tiger.com.key
+</code></pre><p>4.5.配置证书安装</p>
+<p>这里使用nginx进行证书安装的服务器</p>
+<pre><code>server {
+    listen       443;
+    server_name  test.tiger.com;
+
+    ssl on;
+    ssl_certificate tiger.chained.crt;
+    ssl_certificate_key tiger.com.key;
+    ssl_session_timeout 5m;
+
+    location / {
+        root html;
+        index  index.html index.htm;
+    }
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
@@ -233,7 +1463,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 John Doe
+    		&copy; 2019 花皮松
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 随记</title>
+  <title>node.js yeoman grunt 快速构建项目 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="随记">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="####1. node.js 安装 ####2. yeoman grunt安装    npm install -g bower    npm install –global yo    npm install -g grunt-cli    yo –version &amp;amp;&amp;amp; bower –version &amp;amp;&amp;amp; grunt –version    npm install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js yeoman grunt 快速构建项目">
+<meta property="og:url" content="http://yoursite.com/2019/04/04/node/index.html">
 <meta property="og:site_name" content="随记">
+<meta property="og:description" content="####1. node.js 安装 ####2. yeoman grunt安装    npm install -g bower    npm install –global yo    npm install -g grunt-cli    yo –version &amp;amp;&amp;amp; bower –version &amp;amp;&amp;amp; grunt –version    npm install">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-04T09:51:59.948Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随记">
+<meta name="twitter:title" content="node.js yeoman grunt 快速构建项目">
+<meta name="twitter:description" content="####1. node.js 安装 ####2. yeoman grunt安装    npm install -g bower    npm install –global yo    npm install -g grunt-cli    yo –version &amp;amp;&amp;amp; bower –version &amp;amp;&amp;amp; grunt –version    npm install">
   
     <link rel="alternative" href="/atom.xml" title="随记" type="application/atom+xml">
   
@@ -150,211 +154,222 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-node" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      node.js yeoman grunt 快速构建项目
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/node/" class="archive-article-date">
+
+        
+        <a href="/2019/04/04/node/" class="archive-article-date">
   	<time datetime="2019-04-04T09:51:19.518Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/node/">node.js yeoman grunt 快速构建项目</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>####1. node.js 安装</p>
+<p>####2. yeoman grunt安装<br>    npm install -g bower<br>    npm install –global yo<br>    npm install -g grunt-cli<br>    yo –version &amp;&amp; bower –version &amp;&amp; grunt –version<br>    npm install -g <a href="mailto:generator-angular@0.7.1" target="_blank" rel="noopener">generator-angular@0.7.1</a></p>
+<p>####3. 创建项目 安装bower、node、grunt<br>    $ cd d:<br>    $ mkdir myApp<br>    $ cd mytodo<br>    $ yo angular</p>
+<pre><code># 报错少 grunt-contrib-imagemin
+# 安装 grunt-contrib-imagemin
+$ npm install grunt-contrib-imagemin --save-dev
 
-        <div class="article-info info-on-right">
-          
-          
+$ npm install
+$ bower install
+$ npm install grunt --save-dev
+# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
+</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code>#Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
+$ npm install -g cordova
+</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
+#要知道这个命令完整的选项，键入cordova help create。
+$ cordova create MyApp
+</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code>#在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
+#为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
+#为了知道你可以添加的平台，你可以运行cordova platform。
+$ cd MyApp 
+# browser andriod ios
+$ cordova platform add browser
+# $ cordova platform remove android
+</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
+# browser andriod ios
+$ cordova run browser
+</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用。</h4><pre><code>$ cordova build android
+</code></pre><h4 id="6、进行仿真"><a href="#6、进行仿真" class="headerlink" title="6、进行仿真"></a>6、进行仿真</h4><pre><code>$ cordova emulate android
+</code></pre><h3 id="phoneGap"><a href="#phoneGap" class="headerlink" title="phoneGap"></a>phoneGap</h3><h4 id="1-Install-our-desktop-app"><a href="#1-Install-our-desktop-app" class="headerlink" title="1.Install our desktop app"></a>1.Install our desktop app</h4><pre><code>$ npm install -g phonegap
+</code></pre><h4 id="2-Install-our-mobile-app"><a href="#2-Install-our-mobile-app" class="headerlink" title="2.Install our mobile app"></a>2.Install our mobile app</h4><pre><code>$
+</code></pre><h4 id="3-Create-your-new-PhoneGap-app"><a href="#3-Create-your-new-PhoneGap-app" class="headerlink" title="3.Create your new PhoneGap app"></a>3.Create your new PhoneGap app</h4><p>这种时候，我们可以通过有Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
+<p>1、中科院开源协会镜像站地址:</p>
+<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
+<p>2、北京化工大学镜像服务器地址：</p>
+<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
+<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
+<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>  端口：80</p>
+<p>3、大连东软信息学院镜像服务器地址:</p>
+<p><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
+<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
+# npm update -g cordova ionic
+$ npm install -g ionic
+$ ionic start myApp tabs
+# demo
+$ ionic start myproject --type ionic1
+# 启动
+$ ionic serve
+# 启动 指定IP地址
+$ ionic serve --address 192.168.20.45
+</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>$ cd myApp
+$ ionic platform add android
+$ ionic build android
+$ ionic emulate android
+</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>$ cd myApp
+$ ionic platform add ios
+$ ionic build ios
+$ ionic emulate ios    
+</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>$ ionic serve
+</code></pre><p>通过Ionic创建一个项目</p>
+<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
+<pre><code>ionic start myApp blank  创建一个空白的app项目 
 
+ionic start myApp tabs 创建一个带有tabs项目
+
+ionic start myApp sidemenu 创建一个带有滑动的项目
+</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
+<pre><code>npm install -g ios-sim
+</code></pre>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/04/node/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:28:40.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">3.服务器上的iptables防火墙应该如何配置才能更安全</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/">3.服务器上的iptables防火墙应该如何配置才能更安全</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/2.在Centos7下的nginx编译安装/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:28:23.648Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/2.在Centos7下的nginx编译安装/">2.在Centos7下的nginx编译安装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/1.ssh用户权限配置/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:26:17.888Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/1.ssh用户权限配置/">1.ssh用户权限配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/初识git/" class="archive-article-date">
-  	<time datetime="2019-04-04T08:31:56.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/初识git/">初识git</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/hello-world/" class="archive-article-date">
-  	<time datetime="2019-04-04T06:50:18.392Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/" class="archive-article-date">
-  	<time datetime="2019-03-20T02:22:17.869Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/">4.使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -377,8 +392,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 随记</title>
+  <title>2.在Centos7下的nginx编译安装 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="随记">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="2.1 安装依赖 yum -y install gcc gcc-c++ autoconf automake yum -y install zlib zlib-devel openssl openssl-devel pcre-devel 2.2 创建用户和组    groupadd -r nginx    useradd -s /sbin/nologin -g nginx -r nginx2.3 下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.在Centos7下的nginx编译安装">
+<meta property="og:url" content="http://yoursite.com/2019/04/04/2.在Centos7下的nginx编译安装/index.html">
 <meta property="og:site_name" content="随记">
+<meta property="og:description" content="2.1 安装依赖 yum -y install gcc gcc-c++ autoconf automake yum -y install zlib zlib-devel openssl openssl-devel pcre-devel 2.2 创建用户和组    groupadd -r nginx    useradd -s /sbin/nologin -g nginx -r nginx2.3 下">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-04T09:29:21.708Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随记">
+<meta name="twitter:title" content="2.在Centos7下的nginx编译安装">
+<meta name="twitter:description" content="2.1 安装依赖 yum -y install gcc gcc-c++ autoconf automake yum -y install zlib zlib-devel openssl openssl-devel pcre-devel 2.2 创建用户和组    groupadd -r nginx    useradd -s /sbin/nologin -g nginx -r nginx2.3 下">
   
     <link rel="alternative" href="/atom.xml" title="随记" type="application/atom+xml">
   
@@ -150,211 +154,389 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-2.在Centos7下的nginx编译安装" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/node/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:51:19.518Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/node/">node.js yeoman grunt 快速构建项目</a>
+    <h1 class="article-title" itemprop="name">
+      2.在Centos7下的nginx编译安装
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:28:40.991Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/">3.服务器上的iptables防火墙应该如何配置才能更安全</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/2.在Centos7下的nginx编译安装/" class="archive-article-date">
+        
+        <a href="/2019/04/04/2.在Centos7下的nginx编译安装/" class="archive-article-date">
   	<time datetime="2019-04-04T09:28:23.648Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/2.在Centos7下的nginx编译安装/">2.在Centos7下的nginx编译安装</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2.1 安装依赖</p>
+<pre><code>yum -y install gcc gcc-c++ autoconf automake
+yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
+</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
+<pre><code># 解压缩
+tar -zxvf nginx-1.10.2.tar.gz
 
-        <div class="article-info info-on-right">
-          
-          
+# 进入压缩目录
+cd nginx-1.10.2
 
+# 进行模块配置
+./configure \
+  --prefix=/usr \
+  --sbin-path=/usr/sbin/nginx \
+  --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/var/log/nginx/error.log \
+  --http-log-path=/var/log/nginx/access.log \
+  --pid-path=/var/run/nginx/nginx.pid  \
+  --lock-path=/var/lock/nginx.lock \
+  --user=nginx \
+  --group=nginx \
+  --with-http_ssl_module \
+  --with-http_flv_module \
+  --with-http_stub_status_module \
+  --with-http_gzip_static_module \
+  --http-client-body-temp-path=/var/tmp/nginx/client/ \
+  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
+  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
+  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+  --http-scgi-temp-path=/var/tmp/nginx/scgi \
+  --with-pcre
+
+# 编译安装
+make &amp;&amp; make install
+</code></pre><p>2.5 安装路径</p>
+<pre><code># 名称路径日志目录
+/var/log/nginx
+# 配置目录
+/etc/nginx
+# PID文件
+/var/run/nginx/nginx.pid
+# 启动文件
+/usr/sbin/nginx
+</code></pre><p>2.6 centos6服务脚本</p>
+<pre><code>#创建文件
+touch /etc/rc.d/init.d/nginx
+chmod +x /etc/rc.d/init.d/nginx
+</code></pre><p>启动脚本</p>
+<pre><code>#!/bin/sh  
+#  
+# nginx - this script starts and stops the nginx daemon  
+#  
+# chkconfig:   - 85 15  
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
+#               proxy and IMAP/POP3 proxy server  
+# processname: nginx  
+
+# Source function library.  
+. /etc/rc.d/init.d/functions  
+
+# Source networking configuration.  
+. /etc/sysconfig/network  
+
+# Check that networking is up.  
+[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
+
+nginx=&quot;/usr/sbin/nginx&quot;  
+prog=$(basename $nginx)  
+
+sysconfig=&quot;/etc/sysconfig/$prog&quot;  
+lockfile=&quot;/var/lock/nginx.lock&quot;  
+pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
+
+NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
+
+[ -f $sysconfig ] &amp;&amp; . $sysconfig  
+
+start() {  
+    [ -x $nginx ] || exit 5  
+    [ -f $NGINX_CONF_FILE ] || exit 6  
+    echo -n $&quot;Starting $prog: &quot;  
+    daemon $nginx -c $NGINX_CONF_FILE  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
+    return $retval  
+}  
+
+stop() {  
+    echo -n $&quot;Stopping $prog: &quot;  
+    killproc -p $pidfile $prog  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
+    return $retval  
+}  
+
+restart() {  
+    configtest_q || return 6  
+    stop  
+    start  
+}  
+
+reload() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reloading $prog: &quot;  
+    killproc -p $pidfile $prog -HUP  
+    echo  
+}  
+
+configtest() {  
+    $nginx -t -c $NGINX_CONF_FILE  
+}  
+
+configtest_q() {  
+    $nginx -t -q -c $NGINX_CONF_FILE  
+}  
+
+rh_status() {  
+    status $prog  
+}  
+
+rh_status_q() {  
+    rh_status &gt;/dev/null 2&gt;&amp;1  
+}  
+
+# Upgrade the binary with no downtime.  
+upgrade() {  
+    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
+
+    configtest_q || return 6  
+    echo -n $&quot;Upgrading $prog: &quot;  
+    killproc -p $pidfile $prog -USR2  
+    retval=$?  
+    sleep 1  
+    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
+        killproc -p $oldbin_pidfile $prog -QUIT  
+        success $&quot;$prog online upgrade&quot;  
+        echo   
+        return 0  
+    else  
+        failure $&quot;$prog online upgrade&quot;  
+        echo  
+        return 1  
+    fi  
+}  
+
+# Tell nginx to reopen logs  
+reopen_logs() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reopening $prog logs: &quot;  
+    killproc -p $pidfile $prog -USR1  
+    retval=$?  
+    echo  
+    return $retval  
+}
+
+case &quot;$1&quot; in
+    start)
+        rh_status_q &amp;&amp; exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest|reopen_logs)
+        $1
+        ;;
+    force-reload|upgrade)
+        rh_status_q || exit 7
+        upgrade
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status|status_q)
+        rh_$1
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 7
+        restart
+        ;;
+    *)
+        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
+        exit 2
+esac
+</code></pre><p>开机启动方式</p>
+<pre><code># 开机启动
+chkconfig --add nginx
+chkconfig --level 345 nginx on
+chkconfig --list nginx
+
+# 开机不启动
+chkconfig nginx off
+chkconfig --list nginx
+</code></pre><p>2.7 centos7服务脚本</p>
+<pre><code># 创建文件
+touch /usr/lib/systemd/system/nginx.service
+# 启动脚本
+[Unit]
+Description=nginx
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+# 开机启动方式
+
+# 开机启动
+systemctl enable nginx.service
+
+# 开机不启动
+systemctl disable nginx.service
+
+# 其他操作
+systemcl ( status | start | stop | reload | restart ) nginx.service
+</code></pre>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/04/2.在Centos7下的nginx编译安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/1.ssh用户权限配置/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:26:17.888Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/04/04/3.服务器上的iptables防火墙应该如何配置才能更安全/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          3.服务器上的iptables防火墙应该如何配置才能更安全
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/04/1.ssh用户权限配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">1.ssh用户权限配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/1.ssh用户权限配置/">1.ssh用户权限配置</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/初识git/" class="archive-article-date">
-  	<time datetime="2019-04-04T08:31:56.677Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/初识git/">初识git</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/04/hello-world/" class="archive-article-date">
-  	<time datetime="2019-04-04T06:50:18.392Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/04/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/" class="archive-article-date">
-  	<time datetime="2019-03-20T02:22:17.869Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/20/4.使用Lets Encrypt为站点快速部署SSL证书/">4.使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -377,8 +559,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
