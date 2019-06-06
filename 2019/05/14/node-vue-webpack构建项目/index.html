@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="vuw-cli 全局安装npm install  -g vue-cli
+构建项目# 创建项目
+mkdir vue-webpack
+cd vue-webpack
+# 创建模板
+vue init webpack 
+# 安装依赖包
+npm install
+# 运行项目
+npm run dev
+# 访问
+h">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>node-vue-webpack 构建项目 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="vuw-cli 全局安装npm install  -g vue-cli 构建项目# 创建项目 mkdir vue-webpack cd vue-webpack # 创建模板 vue init webpack  # 安装依赖包 npm install # 运行项目 npm run dev # 访问 http://localhost:8080 # 简单的Vue Webpack项目构建完成   安装cn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node-vue-webpack 构建项目">
+<meta property="og:url" content="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="vuw-cli 全局安装npm install  -g vue-cli 构建项目# 创建项目 mkdir vue-webpack cd vue-webpack # 创建模板 vue init webpack  # 安装依赖包 npm install # 运行项目 npm run dev # 访问 http://localhost:8080 # 简单的Vue Webpack项目构建完成   安装cn">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/vueImg/start.png">
+<meta property="og:updated_time" content="2019-05-27T08:32:56.051Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node-vue-webpack 构建项目">
+<meta name="twitter:description" content="vuw-cli 全局安装npm install  -g vue-cli 构建项目# 创建项目 mkdir vue-webpack cd vue-webpack # 创建模板 vue init webpack  # 安装依赖包 npm install # 运行项目 npm run dev # 访问 http://localhost:8080 # 简单的Vue Webpack项目构建完成   安装cn">
+<meta name="twitter:image" content="http://yoursite.com/assets/vueImg/start.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-node-vue-webpack构建项目" class="post-node-vue-webpack构建项目 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      node-vue-webpack 构建项目
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="cjwk8gcln00161k0yebqk7u71" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="vuw-cli-全局安装"><a href="#vuw-cli-全局安装" class="headerlink" title="vuw-cli 全局安装"></a>vuw-cli 全局安装</h3><pre><code>npm install  -g vue-cli
+</code></pre><h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><pre><code># 创建项目
+mkdir vue-webpack
+cd vue-webpack
+# 创建模板
+vue init webpack 
+# 安装依赖包
+npm install
+# 运行项目
+npm run dev
+# 访问
+</code></pre><p><a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
+<pre><code># 简单的Vue Webpack项目构建完成
+</code></pre><p> <img src="/assets/vueImg/start.png" alt></p>
+<h3 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h3><pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre><h3 id="跨域代理配置"><a href="#跨域代理配置" class="headerlink" title="跨域代理配置"></a>跨域代理配置</h3><pre><code>#config目录下 index.js 文件配置如下， 可以配置多个
+
+module.exports = {
+  dev: {
+    // Paths
+    assetsSubDirectory: &apos;static&apos;,
+    assetsPublicPath: &apos;/&apos;,
+    proxyTable: {
+      &apos;/api&apos;: {
+        target: &apos;http://10.43.22.175:9000&apos;,
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          &apos;^/api&apos;: &apos;/api&apos;
+        },
+        router: {
+          // when request.headers.host == &apos;dev.localhost:3000&apos;,
+          // override target &apos;http://www.example.org&apos; to &apos;http://localhost:8000&apos;
+          &apos;10.43.22.175:8080&apos; : &apos;http://10.43.22.175:9000&apos;
+        }
+      },
+      &apos;/activity&apos;: {
+        target: &apos;http://10.43.22.149:8081&apos;,
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          &apos;^/activity&apos;: &apos;/activity&apos;
+        },
+        router: {
+          // when request.headers.host == &apos;dev.localhost:3000&apos;,
+          // override target &apos;http://www.example.org&apos; to &apos;http://localhost:8000&apos;
+          &apos;10.43.22.175:8080&apos; : &apos;http://10.43.22.149:8081&apos;
+        }
+      }
+    }
+  }
+}
+</code></pre><h3 id="vue-router-参数"><a href="#vue-router-参数" class="headerlink" title="vue-router 参数"></a>vue-router 参数</h3><h4 id="1-query"><a href="#1-query" class="headerlink" title="1. query"></a>1. query</h4><pre><code>1.this.$router.push({path:&apos;history&apos;, query:{id: &apos;1111&apos;}});
+下一个页面通过this.$route.query.id访问路由参数
+ 总结：1. 强制刷新，query不会丢参
+ 2. query会拼接到url上 （/history?id=1111）
+</code></pre><h4 id="2-params"><a href="#2-params" class="headerlink" title="2. params"></a>2. params</h4><pre><code>2.this.$router.push({&apos;name&apos;: &apos;history&apos;, params: {id: &apos;1111&apos;}});
+下一个页面通过this.$route.params.id访问路由参数
+ 总结：
+    1. 页面刷新参数会丢失
+    2. 不会拼接到url上 例 （/history）
+    3.   router.js 中： 需要添加name属性
+    {
+      path: &apos;history&apos;,
+      name: &apos;history&apos;,
+      meta: {
+        requireAuth: true,
+        title: &apos;历史记录&apos;
+      },
+      component: resolve =&gt; require([&apos;@/views/history.vue&apos;], resolve)
+    }
+    4.注意： 用path访问 参数 undefined
+        例：
+        this.$router.push({&apos;path&apos;: &apos;history&apos;, params: {id: &apos;1111&apos;}});
+        # 下一个页面通过this.$route.params.id访问路由参数
+        undefined
+</code></pre><h4 id="3-其他-id"><a href="#3-其他-id" class="headerlink" title="3.其他 :id"></a>3.其他 :id</h4><pre><code># 跳转
+this.$router.push({&apos;path&apos;: &apos;history/&apos; + row.id});
+or 
+&lt;router-link :to=&apos;`/history/${item.id}`&apos;&gt;&lt;/router-link&gt;
+
+# router.js 中：
+{
+  path: &apos;history/:id&apos;,
+  meta: {
+    requireAuth: true,
+    title: &apos;历史记录&apos;
+  },
+  component: resolve =&gt; require([&apos;@/views/history.vue&apos;], resolve)
+},
+下一个页面通过this.$route.params.id访问路由参数
+1. 页面刷新参数不会丢失
+2. 会拼接到url上 例 （/history/1111111） 
+</code></pre><p>### </p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/14/node-vue-webpack构建项目/">
+    <time datetime="2019-05-13T16:00:00.000Z" class="entry-date">
+        2019-05-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/node-vue/">node vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/06/03/java 正则表达式 手机号 邮箱/" rel="prev"><span class="meta-nav">←</span> (no title)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/05/07/关于Java 23种设计模式/" rel="next">关于Java 23种设计模式 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="pom.xml&amp;lt;!-- java系统监控插件 --&amp;gt;
+    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;net.bull.javamelody&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;javamelod">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>javamelody java系统监控插件 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="pom.xml&amp;lt;!-- java系统监控插件 --&amp;gt;     &amp;lt;dependency&amp;gt;         &amp;lt;groupId&amp;gt;net.bull.javamelody&amp;lt;/groupId&amp;gt;         &amp;lt;artifactId&amp;gt;javamelody-core&amp;lt;/artifactId&amp;gt;         &amp;lt;version&amp;gt;1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javamelody java系统监控插件">
+<meta property="og:url" content="http://yoursite.com/2018/01/01/javamelody/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="pom.xml&amp;lt;!-- java系统监控插件 --&amp;gt;     &amp;lt;dependency&amp;gt;         &amp;lt;groupId&amp;gt;net.bull.javamelody&amp;lt;/groupId&amp;gt;         &amp;lt;artifactId&amp;gt;javamelody-core&amp;lt;/artifactId&amp;gt;         &amp;lt;version&amp;gt;1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-08T02:37:28.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javamelody java系统监控插件">
+<meta name="twitter:description" content="pom.xml&amp;lt;!-- java系统监控插件 --&amp;gt;     &amp;lt;dependency&amp;gt;         &amp;lt;groupId&amp;gt;net.bull.javamelody&amp;lt;/groupId&amp;gt;         &amp;lt;artifactId&amp;gt;javamelody-core&amp;lt;/artifactId&amp;gt;         &amp;lt;version&amp;gt;1">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      javamelody java系统监控插件
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cjwk8gcle000s1k0y6wuori2j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h1 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h1><p>  导入jar包：<br>  javamelody.jar<br>  jrobin-1.5.14.jar<br>  启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；</p>
+<pre><code>访问：http://主机地址：端口号/项目名/monitoring    
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/javamelody/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/01/01/curl/" rel="prev"><span class="meta-nav">←</span> curl(选项)(参数)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/01/01/右键添加Notepad2/" rel="next">右键添加Notepad2 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

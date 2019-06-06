@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="一、SpringCloud简介Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cl">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Spring Cloud构建微服务架构  高可用 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一、SpringCloud简介Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud构建微服务架构  高可用">
+<meta property="og:url" content="http://yoursite.com/2019/04/17/Spring Cloud高可用/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="一、SpringCloud简介Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/eurekaService1.png">
+<meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/keepalived1.png">
+<meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/keepalived2.png">
+<meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/keepalived3.png">
+<meta property="og:updated_time" content="2019-05-08T02:42:40.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud构建微服务架构  高可用">
+<meta name="twitter:description" content="一、SpringCloud简介Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过">
+<meta name="twitter:image" content="http://yoursite.com/assets/SpringCloudImg/eurekaService1.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Spring Cloud高可用" class="post-Spring Cloud高可用 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Spring Cloud构建微服务架构  高可用
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cjwk8gcl8000l1k0ymgk4oien" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="一、SpringCloud简介"><a href="#一、SpringCloud简介" class="headerlink" title="一、SpringCloud简介"></a>一、SpringCloud简介</h3><p>Spring Cloud是一系列框架的有序集合。<br>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。<br>Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<h3 id="二、微服务的注册与发现-Eureka"><a href="#二、微服务的注册与发现-Eureka" class="headerlink" title="二、微服务的注册与发现-Eureka"></a>二、微服务的注册与发现-Eureka</h3><p> Eureka是Netflix开源的服务发现组件，本身是基于Rest的服务，它包含服务端和客户端两部分；在SpringCloud中将它集成在其中，从而实现了微服务的发现与注册；</p>
+<ul>
+<li>Eureka的GitHub：<a href="https://github.com/Netflix/Eureka" target="_blank" rel="noopener">https://github.com/Netflix/Eureka</a></li>
+</ul>
+<p>Eureka Server可以运行多个实例来构建集群，解决单点问题，Eureka Server采用的是Peer to Peer对等通信。这是一种去中心化的架构，无master/slave区分，每一个Peer都是对等的。在这种架构中，节点通过彼此互相注册来提高可用性，每个节点需要添加一个或多个有效的serviceUrl指向其他节点。每个节点都可被视为其他节点的副本。</p>
+<p>如果某台Eureka Server宕机，Eureka Client的请求会自动切换到新的Eureka Server节点，当宕机的服务器重新恢复后，Eureka会再次将其纳入到服务器集群管理之中。当节点开始接受客户端请求时，所有的操作都会进行replicateToPeer（节点间复制）操作，将请求复制到其他Eureka Server当前所知的所有节点中。</p>
+<p>简单来说，Eureka Server的高可用，实际上就是将自己也作为服务向其他服务注册中心进行注册，这样就可以形成一组相互注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果。</p>
+<p> 集群模式下，Eureka的架构图：<br> <img src="/assets/SpringCloudImg/eurekaService1.png" alt><br>Eureka Server </p>
+<pre><code>- 服务端-没有存储，内存保持，每服务实例需要发送心跳去续约 
+- 客户端-在内存中缓存着eureka的注册信息，因此不必每请求到eureka查找服务 
+- eureka之间会做注册服务同步，从而保证状态一致，客户端只需访问一个
+</code></pre><p>eureka Service Provider</p>
+<pre><code>- 会向Eureka Server做Register（服务注册）、Renew（服务续约）、Cancel（服务下线）等操作 
+</code></pre><p>Service Consumer </p>
+<pre><code>- 会向Eureka Server获取注册服务列表，并消费服务
+</code></pre><h3 id="三、Eureka的高可用"><a href="#三、Eureka的高可用" class="headerlink" title="三、Eureka的高可用"></a>三、Eureka的高可用</h3><p>eureka 项目下复制application.properties<br>分别命名为： </p>
+<pre><code>application-server1.properties, application-server2.properties, application-server3.properties
+</code></pre><p>修改hosts文件：</p>
+<pre><code>127.0.0.1    localhost server1 server2 server3
+</code></pre><p>application-server1.properties的配置文件：</p>
+<pre><code>server.port=1001
+spring.application.name=eureka-server-1
+spring.profiles.active=server1
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server1
+eureka.client.serviceUrl.defaultZone=http://server2:1002/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server2.properties的配置文件：</p>
+<pre><code>server.port=1002
+spring.application.name=eureka-server-2
+spring.profiles.active=server2
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server2
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server3.properties的配置文件：</p>
+<pre><code>server.port=1003
+spring.application.name=eureka-server-3
+spring.profiles.active=server3
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server3
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>compute-service   项目下复制application.properties 为： application-dev.properties<br>配置信息：</p>
+<pre><code>spring.application.name=compute-service
+server.port=2001
+eureka.client.serviceUrl.defaultZone=http://server3:1003/eureka/,http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>分别启动服务端server3、server2、server1、compute-service</p>
+<pre><code># 分别在项目下 执行 mvn clean install  命令编译 生成 target
+ mvn clean install
+
+# 在 /SpringCloudDemo/eureka/target 下执行,启动
+
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server1
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server2
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server3
+
+# 在 /SpringCloudDemo/compute-service/target 下执行,启动
+java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+</code></pre><p>访问，<a href="http://localhost:1001/" target="_blank" rel="noopener">http://localhost:1001/</a>，<a href="http://localhost:1002/，http://localhost:1003/，如下：" target="_blank" rel="noopener">http://localhost:1002/，http://localhost:1003/，如下：</a></p>
+<p> <img src="/assets/SpringCloudImg/keepalived1.png" alt><br> <img src="/assets/SpringCloudImg/keepalived2.png" alt><br> <img src="/assets/SpringCloudImg/keepalived3.png" alt> </p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
+<p>至此，完成了Eureka的高可用；</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/17/Spring Cloud高可用/">
+    <time datetime="2019-04-16T16:00:00.000Z" class="entry-date">
+        2019-04-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/04/18/javaThread/" rel="prev"><span class="meta-nav">←</span> java 线程</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/04/15/Spring Cloud(三)断路器/" rel="next">Spring Cloud构建微服务架构 (三) 断路器 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

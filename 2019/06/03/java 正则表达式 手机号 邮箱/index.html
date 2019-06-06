@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="title: java 正则表达式 手机号 邮箱date: 2016-06-03
+category: Javajava 正则表达式 手机号 邮箱import java.util.regex.Pattern;
+/**
+ * 账户相关属性验证工具
+ *
+ */
+public class AccountV">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: java 正则表达式 手机号 邮箱date: 2016-06-03 category: Javajava 正则表达式 手机号 邮箱import java.util.regex.Pattern; /**  * 账户相关属性验证工具  *  */ public class AccountValidatorUtil {     /**      * 正则表达式：验证用户名      */">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随记">
+<meta property="og:url" content="http://yoursite.com/2019/06/03/java 正则表达式 手机号 邮箱/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="title: java 正则表达式 手机号 邮箱date: 2016-06-03 category: Javajava 正则表达式 手机号 邮箱import java.util.regex.Pattern; /**  * 账户相关属性验证工具  *  */ public class AccountValidatorUtil {     /**      * 正则表达式：验证用户名      */">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-04T08:44:51.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随记">
+<meta name="twitter:description" content="title: java 正则表达式 手机号 邮箱date: 2016-06-03 category: Javajava 正则表达式 手机号 邮箱import java.util.regex.Pattern; /**  * 账户相关属性验证工具  *  */ public class AccountValidatorUtil {     /**      * 正则表达式：验证用户名      */">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/java 正则表达式 手机号 邮箱/" data-id="cjwk8gcl9000n1k0ybvsqhvqd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<p>title: java 正则表达式 手机号 邮箱<br>date: 2016-06-03</p>
+<h2 id="category-Java"><a href="#category-Java" class="headerlink" title="category: Java"></a>category: Java</h2><h2 id="java-正则表达式-手机号-邮箱"><a href="#java-正则表达式-手机号-邮箱" class="headerlink" title="java 正则表达式 手机号 邮箱"></a>java 正则表达式 手机号 邮箱</h2><pre><code>import java.util.regex.Pattern;
+/**
+ * 账户相关属性验证工具
+ *
+ */
+public class AccountValidatorUtil {
+    /**
+     * 正则表达式：验证用户名
+     */
+    public static final String REGEX_USERNAME = &quot;^[a-zA-Z]\\w{5,20}$&quot;;
+
+    /**
+     * 正则表达式：验证密码
+     */
+    public static final String REGEX_PASSWORD = &quot;^[a-zA-Z0-9]{6,20}$&quot;;
+
+    /**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = &quot;^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$&quot;;
+
+    /**
+     * 正则表达式：验证邮箱
+     */
+    public static final String REGEX_EMAIL = &quot;^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$&quot;;
+
+    /**
+     * 正则表达式：验证汉字
+     */
+    public static final String REGEX_CHINESE = &quot;^[\u4e00-\u9fa5],{0,}$&quot;;
+
+    /**
+     * 正则表达式：验证身份证
+     */
+    public static final String REGEX_ID_CARD = &quot;(^\\d{18}$)|(^\\d{15}$)&quot;;
+
+    /**
+     * 正则表达式：验证URL
+     */
+    public static final String REGEX_URL = &quot;http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&amp;=]*)?&quot;;
+
+    /**
+     * 正则表达式：验证IP地址
+     */
+    public static final String REGEX_IP_ADDR = &quot;(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)&quot;;
+
+    /**
+     * 校验用户名
+     * 
+     * @param username
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isUsername(String username) {
+        return Pattern.matches(REGEX_USERNAME, username);
+    }
+
+    /**
+     * 校验密码
+     * 
+     * @param password
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isPassword(String password) {
+        return Pattern.matches(REGEX_PASSWORD, password);
+    }
+
+    /**
+     * 校验手机号
+     * 
+     * @param mobile
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isMobile(String mobile) {
+        return Pattern.matches(REGEX_MOBILE, mobile);
+    }
+
+    /**
+     * 校验邮箱
+     * 
+     * @param email
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isEmail(String email) {
+        return Pattern.matches(REGEX_EMAIL, email);
+    }
+
+    /**
+     * 校验汉字
+     * 
+     * @param chinese
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isChinese(String chinese) {
+        return Pattern.matches(REGEX_CHINESE, chinese);
+    }
+
+    /**
+     * 校验身份证
+     * 
+     * @param idCard
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isIDCard(String idCard) {
+        return Pattern.matches(REGEX_ID_CARD, idCard);
+    }
+
+    /**
+     * 校验URL
+     * 
+     * @param url
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isUrl(String url) {
+        return Pattern.matches(REGEX_URL, url);
+    }
+
+    /**
+     * 校验IP地址
+     * 
+     * @param ipAddr
+     * @return
+     */
+    public static boolean isIPAddr(String ipAddr) {
+        return Pattern.matches(REGEX_IP_ADDR, ipAddr);
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">
+    <time datetime="2019-06-03T08:31:48.497Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/06/04/vue 事件中的 .native/" rel="prev"><span class="meta-nav">←</span> (no title)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/05/14/node-vue-webpack构建项目/" rel="next">node-vue-webpack 构建项目 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="1. node.js 安装2. yeoman grunt安装npm install -g bower
+npm install --global yo
+npm install -g grunt-cli
+yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp;">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>node.js yeoman grunt 快速构建项目 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. node.js 安装2. yeoman grunt安装npm install -g bower npm install --global yo npm install -g grunt-cli yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp; grunt --version npm install -g generator-angular@">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js yeoman grunt 快速构建项目">
+<meta property="og:url" content="http://yoursite.com/2017/12/15/node/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="1. node.js 安装2. yeoman grunt安装npm install -g bower npm install --global yo npm install -g grunt-cli yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp; grunt --version npm install -g generator-angular@">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-08T09:17:43.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node.js yeoman grunt 快速构建项目">
+<meta name="twitter:description" content="1. node.js 安装2. yeoman grunt安装npm install -g bower npm install --global yo npm install -g grunt-cli yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp; grunt --version npm install -g generator-angular@">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-node" class="post-node post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      node.js yeoman grunt 快速构建项目
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cjwk8gclq001a1k0ymw9eaf7o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="1-node-js-安装"><a href="#1-node-js-安装" class="headerlink" title="1. node.js 安装"></a>1. node.js 安装</h4><h4 id="2-yeoman-grunt安装"><a href="#2-yeoman-grunt安装" class="headerlink" title="2. yeoman grunt安装"></a>2. yeoman grunt安装</h4><pre><code>npm install -g bower
+npm install --global yo
+npm install -g grunt-cli
+yo --version &amp;&amp; bower --version &amp;&amp; grunt --version
+npm install -g generator-angular@0.7.1
+</code></pre><h4 id="3-创建项目-安装bower、node、grunt"><a href="#3-创建项目-安装bower、node、grunt" class="headerlink" title="3. 创建项目 安装bower、node、grunt"></a>3. 创建项目 安装bower、node、grunt</h4><pre><code>$ cd d:
+$ mkdir myApp
+$ cd mytodo
+$ yo angular
+# 报错少 grunt-contrib-imagemin
+# 安装 grunt-contrib-imagemin
+$ npm install grunt-contrib-imagemin --save-dev
+
+$ npm install
+$ bower install
+$ npm install grunt --save-dev
+# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
+</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code>#Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
+$ npm install -g cordova
+</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
+#要知道这个命令完整的选项，键入cordova help create。
+$ cordova create MyApp
+</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code>#在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
+#为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
+#为了知道你可以添加的平台，你可以运行cordova platform。
+$ cd MyApp 
+# browser andriod ios
+$ cordova platform add browser
+# $ cordova platform remove android
+</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
+# browser andriod ios
+$ cordova run browser
+</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用。</h4><pre><code>$ cordova build android
+</code></pre><h4 id="6、进行仿真"><a href="#6、进行仿真" class="headerlink" title="6、进行仿真"></a>6、进行仿真</h4><pre><code>$ cordova emulate android
+</code></pre><h3 id="phoneGap"><a href="#phoneGap" class="headerlink" title="phoneGap"></a>phoneGap</h3><h4 id="1-Install-our-desktop-app"><a href="#1-Install-our-desktop-app" class="headerlink" title="1.Install our desktop app"></a>1.Install our desktop app</h4><pre><code>$ npm install -g phonegap
+</code></pre><h4 id="2-Install-our-mobile-app"><a href="#2-Install-our-mobile-app" class="headerlink" title="2.Install our mobile app"></a>2.Install our mobile app</h4><pre><code>$
+</code></pre><h4 id="3-Create-your-new-PhoneGap-app"><a href="#3-Create-your-new-PhoneGap-app" class="headerlink" title="3.Create your new PhoneGap app"></a>3.Create your new PhoneGap app</h4><p>这种时候，我们可以通过有Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
+<p>1、中科院开源协会镜像站地址:</p>
+<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
+<p>2、北京化工大学镜像服务器地址：</p>
+<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
+<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
+<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>  端口：80</p>
+<p>3、大连东软信息学院镜像服务器地址:</p>
+<p><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
+<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
+# npm update -g cordova ionic
+$ npm install -g ionic
+$ ionic start myApp tabs
+# demo
+$ ionic start myproject --type ionic1
+# 启动
+$ ionic serve
+# 启动 指定IP地址
+$ ionic serve --address 192.168.20.45
+</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>$ cd myApp
+$ ionic platform add android
+$ ionic build android
+$ ionic emulate android
+</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>$ cd myApp
+$ ionic platform add ios
+$ ionic build ios
+$ ionic emulate ios    
+</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>$ ionic serve
+</code></pre><p>通过Ionic创建一个项目</p>
+<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
+<pre><code>ionic start myApp blank  创建一个空白的app项目 
+
+ionic start myApp tabs 创建一个带有tabs项目
+
+ionic start myApp sidemenu 创建一个带有滑动的项目
+</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
+<pre><code>npm install -g ios-sim
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/15/node/">
+    <time datetime="2017-12-14T16:00:00.000Z" class="entry-date">
+        2017-12-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Node/">Node</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/12/27/svnerror/" rel="prev"><span class="meta-nav">←</span> svn error - unable to connect to a repository at url 问题解决</a></span>
+    
+    
+        <span class="nav-next"><a href="/2017/09/01/oracle-expdp-impdp/" rel="next">oracle expdp / impdp <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

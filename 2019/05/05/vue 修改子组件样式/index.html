@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Scoped CSS当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换：
+&amp;lt;style scoped&amp;gt;
+.exa">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>vue 修改子组件样式 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Scoped CSS当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换： &amp;lt;style scoped&amp;gt; .example {   color: red; } &amp;lt;/style&amp;gt;  &amp;lt;templat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 修改子组件样式">
+<meta property="og:url" content="http://yoursite.com/2019/05/05/vue 修改子组件样式/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="Scoped CSS当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换： &amp;lt;style scoped&amp;gt; .example {   color: red; } &amp;lt;/style&amp;gt;  &amp;lt;templat">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-08T02:37:28.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue 修改子组件样式">
+<meta name="twitter:description" content="Scoped CSS当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换： &amp;lt;style scoped&amp;gt; .example {   color: red; } &amp;lt;/style&amp;gt;  &amp;lt;templat">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      vue 修改子组件样式
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="cjwk8gclw001m1k0yg84fsxnl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="Scoped-CSS"><a href="#Scoped-CSS" class="headerlink" title="Scoped CSS"></a>Scoped CSS</h3><p>当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换：</p>
+<pre><code>&lt;style scoped&gt;
+.example {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot;&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>转换结果：</p>
+<pre><code>&lt;style&gt;
+.example[data-v-f3f3eg9] {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot; data-v-f3f3eg9&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><h3 id="混用本地和全局样式"><a href="#混用本地和全局样式" class="headerlink" title="混用本地和全局样式"></a>混用本地和全局样式</h3><p>你可以在一个组件中同时使用有 scoped 和非 scoped 样式：</p>
+<pre><code>&lt;style&gt;
+/* 全局样式 */
+&lt;/style&gt;
+
+&lt;style scoped&gt;
+/* 本地样式 */
+&lt;/style&gt;
+</code></pre><h3 id="子组件的根元素"><a href="#子组件的根元素" class="headerlink" title="子组件的根元素"></a>子组件的根元素</h3><p>使用 scoped 后，父组件的样式将不会渗透到子组件中。不过一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。这样设计是为了让父组件可以从布局的角度出发，调整其子组件根元素的样式。</p>
+<h3 id="深度作用选择器"><a href="#深度作用选择器" class="headerlink" title="深度作用选择器"></a>深度作用选择器</h3><p>如果你希望 scoped 样式中的一个选择器能够作用得“更深”，例如影响子组件，你可以使用 &gt;&gt;&gt; 操作符：</p>
+<pre><code>&lt;style scoped&gt;
+.a &gt;&gt;&gt; .b { /* ... */ }
+&lt;/style&gt;
+</code></pre><p>上述代码将会编译成：</p>
+<pre><code>.a[data-v-f3f3eg9] .b { /* ... */ }
+</code></pre><p>有些像 Sass 之类的预处理器无法正确解析 &gt;&gt;&gt;。这种情况下你可以使用 /deep/ 或 ::v-deep 操作符取而代之——两者都是 &gt;&gt;&gt; 的别名，同样可以正常工作。</p>
+<p>例：</p>
+<pre><code> &lt;template slot-scope=&quot;slotProps&quot;&gt;
+    &lt;xx-input
+    v-model=&quot;slotProps.option.record.name&quot;
+    :type=&quot;form.input.type&quot;
+    placeholder=&quot;请输入&quot;
+    :required=&quot;true&quot;
+    size=&quot;60&quot;
+    class=&quot;table-input&quot;
+  &gt;&lt;/xx-input&gt;
+ &lt;/template&gt;
+
+&lt;style lang=&quot;css&quot; scoped&gt;
+.table-input /deep/ .input-no-label .input__content{
+  margin-bottom: 0;
+}
+&lt;/style&gt;
+</code></pre><h3 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h3><p>通过 v-html 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
+<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><b>Scoped 样式不能代替 class。</b>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
+<p><b>在递归组件中小心使用后代选择器! </b>对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
+<h3 id="不推荐使用全局样式"><a href="#不推荐使用全局样式" class="headerlink" title="*不推荐使用全局样式"></a>*不推荐使用全局样式</h3><p>参考：<a href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/zh/guide/scoped-css.html</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 修改子组件样式/">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/05/06/vue + webpack 多模块静态文件导入/" rel="prev"><span class="meta-nav">←</span> vue + webpack 多模块静态文件导入</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/04/29/java生命周期/" rel="next">java生命周期 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

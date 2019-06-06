@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <title>随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="随记">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随记">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-maven-instruction" class="post-maven-instruction post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/maven-instruction/">maven使用简单介绍</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="cjwk8gclk00111k0yfq4eo7el" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
+<p>详细教程：<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">https://www.w3cschool.cn/maven/</a></p>
+<h3 id="简单使用maven做什么？"><a href="#简单使用maven做什么？" class="headerlink" title="简单使用maven做什么？"></a>简单使用maven做什么？</h3><ul>
+<li>提供了项目对象模型（POM）文件来管理项目的构建。</li>
+<li><p>仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">本地仓库用来存储项目的依赖库；</span><br><span class="line">中央仓库是下载依赖库的默认位置；</span><br><span class="line">远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远程仓库是中央仓库的补充。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>构建不依赖于IDE的标准化项目（导入IDE只需要以maven项目导入即可）</p>
+</li>
+<li>目录结构统一并且简单，约定大于配置，被其他构建工具以及项目广泛采用</li>
+<li>统一对项目依赖的jar包进行管理，明确jar包依赖以及对应的版本自动下载等（<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">细节请看详细教程</a>）</li>
+</ul>
+<h3 id="maven的下载安装"><a href="#maven的下载安装" class="headerlink" title="maven的下载安装"></a>maven的下载安装</h3><ol>
+<li><p><strong>下载</strong><br>进入<a href="http://maven.apache.org/" target="_blank" rel="noopener">官网</a>选择download菜单进入下载页面<br><img src="/assets/mavenImg/download.png" alt><br>tar.gz文件对应linux系统<br>zip文件对应windows系统</p>
+</li>
+<li><p><strong>安装</strong><br>解压即可使用<br>对于在windows下使用maven，如果需要使用cmd执行命令的话，需要在path环境变量中添加maven/bin目录即可，使用IDE并不需要配置环境变量等<br>推荐目录结构如下：<br><img src="/assets/mavenImg/maven-directory.png" alt><br>第一个为解压后的文件目录<br>第二个用来作为maven的全局文件（settings.xml）存放目录（IDE中需要在maven配置中指向此文件才会生效，日后更换maven版本只需要更换原来的maven解压路径即可，不必再做配置）<br>第三个用来作为maven下载jar包的本地仓库存放目录（需要在settings.xml配置文件中指定，不然存放到默认路径C盘中，不方便管理与查找）  </p>
+</li>
+<li><p><strong>配置</strong><br>在解压的文件目录下进入conf文件夹，其中有默认的settings.xml配置文件<br><img src="/assets/mavenImg/maven-conf-directory.png" alt><br>配置文件一般只需要配置2个地方，一个是下载jar包的本地仓库存放目录，另外一个为下载jar包的国内镜像地址（默认地址为国外，速度较慢）<br><img src="/assets/mavenImg/maven-conf-repository.png" alt><br>从默认的注释中复制出来，配置上前面定好的本地仓库存放目录，如果不配置则会存放到注释中默认指向地址${user.home}/.m2/repository<br><img src="/assets/mavenImg/maven-conf-mirror.png" alt><br>依旧从默认的注释中复制镜像出来，id与name可以随意起名，mirrorOf为central则说明是中央仓库，URL推荐填写阿里云maven仓库地址 <a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a><br>之后保存，复制出一份存放在前面设置的maven全局文件存放目录下面（当替换maven版本时，内置的配置文件使用IDE设置好全局文件时可不用更改，更换maven版本也只是解压新版本后在IDE中设置新的maven安装路径就完成了）  </p>
+</li>
+</ol>
+<h3 id="IDE中配置maven"><a href="#IDE中配置maven" class="headerlink" title="IDE中配置maven"></a>IDE中配置maven</h3><ol>
+<li><p><strong>MyEclipse</strong><br>点击导航栏window进入preferences搜索maven<br><img src="/assets/mavenImg/myeclipse-maven.png" alt><br>建议勾选Download Artifact Sources（下载jar包的同时下载源码，方便直接点方法进源码查看）<br><img src="/assets/mavenImg/myeclipse-maven-install.png" alt><br>添加安装的maven<br><img src="/assets/mavenImg/myeclipse-maven-settings.png" alt><br>设置好maven的全局配置文件路径（本地仓库存放目录自动扫描文件中的目录）<br>至此完成了MyEclipse中maven的配置  </p>
+</li>
+<li><p><strong>IDEA</strong><br>不要在打开项目的时候选择file/settings，那样设置完只会针对当前项目，若打开了项目，则选择file/Close Project关闭项目回退到初始idea界面</p>
+</li>
+</ol>
+<p><img src="/assets/mavenImg/idea-settings.png" alt>                 <img src="/assets/mavenImg/idea-settings1.png" alt><br>指定好maven的安装目录以及配置文件位置<br><img src="/assets/mavenImg/idea-maven.png" alt><br><img src="/assets/mavenImg/idea-maven-importing.png" alt><br>至此完成了idea中的maven的配置</p>
+<h3 id="创建一个maven的java-web项目"><a href="#创建一个maven的java-web项目" class="headerlink" title="创建一个maven的java web项目"></a>创建一个maven的java web项目</h3><ol>
+<li><p><strong>MyEclipse</strong><br><img src="/assets/mavenImg/myeclipse-create01.png" alt><br><img src="/assets/mavenImg/myeclipse-create02.png" alt><br>选取项目模板java web项目为maven-archetype-webapp<br><img src="/assets/mavenImg/myeclipse-create03.png" alt><br><img src="/assets/mavenImg/myeclipse-create04.png" alt><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+<li><p><strong>IDEA</strong><br>新建项目<br><img src="/assets/mavenImg/idea-create01.png" alt><br><img src="/assets/mavenImg/idea-create02.png" alt><br><img src="/assets/mavenImg/idea-create03.png" alt><br><img src="/assets/mavenImg/idea-create04.png" alt><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+</ol>
+<h3 id="maven的java-web项目的目录结构"><a href="#maven的java-web项目的目录结构" class="headerlink" title="maven的java web项目的目录结构"></a>maven的java web项目的目录结构</h3><p><a href="/assets/mavenImg/pom.xml">pom.xml项目配置文件例子，包含普通项目所需jar包引入，行间内置注释</a><br><img src="/assets/mavenImg/maven-directory-javaweb.png" alt="文件目录结构">  </p>
+<pre><code>```
+project
+│   pom.xml（maven项目配置文件）
+│
+└───src（源码根目录）
+│   │
+│   └───main（源码主目录）
+│   │   │
+│   │   └───java（java源码目录）
+│   │   │   │
+│   │   │   └───xxx（项目包名）
+│   │   │   └───sql（包名，有清空数据库在java源码目录下同级放置）
+│   │   │
+│   │   └───resources（源码所使用的资源文件目录，存放配置文件）
+│   │   │   │
+│   │   │   └───config（配置文件）
+│   │   │        │
+│   │   │        └───jdbc
+│   │   │        └───mybatis
+│   │   │        └───spring
+│   │   │
+│   │   └───webapp（web文件目录，等同于WebRoot）
+│   │   │
+│   │
+│   └───test（测试目录，测试用例等，小项目暂未使用）
+│        │   xxxTest.java
+│        │   ...
+│    
+└───target（maven项目默认编译输出目录，自动生成）
+          │   ...
+```  
+</code></pre><ol>
+<li>java源码目录使用模板生成没有此文件夹，自行创建并设置为源码目录，MyEclipse设置方式为文件夹右键Build Path/Use as Source Folder，idea为右键Make Directory as/Sources Root</li>
+<li>resources资源文件目录在导入maven项目时此文件夹为普通文件夹，需要IDE设置为资源文件夹，MyEclipse设置方式同上，idea为右键Make Directory as/Resources Root</li>
+<li>如果需要引入特殊jar包（第三方支付等），跟以前方式一致</li>
+<li>旧项目转化为maven项目，按照上述创建一个maven项目，直接打开2边的文件夹，直接拷贝到相应地方，删除多余jar包以及原来多余编译生成的文件即可，无需其余操作，反之把maven项目转化也一样（需要把编译目录下的jar包拷过去）</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/29/maven-instruction/">
+    <time datetime="2018-01-28T16:00:00.000Z" class="entry-date">
+        2018-01-29
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/curl/">curl(选项)(参数)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cjwk8gcl6000i1k0ypa552zll" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>举个栗子
+
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;{&quot;serviceType&quot;:&quot;3&quot;}&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceType=3&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+</code></pre><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>curl(选项)(参数)
+</code></pre><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><pre><code>-a/--append  上传文件时，附加到目标文件
+-A/--user-agent &lt;string&gt;  设置用户代理发送给服务器
+-anyauth  可以使用“任何”身份验证方法
+-b/--cookie &lt;name=string/file&gt;  cookie字符串或文件读取位置
+   --basic  使用HTTP基本验证
+-B/--use-ascii  使用ASCII /文本传输
+-c/--cookie-jar &lt;file&gt;  操作结束后把cookie写入到这个文件中
+-C/--continue-at &lt;offset&gt;  断点续转
+-d/--data &lt;data&gt;  HTTP POST方式传送数据
+   --data-ascii &lt;data&gt;  以ascii的方式post数据
+   --data-binary &lt;data&gt;  以二进制的方式post数据
+   --negotiate  使用HTTP身份验证
+   --digest  使用数字身份验证
+   --disable-eprt  禁止使用EPRT或LPRT
+   --disable-epsv  禁止使用EPSV
+-D/--dump-header &lt;file&gt;  把header信息写入到该文件中
+   --egd-file &lt;file&gt;  为随机数据(SSL)设置EGD socket路径
+   --tcp-nodelay  使用TCP_NODELAY选项
+-e/--referer  来源网址
+-E/--cert &lt;cert[:passwd]&gt;  客户端证书文件和密码 (SSL)
+   --cert-type &lt;type&gt;  证书文件类型 (DER/PEM/ENG) (SSL)
+   --key &lt;key&gt;  私钥文件名 (SSL)
+   --key-type &lt;type&gt;  私钥文件类型 (DER/PEM/ENG) (SSL)
+   --pass &lt;pass&gt;  私钥密码 (SSL)
+   --engine &lt;eng&gt;  加密引擎使用 (SSL). &quot;--engine list&quot; for list
+   --cacert &lt;file&gt;  CA证书 (SSL)
+   --capath &lt;directory&gt;  CA目录 (made using c_rehash) to verify peer against (SSL)
+   --ciphers &lt;list&gt;  SSL密码
+   --compressed  要求返回是压缩的形势 (using deflate or gzip)
+   --connect-timeout &lt;seconds&gt;  设置最大请求时间
+   --create-dirs  建立本地目录的目录层次结构
+   --crlf  上传是把LF转变成CRLF
+-f/--fail  连接失败时不显示http错误
+   --ftp-create-dirs  如果远程目录不存在，创建远程目录
+   --ftp-method [multicwd/nocwd/singlecwd]  控制CWD的使用
+   --ftp-pasv  使用 PASV/EPSV 代替端口
+   --ftp-skip-pasv-ip  使用PASV的时候,忽略该IP地址
+   --ftp-ssl  尝试用 SSL/TLS 来进行ftp数据传输
+   --ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输
+-F/--form &lt;name=content&gt;  模拟http表单提交数据
+   --form-string &lt;name=string&gt;  模拟http表单提交数据
+-g/--globoff  禁用网址序列和范围使用{}和[]
+-G/--get  以get的方式来发送数据
+-H/--header &lt;line&gt;  自定义头信息传递给服务器
+   --ignore-content-length  忽略的HTTP头信息的长度
+-i/--include  输出时包括protocol头信息
+-I/--head  只显示请求头信息
+-j/--junk-session-cookies  读取文件进忽略session cookie
+   --interface &lt;interface&gt;  使用指定网络接口/地址
+   --krb4 &lt;level&gt;  使用指定安全级别的krb4
+-k/--insecure  允许不使用证书到SSL站点
+-K/--config  指定的配置文件读取
+-l/--list-only  列出ftp目录下的文件名称
+   --limit-rate &lt;rate&gt;  设置传输速度
+   --local-port&lt;NUM&gt;  强制使用本地端口号
+-m/--max-time &lt;seconds&gt;  设置最大传输时间
+   --max-redirs &lt;num&gt;  设置最大读取的目录数
+   --max-filesize &lt;bytes&gt;  设置最大下载的文件总量
+-M/--manual  显示全手动
+-n/--netrc  从netrc文件中读取用户名和密码
+   --netrc-optional  使用 .netrc 或者 URL来覆盖-n
+   --ntlm  使用 HTTP NTLM 身份验证
+-N/--no-buffer  禁用缓冲输出
+-o/--output  把输出写到该文件中
+-O/--remote-name  把输出写到该文件中，保留远程文件的文件名
+-p/--proxytunnel  使用HTTP代理
+   --proxy-anyauth  选择任一代理身份验证方法
+   --proxy-basic  在代理上使用基本身份验证
+   --proxy-digest  在代理上使用数字身份验证
+   --proxy-ntlm  在代理上使用ntlm身份验证
+-P/--ftp-port &lt;address&gt;  使用端口地址，而不是使用PASV
+-q  作为第一个参数，关闭 .curlrc
+-Q/--quote &lt;cmd&gt;  文件传输前，发送命令到服务器
+-r/--range &lt;range&gt;  检索来自HTTP/1.1或FTP服务器字节范围
+--range-file  读取（SSL）的随机文件
+-R/--remote-time  在本地生成文件时，保留远程文件时间
+   --retry &lt;num&gt;  传输出现问题时，重试的次数
+   --retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间
+   --retry-max-time &lt;seconds&gt;  传输出现问题时，设置最大重试时间
+-s/--silent  静默模式。不输出任何东西
+-S/--show-error  显示错误
+   --socks4 &lt;host[:port]&gt;  用socks4代理给定主机和端口
+   --socks5 &lt;host[:port]&gt;  用socks5代理给定主机和端口
+   --stderr &lt;file&gt;   
+-t/--telnet-option &lt;OPT=val&gt;  Telnet选项设置
+   --trace &lt;file&gt;  对指定文件进行debug
+   --trace-ascii &lt;file&gt;  Like --跟踪但没有hex输出
+   --trace-time  跟踪/详细输出时，添加时间戳
+-T/--upload-file &lt;file&gt;  上传文件
+   --url &lt;URL&gt;  Spet URL to work with
+-u/--user &lt;user[:password]&gt;  设置服务器的用户和密码
+-U/--proxy-user &lt;user[:password]&gt;  设置代理用户名和密码
+-w/--write-out [format]  什么输出完成后
+-x/--proxy &lt;host[:port]&gt;  在给定的端口上使用HTTP代理
+-X/--request &lt;command&gt;  指定什么命令
+-y/--speed-time  放弃限速所要的时间，默认为30
+-Y/--speed-limit  停止传输速度的限制，速度时间
+</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>文件下载
+
+  curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout，将进度信息输出到stderr，不显示进度信息使用--silent选项。
+
+  curl URL --silent
+
+  这条命令是将下载文件输出到终端，所有下载的数据都被写入到stdout。
+
+  使用选项-O将下载的数据写入到文件，必须使用文件的绝对地址：
+
+  curl http://man.linuxde.net/text.iso --silent -O
+
+  选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：
+
+  curl http://man.linuxde.net/test.iso -o filename.iso --progress
+  ######################################### 100.0%
+
+ 断点续传
+
+  curl能够从特定的文件偏移处继续下载，它可以通过指定一个便宜量来下载部分文件：
+
+  curl URL/File -C 偏移量
+
+  #偏移量是以字节为单位的整数，如果让curl自动推断出正确的续传位置使用-C -：
+  curl -C -URL
+
+使用curl设置参照页字符串
+
+  参照页是位于HTTP头部中的一个字符串，用来表示用户是从哪个页面到达当前页面的，如果用户点击网页A中的某个连接，那么用户就会跳转到B网页，网页B头部的参照页字符串就包含网页A的URL。
+
+  使用--referer选项指定参照页字符串：
+
+  curl --referer http://www.google.com http://man.linuxde.net
+
+用curl设置cookies
+
+  使用--cookie &quot;COKKIES&quot;选项来指定cookie，多个cookie使用分号分隔：
+
+  curl http://man.linuxde.net --cookie &quot;user=root;pass=123456&quot;
+
+  将cookie另存为一个文件，使用--cookie-jar选项：
+
+  curl URL --cookie-jar cookie_file
+
+用curl设置用户代理字符串
+
+  有些网站访问会提示只能使用IE浏览器来访问，这是因为这些网站设置了检查用户代理，可以使用curl把用户代理设置为IE，这样就可以访问了。使用--user-agent或者-A选项：
+
+  curl URL --user-agent &quot;Mozilla/5.0&quot;
+  curl URL -A &quot;Mozilla/5.0&quot;
+
+  其他HTTP头部信息也可以使用curl来发送，使用-H&quot;头部信息&quot; 传递多个头部信息，例如：
+
+  curl -H &quot;Host:man.linuxde.net&quot; -H &quot;accept-language:zh-cn&quot; URL
+
+ curl的带宽控制和下载配额
+
+  使用--limit-rate限制curl的下载速度：
+
+  curl URL --limit-rate 50k
+
+  命令中用k（千字节）和m（兆字节）指定下载速度限制。
+
+  使用--max-filesize指定可下载的最大文件大小：
+
+  curl URL --max-filesize bytes
+
+  如果文件大小超出限制，命令则返回一个非0退出码，如果命令正常则返回0。
+
+用curl进行认证
+
+  使用curl选项 -u 可以完成HTTP或者FTP的认证，可以指定密码，也可以不指定密码在后续操作中输入密码：
+
+  curl -u user:pwd http://man.linuxde.net
+  curl -u user http://man.linuxde.net
+
+只打印响应头部信息
+
+    通过-I或者-head可以只打印出HTTP头部信息：
+
+    [root@localhost text]# curl -I http://man.linuxde.net
+      HTTP/1.1 200 OK
+      Server: nginx/1.2.5
+      date: Mon, 10 Dec 2012 09:24:34 GMT
+      Content-Type: text/html; charset=UTF-8
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Pingback: http://man.linuxde.net/xmlrpc.php
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/curl/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cjwk8gcle000s1k0y6wuori2j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h1 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h1><p>  导入jar包：<br>  javamelody.jar<br>  jrobin-1.5.14.jar<br>  启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；</p>
+<pre><code>访问：http://主机地址：端口号/项目名/monitoring    
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/javamelody/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cjwk8gclz001s1k0ywqx0nk6l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：C:\Program Files\TortoiseGit\bin “%1”</p>
+<p>刷新 DNS 解析缓存</p>
+<pre><code># cmd 执行 
+ipconfig /flushdns
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/右键添加Notepad2/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-svnerror" class="post-svnerror post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/27/svnerror/">svn error - unable to connect to a repository at url 问题解决</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/svnerror/" data-id="cjwk8gclp00181k0yj8gaek0x" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>C:\Users\dell\AppData\Roaming\Subversion
+# 打开文件
+servers
+# 删除
+proxy settings
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/27/svnerror/">
+    <time datetime="2017-12-26T16:00:00.000Z" class="entry-date">
+        2017-12-27
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/SVN/">SVN</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-node" class="post-node post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/15/node/">node.js yeoman grunt 快速构建项目</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cjwk8gclq001a1k0ymw9eaf7o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="1-node-js-安装"><a href="#1-node-js-安装" class="headerlink" title="1. node.js 安装"></a>1. node.js 安装</h4><h4 id="2-yeoman-grunt安装"><a href="#2-yeoman-grunt安装" class="headerlink" title="2. yeoman grunt安装"></a>2. yeoman grunt安装</h4><pre><code>npm install -g bower
+npm install --global yo
+npm install -g grunt-cli
+yo --version &amp;&amp; bower --version &amp;&amp; grunt --version
+npm install -g generator-angular@0.7.1
+</code></pre><h4 id="3-创建项目-安装bower、node、grunt"><a href="#3-创建项目-安装bower、node、grunt" class="headerlink" title="3. 创建项目 安装bower、node、grunt"></a>3. 创建项目 安装bower、node、grunt</h4><pre><code>$ cd d:
+$ mkdir myApp
+$ cd mytodo
+$ yo angular
+# 报错少 grunt-contrib-imagemin
+# 安装 grunt-contrib-imagemin
+$ npm install grunt-contrib-imagemin --save-dev
+
+$ npm install
+$ bower install
+$ npm install grunt --save-dev
+# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
+</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code>#Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
+$ npm install -g cordova
+</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
+#要知道这个命令完整的选项，键入cordova help create。
+$ cordova create MyApp
+</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code>#在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
+#为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
+#为了知道你可以添加的平台，你可以运行cordova platform。
+$ cd MyApp 
+# browser andriod ios
+$ cordova platform add browser
+# $ cordova platform remove android
+</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
+# browser andriod ios
+$ cordova run browser
+</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用。</h4><pre><code>$ cordova build android
+</code></pre><h4 id="6、进行仿真"><a href="#6、进行仿真" class="headerlink" title="6、进行仿真"></a>6、进行仿真</h4><pre><code>$ cordova emulate android
+</code></pre><h3 id="phoneGap"><a href="#phoneGap" class="headerlink" title="phoneGap"></a>phoneGap</h3><h4 id="1-Install-our-desktop-app"><a href="#1-Install-our-desktop-app" class="headerlink" title="1.Install our desktop app"></a>1.Install our desktop app</h4><pre><code>$ npm install -g phonegap
+</code></pre><h4 id="2-Install-our-mobile-app"><a href="#2-Install-our-mobile-app" class="headerlink" title="2.Install our mobile app"></a>2.Install our mobile app</h4><pre><code>$
+</code></pre><h4 id="3-Create-your-new-PhoneGap-app"><a href="#3-Create-your-new-PhoneGap-app" class="headerlink" title="3.Create your new PhoneGap app"></a>3.Create your new PhoneGap app</h4><p>这种时候，我们可以通过有Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
+<p>1、中科院开源协会镜像站地址:</p>
+<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
+<p>2、北京化工大学镜像服务器地址：</p>
+<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
+<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
+<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>  端口：80</p>
+<p>3、大连东软信息学院镜像服务器地址:</p>
+<p><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
+<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
+# npm update -g cordova ionic
+$ npm install -g ionic
+$ ionic start myApp tabs
+# demo
+$ ionic start myproject --type ionic1
+# 启动
+$ ionic serve
+# 启动 指定IP地址
+$ ionic serve --address 192.168.20.45
+</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>$ cd myApp
+$ ionic platform add android
+$ ionic build android
+$ ionic emulate android
+</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>$ cd myApp
+$ ionic platform add ios
+$ ionic build ios
+$ ionic emulate ios    
+</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>$ ionic serve
+</code></pre><p>通过Ionic创建一个项目</p>
+<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
+<pre><code>ionic start myApp blank  创建一个空白的app项目 
+
+ionic start myApp tabs 创建一个带有tabs项目
+
+ionic start myApp sidemenu 创建一个带有滑动的项目
+</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
+<pre><code>npm install -g ios-sim
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/15/node/">
+    <time datetime="2017-12-14T16:00:00.000Z" class="entry-date">
+        2017-12-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Node/">Node</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-oracle-expdp-impdp" class="post-oracle-expdp-impdp post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/01/oracle-expdp-impdp/">oracle expdp / impdp</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cjwk8gclu001i1k0yawj4vu46" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="expdp-导出"><a href="#expdp-导出" class="headerlink" title="expdp 导出"></a>expdp 导出</h3><pre><code>expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp;
+</code></pre><h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><pre><code>-- 删除用户
+drop user BOSYUNTEST cascade;
+-- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id
+SELECT SID,SERIAL# FROM V$SESSION WHERE USERNAME=&apos;TQBAY&apos;;
+-- 再一个个kill掉该用户的会话再执行drop user
+ALTER SYSTEM KILL SESSION &apos;24,25341&apos;;
+</code></pre><h3 id="查询表空间路径"><a href="#查询表空间路径" class="headerlink" title="查询表空间路径"></a>查询表空间路径</h3><pre><code>select * from dba_data_files;
+</code></pre><h3 id="删除表空间和文件"><a href="#删除表空间和文件" class="headerlink" title="删除表空间和文件"></a>删除表空间和文件</h3><pre><code>-- 删除临时表空间和文件
+drop tablespace BOSYUN_TEST_TEMP including contents and datafiles;
+-- 删除数据表空间和文件
+drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
+drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
+</code></pre><h3 id="创建表空间"><a href="#创建表空间" class="headerlink" title="创建表空间"></a>创建表空间</h3><pre><code>-- 创建临时表空间
+CREATE SMALLFILE TEMPORARY TABLESPACE BOSYUN_TEST_TEMP TEMPFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_TEMP&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
+-- 创建数据表空间
+CREATE SMALLFILE TABLESPACE BOSYUN_TEST_DATA DATAFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_DATA&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED LOGGING EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
+-- 创建用户
+CREATE USER BOSYUNTEST PROFILE &quot;DEFAULT&quot; IDENTIFIED BY BOSYUNTEST DEFAULT TABLESPACE BOSYUN_TEST_DATA TEMPORARY TABLESPACE BOSYUN_TEST_TEMP ACCOUNT UNLOCK;
+-- 用户授权
+GRANT CONNECT TO BOSYUNTEST WITH ADMIN OPTION;
+GRANT DBA TO BOSYUNTEST;
+GRANT RESOURCE TO BOSYUNTEST;
+</code></pre><h3 id="可通过以下命令查看数据库已有的目录："><a href="#可通过以下命令查看数据库已有的目录：" class="headerlink" title="可通过以下命令查看数据库已有的目录："></a>可通过以下命令查看数据库已有的目录：</h3><pre><code># 查询 DATA_PUMP_DIR
+select * from DBA_DIRECTORIES;
+ /home/oracle/oradata/bosyun/dpdump/        DATA_PUMP_DIR
+
+-- 创建 DATA_PUMP_DIR目录
+create or replace directory DATA_PUMP_DIR as &apos;D:\app\Administrator\admin\orcl\dpdump&apos;;
+1.修改/data/oracle/product/11.2.0/db_1/network/admin/tnsnames.ora 
+2.把dmp文件放到DATA_PUMP_DIR目录下 （预先将dmp文件放置到指定的directory目录下，
+
+-- DATA_PUMP_DIR 需要预先将目录权限赋予该用户。
+grant read,write on directory DATA_PUMP_DIR to TQBAY_TEST;
+</code></pre><h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><pre><code>impdp TQBAY_TEST/TQBAY_TEST@bosyun directory=DATA_PUMP_DIR dumpfile=TQBAY_20170519.dump REMAP_SCHEMA=TQBAY:TQBAY_TEST;
+
+# 上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。  在后面加上 ignore=y 就可以了。
+# 基本上上面的导入导出够用了。不少情况要先是将表彻底删除，然后导入。
+</code></pre><h3 id><a href="#" class="headerlink" title=" "></a> </h3><pre><code>select * from DBA_DIRECTORIES; --查询表 DATA_PUMP_DIR
+select * from product_component_version;  --查询oracle版本
+
+ --------oracle 解锁用户-------
+su - oracle
+sqlplus / as sysdba  --执行
+sql : alter user QICOLOR account unlock; --QICOLOR 用户解锁
+alter user QICOLOR_FORMAL account unlock;
+
+select userenv(&apos;language&apos;) from dual;-- 字符集
+------------------------------
+</code></pre><h3 id="数据库重启"><a href="#数据库重启" class="headerlink" title="数据库重启"></a>数据库重启</h3><pre><code>#关闭数据库存
+$export ORACLE_SID=QICOLOR
+$su - oracle
+$sqlplus / as sysdba
+$shutdown immediate
+$lsnrctl stop
+
+$export ORACLE_SID=TQBAY
+$su - oracle
+$sqlplus / as sysdba
+$shutdown immediate
+$lsnrctl stop
+
+#启动数据库
+$su - oracle
+$sqlplus / as sysdba
+$startup
+$lsnrctl start
+</code></pre><h3 id="oracle-管理员不用密码登录"><a href="#oracle-管理员不用密码登录" class="headerlink" title="oracle 管理员不用密码登录"></a>oracle 管理员不用密码登录</h3><pre><code>（1） 以oracle身份登录数据库，命令：su - oracle
+（2） 进入Sqlplus控制台，命令：sqlplus /nolog
+（3） 以系统管理员登录，命令：connect / as sysdba 
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/01/oracle-expdp-impdp/">
+    <time datetime="2017-08-31T16:00:00.000Z" class="entry-date">
+        2017-09-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="cjwk8gcks00031k0ytdrg3dfv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
+<pre><code>1. 添加用户
+
+adduser huapisong  //添加一个名为huapisong的用户
+passwd huapisong   //修改密码
+Changing password for user huapisong.
+New UNIX password:     //在这里输入新密码
+Retype new UNIX password:  //再次输入新密码
+passwd: all authentication tokens updated successfully.
+
+2. 赋予root权限
+
+方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
+## Allows people in group wheel to run all commands
+%wheel    ALL=(ALL)    ALL
+# 然后修改用户，使其属于root组（wheel），命令如下：
+
+usermod -g root huapisong
+# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
+
+方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
+## Allow root to run any commands anywhere
+root    ALL=(ALL)     ALL
+huapisong   ALL=(ALL)     ALL
+#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
+
+3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
+如下：
+vi /etc/ssh/sshd_config 
+#添加
+AllowUsers root huapisong
+#多个用户用空格隔开
+
+4. 然后重启sshd服务生效即可，重启命令可以使用:
+#shell
+service sshd restart
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/02/06/1.ssh用户权限配置/">
+    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
+        2017-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cjwk8gclr001d1k0yiwtmc466" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
+<p>一、安装环境</p>
+<pre><code>● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+</code></pre><p>二、安装步骤</p>
+<p>第一步：下载安装包</p>
+<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
+
+由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
+</code></pre><p>第二步： 上传jdk1.8 安装包</p>
+<pre><code># 上传jdk1.8 安装包
+scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
+# 进入jdk目录
+cd /hupisong/java/
+# 解压JDK1.8安装包
+tar -zxvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>第三步、修改环境变量</p>
+<pre><code># 编辑文件
+vi /etc/profile
+# 按 &apos;i&apos; 键编辑
+# 编辑,在最后一行添加
+# 添加内容如下 
+export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
+export PATH=$JAVA_HOME/bin:$PATH
+# 退出编辑并保存：
+# 按&apos;esc&apos;键退出编辑 
+# 输入&apos;:wq&apos; 保存编辑内容
+:wq 
+# 加载设置的变量，使其生效
+ source /etc/profile
+</code></pre><p>第四步、测试是否安装成功</p>
+<pre><code># 输入命令
+java -version
+#成功结果如下：
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>至此，安装结束</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/linux安装JDK/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="cjwk8gckk00001k0ysoqvub7w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>2.1 安装依赖</p>
+<pre><code>yum -y install gcc gcc-c++ autoconf automake
+yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
+</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
+<pre><code># 解压缩
+tar -zxvf nginx-1.10.2.tar.gz
+
+# 进入压缩目录
+cd nginx-1.10.2
+
+# 进行模块配置
+./configure \
+  --prefix=/usr \
+  --sbin-path=/usr/sbin/nginx \
+  --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/var/log/nginx/error.log \
+  --http-log-path=/var/log/nginx/access.log \
+  --pid-path=/var/run/nginx/nginx.pid  \
+  --lock-path=/var/lock/nginx.lock \
+  --user=nginx \
+  --group=nginx \
+  --with-http_ssl_module \
+  --with-http_flv_module \
+  --with-http_stub_status_module \
+  --with-http_gzip_static_module \
+  --http-client-body-temp-path=/var/tmp/nginx/client/ \
+  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
+  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
+  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+  --http-scgi-temp-path=/var/tmp/nginx/scgi \
+  --with-pcre
+
+# 编译安装
+make &amp;&amp; make install
+</code></pre><p>2.5 安装路径</p>
+<pre><code># 名称路径日志目录
+/var/log/nginx
+# 配置目录
+/etc/nginx
+# PID文件
+/var/run/nginx/nginx.pid
+# 启动文件
+/usr/sbin/nginx
+</code></pre><p>2.6 centos6服务脚本</p>
+<pre><code>#创建文件
+touch /etc/rc.d/init.d/nginx
+chmod +x /etc/rc.d/init.d/nginx
+</code></pre><p>启动脚本</p>
+<pre><code>#!/bin/sh  
+#  
+# nginx - this script starts and stops the nginx daemon  
+#  
+# chkconfig:   - 85 15  
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
+#               proxy and IMAP/POP3 proxy server  
+# processname: nginx  
+
+# Source function library.  
+. /etc/rc.d/init.d/functions  
+
+# Source networking configuration.  
+. /etc/sysconfig/network  
+
+# Check that networking is up.  
+[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
+
+nginx=&quot;/usr/sbin/nginx&quot;  
+prog=$(basename $nginx)  
+
+sysconfig=&quot;/etc/sysconfig/$prog&quot;  
+lockfile=&quot;/var/lock/nginx.lock&quot;  
+pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
+
+NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
+
+[ -f $sysconfig ] &amp;&amp; . $sysconfig  
+
+start() {  
+    [ -x $nginx ] || exit 5  
+    [ -f $NGINX_CONF_FILE ] || exit 6  
+    echo -n $&quot;Starting $prog: &quot;  
+    daemon $nginx -c $NGINX_CONF_FILE  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
+    return $retval  
+}  
+
+stop() {  
+    echo -n $&quot;Stopping $prog: &quot;  
+    killproc -p $pidfile $prog  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
+    return $retval  
+}  
+
+restart() {  
+    configtest_q || return 6  
+    stop  
+    start  
+}  
+
+reload() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reloading $prog: &quot;  
+    killproc -p $pidfile $prog -HUP  
+    echo  
+}  
+
+configtest() {  
+    $nginx -t -c $NGINX_CONF_FILE  
+}  
+
+configtest_q() {  
+    $nginx -t -q -c $NGINX_CONF_FILE  
+}  
+
+rh_status() {  
+    status $prog  
+}  
+
+rh_status_q() {  
+    rh_status &gt;/dev/null 2&gt;&amp;1  
+}  
+
+# Upgrade the binary with no downtime.  
+upgrade() {  
+    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
+
+    configtest_q || return 6  
+    echo -n $&quot;Upgrading $prog: &quot;  
+    killproc -p $pidfile $prog -USR2  
+    retval=$?  
+    sleep 1  
+    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
+        killproc -p $oldbin_pidfile $prog -QUIT  
+        success $&quot;$prog online upgrade&quot;  
+        echo   
+        return 0  
+    else  
+        failure $&quot;$prog online upgrade&quot;  
+        echo  
+        return 1  
+    fi  
+}  
+
+# Tell nginx to reopen logs  
+reopen_logs() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reopening $prog logs: &quot;  
+    killproc -p $pidfile $prog -USR1  
+    retval=$?  
+    echo  
+    return $retval  
+}
+
+case &quot;$1&quot; in
+    start)
+        rh_status_q &amp;&amp; exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest|reopen_logs)
+        $1
+        ;;
+    force-reload|upgrade)
+        rh_status_q || exit 7
+        upgrade
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status|status_q)
+        rh_$1
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 7
+        restart
+        ;;
+    *)
+        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
+        exit 2
+esac
+</code></pre><p>开机启动方式</p>
+<pre><code># 开机启动
+chkconfig --add nginx
+chkconfig --level 345 nginx on
+chkconfig --list nginx
+
+# 开机不启动
+chkconfig nginx off
+chkconfig --list nginx
+</code></pre><p>2.7 centos7服务脚本</p>
+<pre><code># 创建文件
+touch /usr/lib/systemd/system/nginx.service
+# 启动脚本
+[Unit]
+Description=nginx
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+# 开机启动方式
+
+# 开机启动
+systemctl enable nginx.service
+
+# 开机不启动
+systemctl disable nginx.service
+
+# 其他操作
+systemcl ( status | start | stop | reload | restart ) nginx.service
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      </nav>
+    </nav>
+  
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

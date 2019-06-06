@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="3.1 背景
+新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
+公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
+下面流程化说明">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>服务器上的iptables防火墙应该如何配置才能更安全 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。 公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。 下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器上的iptables防火墙应该如何配置才能更安全">
+<meta property="og:url" content="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。 公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。 下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-08T02:48:57.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="服务器上的iptables防火墙应该如何配置才能更安全">
+<meta name="twitter:description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。 公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。 下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="post-3.服务器上的iptables防火墙应该如何配置才能更安全 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      服务器上的iptables防火墙应该如何配置才能更安全
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="cjwk8gckt00041k0yf4b7fmbq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>3.1 背景</p>
+<pre><code>新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
+公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
+下面流程化说明防火墙配置步骤
+</code></pre><p>3.2 封口</p>
+<p>将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配置规则。这里值得提醒的是此操作需要在本机执行，因为 telnet 或者 ssh 的连接会当即断开。</p>
+<pre><code> # 丢弃输入数据流向 
+iptables -P INPUT DROP
+ # 丢弃输出数据流向 
+iptables -P OUTPUT DROP
+# 丢弃转向数据流向 
+iptables -P FORWARD DROP
+</code></pre><p>3.3 开放SSH服务</p>
+<p>首先确保 ssh 远程连接开放，添加对 ssh 服务的出入站规则，正常端口为22（端口应该更换成非22）</p>
+<pre><code># 允许任务来源接入服务器的22端口
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+# 允许服务器通过22端口向任何来源发送数据包
+iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
+做好以上的 ssh 服务规则后，任何来源等可以连接，若要求更高级的安全则可以添加准入IP，可以添加多条，其他服务同理。
+# 允许来源IP为221.4.12.28的地址访问服务器的22端口，即ssh服务
+iptables -I INPUT -s 221.4.12.28 -p tcp --dport 22 -j ACCEPT
+</code></pre><p>3.4 启用Ping命令</p>
+<p>当执行 ping 命令时，其实是向目标地址发送 icmp 的数据包并得到回显信息。在服务器内部 ping 外部地址时，属于 OUTPUT，由于服务器的输出已经被DROP掉，所以服务器目前 ping 不通任何外部 IP 地址，考虑到运维的需要，添加允许 ping 外部IP的规则。</p>
+<pre><code># 允许服务器向外部发送icmp的数据包
+iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+# 允许服务器接收来自外部服务器返回的icmp数据包
+iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</code></pre><p>目前服务器可以 ping 外部IP地址了，但外部来源 ping 服务器是不通的。选择不开放来自外部的 ping 请求或许是一个好想法，这样可以迷惑扫描工具避免暴露主机的存活性(高级的扫描工具除外，如 nmap)。<br>下面是服务器接收和响应 ping 请求的出入站规则</p>
+<pre><code># 允许任何来源向服务器发送icmp的数据包
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+# 允许服务器向任何来源回显icmp的数据包
+iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</code></pre><p>3.5 启用DNS服务<br>服务器 ping 外部IP地址正常了，但 ping 外部的域名时则会显示 unknown host 的错误，这是因为 DNS 服务的53端口没有配置出入站规则。<br>下面是 DNS 服务的规则:</p>
+<pre><code>iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
+iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
+</code></pre><p>3.6 下载软件<br>现在服务器需要从外部下载某些软件，通常我们会使用 wget 或者 curl 这样的工具，执行时发现一直卡着不动。这是因为服务器访问外网的80端口出站和入站规则没有配置，需要添加，如下：</p>
+<pre><code>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --sport 80 -j ACCEPT
+</code></pre><p>备注：使用类似与nginx代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443的服务，规则如下：<br>    iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>    iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
+<pre><code>iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+</code></pre><p>当需要开放本地端口，如127.0.0.1或者localhost的端口时，可以使用以下命令使 通过127.0.0.1的访问全部通过<br>    iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
+<pre><code>iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 443 -j ACCEPT
+</code></pre><p>3.9 删除规则</p>
+<pre><code>iptables -L -n --line-number
+iptables -D INPUT 15
+iptables -D OUTPUT 13
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" rel="prev"><span class="meta-nav">←</span> 使用Lets Encrypt为站点快速部署SSL证书</a></span>
+    
+    
+        <span class="nav-next"><a href="/2016/06/03/java中set接口的用法/" rel="next">java中set接口的用法 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

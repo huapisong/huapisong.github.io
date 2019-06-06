@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="4.1.使用背景
+时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+4.2.下载安装脚本
+下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.gi">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>使用Lets Encrypt为站点快速部署SSL证书 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="4.1.使用背景 时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。 4.2.下载安装脚本 下载Github上贡献者做好的安装脚本，如下： wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Lets Encrypt为站点快速部署SSL证书">
+<meta property="og:url" content="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="4.1.使用背景 时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。 4.2.下载安装脚本 下载Github上贡献者做好的安装脚本，如下： wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-08T02:48:57.746Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Lets Encrypt为站点快速部署SSL证书">
+<meta name="twitter:description" content="4.1.使用背景 时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。 4.2.下载安装脚本 下载Github上贡献者做好的安装脚本，如下： wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-e">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      使用Lets Encrypt为站点快速部署SSL证书
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="cjwk8gcku00051k0yzighz9qg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>4.1.使用背景</p>
+<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+</code></pre><p>4.2.下载安装脚本</p>
+<pre><code>下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
+
+# 赋予执行权限
+chmod +x letsencrypt.sh
+</code></pre><p>4.3.配置相关信息</p>
+<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
+# only modify the values, key files will be generated automaticly.
+ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
+DOMAIN_KEY=&quot;tiger.com.key&quot;
+DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
+DOMAINS=&quot;DNS:test.tiger.com&quot;
+#ECC=TRUE
+#LIGHTTPD=TRUE
+</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
+<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
+<p>4.4.执行证书生成</p>
+<pre><code>./letsencrypt.sh ./letsencrypt.conf
+</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
+<pre><code>letsencrypt-account.key
+tiger.crt
+tiger.csr
+tiger.chained.crt
+tiger.com.key
+</code></pre><p>4.5.配置证书安装</p>
+<p>这里使用nginx进行证书安装的服务器</p>
+<pre><code>server {
+    listen       443;
+    server_name  test.tiger.com;
+
+    ssl on;
+    ssl_certificate tiger.chained.crt;
+    ssl_certificate_key tiger.com.key;
+    ssl_session_timeout 5m;
+
+    location / {
+        root html;
+        index  index.html index.htm;
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/01/06/2.在Centos7下的nginx编译安装/" rel="prev"><span class="meta-nav">←</span> 在Centos7下的nginx编译安装</a></span>
+    
+    
+        <span class="nav-next"><a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" rel="next">服务器上的iptables防火墙应该如何配置才能更安全 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

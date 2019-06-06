@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。
+一、安装环境
+● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+二、安">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Linux 下安装JDK1.8 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。 一、安装环境 ● Centos6.5系统 ● JDK版本：1.8 ● 工具： FlashFXP V5.2.0, MobaXterm V10.5 二、安装步骤 第一步：下载安装包 下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 下安装JDK1.8">
+<meta property="og:url" content="http://yoursite.com/2017/01/06/linux安装JDK/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。 一、安装环境 ● Centos6.5系统 ● JDK版本：1.8 ● 工具： FlashFXP V5.2.0, MobaXterm V10.5 二、安装步骤 第一步：下载安装包 下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-08T02:47:34.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 下安装JDK1.8">
+<meta name="twitter:description" content="本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。 一、安装环境 ● Centos6.5系统 ● JDK版本：1.8 ● 工具： FlashFXP V5.2.0, MobaXterm V10.5 二、安装步骤 第一步：下载安装包 下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Linux 下安装JDK1.8
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cjwk8gclr001d1k0yiwtmc466" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
+<p>一、安装环境</p>
+<pre><code>● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+</code></pre><p>二、安装步骤</p>
+<p>第一步：下载安装包</p>
+<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
+
+由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
+</code></pre><p>第二步： 上传jdk1.8 安装包</p>
+<pre><code># 上传jdk1.8 安装包
+scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
+# 进入jdk目录
+cd /hupisong/java/
+# 解压JDK1.8安装包
+tar -zxvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>第三步、修改环境变量</p>
+<pre><code># 编辑文件
+vi /etc/profile
+# 按 &apos;i&apos; 键编辑
+# 编辑,在最后一行添加
+# 添加内容如下 
+export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
+export PATH=$JAVA_HOME/bin:$PATH
+# 退出编辑并保存：
+# 按&apos;esc&apos;键退出编辑 
+# 输入&apos;:wq&apos; 保存编辑内容
+:wq 
+# 加载设置的变量，使其生效
+ source /etc/profile
+</code></pre><p>第四步、测试是否安装成功</p>
+<pre><code># 输入命令
+java -version
+#成功结果如下：
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>至此，安装结束</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/linux安装JDK/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/02/06/1.ssh用户权限配置/" rel="prev"><span class="meta-nav">←</span> ssh用户权限配置</a></span>
+    
+    
+        <span class="nav-next"><a href="/2017/01/06/2.在Centos7下的nginx编译安装/" rel="next">在Centos7下的nginx编译安装 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
