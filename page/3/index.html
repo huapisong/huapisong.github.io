@@ -62,6 +62,927 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-Spring Cloud(一)服务注册与发现" class="post-Spring Cloud(一)服务注册与发现 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/11/Spring Cloud(一)服务注册与发现/">Spring Cloud构建微服务架构（一）服务注册与发现</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cjz98i2l000275ouh6nulrtuk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="Spring-Cloud-简介"><a href="#Spring-Cloud-简介" class="headerlink" title="Spring Cloud 简介"></a>Spring Cloud 简介</h3><p>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
+<p>Spring Cloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品），比如：Spring Cloud Config、Spring Cloud Netflix、Spring Cloud CloudFoundry、Spring Cloud AWS、Spring Cloud Security、Spring Cloud Commons、Spring Cloud Zookeeper、Spring Cloud CLI等项目。</p>
+<h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><p>“微服务架构”在这几年非常的火热，以至于关于微服务架构相关的产品社区也变得越来越活跃（比如：netflix、dubbo），Spring Cloud也因Spring社区的强大知名度和影响力也被广大架构师与开发者备受关注。</p>
+<p>那么什么是“微服务架构”呢？简单的说，微服务架构就是将一个完整的应用从数据存储开始垂直拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展，服务与服务间通过诸如RESTful API的方式互相调用。</p>
+<p>对于“微服务架构”，大家在互联网可以搜索到很多相关的介绍和研究文章来进行学习和了解。也可以阅读始祖Martin Fowler的《Microservices》，本文不做更多的介绍和描述。</p>
+<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p>在简单介绍了Spring Cloud和微服务架构之后，下面回归本文的主旨内容，如何使用Spring Cloud搭建服务注册与发现模块。</p>
+<p>这里我们会用到Spring Cloud Netflix，该项目是Spring Cloud的子项目之一，主要内容是对Netflix公司一系列开源产品的包装，它为Spring Boot应用提供了自配置的Netflix OSS整合。通过一些简单的注解，开发者就可以快速的在应用中配置一下常用模块并构建庞大的分布式系统。它主要提供的模块包括：服务发现（Eureka），断路器（Hystrix），智能路有（Zuul），客户端负载均衡（Ribbon）等。</p>
+<p>所以，我们这里的核心内容就是服务发现模块：Eureka。下面我们动手来做一些尝试。</p>
+<h3 id="创建“服务注册中心”"><a href="#创建“服务注册中心”" class="headerlink" title="创建“服务注册中心”"></a>创建“服务注册中心”</h3><p>创建一个基础的Spring Boot工程，并在pom.xml中引入需要的依赖内容：</p>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre><p>通过@EnableEurekaServer注解启动一个服务注册中心提供给其他应用进行对话。这一步非常的简单，只需要在一个普通的Spring Boot应用中添加这个注解就能开启此功能，比如下面的例子：</p>
+<pre><code>import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@EnableEurekaServer
+@SpringBootApplication
+public class EurekaApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaApplication.class, args);
+    }
+
+}
+</code></pre><p>在默认设置下，该服务注册中心也会将自己作为客户端来尝试注册它自己，所以我们需要禁用它的客户端注册行为，只需要在application.properties中问增加如下配置：</p>
+<pre><code>server.port=1000
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+eureka.client.serviceUrl.defaultZone=http://localhost:${server.port}/eureka/
+</code></pre><p>为了与后续要进行注册的服务区分，这里将服务注册中心的端口通过server.port属性设置为1000。</p>
+<p><a href="http://localhost:1000/" target="_blank" rel="noopener">启动工程后，访问：http://localhost:1000/</a></p>
+<p>可以看到下面的页面，其中还没有发现任何服务<br> <img src="/assets/SpringCloudImg/eurekaService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
+<h3 id="创建“服务提供方”"><a href="#创建“服务提供方”" class="headerlink" title="创建“服务提供方”"></a>创建“服务提供方”</h3><p>下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
+<p>假设我们有一个提供计算功能的微服务模块，我们实现一个RESTful API，通过传入两个参数a和b，最后返回a + b的结果。</p>
+<p>首先，创建一个基本的Spring Boot应用 compute-service，在pom.xml中，加入如下配置：</p>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+</code></pre><p>其次，实现/add请求处理接口，通过DiscoveryClient对象，在日志中打印出服务实例的相关内容。</p>
+<pre><code>@RestController
+public class ComputeController {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    // 服务注册
+    @Autowired
+    private Registration registration;
+    @Autowired
+    private DiscoveryClient client;
+
+    @RequestMapping(value = &quot;/add&quot; ,method = RequestMethod.GET)
+    public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
+
+        ServiceInstance instance = serviceInstance();
+        Integer r = a + b;
+        logger.info(&quot;/add, host:&quot; + instance.getHost() + &quot;, service_id:&quot; + instance.getServiceId() + &quot;, result:&quot; + r);
+        return r;
+    }
+    public ServiceInstance serviceInstance() {
+        List&lt;ServiceInstance&gt; list = client.getInstances(registration.getServiceId());
+        if (list != null &amp;&amp; list.size() &gt; 0) {
+            for (ServiceInstance itm : list){
+                if (itm.getPort() == 2001)
+                    return itm;
+            }
+        }
+        return null;
+    }
+}
+</code></pre><p>最后在主类中通过加上@EnableDiscoveryClient注解，该注解能激活Eureka中的DiscoveryClient实现，才能实现Controller中对服务信息的输出。</p>
+<pre><code>@EnableDiscoveryClient
+@SpringBootApplication
+public class ComputeServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ComputeServiceApplication.class, args);
+    }
+
+}
+</code></pre><p>我们在完成了服务内容的实现之后，再继续对application.properties做一些配置工作，具体如下：</p>
+<pre><code>spring.application.name=compute-service
+server.port=2001
+eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
+</code></pre><p>通过spring.application.name属性，我们可以指定微服务的名称后续在调用的时候只需要使用该名称就可以进行服务的访问。</p>
+<p>eureka.client.serviceUrl.defaultZone属性对应服务注册中心的配置内容，指定服务注册中心的位置。</p>
+<p>为了在本机上测试区分服务提供方和服务注册中心，使用server.port属性设置不同的端口。</p>
+<p>启动该工程后，再次访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
+<p>可以看到，我们定义的服务被注册了。<br><img src="/assets/SpringCloudImg/eurekaComputeService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/compute-service</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/11/Spring Cloud(一)服务注册与发现/">
+    <time datetime="2019-04-10T16:00:00.000Z" class="entry-date">
+        2019-04-11
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-node+superagent爬虫" class="post-node+superagent爬虫 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/10/node+superagent爬虫/">node  爬虫</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="cjz98i2k6000q5ouh65lkzr3k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><pre><code>Node.js环境搭建
+</code></pre><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>选择一个目录，新建一个准备存放工程内容的文件夹demo。</p>
+<p>打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下</p>
+<pre><code>$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install &lt;pkg&gt;` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (demo) demo
+version: (1.0.0)
+description: 爬虫
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author: huapisong
+license: (ISC)
+About to write to D:\test\demo\package.json:
+
+{
+  &quot;name&quot;: &quot;demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;爬虫&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;huapisong&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
+
+
+Is this ok? (yes) yes
+</code></pre><p>此时文件夹下生成了一个package.json文件，其中包含了工程的基本信息以及引用的框架等信息</p>
+<h3 id="框架引入"><a href="#框架引入" class="headerlink" title="框架引入"></a>框架引入</h3><pre><code>superagent：发起http请求
+cheerio：解析http返回的html内容
+async：多线程并发控制
+</code></pre><p>安装命令 npm install –save PACKAGE_NAME，执行以下三条命令后，工程目录下多了一个node_modules目录，该目录就是引入的框架内容。</p>
+<pre><code>$npm install --save superagent
+$npm install --save cheerio
+$npm install --save async
+</code></pre><h3 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a>编码过程</h3><p>工程目录下，创建index.js</p>
+<pre><code>var superagent = require(&apos;superagent&apos;);
+var cheerio = require(&apos;cheerio&apos;);
+var async = require(&apos;async&apos;);
+
+var fs = require(&apos;fs&apos;);
+var request = require(&quot;request&quot;);
+
+console.log(&apos;爬虫程序开始运行......&apos;);
+
+// 第一步，发起请求，获取的列表
+superagent
+    .get(&apos;http://www.wanfangdata.com.cn/keywords/getNewKeywords.do?keywords=java&amp;resource=all&amp;topNumber=18&apos;)
+    .set(&apos;Accept&apos;, &apos;application/json, text/javascript, */*; q=0.01&apos;)
+    .set(&apos;Content-Type&apos;,&apos;text/html;charset=UTF-8&apos;)
+    .end(function(err, res){
+        // res.body, res.headers, res.status
+        //let body = cheerio.load(res.body);
+        // 请求返回后的处理
+        // 将response中返回的结果转换成JSON对象
+        var words = JSON.parse(res.text).word;
+        console.log(&apos;抓取的数据：&apos; + JSON.stringify(words));
+
+        async.mapSeries(words,
+            function (word, callback) {
+                console.log(&apos;抓取的数据：&apos; + word);
+                // 对每个对象的处理逻辑
+                fetchInfo(word, callback);
+                console.timeEnd(&quot;  耗时&quot;);
+
+            },
+            function (err, result) {
+                console.log(&apos;final:\n&apos; + result);
+            }
+        );
+        // 并发遍历 words对象
+        /* var words = JSON.parse(res.text);
+        async.mapLimit(words, 10,
+            function (word, callback) {
+                console.log(&apos;抓取的数据：&apos; + word);
+                // 对每个对象的处理逻辑
+                fetchInfo(word, callback);
+                console.timeEnd(&quot;  耗时&quot;);
+
+            },
+            function (err, result) {
+                console.log(&apos;final:\n&apos; + result);
+            }
+        );*/
+
+    });
+
+var concurrencyCount = 0; // 当前并发数记录
+var fetchInfo = function(word, callback){
+    console.time(&apos;  耗时&apos;);
+    concurrencyCount++;
+    console.log(&apos;并发数：&apos;, concurrencyCount, &apos;，正在抓取的是&apos;, word);
+
+    // 写入文件内容（如果文件不存在会创建一个文件）
+    fs.writeFile(&apos;./try4.txt&apos;, word+&apos;\n&apos;, { &apos;flag&apos;: &apos;a&apos; }, function(err) {
+        if (err) {
+            console.log(&apos;并发数:&apos;, concurrencyCount--, &apos;word&apos;, word);
+            callback(null, word);
+            throw err;
+        }
+        callback(null, word);
+        // 写入成功后读取测试
+        /*fs.readFile(&apos;./try4.txt&apos;, &apos;utf-8&apos;, function(err, data) {
+            if (err) {
+                throw err;
+            }
+            console.log(data);
+        });*/
+    });
+
+}
+</code></pre><p>工程目录下执行命令，node index.js，抓取程序开始执行</p>
+<pre><code> node index.js
+爬虫程序开始运行......
+抓取的数据：[&quot;Java&quot;,&quot;JAVA&quot;,&quot;java&quot;,&quot;Java语言&quot;,&quot;JAVA语言&quot;,&quot;Java技术&quot;,&quot;JAVA技术&quot;,&quot;Java3D&quot;,&quot;JavaEE&quot;,&quot;Java虚拟机&quot;,&quot;Java EE&quot;,&quot;JavaBean&quot;,&quot;Java程序设计&quot;,&quot;JavaScript&quot;,&quot;JAVASCRIPT&quot;,&quot;Javascript&quot;,&quot;Java Applet&quot;]
+抓取的数据：Java
+并发数： 1 ，正在抓取的是 Java
+ 耗时: 1.329ms
+抓取的数据：JAVA
+并发数： 2 ，正在抓取的是 JAVA
+ 耗时: 0.646ms
+抓取的数据：java
+并发数： 3 ，正在抓取的是 java
+ 耗时: 0.625ms
+抓取的数据：Java语言
+并发数： 4 ，正在抓取的是 Java语言
+ 耗时: 0.642ms
+抓取的数据：JAVA语言
+并发数： 5 ，正在抓取的是 JAVA语言
+ 耗时: 0.663ms
+抓取的数据：Java技术
+并发数： 6 ，正在抓取的是 Java技术
+ 耗时: 0.410ms
+抓取的数据：JAVA技术
+并发数： 7 ，正在抓取的是 JAVA技术
+ 耗时: 0.395ms
+抓取的数据：Java3D
+并发数： 8 ，正在抓取的是 Java3D
+ 耗时: 0.377ms
+抓取的数据：JavaEE
+并发数： 9 ，正在抓取的是 JavaEE
+ 耗时: 0.240ms
+抓取的数据：Java虚拟机
+并发数： 10 ，正在抓取的是 Java虚拟机
+ 耗时: 0.346ms
+抓取的数据：Java EE
+并发数： 11 ，正在抓取的是 Java EE
+ 耗时: 0.306ms
+抓取的数据：JavaBean
+并发数： 12 ，正在抓取的是 JavaBean
+ 耗时: 0.323ms
+抓取的数据：Java程序设计
+并发数： 13 ，正在抓取的是 Java程序设计
+ 耗时: 0.326ms
+抓取的数据：JavaScript
+并发数： 14 ，正在抓取的是 JavaScript
+ 耗时: 0.306ms
+抓取的数据：JAVASCRIPT
+并发数： 15 ，正在抓取的是 JAVASCRIPT
+ 耗时: 0.346ms
+抓取的数据：Javascript
+并发数： 16 ，正在抓取的是 Javascript
+ 耗时: 1.027ms
+抓取的数据：Java Applet
+并发数： 17 ，正在抓取的是 Java Applet
+ 耗时: 0.955ms
+final:
+Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚拟机,Java EE,JavaBean,Java程序设计,JavaScript,JAVASCRIPT,Javascript,Java Applet
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/10/node+superagent爬虫/">
+    <time datetime="2019-04-09T16:00:00.000Z" class="entry-date">
+        2019-04-10
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Node/">Node</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-几个能够免费生成二维码的api接口" class="post-几个能够免费生成二维码的api接口 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/08/几个能够免费生成二维码的api接口/">几个能够免费生成二维码的api接口</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="cjz98i2kh001b5ouhw0zfaaoc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>1.百度网盘(可使用https)</p>
+<pre><code>http://pan.baidu.com/share/qrcode?w=150&amp;h=150&amp;url=内容
+</code></pre><p>2.iClick接口 (无https)</p>
+<pre><code>http://bshare.optimix.asia/barCode?site=weixin&amp;url=内容
+</code></pre><p>3.JiaThis 接口(无https)</p>
+<pre><code>http://s.jiathis.com/qrcode.php?url=内容
+</code></pre><p>4.联图网(无https)</p>
+<pre><code>http://qr.liantu.com/api.php?text=内容
+</code></pre><p>5.K780数据网(支持https和http)</p>
+<pre><code>http://api.k780.com:88/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
+
+https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
+</code></pre><p>6.QR Code Generator(https接口)</p>
+<pre><code>https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=内容
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/08/几个能够免费生成二维码的api接口/">
+    <time datetime="2019-04-07T16:00:00.000Z" class="entry-date">
+        2019-04-08
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="cjz98i2kg001a5ouhcnhgu10m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
+</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
+* 组件之间的通信
+* @param Vue
+*/
+const install = (Vue) =&gt;{
+  const Bus = new Vue({
+      methods:{
+          emit(event, ...args){
+              this.$emit(event, ...args)
+          },
+          on (event, callback){
+              this.$on(event, callback)
+          },
+          off(event, callback){
+              this.$off(event, callback)
+          }
+      }
+  })
+  Vue.prototype.$bus = Bus
+}
+export default install
+</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
+Vue.use(VueBus)
+</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
+let num = Math.floor(Math.random() * 100 + 1);
+this.$bus.$emit(&apos;getMenu&apos;, num);
+
+# 组件 b
+,created() {
+    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
+        // console.log(target);
+        this.getMenus();
+    });
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/03/26/vue组件之间通信/">
+    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
+        2019-03-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-RPC入门总结  RPC定义和原理" class="post-RPC入门总结  RPC定义和原理 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/01/01/RPC入门总结  RPC定义和原理/">RPC入门总结 RPC定义和原理</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="cjz98i2l100285ouh8cbzw1p1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>一、RPC</p>
+<pre><code>1. RPC是什么
+
+    RPC（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。
+
+RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。
+2. 为什么要用RPC？ 
+其实这是应用开发到一定的阶段的强烈需求驱动的。
+
+    1. 如果我们开发简单的单一应用，逻辑简单、用户不多、流量不大，那我们用不着；
+
+    2. 当我们的系统访问量增大、业务增多时，我们会发现一台单机运行此系统已经无法承受。此时，我们可以将业务拆分成几个互不关联的应用，分别部署在各自机器上，以划清逻辑并减小压力。此时，我们也可以不需要RPC，因为应用之间是互不关联的。
+    3. 当我们的业务越来越多、应用也越来越多时，自然的，我们会发现有些功能已经不能简单划分开来或者划分不出来。此时，可以将公共业务逻辑抽离出来，将之组成独立的服务Service应用 。而原有的、新增的应用都可以与那些独立的Service应用 交互，以此来完成完整的业务功能。所以此时，我们急需一种高效的应用程序之间的通讯手段来完成这种需求，所以你看，RPC大显身手的时候来了！
+    其实3描述的场景也是服务化 、微服务 和分布式系统架构 的基础场景。即RPC框架就是实现以上结构的有力方式。
+</code></pre><p>二、RPC的原理和框架</p>
+<pre><code>Nelson 的论文中指出实现 RPC 的程序包括 5 个部分：
+
+1. User
+
+2. User-stub
+
+3. RPCRuntime
+
+4. Server-stub
+
+5. Server
+
+    这里 user 就是 client 端，当 user 想发起一个远程调用时，它实际是通过本地调用user-stub。user-stub 负责将调用的接口、方法和参数通过约定的协议规范进行编码并通过本地的 RPCRuntime 实例传输到远端的实例。远端 RPCRuntime 实例收到请求后交给 server-stub 进行解码后发起本地端调用，调用结果再返回给 user 端。
+    RPC 服务方通过 RpcServer 去导出（export）远程接口方法，而客户方通过 RpcClient 去引入（import）远程接口方法。客户方像调用本地方法一样去调用远程接口方法，RPC 框架提供接口的代理实现，实际的调用将委托给代理RpcProxy 。代理封装调用信息并将调用转交给RpcInvoker 去实际执行。在客户端的RpcInvoker 通过连接器RpcConnector 去维持与服务端的通道RpcChannel，并使用RpcProtocol 执行协议编码（encode）并将编码后的请求消息通过通道发送给服务方。
+    RPC 服务端接收器 RpcAcceptor 接收客户端的调用请求，同样使用RpcProtocol 执行协议解码（decode）。解码后的调用信息传递给RpcProcessor 去控制处理调用过程，最后再委托调用给RpcInvoker 去实际执行并返回调用结果。如下是各个部分的详细职责：
+    1. RpcServer  
+       负责导出（export）远程接口  
+    2. RpcClient  
+       负责导入（import）远程接口的代理实现  
+    3. RpcProxy  
+       远程接口的代理实现  
+    4. RpcInvoker  
+       客户方实现：负责编码调用信息和发送调用请求到服务方并等待调用结果返回  
+       服务方实现：负责调用服务端接口的具体实现并返回调用结果  
+    5. RpcProtocol  
+       负责协议编/解码  
+    6. RpcConnector  
+       负责维持客户方和服务方的连接通道和发送数据到服务方  
+    7. RpcAcceptor  
+       负责接收客户方请求并返回请求结果  
+    8. RpcProcessor  
+       负责在服务方控制调用过程，包括管理调用线程池、超时时间等  
+    9. RpcChannel  
+       数据传输通道  
+</code></pre><p>三、Java中常用的RPC框架</p>
+<pre><code>目前常用的RPC框架如下：
+
+1. Thrift：thrift是一个软件框架，用来进行可扩展且跨语言的服务的开发。它结合了功能强大的软件堆栈和代码生成引擎，以构建在 C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, JavaScript, Node.js, Smalltalk, and OCaml 这些编程语言间无缝结合的、高效的服务。
+
+2. Dubbo：Dubbo是一个分布式服务框架，以及SOA治理方案。其功能主要包括：高性能NIO通讯及多协议集成，服务动态寻址与路由，软负载均衡与容错，依赖分析与降级等。 Dubbo是阿里巴巴内部的SOA服务化治理方案的核心框架，Dubbo自2011年开源后，已被许多非阿里系公司使用。 
+
+3. Spring Cloud：Spring Cloud由众多子项目组成，如Spring Cloud Config、Spring Cloud Netflix、Spring Cloud Consul 等，提供了搭建分布式系统及微服务常用的工具，如配置管理、服务发现、断路器、智能路由、微代理、控制总线、一次性token、全局锁、选主、分布式会话和集群状态等，满足了构建微服务所需的所有解决方案。Spring Cloud基于Spring Boot, 使得开发部署极其简单。
+</code></pre><p>四、RPC和消息队列的差异</p>
+<pre><code>1. 功能差异
+
+    在架构上，RPC和Message的差异点是，Message有一个中间结点Message Queue，可以把消息存储。
+    消息的特点
+    1. Message Queue把请求的压力保存一下，逐渐释放出来，让处理者按照自己的节奏来处理。
+    2. Message Queue引入一下新的结点，系统的可靠性会受Message Queue结点的影响。
+    3. Message Queue是异步单向的消息。发送消息设计成是不需要等待消息处理的完成。
+    所以对于有同步返回需求，用Message Queue则变得麻烦了。
+RPC的特点
+    同步调用，对于要等待返回结果/处理结果的场景，RPC是可以非常自然直觉的使用方式(RPC也可以是异步调用)。
+    由于等待结果，Consumer（Client）会有线程消耗。如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息/请求，压力会直接传导到服务Provider。
+    2. 适用场合差异
+        1. 希望同步得到结果的场合，RPC合适。
+        2. 希望使用简单，则RPC；RPC操作基于接口，使用简单，使用方式模拟本地调用。异步的方式编程比较复杂。
+        3. 不希望发送端（RPC Consumer、Message Sender）受限于处理端（RPC Provider、Message Receiver）的速度时，使用Message Queue。
+        随着业务增长，有的处理端处理量会成为瓶颈，会进行同步调用到异步消息的改造。这样的改造实际上有调整业务的使用方式。比如原来一个操作页面提交后就下一个页面会看到处理结果；改造后异步消息后，下一个页面就会变成“操作已提交，完成后会得到通知”。
+    3. 不适用场合说明
+        1. RPC同步调用使用Message Queue来传输调用信息。 上面分析可以知道，这样的做法，发送端是在等待，同时占用一个中间点的资源。变得复杂了，但没有对等的收益。
+        2. 对于返回值是void的调用，可以这样做，因为实际上这个调用业务上往往不需要同步得到处理结果的，只要保证会处理即可。（RPC的方式可以保证调用返回即处理完成，使用消息方式后这一点不能保证了。）
+        3. 返回值是void的调用，使用消息，效果上是把消息的使用方式Wrap成了服务调用（服务调用使用方式成简单，基于业务接口）。
+</code></pre><p>五、RPC框架的核心技术点</p>
+<pre><code>RPC框架实现的几个核心技术点：
+
+（1）服务暴露：
+
+    远程提供者需要以某种形式提供服务调用相关的信息，包括但不限于服务接口定义、数据结构、或者中间态的服务定义文件。例如Facebook的Thrift的IDL文件，Web service的WSDL文件；服务的调用者需要通过一定的途径获取远程服务调用相关的信息。
+
+    目前，大部分跨语言平台 RPC 框架采用根据 IDL 定义通过 code generator 去生成 stub 代码，这种方式下实际导入的过程就是通过代码生成器在编译期完成的。代码生成的方式对跨语言平台 RPC 框架而言是必然的选择，而对于同一语言平台的 RPC 则可以通过共享接口定义来实现。这里的导入方式本质也是一种代码生成技术，只不过是在运行时生成，比静态编译期的代码生成看起来更简洁些。
+
+    java 中还有一种比较特殊的调用就是多态，也就是一个接口可能有多个实现，那么远程调用时到底调用哪个？这个本地调用的语义是通过 jvm 提供的引用多态性隐式实现的，那么对于 RPC 来说跨进程的调用就没法隐式实现了。如果前面DemoService 接口有 2 个实现，那么在导出接口时就需要特殊标记不同的实现需要，那么远程调用时也需要传递该标记才能调用到正确的实现类，这样就解决了多态调用的语义问题。
+
+（2）远程代理对象：
+
+    服务调用者用的服务实际是远程服务的本地代理。说白了就是通过动态代理来实现。
+
+    java 里至少提供了两种技术来提供动态代码生成，一种是 jdk 动态代理，另外一种是字节码生成。动态代理相比字节码生成使用起来更方便，但动态代理方式在性能上是要逊色于直接的字节码生成的，而字节码生成在代码可读性上要差很多。两者权衡起来，个人认为牺牲一些性能来获得代码可读性和可维护性显得更重要。
+
+（3）通信：
+
+    RPC框架与具体的协议无关。RPC 可基于 HTTP 或 TCP 协议，Web Service 就是基于 HTTP 协议的 RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。
+
+    1. TCP/HTTP：众所周知，TCP 是传输层协议，HTTP 是应用层协议，而传输层较应用层更加底层，在数据传输方面，越底层越快，因此，在一般情况下，TCP 一定比 HTTP 快。
+
+    2. 消息ID：RPC 的应用场景实质是一种可靠的请求应答消息流，和 HTTP 类似。因此选择长连接方式的 TCP 协议会更高效，与 HTTP 不同的是在协议层面我们定义了每个消息的唯一 id，因此可以更容易的复用连接。
+
+    3. IO方式：为了支持高并发，传统的阻塞式 IO 显然不太合适，因此我们需要异步的 IO，即 NIO。Java 提供了 NIO 的解决方案，Java 7 也提供了更优秀的 NIO.2 支持。
+
+    4. 多连接：既然使用长连接，那么第一个问题是到底 client 和 server 之间需要多少根连接？实际上单连接和多连接在使用上没有区别，对于数据传输量较小的应用类型，单连接基本足够。单连接和多连接最大的区别在于，每根连接都有自己私有的发送和接收缓冲区，因此大数据量传输时分散在不同的连接缓冲区会得到更好的吞吐效率。所以，如果你的数据传输量不足以让单连接的缓冲区一直处于饱和状态的话，那么使用多连接并不会产生任何明显的提升，反而会增加连接管理的开销。
+    5. 心跳：连接是由 client 端发起建立并维持。如果 client 和 server 之间是直连的，那么连接一般不会中断（当然物理链路故障除外）。如果 client 和 server 连接经过一些负载中转设备，有可能连接一段时间不活跃时会被这些中间设备中断。为了保持连接有必要定时为每个连接发送心跳数据以维持连接不中断。心跳消息是 RPC 框架库使用的内部消息，在前文协议头结构中也有一个专门的心跳位，就是用来标记心跳消息的，它对业务应用透明。
+
+（4）序列化：
+
+    两方面会直接影响 RPC 的性能，一是传输方式，二是序列化。
+
+    1. 序列化方式：毕竟是远程通信，需要将对象转化成二进制流进行传输。不同的RPC框架应用的场景不同，在序列化上也会采取不同的技术。 就序列化而言，Java 提供了默认的序列化方式，但在高并发的情况下，这种方式将会带来一些性能上的瓶颈，于是市面上出现了一系列优秀的序列化框架，比如：Protobuf、Kryo、Hessian、Jackson 等，它们可以取代 Java 默认的序列化，从而提供更高效的性能。
+
+    2. 编码内容：出于效率考虑，编码的信息越少越好（传输数据少），编码的规则越简单越好（执行效率高）。如下是编码需要具备的信息：
+
+    -- 调用编码 --  
+    1. 接口方法  
+       包括接口名、方法名  
+    2. 方法参数  
+       包括参数类型、参数值  
+    3. 调用属性  
+       包括调用属性信息，例如调用附件隐式参数、调用超时时间等  
+
+    -- 返回编码 --  
+    1. 返回结果  
+       接口方法中定义的返回值  
+    2. 返回码  
+       异常返回码  
+    3. 返回异常信息  
+       调用异常信息 
+
+    除了以上这些必须的调用信息，我们可能还需要一些元信息以方便程序编解码以及未来可能的扩展。这样我们的编码消息里面就分成了两部分，一部分是元信息、另一部分是调用的必要信息。如果设计一种 RPC 协议消息的话，元信息我们把它放在协议消息头中，而必要信息放在协议消息体中。下面给出一种概念上的 RPC 协议消息设计格式：
+
+    -- 消息头 --  
+    magic      : 协议魔数，为解码设计  
+    header size: 协议头长度，为扩展设计  
+    version    : 协议版本，为兼容设计  
+    st         : 消息体序列化类型  
+    hb         : 心跳消息标记，为长连接传输层心跳设计  
+    ow         : 单向消息标记，  
+    rp         : 响应消息标记，不置位默认是请求消息  
+    status code: 响应消息状态码  
+    reserved   : 为字节对齐保留  
+    message id : 消息 id  
+    body size  : 消息体长度  
+
+    -- 消息体 --  
+    采用序列化编码，常见有以下格式  
+    xml   : 如 webservie soap  
+    json  : 如 JSON-RPC  
+    binary: 如 thrift; hession; kryo 等  
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/01/01/RPC入门总结  RPC定义和原理/">
+    <time datetime="2018-12-31T16:00:00.000Z" class="entry-date">
+        2019-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-String反转" class="post-String反转 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/02/06/String反转/">String 的反转</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String反转/" data-id="cjz98i2jr00055ouhz4e8lr33" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>package com.example.demo;
+
+import java.util.Stack;
+
+/**
+ * String 的反转
+ */
+public class Reverse {
+    private String str = null;
+
+    public Reverse(String str) {
+        this.str = str;
+    }
+
+    // 数组实现String反转
+    public String reverseByArray() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        for (int i = 0; i &lt; ch.length / 2; i++) {
+            char temp = ch[i];
+            ch[i] = ch[ch.length - i - 1];
+            ch[ch.length - i - 1] = temp;
+        }
+        return new String(ch);
+    }
+
+    // 用栈实现String反转
+    public String reverseByStack() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        for (char c : ch) {
+            stack.push(c);// 每个字符，推进栈
+        }
+        for (int i = 0; i &lt; ch.length; i++) {
+            ch[i] = stack.pop();// 移除这个堆栈的顶部对象
+        }
+        return new String(ch);
+    }
+
+    // 用逆序遍历实现String反转
+    public String reverseBySort() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = str.length() - 1; i &gt;= 0; i--) {
+            sb.append(str.charAt(i));// 使用StringBuffer从右往左拼接字符
+        }
+        return sb.toString();
+    }
+
+    // 使用位运算实现String反转
+    public String reverseByBit() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        int len = str.length();
+        for (int i = 0; i &lt; len / 2; i++) {
+            ch[i] ^= ch[len - 1 - i];
+            ch[len - 1 - i] ^= ch[i];
+            ch[i] ^= ch[len - 1 - i];
+        }
+        return new String(ch);
+    }
+
+    //使用递归实现String反转
+    public String reverseByRecursive(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (str.length() == 1) {
+            return str;
+        } else {
+            // 从下标为1开始截取字符串，在返回下标为0的字符
+            return reverseByRecursive(str.substring(1)) + str.charAt(0);
+        }
+    }
+
+    // 使用 StringBuilder reverse() 方法反转
+    public String reverseByStringBuilder(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        String s = &quot;123456&quot;;
+
+        Reverse r = new Reverse(s);
+        System.out.println(r.reverseByArray());
+        System.out.println(r.reverseByStack());
+        System.out.println(r.reverseBySort());
+        System.out.println(r.reverseByBit());
+        System.out.println(r.reverseByRecursive(s));
+        System.out.println(r.reverseByStringBuilder(s));
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/02/06/String反转/">
+    <time datetime="2018-02-05T16:00:00.000Z" class="entry-date">
+        2018-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-maven-instruction" class="post-maven-instruction post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +998,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="cjwk8gclk00111k0yfq4eo7el" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="cjz98i2k4000l5ouhp2qtemwo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -85,7 +1006,7 @@
       
         <p>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
 <p>详细教程：<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">https://www.w3cschool.cn/maven/</a></p>
-<h3 id="简单使用maven做什么？"><a href="#简单使用maven做什么？" class="headerlink" title="简单使用maven做什么？"></a>简单使用maven做什么？</h3><ul>
+<h3 id="简单使用maven做什么-？"><a href="#简单使用maven做什么-？" class="headerlink" title="简单使用maven做什么 ？"></a>简单使用maven做什么 <strong>？</strong></h3><ul>
 <li>提供了项目对象模型（POM）文件来管理项目的构建。</li>
 <li><p>仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。</p>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">本地仓库用来存储项目的依赖库；</span><br><span class="line">中央仓库是下载依赖库的默认位置；</span><br><span class="line">远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远程仓库是中央仓库的补充。</span><br></pre></td></tr></table></figure>
@@ -95,25 +1016,26 @@
 <li>目录结构统一并且简单，约定大于配置，被其他构建工具以及项目广泛采用</li>
 <li>统一对项目依赖的jar包进行管理，明确jar包依赖以及对应的版本自动下载等（<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">细节请看详细教程</a>）</li>
 </ul>
-<h3 id="maven的下载安装"><a href="#maven的下载安装" class="headerlink" title="maven的下载安装"></a>maven的下载安装</h3><ol>
-<li><p><strong>下载</strong><br>进入<a href="http://maven.apache.org/" target="_blank" rel="noopener">官网</a>选择download菜单进入下载页面<br><img src="/assets/mavenImg/download.png" alt><br>tar.gz文件对应linux系统<br>zip文件对应windows系统</p>
-</li>
-<li><p><strong>安装</strong><br>解压即可使用<br>对于在windows下使用maven，如果需要使用cmd执行命令的话，需要在path环境变量中添加maven/bin目录即可，使用IDE并不需要配置环境变量等<br>推荐目录结构如下：<br><img src="/assets/mavenImg/maven-directory.png" alt><br>第一个为解压后的文件目录<br>第二个用来作为maven的全局文件（settings.xml）存放目录（IDE中需要在maven配置中指向此文件才会生效，日后更换maven版本只需要更换原来的maven解压路径即可，不必再做配置）<br>第三个用来作为maven下载jar包的本地仓库存放目录（需要在settings.xml配置文件中指定，不然存放到默认路径C盘中，不方便管理与查找）  </p>
-</li>
-<li><p><strong>配置</strong><br>在解压的文件目录下进入conf文件夹，其中有默认的settings.xml配置文件<br><img src="/assets/mavenImg/maven-conf-directory.png" alt><br>配置文件一般只需要配置2个地方，一个是下载jar包的本地仓库存放目录，另外一个为下载jar包的国内镜像地址（默认地址为国外，速度较慢）<br><img src="/assets/mavenImg/maven-conf-repository.png" alt><br>从默认的注释中复制出来，配置上前面定好的本地仓库存放目录，如果不配置则会存放到注释中默认指向地址${user.home}/.m2/repository<br><img src="/assets/mavenImg/maven-conf-mirror.png" alt><br>依旧从默认的注释中复制镜像出来，id与name可以随意起名，mirrorOf为central则说明是中央仓库，URL推荐填写阿里云maven仓库地址 <a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a><br>之后保存，复制出一份存放在前面设置的maven全局文件存放目录下面（当替换maven版本时，内置的配置文件使用IDE设置好全局文件时可不用更改，更换maven版本也只是解压新版本后在IDE中设置新的maven安装路径就完成了）  </p>
-</li>
-</ol>
+<h3 id="maven的下载安装"><a href="#maven的下载安装" class="headerlink" title="maven的下载安装"></a>maven的下载安装</h3><h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. <strong>下载</strong></h4><p>进入<a href="http://maven.apache.org/" target="_blank" rel="noopener">官网</a>选择download菜单进入下载页面<br><img src="/assets/mavenImg/download.png" alt="image"><br>tar.gz文件对应linux系统<br>zip文件对应windows系统</p>
+<h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. <strong>安装</strong></h4><pre><code>解压即可使用  
+对于在windows下使用maven，如果需要使用cmd执行命令的话，需要在path环境变量中添加maven/bin目录即可，使用IDE并不需要配置环境变量等  
+推荐目录结构如下：
+</code></pre><p><img src="/assets/mavenImg/maven-directory.png" alt="image"></p>
+<pre><code>第一个为解压后的文件目录  
+第二个用来作为maven的全局文件（settings.xml）存放目录（IDE中需要在maven配置中指向此文件才会生效，日后更换maven版本只需要更换原来的maven解压路径即可，不必再做配置）  
+第三个用来作为maven下载jar包的本地仓库存放目录（需要在settings.xml配置文件中指定，不然存放到默认路径C盘中，不方便管理与查找）  
+</code></pre><h4 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. <strong>配置</strong></h4><p>在解压的文件目录下进入conf文件夹，其中有默认的settings.xml配置文件<br><img src="/assets/mavenImg/maven-conf-directory.png" alt="image"><br>配置文件一般只需要配置2个地方，一个是下载jar包的本地仓库存放目录，另外一个为下载jar包的国内镜像地址（默认地址为国外，速度较慢）<br><img src="/assets/mavenImg/maven-conf-repository.png" alt="image"><br>从默认的注释中复制出来，配置上前面定好的本地仓库存放目录，如果不配置则会存放到注释中默认指向地址${user.home}/.m2/repository<br><img src="/assets/mavenImg/maven-conf-mirror.png" alt="image"><br>依旧从默认的注释中复制镜像出来，id与name可以随意起名，mirrorOf为central则说明是中央仓库，URL推荐填写阿里云maven仓库地址 <a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a><br>之后保存，复制出一份存放在前面设置的maven全局文件存放目录下面（当替换maven版本时，内置的配置文件使用IDE设置好全局文件时可不用更改，更换maven版本也只是解压新版本后在IDE中设置新的maven安装路径就完成了）  </p>
 <h3 id="IDE中配置maven"><a href="#IDE中配置maven" class="headerlink" title="IDE中配置maven"></a>IDE中配置maven</h3><ol>
-<li><p><strong>MyEclipse</strong><br>点击导航栏window进入preferences搜索maven<br><img src="/assets/mavenImg/myeclipse-maven.png" alt><br>建议勾选Download Artifact Sources（下载jar包的同时下载源码，方便直接点方法进源码查看）<br><img src="/assets/mavenImg/myeclipse-maven-install.png" alt><br>添加安装的maven<br><img src="/assets/mavenImg/myeclipse-maven-settings.png" alt><br>设置好maven的全局配置文件路径（本地仓库存放目录自动扫描文件中的目录）<br>至此完成了MyEclipse中maven的配置  </p>
+<li><p><strong>MyEclipse</strong><br>点击导航栏window进入preferences搜索maven<br><img src="/assets/mavenImg/myeclipse-maven.png" alt="image"><br>建议勾选Download Artifact Sources（下载jar包的同时下载源码，方便直接点方法进源码查看）<br><img src="/assets/mavenImg/myeclipse-maven-install.png" alt="image"><br>添加安装的maven<br><img src="/assets/mavenImg/myeclipse-maven-settings.png" alt="image"><br>设置好maven的全局配置文件路径（本地仓库存放目录自动扫描文件中的目录）<br>至此完成了MyEclipse中maven的配置  </p>
 </li>
 <li><p><strong>IDEA</strong><br>不要在打开项目的时候选择file/settings，那样设置完只会针对当前项目，若打开了项目，则选择file/Close Project关闭项目回退到初始idea界面</p>
 </li>
 </ol>
-<p><img src="/assets/mavenImg/idea-settings.png" alt>                 <img src="/assets/mavenImg/idea-settings1.png" alt><br>指定好maven的安装目录以及配置文件位置<br><img src="/assets/mavenImg/idea-maven.png" alt><br><img src="/assets/mavenImg/idea-maven-importing.png" alt><br>至此完成了idea中的maven的配置</p>
+<p><img src="/assets/mavenImg/idea-settings.png" alt="image"><br><img src="/assets/mavenImg/idea-settings1.png" alt="image"><br>指定好maven的安装目录以及配置文件位置<br><img src="/assets/mavenImg/idea-maven.png" alt="image"><br><img src="/assets/mavenImg/idea-maven-importing.png" alt="image"><br>至此完成了idea中的maven的配置</p>
 <h3 id="创建一个maven的java-web项目"><a href="#创建一个maven的java-web项目" class="headerlink" title="创建一个maven的java web项目"></a>创建一个maven的java web项目</h3><ol>
-<li><p><strong>MyEclipse</strong><br><img src="/assets/mavenImg/myeclipse-create01.png" alt><br><img src="/assets/mavenImg/myeclipse-create02.png" alt><br>选取项目模板java web项目为maven-archetype-webapp<br><img src="/assets/mavenImg/myeclipse-create03.png" alt><br><img src="/assets/mavenImg/myeclipse-create04.png" alt><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+<li><p><strong>MyEclipse</strong><br><img src="/assets/mavenImg/myeclipse-create01.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create02.png" alt="image"><br>选取项目模板java web项目为maven-archetype-webapp<br><img src="/assets/mavenImg/myeclipse-create03.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
 </li>
-<li><p><strong>IDEA</strong><br>新建项目<br><img src="/assets/mavenImg/idea-create01.png" alt><br><img src="/assets/mavenImg/idea-create02.png" alt><br><img src="/assets/mavenImg/idea-create03.png" alt><br><img src="/assets/mavenImg/idea-create04.png" alt><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+<li><p><strong>IDEA</strong><br>新建项目<br><img src="/assets/mavenImg/idea-create01.png" alt="image"><br><img src="/assets/mavenImg/idea-create02.png" alt="image"><br><img src="/assets/mavenImg/idea-create03.png" alt="image"><br><img src="/assets/mavenImg/idea-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
 </li>
 </ol>
 <h3 id="maven的java-web项目的目录结构"><a href="#maven的java-web项目的目录结构" class="headerlink" title="maven的java web项目的目录结构"></a>maven的java web项目的目录结构</h3><p><a href="/assets/mavenImg/pom.xml">pom.xml项目配置文件例子，包含普通项目所需jar包引入，行间内置注释</a><br><img src="/assets/mavenImg/maven-directory-javaweb.png" alt="文件目录结构">  </p>
@@ -180,6 +1102,96 @@ project
 
 
   
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cjz98i2jw000b5ouhvuiuiizi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
+javamelody.jar
+jrobin-1.5.14.jar
+启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
+
+访问：http://主机地址：端口号/项目名/monitoring
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/javamelody/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
     <!---->
 
@@ -195,7 +1207,7 @@ project
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cjwk8gcl6000i1k0ypa552zll" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cjz98i2l5002c5ouh745gd95d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -417,92 +1429,6 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
 
 
   
-    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cjwk8gcle000s1k0y6wuori2j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><pre><code>&lt;!-- java系统监控插件 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
-        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
-        &lt;version&gt;1.60.0&lt;/version&gt;
-    &lt;/dependency&gt;
-
-# Configuration.java
-
-import net.bull.javamelody.MonitoringFilter;
-import net.bull.javamelody.SessionListener;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- *
- * @author zqs
- * @since
- */
-@Configuration
-public class JavamelodyConfiguration {
-    @Bean
-    public FilterRegistrationBean monitorFilter(){
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
-        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
-        return filterRegistrationBean;
-    }
-
-    @Bean
-    public ServletListenerRegistrationBean sessionListener(){
-        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
-        servletListenerRegistrationBean.setListener(new SessionListener());
-        return servletListenerRegistrationBean;
-    }
-}   
-</code></pre><h1 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h1><p>  导入jar包：<br>  javamelody.jar<br>  jrobin-1.5.14.jar<br>  启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；</p>
-<pre><code>访问：http://主机地址：端口号/项目名/monitoring    
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/javamelody/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -518,7 +1444,7 @@ public class JavamelodyConfiguration {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cjwk8gclz001s1k0ywqx0nk6l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cjz98i2ki001e5ouh1bq3z8ux" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -554,740 +1480,10 @@ ipconfig /flushdns
 
 
   
-    <article id="post-svnerror" class="post-svnerror post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/12/27/svnerror/">svn error - unable to connect to a repository at url 问题解决</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/svnerror/" data-id="cjwk8gclp00181k0yj8gaek0x" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>C:\Users\dell\AppData\Roaming\Subversion
-# 打开文件
-servers
-# 删除
-proxy settings
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/12/27/svnerror/">
-    <time datetime="2017-12-26T16:00:00.000Z" class="entry-date">
-        2017-12-27
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/SVN/">SVN</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-node" class="post-node post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/12/15/node/">node.js yeoman grunt 快速构建项目</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cjwk8gclq001a1k0ymw9eaf7o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h4 id="1-node-js-安装"><a href="#1-node-js-安装" class="headerlink" title="1. node.js 安装"></a>1. node.js 安装</h4><h4 id="2-yeoman-grunt安装"><a href="#2-yeoman-grunt安装" class="headerlink" title="2. yeoman grunt安装"></a>2. yeoman grunt安装</h4><pre><code>npm install -g bower
-npm install --global yo
-npm install -g grunt-cli
-yo --version &amp;&amp; bower --version &amp;&amp; grunt --version
-npm install -g generator-angular@0.7.1
-</code></pre><h4 id="3-创建项目-安装bower、node、grunt"><a href="#3-创建项目-安装bower、node、grunt" class="headerlink" title="3. 创建项目 安装bower、node、grunt"></a>3. 创建项目 安装bower、node、grunt</h4><pre><code>$ cd d:
-$ mkdir myApp
-$ cd mytodo
-$ yo angular
-# 报错少 grunt-contrib-imagemin
-# 安装 grunt-contrib-imagemin
-$ npm install grunt-contrib-imagemin --save-dev
-
-$ npm install
-$ bower install
-$ npm install grunt --save-dev
-# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
-</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code>#Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
-$ npm install -g cordova
-</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
-#要知道这个命令完整的选项，键入cordova help create。
-$ cordova create MyApp
-</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code>#在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
-#为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
-#为了知道你可以添加的平台，你可以运行cordova platform。
-$ cd MyApp 
-# browser andriod ios
-$ cordova platform add browser
-# $ cordova platform remove android
-</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
-# browser andriod ios
-$ cordova run browser
-</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用。</h4><pre><code>$ cordova build android
-</code></pre><h4 id="6、进行仿真"><a href="#6、进行仿真" class="headerlink" title="6、进行仿真"></a>6、进行仿真</h4><pre><code>$ cordova emulate android
-</code></pre><h3 id="phoneGap"><a href="#phoneGap" class="headerlink" title="phoneGap"></a>phoneGap</h3><h4 id="1-Install-our-desktop-app"><a href="#1-Install-our-desktop-app" class="headerlink" title="1.Install our desktop app"></a>1.Install our desktop app</h4><pre><code>$ npm install -g phonegap
-</code></pre><h4 id="2-Install-our-mobile-app"><a href="#2-Install-our-mobile-app" class="headerlink" title="2.Install our mobile app"></a>2.Install our mobile app</h4><pre><code>$
-</code></pre><h4 id="3-Create-your-new-PhoneGap-app"><a href="#3-Create-your-new-PhoneGap-app" class="headerlink" title="3.Create your new PhoneGap app"></a>3.Create your new PhoneGap app</h4><p>这种时候，我们可以通过有Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
-<p>1、中科院开源协会镜像站地址:</p>
-<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
-<p>2、北京化工大学镜像服务器地址：</p>
-<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
-<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
-<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>  端口：80</p>
-<p>3、大连东软信息学院镜像服务器地址:</p>
-<p><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
-<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
-# npm update -g cordova ionic
-$ npm install -g ionic
-$ ionic start myApp tabs
-# demo
-$ ionic start myproject --type ionic1
-# 启动
-$ ionic serve
-# 启动 指定IP地址
-$ ionic serve --address 192.168.20.45
-</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>$ cd myApp
-$ ionic platform add android
-$ ionic build android
-$ ionic emulate android
-</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>$ cd myApp
-$ ionic platform add ios
-$ ionic build ios
-$ ionic emulate ios    
-</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>$ ionic serve
-</code></pre><p>通过Ionic创建一个项目</p>
-<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
-<pre><code>ionic start myApp blank  创建一个空白的app项目 
-
-ionic start myApp tabs 创建一个带有tabs项目
-
-ionic start myApp sidemenu 创建一个带有滑动的项目
-</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
-<pre><code>npm install -g ios-sim
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/12/15/node/">
-    <time datetime="2017-12-14T16:00:00.000Z" class="entry-date">
-        2017-12-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Node/">Node</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-oracle-expdp-impdp" class="post-oracle-expdp-impdp post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/09/01/oracle-expdp-impdp/">oracle expdp / impdp</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cjwk8gclu001i1k0yawj4vu46" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="expdp-导出"><a href="#expdp-导出" class="headerlink" title="expdp 导出"></a>expdp 导出</h3><pre><code>expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp;
-</code></pre><h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><pre><code>-- 删除用户
-drop user BOSYUNTEST cascade;
--- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id
-SELECT SID,SERIAL# FROM V$SESSION WHERE USERNAME=&apos;TQBAY&apos;;
--- 再一个个kill掉该用户的会话再执行drop user
-ALTER SYSTEM KILL SESSION &apos;24,25341&apos;;
-</code></pre><h3 id="查询表空间路径"><a href="#查询表空间路径" class="headerlink" title="查询表空间路径"></a>查询表空间路径</h3><pre><code>select * from dba_data_files;
-</code></pre><h3 id="删除表空间和文件"><a href="#删除表空间和文件" class="headerlink" title="删除表空间和文件"></a>删除表空间和文件</h3><pre><code>-- 删除临时表空间和文件
-drop tablespace BOSYUN_TEST_TEMP including contents and datafiles;
--- 删除数据表空间和文件
-drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
-drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
-</code></pre><h3 id="创建表空间"><a href="#创建表空间" class="headerlink" title="创建表空间"></a>创建表空间</h3><pre><code>-- 创建临时表空间
-CREATE SMALLFILE TEMPORARY TABLESPACE BOSYUN_TEST_TEMP TEMPFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_TEMP&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
--- 创建数据表空间
-CREATE SMALLFILE TABLESPACE BOSYUN_TEST_DATA DATAFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_DATA&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED LOGGING EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
--- 创建用户
-CREATE USER BOSYUNTEST PROFILE &quot;DEFAULT&quot; IDENTIFIED BY BOSYUNTEST DEFAULT TABLESPACE BOSYUN_TEST_DATA TEMPORARY TABLESPACE BOSYUN_TEST_TEMP ACCOUNT UNLOCK;
--- 用户授权
-GRANT CONNECT TO BOSYUNTEST WITH ADMIN OPTION;
-GRANT DBA TO BOSYUNTEST;
-GRANT RESOURCE TO BOSYUNTEST;
-</code></pre><h3 id="可通过以下命令查看数据库已有的目录："><a href="#可通过以下命令查看数据库已有的目录：" class="headerlink" title="可通过以下命令查看数据库已有的目录："></a>可通过以下命令查看数据库已有的目录：</h3><pre><code># 查询 DATA_PUMP_DIR
-select * from DBA_DIRECTORIES;
- /home/oracle/oradata/bosyun/dpdump/        DATA_PUMP_DIR
-
--- 创建 DATA_PUMP_DIR目录
-create or replace directory DATA_PUMP_DIR as &apos;D:\app\Administrator\admin\orcl\dpdump&apos;;
-1.修改/data/oracle/product/11.2.0/db_1/network/admin/tnsnames.ora 
-2.把dmp文件放到DATA_PUMP_DIR目录下 （预先将dmp文件放置到指定的directory目录下，
-
--- DATA_PUMP_DIR 需要预先将目录权限赋予该用户。
-grant read,write on directory DATA_PUMP_DIR to TQBAY_TEST;
-</code></pre><h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><pre><code>impdp TQBAY_TEST/TQBAY_TEST@bosyun directory=DATA_PUMP_DIR dumpfile=TQBAY_20170519.dump REMAP_SCHEMA=TQBAY:TQBAY_TEST;
-
-# 上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。  在后面加上 ignore=y 就可以了。
-# 基本上上面的导入导出够用了。不少情况要先是将表彻底删除，然后导入。
-</code></pre><h3 id><a href="#" class="headerlink" title=" "></a> </h3><pre><code>select * from DBA_DIRECTORIES; --查询表 DATA_PUMP_DIR
-select * from product_component_version;  --查询oracle版本
-
- --------oracle 解锁用户-------
-su - oracle
-sqlplus / as sysdba  --执行
-sql : alter user QICOLOR account unlock; --QICOLOR 用户解锁
-alter user QICOLOR_FORMAL account unlock;
-
-select userenv(&apos;language&apos;) from dual;-- 字符集
-------------------------------
-</code></pre><h3 id="数据库重启"><a href="#数据库重启" class="headerlink" title="数据库重启"></a>数据库重启</h3><pre><code>#关闭数据库存
-$export ORACLE_SID=QICOLOR
-$su - oracle
-$sqlplus / as sysdba
-$shutdown immediate
-$lsnrctl stop
-
-$export ORACLE_SID=TQBAY
-$su - oracle
-$sqlplus / as sysdba
-$shutdown immediate
-$lsnrctl stop
-
-#启动数据库
-$su - oracle
-$sqlplus / as sysdba
-$startup
-$lsnrctl start
-</code></pre><h3 id="oracle-管理员不用密码登录"><a href="#oracle-管理员不用密码登录" class="headerlink" title="oracle 管理员不用密码登录"></a>oracle 管理员不用密码登录</h3><pre><code>（1） 以oracle身份登录数据库，命令：su - oracle
-（2） 进入Sqlplus控制台，命令：sqlplus /nolog
-（3） 以系统管理员登录，命令：connect / as sysdba 
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/09/01/oracle-expdp-impdp/">
-    <time datetime="2017-08-31T16:00:00.000Z" class="entry-date">
-        2017-09-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/数据库/">数据库</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="cjwk8gcks00031k0ytdrg3dfv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
-<pre><code>1. 添加用户
-
-adduser huapisong  //添加一个名为huapisong的用户
-passwd huapisong   //修改密码
-Changing password for user huapisong.
-New UNIX password:     //在这里输入新密码
-Retype new UNIX password:  //再次输入新密码
-passwd: all authentication tokens updated successfully.
-
-2. 赋予root权限
-
-方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
-## Allows people in group wheel to run all commands
-%wheel    ALL=(ALL)    ALL
-# 然后修改用户，使其属于root组（wheel），命令如下：
-
-usermod -g root huapisong
-# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
-## Allow root to run any commands anywhere
-root    ALL=(ALL)     ALL
-huapisong   ALL=(ALL)     ALL
-#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
-如下：
-vi /etc/ssh/sshd_config 
-#添加
-AllowUsers root huapisong
-#多个用户用空格隔开
-
-4. 然后重启sshd服务生效即可，重启命令可以使用:
-#shell
-service sshd restart
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/02/06/1.ssh用户权限配置/">
-    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
-        2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cjwk8gclr001d1k0yiwtmc466" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
-<p>一、安装环境</p>
-<pre><code>● Centos6.5系统
-● JDK版本：1.8
-● 工具： FlashFXP V5.2.0, MobaXterm V10.5
-</code></pre><p>二、安装步骤</p>
-<p>第一步：下载安装包</p>
-<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
-
-由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
-</code></pre><p>第二步： 上传jdk1.8 安装包</p>
-<pre><code># 上传jdk1.8 安装包
-scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
-# 进入jdk目录
-cd /hupisong/java/
-# 解压JDK1.8安装包
-tar -zxvf jdk-8u131-linux-x64.tar.gz
-</code></pre><p>第三步、修改环境变量</p>
-<pre><code># 编辑文件
-vi /etc/profile
-# 按 &apos;i&apos; 键编辑
-# 编辑,在最后一行添加
-# 添加内容如下 
-export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
-export PATH=$JAVA_HOME/bin:$PATH
-# 退出编辑并保存：
-# 按&apos;esc&apos;键退出编辑 
-# 输入&apos;:wq&apos; 保存编辑内容
-:wq 
-# 加载设置的变量，使其生效
- source /etc/profile
-</code></pre><p>第四步、测试是否安装成功</p>
-<pre><code># 输入命令
-java -version
-#成功结果如下：
-java version &quot;1.8.0_131&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
-</code></pre><p>至此，安装结束</p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/linux安装JDK/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="cjwk8gckk00001k0ysoqvub7w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>2.1 安装依赖</p>
-<pre><code>yum -y install gcc gcc-c++ autoconf automake
-yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
-</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
-<pre><code># 解压缩
-tar -zxvf nginx-1.10.2.tar.gz
-
-# 进入压缩目录
-cd nginx-1.10.2
-
-# 进行模块配置
-./configure \
-  --prefix=/usr \
-  --sbin-path=/usr/sbin/nginx \
-  --conf-path=/etc/nginx/nginx.conf \
-  --error-log-path=/var/log/nginx/error.log \
-  --http-log-path=/var/log/nginx/access.log \
-  --pid-path=/var/run/nginx/nginx.pid  \
-  --lock-path=/var/lock/nginx.lock \
-  --user=nginx \
-  --group=nginx \
-  --with-http_ssl_module \
-  --with-http_flv_module \
-  --with-http_stub_status_module \
-  --with-http_gzip_static_module \
-  --http-client-body-temp-path=/var/tmp/nginx/client/ \
-  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
-  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
-  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
-  --http-scgi-temp-path=/var/tmp/nginx/scgi \
-  --with-pcre
-
-# 编译安装
-make &amp;&amp; make install
-</code></pre><p>2.5 安装路径</p>
-<pre><code># 名称路径日志目录
-/var/log/nginx
-# 配置目录
-/etc/nginx
-# PID文件
-/var/run/nginx/nginx.pid
-# 启动文件
-/usr/sbin/nginx
-</code></pre><p>2.6 centos6服务脚本</p>
-<pre><code>#创建文件
-touch /etc/rc.d/init.d/nginx
-chmod +x /etc/rc.d/init.d/nginx
-</code></pre><p>启动脚本</p>
-<pre><code>#!/bin/sh  
-#  
-# nginx - this script starts and stops the nginx daemon  
-#  
-# chkconfig:   - 85 15  
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
-#               proxy and IMAP/POP3 proxy server  
-# processname: nginx  
-
-# Source function library.  
-. /etc/rc.d/init.d/functions  
-
-# Source networking configuration.  
-. /etc/sysconfig/network  
-
-# Check that networking is up.  
-[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
-
-nginx=&quot;/usr/sbin/nginx&quot;  
-prog=$(basename $nginx)  
-
-sysconfig=&quot;/etc/sysconfig/$prog&quot;  
-lockfile=&quot;/var/lock/nginx.lock&quot;  
-pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
-
-NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
-
-[ -f $sysconfig ] &amp;&amp; . $sysconfig  
-
-start() {  
-    [ -x $nginx ] || exit 5  
-    [ -f $NGINX_CONF_FILE ] || exit 6  
-    echo -n $&quot;Starting $prog: &quot;  
-    daemon $nginx -c $NGINX_CONF_FILE  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
-    return $retval  
-}  
-
-stop() {  
-    echo -n $&quot;Stopping $prog: &quot;  
-    killproc -p $pidfile $prog  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
-    return $retval  
-}  
-
-restart() {  
-    configtest_q || return 6  
-    stop  
-    start  
-}  
-
-reload() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reloading $prog: &quot;  
-    killproc -p $pidfile $prog -HUP  
-    echo  
-}  
-
-configtest() {  
-    $nginx -t -c $NGINX_CONF_FILE  
-}  
-
-configtest_q() {  
-    $nginx -t -q -c $NGINX_CONF_FILE  
-}  
-
-rh_status() {  
-    status $prog  
-}  
-
-rh_status_q() {  
-    rh_status &gt;/dev/null 2&gt;&amp;1  
-}  
-
-# Upgrade the binary with no downtime.  
-upgrade() {  
-    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
-
-    configtest_q || return 6  
-    echo -n $&quot;Upgrading $prog: &quot;  
-    killproc -p $pidfile $prog -USR2  
-    retval=$?  
-    sleep 1  
-    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
-        killproc -p $oldbin_pidfile $prog -QUIT  
-        success $&quot;$prog online upgrade&quot;  
-        echo   
-        return 0  
-    else  
-        failure $&quot;$prog online upgrade&quot;  
-        echo  
-        return 1  
-    fi  
-}  
-
-# Tell nginx to reopen logs  
-reopen_logs() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reopening $prog logs: &quot;  
-    killproc -p $pidfile $prog -USR1  
-    retval=$?  
-    echo  
-    return $retval  
-}
-
-case &quot;$1&quot; in
-    start)
-        rh_status_q &amp;&amp; exit 0
-        $1
-        ;;
-    stop)
-        rh_status_q || exit 0
-        $1
-        ;;
-    restart|configtest|reopen_logs)
-        $1
-        ;;
-    force-reload|upgrade)
-        rh_status_q || exit 7
-        upgrade
-        ;;
-    reload)
-        rh_status_q || exit 7
-        $1
-        ;;
-    status|status_q)
-        rh_$1
-        ;;
-    condrestart|try-restart)
-        rh_status_q || exit 7
-        restart
-        ;;
-    *)
-        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
-        exit 2
-esac
-</code></pre><p>开机启动方式</p>
-<pre><code># 开机启动
-chkconfig --add nginx
-chkconfig --level 345 nginx on
-chkconfig --list nginx
-
-# 开机不启动
-chkconfig nginx off
-chkconfig --list nginx
-</code></pre><p>2.7 centos7服务脚本</p>
-<pre><code># 创建文件
-touch /usr/lib/systemd/system/nginx.service
-# 启动脚本
-[Unit]
-Description=nginx
-After=network.target remote-fs.target nss-lookup.target
-
-[Service]
-Type=forking
-ExecStart=/usr/sbin/nginx
-ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s stop
-PrivateTmp=true
-
-[Install]
-WantedBy=multi-user.target
-
-# 开机启动方式
-
-# 开机启动
-systemctl enable nginx.service
-
-# 开机不启动
-systemctl disable nginx.service
-
-# 其他操作
-systemcl ( status | start | stop | reload | restart ) nginx.service
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1308,7 +1504,7 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -1320,23 +1516,23 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

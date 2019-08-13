@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;  
+  <meta name="description" content="git
+ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;  
 密码一定要设置，这是为了防止别人往你的项目里乱push 东西。
 
 less ~/.ssh/id_rsa.pub  
-就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，">
+就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新">
   
 
   
@@ -19,17 +20,17 @@ less ~/.ssh/id_rsa.pub
   
   <title>初识git | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git config">
+  <meta name="description" content="git ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git confi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初识git">
 <meta property="og:url" content="http://yoursite.com/2014/01/01/初识git/index.html">
 <meta property="og:site_name" content="随记">
-<meta property="og:description" content="ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git config">
+<meta property="og:description" content="git ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git confi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T09:34:41.978Z">
+<meta property="og:updated_time" content="2019-08-12T10:04:10.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识git">
-<meta name="twitter:description" content="ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git config">
+<meta name="twitter:description" content="git ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git confi">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -85,13 +86,13 @@ less ~/.ssh/id_rsa.pub
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cjwk8gcn000291k0yklgb8xtr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cjz98i2lp002v5ouhn4c3ndnb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h1 id><a href="#" class="headerlink" title=" "></a> </h1><hr>
+        <h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><hr>
 <pre><code>ssh-keygen -t rsa -C &quot;gitcafe 注册邮箱&quot;  
 </code></pre><p>密码一定要设置，这是为了防止别人往你的项目里乱push 东西。</p>
 <hr>
@@ -129,15 +130,66 @@ git push -u origin master
 git rm README.md .gitignore  
 </code></pre><p>写个commit 信息然后push 一下，你的项目里（无论本地和gitcafe）就没有这两个文件了。</p>
 <p>这就是看了百度了半小时git 使用方法依葫芦画瓢学的，很少一点东西，而且感觉比右键拯救世界的TortoiseSVN 麻烦好多=。=</p>
-<h1 id="2-git-常用指令"><a href="#2-git-常用指令" class="headerlink" title="2. git 常用指令"></a>2. git 常用指令</h1><p>只是记录备用</p>
-<p>git branch 查看本地所有分支<br>git status 查看当前状态<br>git commit 提交<br>git branch -a 查看所有的分支<br>git branch -r 查看远程所有分支<br>git commit -am “init” 提交并且加注释<br>git remote add origin <a href="mailto:git@192.168.1.119" target="_blank" rel="noopener">git@192.168.1.119</a>:ndshow 增加一个远程服务器端<br>git push origin master 将文件给推到服务器上<br>git remote show origin 显示远程库origin里的资源<br>git push origin master:develop<br>git push origin master:hb-dev 将本地库与服务器上的库进行关联<br>git checkout –track origin/dev 切换到远程dev分支<br>git branch -D master develop 删除本地库develop<br>git checkout -b dev 建立一个新的本地分支dev<br>git merge origin/dev 将分支dev与当前分支进行合并<br>git checkout dev 切换到本地dev分支<br>git remote show 查看远程库<br>git add . 添加当前目录<br>git rm 文件名(包括路径) 从git中删除指定文件<br>git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来<br>git config –list 看所有用户<br>git ls-files 看已经被提交的<br>git rm [file name] 删除一个文件<br>git commit -a 提交当前repos的所有的改变<br>git add [file name] 添加一个文件到git index<br>git commit -v 当你用－v参数的时候可以看commit的差异<br>git commit -m “This is the message describing the commit” 添加commit信息<br>git commit -a -a是代表add，把所有的change加到git index里然后再commit<br>git commit -a -v 一般提交命令<br>git log 看你commit的日志<br>git diff 查看尚未暂存的更新<br>git rm a.a 移除文件(从暂存区和工作区中删除)<br>git rm –cached a.a 移除文件(只从暂存区中删除)<br>git commit -m “remove” 移除文件(从Git中删除)<br>git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)<br>git diff –cached 或 $ git diff –staged 查看尚未提交的更新<br>git stash push 将文件给push到一个临时空间中</p>
-<h2 id="git-stash-pop-将文件从临时空间pop下来"><a href="#git-stash-pop-将文件从临时空间pop下来" class="headerlink" title="git stash pop 将文件从临时空间pop下来"></a>git stash pop 将文件从临时空间pop下来</h2><p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:username/Hello-World.git</p>
-<h2 id="git-push-origin-master-将本地项目给提交到服务器中"><a href="#git-push-origin-master-将本地项目给提交到服务器中" class="headerlink" title="git push origin master 将本地项目给提交到服务器中"></a>git push origin master 将本地项目给提交到服务器中</h2><h2 id="git-pull-本地与服务器端同步"><a href="#git-pull-本地与服务器端同步" class="headerlink" title="git pull 本地与服务器端同步"></a>git pull 本地与服务器端同步</h2><p>git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。</p>
-<h2 id="git-push-origin-serverfix-awesomebranch"><a href="#git-push-origin-serverfix-awesomebranch" class="headerlink" title="git push origin serverfix:awesomebranch"></a>git push origin serverfix:awesomebranch</h2><p>git fetch 相当于是从远程获取最新版本到本地，不会自动merge<br>git commit -a -m “log_message” (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ：<br>git branch branch_0.1 master 从主分支master创建branch_0.1分支<br>git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0<br>git checkout branch_1.0/master 切换到branch_1.0/master分支</p>
-<hr>
-<p>git branch 删除远程branch<br>git push origin :branch_remote_name<br>git branch -r -d branch_remote_name</p>
-<h1 id="3-git-指令速查表"><a href="#3-git-指令速查表" class="headerlink" title="3. git 指令速查表"></a>3. git 指令速查表</h1><p>至于这一堆高达上的表格？这个是凑字数的，我还不知道这辈子能不能用到呢！</p>
-<h3 id="1、常用的Git命令"><a href="#1、常用的Git命令" class="headerlink" title="1、常用的Git命令"></a>1、常用的Git命令</h3><p>命令                     简要说明</p>
+<h2 id="2-git-常用指令"><a href="#2-git-常用指令" class="headerlink" title="2. git 常用指令"></a>2. git 常用指令</h2><p>只是记录备用</p>
+<pre><code>git branch 查看本地所有分支
+git status 查看当前状态 
+git commit 提交 
+git branch -a 查看所有的分支
+git branch -r 查看远程所有分支
+git commit -am &quot;init&quot; 提交并且加注释 
+git remote add origin git@192.168.1.119:ndshow 增加一个远程服务器端
+git push origin master 将文件给推到服务器上 
+git remote show origin 显示远程库origin里的资源 
+git push origin master:develop
+git push origin master:hb-dev 将本地库与服务器上的库进行关联 
+git checkout --track origin/dev 切换到远程dev分支
+git branch -D master develop 删除本地库develop
+git checkout -b dev 建立一个新的本地分支dev
+git merge origin/dev 将分支dev与当前分支进行合并
+git checkout dev 切换到本地dev分支
+git remote show 查看远程库
+git add . 添加当前目录
+git rm 文件名(包括路径) 从git中删除指定文件
+git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来
+git config --list 看所有用户
+git ls-files 看已经被提交的
+git rm [file name] 删除一个文件
+git commit -a 提交当前repos的所有的改变
+git add [file name] 添加一个文件到git index
+git commit -v 当你用－v参数的时候可以看commit的差异
+git commit -m &quot;This is the message describing the commit&quot; 添加commit信息
+git commit -a -a是代表add，把所有的change加到git index里然后再commit
+git commit -a -v 一般提交命令
+git log 看你commit的日志
+git diff 查看尚未暂存的更新
+git rm a.a 移除文件(从暂存区和工作区中删除)
+git rm --cached a.a 移除文件(只从暂存区中删除)
+git commit -m &quot;remove&quot; 移除文件(从Git中删除)
+git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)
+git diff --cached 或 $ git diff --staged 查看尚未提交的更新
+git stash push 将文件给push到一个临时空间中
+git stash pop 将文件从临时空间pop下来
+---------------------------------------------------------
+git remote add origin git@github.com:username/Hello-World.git
+git push origin master 将本地项目给提交到服务器中
+-----------------------------------------------------------
+git pull 本地与服务器端同步
+-----------------------------------------------------------------
+git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。
+git push origin serverfix:awesomebranch
+------------------------------------------------------------------
+git fetch 相当于是从远程获取最新版本到本地，不会自动merge
+git commit -a -m &quot;log_message&quot; (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ：
+git branch branch_0.1 master 从主分支master创建branch_0.1分支
+git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0
+git checkout branch_1.0/master 切换到branch_1.0/master分支
+
+------------------------------------------------------------------
+git branch 删除远程branch
+git push origin :branch_remote_name
+git branch -r -d branch_remote_name
+</code></pre><h2 id="3-git-指令速查表"><a href="#3-git-指令速查表" class="headerlink" title="3. git 指令速查表"></a>3. git 指令速查表</h2><p>至于这一堆高达上的表格？这个是凑字数的，我还不知道这辈子能不能用到呢！</p>
+<h2 id="1、常用的Git命令"><a href="#1、常用的Git命令" class="headerlink" title="1、常用的Git命令"></a>1、常用的Git命令</h2><p>命令                     简要说明</p>
 <p>git add                  添加至暂存区</p>
 <p>git add–interactive     交互式添加</p>
 <p>git apply                应用补丁</p>
@@ -305,7 +357,7 @@ git rm README.md .gitignore
 <p>git-mergetool–lib      包含于其他脚本中，提供合并/差异比较工具的选择和执行</p>
 <p>git-parse-remote        包含于其他脚本中，提供操作远程版本库的函数</p>
 <p>git-sh-setup            包含于其他脚本中，提供 shell 编程的函数库</p>
-<h3 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h3><pre><code>#删除分支&amp;添加分支
+<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><pre><code>#删除分支&amp;添加分支
  # 添加本地关联的远程库
 git remote add zqs git@172.81.205.48:scf-service/scf-service.git
 git remote add zqs git@172.81.205.48:scf-service/scf_modules_app.git
@@ -410,7 +462,7 @@ git commit -m &quot;update .gitignore&quot;
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -422,23 +474,23 @@ git commit -m &quot;update .gitignore&quot;
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

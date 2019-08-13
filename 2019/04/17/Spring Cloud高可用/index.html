@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/keepalived1.png">
 <meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/keepalived2.png">
 <meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/keepalived3.png">
-<meta property="og:updated_time" content="2019-05-08T02:42:40.191Z">
+<meta property="og:updated_time" content="2019-08-13T02:39:55.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud构建微服务架构  高可用">
 <meta name="twitter:description" content="一、SpringCloud简介Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过">
@@ -86,7 +86,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cjwk8gcl8000l1k0ymgk4oien" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cjz98i2jr00045ouh4q1zi01k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -100,15 +100,15 @@
 <p>Eureka Server可以运行多个实例来构建集群，解决单点问题，Eureka Server采用的是Peer to Peer对等通信。这是一种去中心化的架构，无master/slave区分，每一个Peer都是对等的。在这种架构中，节点通过彼此互相注册来提高可用性，每个节点需要添加一个或多个有效的serviceUrl指向其他节点。每个节点都可被视为其他节点的副本。</p>
 <p>如果某台Eureka Server宕机，Eureka Client的请求会自动切换到新的Eureka Server节点，当宕机的服务器重新恢复后，Eureka会再次将其纳入到服务器集群管理之中。当节点开始接受客户端请求时，所有的操作都会进行replicateToPeer（节点间复制）操作，将请求复制到其他Eureka Server当前所知的所有节点中。</p>
 <p>简单来说，Eureka Server的高可用，实际上就是将自己也作为服务向其他服务注册中心进行注册，这样就可以形成一组相互注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果。</p>
-<p> 集群模式下，Eureka的架构图：<br> <img src="/assets/SpringCloudImg/eurekaService1.png" alt><br>Eureka Server </p>
+<p> 集群模式下，Eureka的架构图：<br><img src="/assets/SpringCloudImg/eurekaService1.png" alt="image"><br>Eureka Server</p>
 <pre><code>- 服务端-没有存储，内存保持，每服务实例需要发送心跳去续约 
 - 客户端-在内存中缓存着eureka的注册信息，因此不必每请求到eureka查找服务 
 - eureka之间会做注册服务同步，从而保证状态一致，客户端只需访问一个
 </code></pre><p>eureka Service Provider</p>
 <pre><code>- 会向Eureka Server做Register（服务注册）、Renew（服务续约）、Cancel（服务下线）等操作 
-</code></pre><p>Service Consumer </p>
+</code></pre><p>Service Consumer</p>
 <pre><code>- 会向Eureka Server获取注册服务列表，并消费服务
-</code></pre><h3 id="三、Eureka的高可用"><a href="#三、Eureka的高可用" class="headerlink" title="三、Eureka的高可用"></a>三、Eureka的高可用</h3><p>eureka 项目下复制application.properties<br>分别命名为： </p>
+</code></pre><h3 id="三、Eureka的高可用"><a href="#三、Eureka的高可用" class="headerlink" title="三、Eureka的高可用"></a>三、Eureka的高可用</h3><p>eureka 项目下复制application.properties<br>分别命名为：</p>
 <pre><code>application-server1.properties, application-server2.properties, application-server3.properties
 </code></pre><p>修改hosts文件：</p>
 <pre><code>127.0.0.1    localhost server1 server2 server3
@@ -161,8 +161,7 @@ java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server3
 
 # 在 /SpringCloudDemo/compute-service/target 下执行,启动
 java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
-</code></pre><p>访问，<a href="http://localhost:1001/" target="_blank" rel="noopener">http://localhost:1001/</a>，<a href="http://localhost:1002/，http://localhost:1003/，如下：" target="_blank" rel="noopener">http://localhost:1002/，http://localhost:1003/，如下：</a></p>
-<p> <img src="/assets/SpringCloudImg/keepalived1.png" alt><br> <img src="/assets/SpringCloudImg/keepalived2.png" alt><br> <img src="/assets/SpringCloudImg/keepalived3.png" alt> </p>
+</code></pre><p>访问，<a href="http://localhost:1001/" target="_blank" rel="noopener">http://localhost:1001/</a>，<a href="http://localhost:1002/" target="_blank" rel="noopener">http://localhost:1002/</a>，<a href="http://localhost:1003/" target="_blank" rel="noopener">http://localhost:1003/</a>，如下：<br><img src="/assets/SpringCloudImg/keepalived1.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived2.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived3.png" alt="image"></p>
 <p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
 <p>至此，完成了Eureka的高可用；</p>
 
@@ -190,7 +189,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/04/18/javaThread/" rel="prev"><span class="meta-nav">←</span> java 线程</a></span>
+        <span class="nav-previous"><a href="/2019/04/18/oracle和mysql区别/" rel="prev"><span class="meta-nav">←</span> MySQL与Oracle的区别</a></span>
     
     
         <span class="nav-next"><a href="/2019/04/15/Spring Cloud(三)断路器/" rel="next">Spring Cloud构建微服务架构 (三) 断路器 <span class="meta-nav">→</span></a></span>
@@ -219,7 +218,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -231,23 +230,23 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

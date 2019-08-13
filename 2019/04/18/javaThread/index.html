@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="进程和线程的区别：进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
+  <meta name="description" content="进程和线程的区别进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。
 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。
-多进程是指操">
+多进程是指操作">
   
 
   
@@ -18,17 +18,17 @@
   
   <title>java 线程 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="进程和线程的区别：进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。 多进程是指操作系统能同时运行多个任务（程序）。 多线程是指在同一程序中有多个顺序流在执行。  多线程的存在其实就">
+  <meta name="description" content="进程和线程的区别进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。 多进程是指操作系统能同时运行多个任务（程序）。 多线程是指在同一程序中有多个顺序流在执行。  多线程的存在其实就是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java 线程">
 <meta property="og:url" content="http://yoursite.com/2019/04/18/javaThread/index.html">
 <meta property="og:site_name" content="随记">
-<meta property="og:description" content="进程和线程的区别：进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。 多进程是指操作系统能同时运行多个任务（程序）。 多线程是指在同一程序中有多个顺序流在执行。  多线程的存在其实就">
+<meta property="og:description" content="进程和线程的区别进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。 多进程是指操作系统能同时运行多个任务（程序）。 多线程是指在同一程序中有多个顺序流在执行。  多线程的存在其实就是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T02:37:28.913Z">
+<meta property="og:updated_time" content="2019-08-13T01:28:12.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 线程">
-<meta name="twitter:description" content="进程和线程的区别：进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。 多进程是指操作系统能同时运行多个任务（程序）。 多线程是指在同一程序中有多个顺序流在执行。  多线程的存在其实就">
+<meta name="twitter:description" content="进程和线程的区别进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。 多进程是指操作系统能同时运行多个任务（程序）。 多线程是指在同一程序中有多个顺序流在执行。  多线程的存在其实就是">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -84,13 +84,13 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cjwk8gclg000v1k0y902lshs9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cjz98i2lj002t5ouhghsva624" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h4 id="进程和线程的区别："><a href="#进程和线程的区别：" class="headerlink" title="进程和线程的区别："></a>进程和线程的区别：</h4><pre><code>进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
+        <h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><pre><code>进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
 线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。
 线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。
 多进程是指操作系统能同时运行多个任务（程序）。
@@ -317,7 +317,7 @@ zhangsan
 notifyAll()方法会唤醒在此对象监视器上等待的所有线程。线程通过调用其中一个 wait 方法，在对象的监视器上等待。
 直到当前线程放弃此对象上的锁定，才能继续执行被唤醒的线程。被唤醒的线程将以常规方式与在该对象上主动同步的其他所有线程进行竞争；
 </code></pre><p>   尽量使用notifyAll()，notify()非常容易导致死锁。</p>
-<h1 id="ThreadLocal-的简单使用及实现的原理"><a href="#ThreadLocal-的简单使用及实现的原理" class="headerlink" title="ThreadLocal 的简单使用及实现的原理"></a>ThreadLocal 的简单使用及实现的原理</h1><h3 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h3><pre><code>ThreadLocal的实例代表了一个线程局部的变量，每条线程都只能看到自己的值，并不会意识到其它的线程中也存在该变量。
+<h2 id="ThreadLocal-的简单使用及实现的原理"><a href="#ThreadLocal-的简单使用及实现的原理" class="headerlink" title="ThreadLocal 的简单使用及实现的原理"></a>ThreadLocal 的简单使用及实现的原理</h2><h3 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h3><pre><code>ThreadLocal的实例代表了一个线程局部的变量，每条线程都只能看到自己的值，并不会意识到其它的线程中也存在该变量。
 
 它采用采用空间来换取时间的方式，解决多线程中相同变量的访问冲突问题。
 </code></pre><h3 id="ThreadLocal是什么"><a href="#ThreadLocal是什么" class="headerlink" title="ThreadLocal是什么"></a>ThreadLocal是什么</h3><pre><code>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。
@@ -436,10 +436,10 @@ public void set(T value) {
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/04/18/oracle和mysql区别/" rel="prev"><span class="meta-nav">←</span> MySQL与Oracle的区别</a></span>
+        <span class="nav-previous"><a href="/2019/04/24/nginx解决方案/" rel="prev"><span class="meta-nav">←</span> Nginx解决方案</a></span>
     
     
-        <span class="nav-next"><a href="/2019/04/17/Spring Cloud高可用/" rel="next">Spring Cloud构建微服务架构  高可用 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/04/18/oracle和mysql区别/" rel="next">MySQL与Oracle的区别 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -465,7 +465,7 @@ public void set(T value) {
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -477,23 +477,23 @@ public void set(T value) {
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

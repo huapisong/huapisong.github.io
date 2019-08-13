@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="Scoped CSS当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换： &amp;lt;style scoped&amp;gt; .example {   color: red; } &amp;lt;/style&amp;gt;  &amp;lt;templat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T02:37:28.750Z">
+<meta property="og:updated_time" content="2019-08-13T02:47:49.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue 修改子组件样式">
 <meta name="twitter:description" content="Scoped CSS当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换： &amp;lt;style scoped&amp;gt; .example {   color: red; } &amp;lt;/style&amp;gt;  &amp;lt;templat">
@@ -83,7 +83,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="cjwk8gclw001m1k0yg84fsxnl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="cjz98i2kf00175ouhbyuay320" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -143,8 +143,8 @@
 }
 &lt;/style&gt;
 </code></pre><h3 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h3><p>通过 v-html 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
-<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><b>Scoped 样式不能代替 class。</b>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
-<p><b>在递归组件中小心使用后代选择器! </b>对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
+<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><strong>Scoped 样式不能代替 class</strong>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
+<p><strong>在递归组件中小心使用后代选择器!</strong> 对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
 <h3 id="不推荐使用全局样式"><a href="#不推荐使用全局样式" class="headerlink" title="*不推荐使用全局样式"></a>*不推荐使用全局样式</h3><p>参考：<a href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/zh/guide/scoped-css.html</a></p>
 
       
@@ -200,7 +200,7 @@
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -212,23 +212,23 @@
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

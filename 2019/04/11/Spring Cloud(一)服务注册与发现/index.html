@@ -25,7 +25,7 @@ Spring Cloud包含了">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/eurekaService.png">
 <meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/eurekaComputeService.png">
-<meta property="og:updated_time" content="2019-05-08T02:41:07.866Z">
+<meta property="og:updated_time" content="2019-08-13T02:37:47.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud构建微服务架构（一）服务注册与发现">
 <meta name="twitter:description" content="Spring Cloud 简介Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。 Spring Cloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品），比如：Spring Cloud Config、">
@@ -85,7 +85,7 @@ Spring Cloud包含了">
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cjwk8gckx00081k0y93ll58yv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cjz98i2l000275ouh6nulrtuk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -161,7 +161,7 @@ eureka.client.fetch-registry=false
 eureka.client.serviceUrl.defaultZone=http://localhost:${server.port}/eureka/
 </code></pre><p>为了与后续要进行注册的服务区分，这里将服务注册中心的端口通过server.port属性设置为1000。</p>
 <p><a href="http://localhost:1000/" target="_blank" rel="noopener">启动工程后，访问：http://localhost:1000/</a></p>
-<p>可以看到下面的页面，其中还没有发现任何服务<br> <img src="/assets/SpringCloudImg/eurekaService.png" alt><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
+<p>可以看到下面的页面，其中还没有发现任何服务<br> <img src="/assets/SpringCloudImg/eurekaService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
 <h3 id="创建“服务提供方”"><a href="#创建“服务提供方”" class="headerlink" title="创建“服务提供方”"></a>创建“服务提供方”</h3><p>下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
 <p>假设我们有一个提供计算功能的微服务模块，我们实现一个RESTful API，通过传入两个参数a和b，最后返回a + b的结果。</p>
 <p>首先，创建一个基本的Spring Boot应用 compute-service，在pom.xml中，加入如下配置：</p>
@@ -243,7 +243,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
 <p>eureka.client.serviceUrl.defaultZone属性对应服务注册中心的配置内容，指定服务注册中心的位置。</p>
 <p>为了在本机上测试区分服务提供方和服务注册中心，使用server.port属性设置不同的端口。</p>
 <p>启动该工程后，再次访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
-<p>可以看到，我们定义的服务被注册了。<br> <img src="/assets/SpringCloudImg/eurekaComputeService.png" alt><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/compute-service</a></p>
+<p>可以看到，我们定义的服务被注册了。<br><img src="/assets/SpringCloudImg/eurekaComputeService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/compute-service</a></p>
 
       
     </div><!-- .entry-content -->
@@ -298,7 +298,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -310,23 +310,23 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

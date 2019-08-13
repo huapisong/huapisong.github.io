@@ -6,8 +6,8 @@
   
   <meta name="description" content="3.1 背景
 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
-公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
-下面流程化说明">
+    公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
+   ">
   
 
   
@@ -18,17 +18,17 @@
   
   <title>服务器上的iptables防火墙应该如何配置才能更安全 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。 公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。 下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配">
+  <meta name="description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。     公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。     下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务器上的iptables防火墙应该如何配置才能更安全">
 <meta property="og:url" content="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/index.html">
 <meta property="og:site_name" content="随记">
-<meta property="og:description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。 公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。 下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配">
+<meta property="og:description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。     公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。     下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T02:48:57.784Z">
+<meta property="og:updated_time" content="2019-08-12T09:58:09.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务器上的iptables防火墙应该如何配置才能更安全">
-<meta name="twitter:description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。 公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。 下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配">
+<meta name="twitter:description" content="3.1 背景 新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。     公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。     下面流程化说明防火墙配置步骤 3.2 封口 将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -84,7 +84,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="cjwk8gckt00041k0yf4b7fmbq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="cjz98i2jn00015ouha12ufmkc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -92,8 +92,8 @@
       
         <p>3.1 背景</p>
 <pre><code>新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
-公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
-下面流程化说明防火墙配置步骤
+    公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
+    下面流程化说明防火墙配置步骤
 </code></pre><p>3.2 封口</p>
 <p>将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配置规则。这里值得提醒的是此操作需要在本机执行，因为 telnet 或者 ssh 的连接会当即断开。</p>
 <pre><code> # 丢弃输入数据流向 
@@ -128,10 +128,10 @@ iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
 </code></pre><p>3.6 下载软件<br>现在服务器需要从外部下载某些软件，通常我们会使用 wget 或者 curl 这样的工具，执行时发现一直卡着不动。这是因为服务器访问外网的80端口出站和入站规则没有配置，需要添加，如下：</p>
 <pre><code>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --sport 80 -j ACCEPT
-</code></pre><p>备注：使用类似与nginx代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443的服务，规则如下：<br>    iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>    iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
+</code></pre><p>备注：使用类似与nginx代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443的服务，规则如下：<br>        iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>        iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
 <pre><code>iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
-</code></pre><p>当需要开放本地端口，如127.0.0.1或者localhost的端口时，可以使用以下命令使 通过127.0.0.1的访问全部通过<br>    iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
+</code></pre><p>当需要开放本地端口，如127.0.0.1或者localhost的端口时，可以使用以下命令使 通过127.0.0.1的访问全部通过<br>        iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
 <pre><code>iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
@@ -194,7 +194,7 @@ iptables -D OUTPUT 13
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -206,23 +206,23 @@ iptables -D OUTPUT 13
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

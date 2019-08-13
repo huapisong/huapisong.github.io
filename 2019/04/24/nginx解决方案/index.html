@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="1.方案场景现有多台应用服务器，要实现所有的访问先访问到反向代理服务器上再转内部对应的应用。 反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。简而言之就是隐藏所有的服务器，与之相对的是正向代理，如我们常用的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T02:47:34.347Z">
+<meta property="og:updated_time" content="2019-08-13T01:47:44.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx解决方案">
 <meta name="twitter:description" content="1.方案场景现有多台应用服务器，要实现所有的访问先访问到反向代理服务器上再转内部对应的应用。 反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。简而言之就是隐藏所有的服务器，与之相对的是正向代理，如我们常用的">
@@ -82,7 +82,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cjwk8gcll00131k0yfeaj7znr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cjz98i2lb002m5ouhdgn4wly9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -156,7 +156,7 @@ error_log  logs/error.log;
 error_log  logs/error.log  notice;
 error_log  logs/error.log  info;
 #pid 来指定进程id的存储文件位置。
-pid        logs/nginx.pid;
+pid        logs/nginx.pid
 </code></pre><h4 id="4-2-events模块"><a href="#4-2-events模块" class="headerlink" title="4.2 events模块"></a>4.2 events模块</h4><p>events模块来用指定nginx的工作模式和工作模式及连接数上限，一般是这样</p>
 <pre><code>events {
     use kqueue; #用来指定Nginx的工作模式
@@ -206,7 +206,7 @@ pid        logs/nginx.pid;
 </code></pre><blockquote>
 <ul>
 <li>上面的代码，test.com是upstream指定的负载均衡器的名称，这个名称可以任意指定，在后面需要的地方直接调用即可。</li>
-<li>ip_hash这是其中的一种负载均衡调度算法，Nginx的负载均衡模块目前支持4种调度算法：<blockquote>
+<li>ip_hash这是其中的一种负载均衡调度算法，Nginx的负载均衡模块目前支持4种调度算法<blockquote>
 <ul>
 <li>weight 轮询（默认）。每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某台服务器宕机，故障系统被自动剔除，使用户访问不受影响。weight。指定轮询权值，weight值越大，分配到的访问机率越高，主要用于后端每个服务器性能不均的情况下。</li>
 <li>ip_hash。每个请求按访问IP的hash结果分配，这样来自同一个IP的访客固定访问一个后端服务器，有效解决了动态网页存在的session共享问题。</li>
@@ -220,16 +220,11 @@ pid        logs/nginx.pid;
 <li>down，表示当前的server暂时不参与负载均衡。</li>
 <li>backup，预留的备份机器。当其他所有的非backup机器出现故障或者忙的时候，才会请求backup机器，因此这台机器的压力最轻。</li>
 <li>max_fails，允许请求失败的次数，默认为1。当超过最大次数时，返回proxy_next_upstream 模块定义的错误。</li>
-<li>fail_timeout，在经历了max_fails次失败后，暂停服务的时间。max_fails可以和fail_timeout一起使用。</li>
+<li>fail_timeout，在经历了max_fails次失败后，暂停服务的时间。max_fails可以和fail_timeout一起使用。<br>注意：当负载调度算法为ip_hash时，后端服务器在负载均衡调度中的状态不能是weight和backup。其它情况可以是weight，表示负载的权重，默认为1，weight越大，权重越大。</li>
 </ol>
 </blockquote>
 </li>
 </ul>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>注意：当负载调度算法为ip_hash时，后端服务器在负载均衡调度中的状态不能是weight和backup。其它情况可以是weight，表示负载的权重，默认为1，weight越大，权重越大。</p>
-</blockquote>
 </blockquote>
 <h5 id="4-3-2-server模块"><a href="#4-3-2-server模块" class="headerlink" title="4.3.2 server模块"></a>4.3.2 server模块</h5><p>  server模块是http的子模块，它用来定一个虚拟主机，它的基本配置如下</p>
 <pre><code>server {
@@ -270,9 +265,9 @@ pid        logs/nginx.pid;
   fastcgi_index  index.html;
   include        fastcgi.conf;
 }
-</code></pre><p>这里只是简单介绍，详细的配置可以参考这篇文章：<br><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
-</li>
+</code></pre></li>
 </ol>
+<p>这里只是简单介绍，详细的配置可以参考这篇文章：<br><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
 <p>网上还有一篇介绍Nginx比较好的，文章，地址如下：<br><a href="http://www.jianshu.com/p/bed000e1830b" target="_blank" rel="noopener">http://www.jianshu.com/p/bed000e1830b</a></p>
 <h3 id="5-方案设计"><a href="#5-方案设计" class="headerlink" title="5.方案设计"></a>5.方案设计</h3><p>根据场景设计了如下的配置方案：</p>
 <pre><code>http {
@@ -338,7 +333,7 @@ server {
         <span class="nav-previous"><a href="/2019/04/28/java集合框架/" rel="prev"><span class="meta-nav">←</span> java 集合框架</a></span>
     
     
-        <span class="nav-next"><a href="/2019/04/18/oracle和mysql区别/" rel="next">MySQL与Oracle的区别 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/04/18/javaThread/" rel="next">java 线程 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -364,7 +359,7 @@ server {
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -376,23 +371,23 @@ server {
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

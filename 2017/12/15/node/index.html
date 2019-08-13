@@ -25,7 +25,7 @@ yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp;">
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="1. node.js 安装2. yeoman grunt安装npm install -g bower npm install --global yo npm install -g grunt-cli yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp; grunt --version npm install -g generator-angular@">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T09:17:43.680Z">
+<meta property="og:updated_time" content="2019-08-13T02:28:15.973Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node.js yeoman grunt 快速构建项目">
 <meta name="twitter:description" content="1. node.js 安装2. yeoman grunt安装npm install -g bower npm install --global yo npm install -g grunt-cli yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp; grunt --version npm install -g generator-angular@">
@@ -84,7 +84,7 @@ yo --version &amp;amp;&amp;amp; bower --version &amp;amp;&amp;amp;">
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cjwk8gclq001a1k0ymw9eaf7o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cjz98i2k7000t5ouhhqlxgxax" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -107,14 +107,14 @@ $ npm install
 $ bower install
 $ npm install grunt --save-dev
 # 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
-</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code>#Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
+</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code># Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
 $ npm install -g cordova
 </code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
 #要知道这个命令完整的选项，键入cordova help create。
 $ cordova create MyApp
-</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code>#在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
-#为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
-#为了知道你可以添加的平台，你可以运行cordova platform。
+</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code># 在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
+# 为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
+# 为了知道你可以添加的平台，你可以运行cordova platform。
 $ cd MyApp 
 # browser andriod ios
 $ cordova platform add browser
@@ -122,19 +122,62 @@ $ cordova platform add browser
 </code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
 # browser andriod ios
 $ cordova run browser
-</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用。</h4><pre><code>$ cordova build android
-</code></pre><h4 id="6、进行仿真"><a href="#6、进行仿真" class="headerlink" title="6、进行仿真"></a>6、进行仿真</h4><pre><code>$ cordova emulate android
-</code></pre><h3 id="phoneGap"><a href="#phoneGap" class="headerlink" title="phoneGap"></a>phoneGap</h3><h4 id="1-Install-our-desktop-app"><a href="#1-Install-our-desktop-app" class="headerlink" title="1.Install our desktop app"></a>1.Install our desktop app</h4><pre><code>$ npm install -g phonegap
-</code></pre><h4 id="2-Install-our-mobile-app"><a href="#2-Install-our-mobile-app" class="headerlink" title="2.Install our mobile app"></a>2.Install our mobile app</h4><pre><code>$
-</code></pre><h4 id="3-Create-your-new-PhoneGap-app"><a href="#3-Create-your-new-PhoneGap-app" class="headerlink" title="3.Create your new PhoneGap app"></a>3.Create your new PhoneGap app</h4><p>这种时候，我们可以通过有Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
+</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用-。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用-。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用 。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用 <strong>。</strong></h4><pre><code># 
+$ cordova build android
+</code></pre><h4 id="6、进行仿真模拟器"><a href="#6、进行仿真模拟器" class="headerlink" title="6、进行仿真模拟器"></a>6、进行仿真模拟器</h4><pre><code># 
+$ cordova emulate android
+</code></pre><h4 id="7-添加插件"><a href="#7-添加插件" class="headerlink" title="7. 添加插件"></a>7. 添加插件</h4><p>可以用CLI搜索可用的插件：</p>
+<pre><code>cordova plugin search bar code
+</code></pre><p>安装插件，比如:</p>
+<pre><code>cordova plugin add org.apache.cordova.device                   //设备API
+
+cordova plugin add org.apache.cordova.network-information  //网络（事件）
+
+cordova plugin add org.apache.cordova.battery-status      //电池（事件）
+
+cordova plugin add org.apache.cordova.device-motion     //加速器
+
+cordova plugin add org.apache.cordova.device-orientation     //罗盘
+
+cordova plugin add org.apache.cordova.geolocation         //定位
+
+cordova plugin add org.apache.cordova.camera                 //摄像头
+
+cordova plugin add org.apache.cordova.media-capture     //媒体文件处理
+
+cordova plugin add org.apache.cordova.media                   //媒体文件处理
+
+cordova plugin add org.apache.cordova.file                        //文件访问
+
+cordova plugin add org.apache.cordova.file-transfer          //文件传输
+
+cordova plugin add org.apache.cordova.dialogs                 //对话框
+
+cordova plugin add org.apache.cordova.vibration              //震动
+
+cordova plugin add org.apache.cordova.contacts               //联系人
+
+cordova plugin add org.apache.cordova.globalization       //全球化
+
+cordova plugin add org.apache.cordova.splashscreen       //闪屏
+
+cordova plugin add org.apache.cordova.inappbrowser             //打开新的浏览器窗口
+
+cordova plugin add org.apache.cordova.console                //调试控制台
+</code></pre><p>你可以用以下命令查看所有已经安装的插件</p>
+<pre><code>cordova plugin ls
+</code></pre><p>使用以下命令删除插件：</p>
+<pre><code>cordova plugin rm org.apache.cordova.console
+</code></pre><p>或者通过地址来添加插件：</p>
+<pre><code>cordova plugin add https://github.com/apache/cordova-plugin-console.git
+</code></pre><h3 id="Android-SDK"><a href="#Android-SDK" class="headerlink" title="Android SDK"></a>Android SDK</h3><p>Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
 <p>1、中科院开源协会镜像站地址:</p>
 <p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
 <p>2、北京化工大学镜像服务器地址：</p>
 <p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
 <p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
-<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>  端口：80</p>
-<p>3、大连东软信息学院镜像服务器地址:</p>
-<p><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
+<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>   端口：80</p>
+<p>3、大连东软信息学院镜像服务器地址:<br><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
 <h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
 # npm update -g cordova ionic
 $ npm install -g ionic
@@ -145,15 +188,18 @@ $ ionic start myproject --type ionic1
 $ ionic serve
 # 启动 指定IP地址
 $ ionic serve --address 192.168.20.45
-</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>$ cd myApp
+</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>#
+$ cd myApp
 $ ionic platform add android
 $ ionic build android
 $ ionic emulate android
-</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>$ cd myApp
+</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>#
+$ cd myApp
 $ ionic platform add ios
 $ ionic build ios
-$ ionic emulate ios    
-</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>$ ionic serve
+$ ionic emulate ios
+</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>#
+$ ionic serve
 </code></pre><p>通过Ionic创建一个项目</p>
 <p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
 <pre><code>ionic start myApp blank  创建一个空白的app项目 
@@ -217,7 +263,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -229,23 +275,23 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/assets/vueImg/projects.png">
 <meta property="og:image" content="http://yoursite.com/assets/vueImg/staticFile.png">
-<meta property="og:updated_time" content="2019-05-08T02:37:28.789Z">
+<meta property="og:updated_time" content="2019-08-13T02:45:33.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue + webpack 多模块静态文件导入">
 <meta name="twitter:description" content="多个模块导入静态文件项目结构目录 官方推荐的css及js引用方式如下: &amp;lt;!-- 引入样式 --&amp;gt; &amp;lt;link href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;  &amp;lt;!--">
@@ -87,13 +87,13 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="cjwk8gcly001r1k0yqmq1p8gp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="cjz98i2kb00115ouh8caoyxp6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h1 id="多个模块导入静态文件"><a href="#多个模块导入静态文件" class="headerlink" title="多个模块导入静态文件"></a>多个模块导入静态文件</h1><p>项目结构目录<br><img src="/assets/vueImg/projects.png" alt="Image text"></p>
+        <h2 id="多个模块导入静态文件"><a href="#多个模块导入静态文件" class="headerlink" title="多个模块导入静态文件"></a>多个模块导入静态文件</h2><p>项目结构目录<br><img src="/assets/vueImg/projects.png" alt="Image text"></p>
 <p>官方推荐的css及js引用方式如下:</p>
 <pre><code>&lt;!-- 引入样式 --&gt;
 &lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&quot; rel=&quot;stylesheet&quot;&gt; 
@@ -113,7 +113,7 @@
   &lt;script src=&apos;/static/js/vue-router3.0.2/vue-router.min.js&apos;&gt;&lt;/script&gt;
   &lt;script src=&apos;/static/js/element-ui@2.2.0/index.js&apos;&gt;&lt;/script&gt;
 &lt;/head&gt;
-</code></pre><h1 id="静态文件配置（多模块、多服务、各服务端口不同）"><a href="#静态文件配置（多模块、多服务、各服务端口不同）" class="headerlink" title="静态文件配置（多模块、多服务、各服务端口不同）"></a>静态文件配置（多模块、多服务、各服务端口不同）</h1><pre><code># config 配置信息
+</code></pre><h2 id="静态文件配置（多模块、多服务、各服务端口不同）"><a href="#静态文件配置（多模块、多服务、各服务端口不同）" class="headerlink" title="静态文件配置（多模块、多服务、各服务端口不同）"></a>静态文件配置（多模块、多服务、各服务端口不同）</h2><pre><code># config 配置信息
 assetsSubDirectory: &apos;static&apos;,
 assetsPublicPath: &apos;/&apos;,
 
@@ -160,7 +160,7 @@ gulp.task(&apos;server&apos;, function(){
     }
   })
 })
-</code></pre><h1 id="本地使用element-ui-图标不显示或显示错乱的问题"><a href="#本地使用element-ui-图标不显示或显示错乱的问题" class="headerlink" title="本地使用element ui 图标不显示或显示错乱的问题"></a>本地使用element ui 图标不显示或显示错乱的问题</h1><p>但是问题来了,element-ui的index.css拷贝本地之后,会发现图标无法正常显示了.</p>
+</code></pre><h2 id="本地使用element-ui-图标不显示或显示错乱的问题"><a href="#本地使用element-ui-图标不显示或显示错乱的问题" class="headerlink" title="本地使用element ui 图标不显示或显示错乱的问题"></a>本地使用element ui 图标不显示或显示错乱的问题</h2><p>但是问题来了,element-ui的index.css拷贝本地之后,会发现图标无法正常显示了.</p>
 <pre><code>原因
 
 在本地的index.css中发现如下代码是网络请求icon的
@@ -224,7 +224,7 @@ gulp.task(&apos;server&apos;, function(){
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -236,23 +236,23 @@ gulp.task(&apos;server&apos;, function(){
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

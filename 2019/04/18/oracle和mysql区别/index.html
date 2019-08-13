@@ -24,7 +24,7 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="一、并发性 并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。 mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。 oracle:oracle使用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-08T02:48:57.868Z">
+<meta property="og:updated_time" content="2019-08-13T02:31:50.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL与Oracle的区别">
 <meta name="twitter:description" content="一、并发性 并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。 mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。 oracle:oracle使用">
@@ -83,7 +83,7 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cjwk8gclv001j1k0yfqi7pris" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cjz98i2lc002o5ouhihg5gg7m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -94,7 +94,7 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
 <p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
 <p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
 <p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
-<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
+<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
 <p>三、事务<br>oracle很早就完全支持事务。</p>
 <p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
 <p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
@@ -109,19 +109,19 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
 <p>十一、权限与安全</p>
 <p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
 <p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
-<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin， etc)，有一定复杂性。</p>
+<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
 <p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
 <p>这就完成了一个客户端与服务端交互的过程。</p>
 <p>其他：</p>
 <ol>
 <li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
-<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line Transaction Processing联机事务处理系统)最好的工具。</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online Transaction Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select 语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
+<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
 </code></pre></li>
-<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键 Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理 MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理 MYSQL处理翻页的SQL语句比较简单，用LIMIT 开始位置, 记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置, 并且只能用ROWNUM&lt;100, 不能用ROWNUM&gt;80<br>④ 长字符串的处理 长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节, 如果要插入更长的字符串, 请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。 ⑤空字符的处理 MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT NULL来定义ORACLE表结构, 导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较 MYSQL里用 字段名 like ‘%字符串%’,ORACLE里也可以用 字段名 like ‘%字符串%’ 但这种方法不能使用索引, 速度不快。<br>⑦Oracle实现了ANSII SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
+<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
 </li>
 </ol>
-<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！ </p>
+<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
 
       
     </div><!-- .entry-content -->
@@ -147,10 +147,10 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/04/24/nginx解决方案/" rel="prev"><span class="meta-nav">←</span> Nginx解决方案</a></span>
+        <span class="nav-previous"><a href="/2019/04/18/javaThread/" rel="prev"><span class="meta-nav">←</span> java 线程</a></span>
     
     
-        <span class="nav-next"><a href="/2019/04/18/javaThread/" rel="next">java 线程 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/04/17/Spring Cloud高可用/" rel="next">Spring Cloud构建微服务架构  高可用 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -176,7 +176,7 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-vue/">node vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
     </div>
   </aside>
 
@@ -188,23 +188,23 @@ mysql:mysql以表级锁为主，对资源锁定的粒度很大，如果一个ses
       <ul>
         
           <li>
-            <a href="/2019/06/04/vue 事件中的 .native/">(no title)</a>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/java 正则表达式 手机号 邮箱/">(no title)</a>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
           </li>
         
           <li>
-            <a href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
-            <a href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
           </li>
         
           <li>
-            <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
           </li>
         
       </ul>

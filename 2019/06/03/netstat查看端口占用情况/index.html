@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="netstat 命令详解netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。
+该命令的一般格式为NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] ">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>netstat 查看端口占用情况 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="netstat 命令详解netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。 该命令的一般格式为NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval] 选项# 命令中各选项的含义如下：   -a            显示所有连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="netstat 查看端口占用情况">
+<meta property="og:url" content="http://yoursite.com/2019/06/03/netstat查看端口占用情况/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="netstat 命令详解netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。 该命令的一般格式为NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval] 选项# 命令中各选项的含义如下：   -a            显示所有连接">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T01:40:30.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="netstat 查看端口占用情况">
+<meta name="twitter:description" content="netstat 命令详解netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。 该命令的一般格式为NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval] 选项# 命令中各选项的含义如下：   -a            显示所有连接">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      netstat 查看端口占用情况
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cjz98i2la002k5ouhp6xpw054" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="netstat-命令详解"><a href="#netstat-命令详解" class="headerlink" title="netstat 命令详解"></a>netstat 命令详解</h2><pre><code>netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。
+</code></pre><h3 id="该命令的一般格式为"><a href="#该命令的一般格式为" class="headerlink" title="该命令的一般格式为"></a>该命令的一般格式为</h3><pre><code>NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval]
+</code></pre><h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><pre><code># 命令中各选项的含义如下：
+  -a            显示所有连接和侦听端口。
+  -b            显示在创建每个连接或侦听端口时涉及的可执行程序。
+                在某些情况下，已知可执行程序承载多个独立的
+                组件，这些情况下，显示创建连接或侦听端口时涉
+                及的组件序列。此情况下，可执行程序的名称
+                位于底部[]中，它调用的组件位于顶部，直至达
+                到 TCP/IP。注意，此选项可能很耗时，并且在您没有
+                足够权限时可能失败。
+  -e            显示以太网统计。此选项可以与 -s 选项结合使用。
+  -f            显示外部地址的完全限定域名(FQDN)。
+  -n            以数字形式显示地址和端口号。
+  -o            显示拥有的与每个连接关联的进程 ID。
+  -p proto      显示 proto 指定的协议的连接；proto 可以是下列任
+                何一个: TCP、UDP、TCPv6 或 UDPv6。如果与 -s 选
+                项一起用来显示每个协议的统计，proto 可以是下列任
+                何一个: IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP
+                或 UDPv6。
+  -r            显示路由表。
+  -s            显示每个协议的统计。默认情况下，显示
+                IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP 和 UDPv6
+                的统计；-p 选项可用于指定默认的子网。
+  -t            显示当前连接卸载状态。
+  interval      重新显示选定的统计，各个显示间暂停的间隔秒数。
+                按 CTRL+C 停止重新显示统计。如果省略，则 netstat
+                将打印当前的配置信息一次。
+</code></pre><h3 id="列标题"><a href="#列标题" class="headerlink" title="列标题"></a>列标题</h3><pre><code>Name            接口的名字
+Mtu             接口的最大传输单位
+Net/Dest        接口所在的网络
+Address         接口的IP地址
+Ipkts           接收到的数据包数目
+Ierrs           接收到时已损坏的数据包数目
+Opkts           发送的数据包数目
+Oeers           发送时已损坏的数据包数目
+Collisions      由这个接口所记录的网络冲突数目
+</code></pre><h3 id="常见状态"><a href="#常见状态" class="headerlink" title="常见状态"></a>常见状态</h3><pre><code># 即连接状态。在原模式中没有状态，在用户数据报协议中也经常没有状态，于是状态列可以空出来。若有状态，通常取值为：
+LISTEN          侦听来自远方的TCP端口的连接请求
+SYN-SENT        在发送连接请求后等待匹配的连接请求
+SYN-RECEIVED    在收到和发送一个连接请求后等待对方对连接请求的确认
+ESTABLISHED     代表一个打开的连接
+FIN-WAIT-1      等待远程TCP连接中断请求，或先前的连接中断请求的确认
+FIN-WAIT-2      从远程TCP等待连接中断请求
+CLOSE-WAIT      等待从本地用户发来的连接中断请求
+CLOSING         等待远程TCP对连接中断的确认
+LAST-ACK        等待原来的发向远程TCP的连接中断请求的确认
+TIME-WAIT       等待足够的时间以确保远程TCP接收到连接中断请求的确认
+CLOSED          没有任何连接状态
+</code></pre><h3 id="命令示例"><a href="#命令示例" class="headerlink" title="命令示例"></a>命令示例</h3><pre><code># window
+netstat
+
+活动连接
+
+协议    本地地址               外部地址                状态
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:52946  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:55759  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:58502  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:65469  ESTABLISHED
+TCP    10.43.22.175:49244     115.239.210.27:https   ESTABLISHED
+TCP    10.43.22.175:49280     ec2-52-26-166-58:https  ESTABLISHED
+TCP    10.43.22.175:49286     ec2-52-26-166-58:https  ESTABLISHED
+TCP    10.43.22.175:49309     115.239.210.27:https   ESTABLISHED
+TCP    10.43.22.175:49317     115.239.210.27:https   ESTABLISHED
+
+# linux
+nestat -ano
+
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
+tcp        0      0 0.0.0.0:9400            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9401            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9091            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9092            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9093            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9094            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9096            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9097            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9098            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9100            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9300            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8661            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9301            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9302            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8662            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 10.42.0.172:7926        10.42.0.171:3306        ESTABLISHED keepalive (1249.51/0/0)
+tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:41354       140.207.127.79:443      CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:15065       10.42.0.172:9092        CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:40634       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:40590       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:13171       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:38967       10.42.0.171:3306        TIME_WAIT   timewait (11.86/0/0)
+...
+...
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  3      [ ]         DGRAM                    6159     /run/systemd/notify
+unix  2      [ ]         DGRAM                    6161     /run/systemd/cgroups-agent
+unix  2      [ ACC ]     STREAM     LISTENING     6169     /run/systemd/journal/stdout
+unix  5      [ ]         DGRAM                    6172     /run/systemd/journal/socket
+unix  11     [ ]         DGRAM                    6174     /dev/log
+unix  2      [ ACC ]     STREAM     LISTENING     15465    /run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     9897     /run/systemd/private
+unix  2      [ ]         DGRAM                    16559    /var/run/chrony/chronyd.sock
+unix  2      [ ]         DGRAM                    9913     /run/systemd/shutdownd
+unix  2      [ ACC ]     SEQPACKET  LISTENING     9922     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     9943     /run/lvm/lvmetad.socket
+unix  2      [ ACC ]     STREAM     LISTENING     15080    /var/run/vmware/guestServicePipe
+unix  2      [ ACC ]     STREAM     LISTENING     9978     /run/lvm/lvmpolld.socket
+unix  3      [ ]         STREAM     CONNECTED     10197
+unix  2      [ ]         STREAM     CONNECTED     34959351
+</code></pre><p>查看端口为8080的情况</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">netstat -ano |grep 8080</span><br></pre></td></tr></table></figure>
+
+TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       59932
+TCP    10.43.22.175:53227     183.3.235.67:8080      ESTABLISHED     5280
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">netstat -ano |grep 8660</span><br></pre></td></tr></table></figure>
+</code></pre><p>输出</p>
+<pre><code>tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29345       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29407       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29595       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:25839       10.42.0.172:8660        CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:29523       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29583       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.182:16848       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29565       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29395       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29345       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29467       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29595       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29339       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29467       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29581       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29407       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29571       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29571       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29523       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.182:16844       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29325       TIME_WAIT   timewait (8.36/0/0)
+tcp        0      0 10.42.0.172:29583       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29581       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29565       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29339       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29395       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29393       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29499       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29499       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29393       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29569       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29541       ESTABLISHED off (0.00/0/0)
+</code></pre><p>被占用端口对应的PID 对应的进程</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">tasklist|grep 8080</span><br></pre></td></tr></table></figure>
+
+node.exe                      8080 Console                    1     11,144 K
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">ps -ef|grep 8660</span><br></pre></td></tr></table></figure>
+
+root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/netstat查看端口占用情况/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/06/03/vue 一点点/" rel="prev"><span class="meta-nav">←</span> vue 一点点</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/06/03/使用 VS Code 断点调试/" rel="next">vue 使用 VS Code 断点调试 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

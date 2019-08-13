@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="1. 概述async 函数是什么？一句话，它就是 Generator 函数的语法糖。async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>vue 事件中的 (native) | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 概述async 函数是什么？一句话，它就是 Generator 函数的语法糖。async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 事件中的 (native)">
+<meta property="og:url" content="http://yoursite.com/2019/06/03/vue async await/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="1. 概述async 函数是什么？一句话，它就是 Generator 函数的语法糖。async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-12T07:32:05.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue 事件中的 (native)">
+<meta name="twitter:description" content="1. 概述async 函数是什么？一句话，它就是 Generator 函数的语法糖。async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      vue 事件中的 (native)
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cjz98i2kc00125ouhhkyfvmic" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
+<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
+<pre><code>async function test (){
+  return &apos;hello async&apos;;
+}
+let result = test();
+console.log(result);
+// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
+</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
+<pre><code>test().then(v =&gt; {
+  console.log(v); // hello async
+});
+</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
+<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
+<pre><code>async function f() {
+  return await 123;
+}
+
+f().then(v =&gt; console.log(v))
+// 123
+</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
+<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+.catch(e =&gt; console.log(e))
+// 出错了
+</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
+<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+  await Promise.resolve(&apos;hello world&apos;); // 不会执行
+}
+</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
+<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
+<pre><code>async function f() {
+  try {
+    await Promise.reject(&apos;出错了&apos;);
+  } catch(e) {
+  }
+  return await Promise.resolve(&apos;hello world&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+// hello world
+</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
+async submit() {
+    try {
+        this.$refs[formName].validate(valid =&gt; {
+            let res = await submit(...this.submitForm)
+            this.$message.success(res.resultMessage）
+        })
+    } catch (err){
+        console.log(err)
+        this.$message.success(err.resultMessage）
+    }
+}
+</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
+<pre><code>#修改后例：
+   submit() {
+       try {
+           this.$refs[formName].validate(async valid =&gt; {
+               let res = await submit(...this.params)
+               this.$message.success(res.resultMessage）
+           })
+       } catch (err){
+           console.log(err)
+           this.$message.success(err.resultMessage）
+       }
+   }
+</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
+<pre><code>async main() {
+  try {
+    const val1 = await firstStep();
+    const val2 = await secondStep(val1);
+    const val3 = await thirdStep(val1, val2);
+    console.log(&apos;Final: &apos;, val3);
+  }
+  catch (err) {
+    console.error(err);
+  }
+}
+
+await in for 循环
+
+let arr = [1, 2, 3, 4, 5];
+arr.forEach(async item =&gt; {
+  await console.log(item)
+});
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue async await/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/06/03/vue 事件中的 .native/" rel="prev"><span class="meta-nav">←</span> vue 事件中的 (native)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/06/03/markdown生成目录/" rel="next">markdown 文档中自动生成目录的方式 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
