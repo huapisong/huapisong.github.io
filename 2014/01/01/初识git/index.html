@@ -27,7 +27,7 @@ less ~/.ssh/id_rsa.pub
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="git ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git confi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-12T10:04:10.329Z">
+<meta property="og:updated_time" content="2019-08-13T03:14:47.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识git">
 <meta name="twitter:description" content="git ssh-keygen -t rsa -C &amp;quot;gitcafe 注册邮箱&amp;quot;   密码一定要设置，这是为了防止别人往你的项目里乱push 东西。  less ~/.ssh/id_rsa.pub   就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。 之后进行一下git 的全局设置  git confi">
@@ -86,7 +86,7 @@ less ~/.ssh/id_rsa.pub
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cjz98i2lp002v5ouhn4c3ndnb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cjzam8g14002wgouh8f95m4fk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -410,6 +410,8 @@ git rm -r --cached .
 git add .
 git commit -m &quot;update .gitignore&quot;
 ----------------------------------忽略文件------------------------------
+# 修改备注
+git commit --amend 
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -462,7 +464,7 @@ git commit -m &quot;update .gitignore&quot;
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -478,15 +480,15 @@ git commit -m &quot;update .gitignore&quot;
           </li>
         
           <li>
-            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
-          </li>
-        
-          <li>
             <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
             <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/vue async await/">vue 事件中的 (native)</a>
           </li>
         
           <li>

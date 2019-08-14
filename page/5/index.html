@@ -62,6 +62,179 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/06/03/java 正则表达式 手机号 邮箱/">java 正则表达式 手机号 邮箱</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="cjzam8fza000bgouhybdb7x6z" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="java-正则表达式-手机号-邮箱"><a href="#java-正则表达式-手机号-邮箱" class="headerlink" title="java 正则表达式 手机号 邮箱"></a>java 正则表达式 手机号 邮箱</h2><pre><code>import java.util.regex.Pattern;
+/**
+ * 账户相关属性验证工具
+ *
+ */
+public class AccountValidatorUtil {
+    /**
+     * 正则表达式：验证用户名
+     */
+    public static final String REGEX_USERNAME = &quot;^[a-zA-Z]\\w{5,20}$&quot;;
+
+    /**
+     * 正则表达式：验证密码
+     */
+    public static final String REGEX_PASSWORD = &quot;^[a-zA-Z0-9]{6,20}$&quot;;
+
+    /**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = &quot;^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$&quot;;
+
+    /**
+     * 正则表达式：验证邮箱
+     */
+    public static final String REGEX_EMAIL = &quot;^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$&quot;;
+
+    /**
+     * 正则表达式：验证汉字
+     */
+    public static final String REGEX_CHINESE = &quot;^[\u4e00-\u9fa5],{0,}$&quot;;
+
+    /**
+     * 正则表达式：验证身份证
+     */
+    public static final String REGEX_ID_CARD = &quot;(^\\d{18}$)|(^\\d{15}$)&quot;;
+
+    /**
+     * 正则表达式：验证URL
+     */
+    public static final String REGEX_URL = &quot;http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&amp;=]*)?&quot;;
+
+    /**
+     * 正则表达式：验证IP地址
+     */
+    public static final String REGEX_IP_ADDR = &quot;(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)&quot;;
+
+    /**
+     * 校验用户名
+     * 
+     * @param username
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isUsername(String username) {
+        return Pattern.matches(REGEX_USERNAME, username);
+    }
+
+    /**
+     * 校验密码
+     * 
+     * @param password
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isPassword(String password) {
+        return Pattern.matches(REGEX_PASSWORD, password);
+    }
+
+    /**
+     * 校验手机号
+     * 
+     * @param mobile
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isMobile(String mobile) {
+        return Pattern.matches(REGEX_MOBILE, mobile);
+    }
+
+    /**
+     * 校验邮箱
+     * 
+     * @param email
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isEmail(String email) {
+        return Pattern.matches(REGEX_EMAIL, email);
+    }
+
+    /**
+     * 校验汉字
+     * 
+     * @param chinese
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isChinese(String chinese) {
+        return Pattern.matches(REGEX_CHINESE, chinese);
+    }
+
+    /**
+     * 校验身份证
+     * 
+     * @param idCard
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isIDCard(String idCard) {
+        return Pattern.matches(REGEX_ID_CARD, idCard);
+    }
+
+    /**
+     * 校验URL
+     * 
+     * @param url
+     * @return 校验通过返回true，否则返回false
+     */
+    public static boolean isUrl(String url) {
+        return Pattern.matches(REGEX_URL, url);
+    }
+
+    /**
+     * 校验IP地址
+     * 
+     * @param ipAddr
+     * @return
+     */
+    public static boolean isIPAddr(String ipAddr) {
+        return Pattern.matches(REGEX_IP_ADDR, ipAddr);
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/06/03/java 正则表达式 手机号 邮箱/">
+    <time datetime="2016-06-02T16:00:00.000Z" class="entry-date">
+        2016-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-http协议介绍" class="post-http协议介绍 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +250,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="cjz98i2ju00075ouh9qgpo9xt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="cjzam8fz80008gouhfk94j5c0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -162,7 +335,7 @@ HTTP响应也是由三个部分组成，分别是：状态行、消息报头、�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cjz98i2lp002v5ouhn4c3ndnb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cjzam8g14002wgouh8f95m4fk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -486,6 +659,8 @@ git rm -r --cached .
 git add .
 git commit -m &quot;update .gitignore&quot;
 ----------------------------------忽略文件------------------------------
+# 修改备注
+git commit --amend 
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -536,7 +711,7 @@ git commit -m &quot;update .gitignore&quot;
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -552,15 +727,15 @@ git commit -m &quot;update .gitignore&quot;
           </li>
         
           <li>
-            <a href="/2019/06/03/vue 一点点/">vue 一点点</a>
-          </li>
-        
-          <li>
             <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
           </li>
         
           <li>
             <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/03/vue async await/">vue 事件中的 (native)</a>
           </li>
         
           <li>
