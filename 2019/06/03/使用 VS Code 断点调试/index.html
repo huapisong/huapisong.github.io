@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。1.开启 Chrome 远程调试端口 首先我们需要在远程调试打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-12T07:32:11.080Z">
+<meta property="og:updated_time" content="2019-08-29T01:44:41.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue 使用 VS Code 断点调试">
 <meta name="twitter:description" content="直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。1.开启 Chrome 远程调试端口 首先我们需要在远程调试打开">
@@ -81,7 +81,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cjzam8fzw001cgouh06nhval0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cjzwhykxx001wmsuhzbfgpwm7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -104,8 +104,27 @@
 <p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
 <p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
 <p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
-<p>{<br>  // Use IntelliSense to learn about possible attributes.<br>  // Hover to view descriptions of existing attributes.<br>  // For more information, visit: <a href="https://go.microsoft.com/fwlink/?linkid=830387" target="_blank" rel="noopener">https://go.microsoft.com/fwlink/?linkid=830387</a><br>  “version”: “0.2.0”,<br>  “configurations”: [<br>    {<br>      “type”: “chrome”,<br>      “request”: “attach”,<br>      “name”: “Attach to Chrome”,<br>      “port”: 9222,<br>      “webRoot”: “${workspaceRoot}/src”,<br>      “url”: “<a href="http://localhost:8080/#/&quot;" target="_blank" rel="noopener">http://localhost:8080/#/&quot;</a>,　<br>      “sourceMaps”: true,<br>      “sourceMapPathOverrides”: {<br>        “webpack:///src/<em>“: “${webRoot}/</em>“<br>      }<br>    }<br>  ]<br>}</p>
-<p>4.修改 webpack 配置</p>
+<pre><code>{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;chrome&quot;,
+      &quot;request&quot;: &quot;attach&quot;,
+      &quot;name&quot;: &quot;Attach to Chrome&quot;,
+      &quot;port&quot;: 9222,
+      &quot;webRoot&quot;: &quot;${workspaceRoot}/src&quot;,
+      &quot;url&quot;: &quot;http://localhost:8080/#/&quot;,
+      &quot;sourceMaps&quot;: true,
+      &quot;sourceMapPathOverrides&quot;: {
+        &quot;webpack:///src/*&quot;: &quot;${webRoot}/*&quot;
+      }
+    }
+  ]
+}
+</code></pre><p>4.修改 webpack 配置</p>
 <p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
 <p>1.打开根目录下的 config 目录下的 index.js 文件</p>
 <p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
@@ -124,7 +143,10 @@
 
       
     </div><!-- .entry-content -->
-
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
     <footer class="entry-meta">
     <a href="/2019/06/03/使用 VS Code 断点调试/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
@@ -146,10 +168,10 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/06/03/netstat查看端口占用情况/" rel="prev"><span class="meta-nav">←</span> netstat 查看端口占用情况</a></span>
+        <span class="nav-previous"><a href="/2019/06/03/vue async await/" rel="prev"><span class="meta-nav">←</span> vue 事件中的 (native)</a></span>
     
     
-        <span class="nav-next"><a href="/2019/06/03/vue async await/" rel="next">vue 事件中的 (native) <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/06/03/vue 事件中的 .native/" rel="next">vue 事件中的 (native) <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -175,7 +197,7 @@
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -187,23 +209,23 @@
       <ul>
         
           <li>
-            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
+            <a href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
+            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/vue async await/">vue 事件中的 (native)</a>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+            <a href="/2019/08/13/加密算法DES AES/">加密算法</a>
           </li>
         
       </ul>
@@ -221,6 +243,13 @@
     <p>&copy; 2019 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv"><i class="fa fa-file-o"></i>本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 

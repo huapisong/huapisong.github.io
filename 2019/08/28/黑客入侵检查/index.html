@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="思路
+扫描木马工具：clamAV  官网：http://pkgs.repoforge.org/clamav/
+CentOS 安装：yum install -y clamav*
+启动 clamAV 服务：service clamd restart
+更新病毒库：freshclam
+扫描方法：
+扫描 /e">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>黑客入侵检查 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="思路 扫描木马工具：clamAV  官网：http://pkgs.repoforge.org/clamav/ CentOS 安装：yum install -y clamav* 启动 clamAV 服务：service clamd restart 更新病毒库：freshclam 扫描方法： 扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑客入侵检查">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/黑客入侵检查/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="思路 扫描木马工具：clamAV  官网：http://pkgs.repoforge.org/clamav/ CentOS 安装：yum install -y clamav* 启动 clamAV 服务：service clamd restart 更新病毒库：freshclam 扫描方法： 扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T01:29:13.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="黑客入侵检查">
+<meta name="twitter:description" content="思路 扫描木马工具：clamAV  官网：http://pkgs.repoforge.org/clamav/ CentOS 安装：yum install -y clamav* 启动 clamAV 服务：service clamd restart 更新病毒库：freshclam 扫描方法： 扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      黑客入侵检查
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cjzwhyky30028msuh6y7w48y4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
+<li>CentOS 安装：yum install -y clamav*</li>
+<li>启动 clamAV 服务：service clamd restart</li>
+<li>更新病毒库：freshclam</li>
+<li>扫描方法：<ul>
+<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
+<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
+<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
+</ul>
+</li>
+<li>如果日志有类似内容，表示有木马病毒：<ul>
+<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
+</ul>
+</li>
+<li>看下当前有多少登录者：who</li>
+<li>看下最近有哪些登录者：last</li>
+<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
+<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
+</ul>
+</li>
+<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
+<li>看下查看系统资源占用有无异常：top</li>
+<li>看下所有进程：ps aux</li>
+<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
+<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
+<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
+<li>更多详细可以用：cat /etc/passwd</li>
+</ul>
+</li>
+<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
+<li>检查某个端口的具体信息：lsof -i :18954</li>
+<li>检查启动项：chkconfig</li>
+<li>检查定时器（重要）：cat /etc/crontab</li>
+<li>检查定时器（重要）：crontab -l<ul>
+<li>vim /var/spool/cron/crontabs/root</li>
+<li>vim /var/spool/cron/root</li>
+</ul>
+</li>
+<li>检查其他系统重要文件：<ul>
+<li>cat /etc/rc.local</li>
+<li>cd /etc/init.d;ll</li>
+</ul>
+</li>
+<li>检查文件：<ul>
+<li>find / -uid 0 –perm -4000 –print</li>
+<li>find / -size +10000k –print</li>
+<li>find / -name “…” –print</li>
+<li>find / -name “.. “ –print</li>
+<li>find / -name “. “ –print</li>
+<li>find / -name “ “ –print</li>
+</ul>
+</li>
+<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
+<li>安装 iftop<ul>
+<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
+<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
+<li>没有安装第三方源的情况：<ul>
+<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
+<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
+<li>解压：tar zxf iftop-0.17.tar.gz</li>
+<li>进入解压目录：cd iftop-0.17/</li>
+<li>编译：./configure</li>
+<li>安装：make &amp;&amp; make install</li>
+</ul>
+</li>
+<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
+</code></pre></li>
+</ul>
+</li>
+<li>运行：iftop<ul>
+<li>显示端口与 IP 信息：iftop -nP</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
+<ul>
+<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
+<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
+<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
+<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
+<p>实战<br>挖矿程序</p>
+<ul>
+<li>先查看调度任务是否有新增内容<ul>
+<li>vim /var/spool/cron/root</li>
+<li>vim /var/spool/cron/crontabs/root</li>
+</ul>
+</li>
+<li>如果有，先停止定时任务：systemctl stop crond</li>
+<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
+<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
+<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
+</ul>
+</li>
+<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
+<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
+</ul>
+</li>
+<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/28/黑客入侵检查/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/08/28/Vim-Install-And-Setting/" rel="prev"><span class="meta-nav">←</span> Vim 安装和配置、优化</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/08/28/SSH-login-without-password/" rel="next">SSH 免密登录 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/13/加密算法DES AES/">加密算法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv"><i class="fa fa-file-o"></i>本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

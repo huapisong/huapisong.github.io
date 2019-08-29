@@ -62,6 +62,1202 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cjzwhykxb000imsuhiu0yuj6r" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
+<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
+</ul>
+<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
+<li>CentOS：<code>sudo yum install -y vim</code></li>
+<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
+<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
+</ul>
+<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
+<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
+</ul>
+<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
+<li>注意<ul>
+<li>严格区分字母大小写</li>
+<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
+<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
+<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
+</ul>
+</li>
+<li>移动<ul>
+<li><code>j</code>，下</li>
+<li><code>k</code>，上</li>
+<li><code>h</code>，左</li>
+<li><code>l</code>，右</li>
+<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
+<li><code>gg</code>，跳到第 1 行</li>
+<li><code>G</code>，跳到最后一行</li>
+<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
+<li><code>$</code>，到本行 <strong>行尾</strong></li>
+<li><code>0</code>，到本行 <strong>行头</strong></li>
+<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
+<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
+<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
+<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
+<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
+<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
+<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
+<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
+<li><code>^</code>，到本行第一个单词头</li>
+<li><code>g_</code>，到本行最后一个单词尾巴</li>
+<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
+</ul>
+</li>
+<li>插入<ul>
+<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
+<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
+<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
+<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
+<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
+<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
+</ul>
+</li>
+<li>编辑<ul>
+<li>删除</li>
+<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
+<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
+<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
+<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
+<li><code>dd</code>，删除当前行</li>
+<li><code>cc</code>，删除当前行后进入 insert 模式</li>
+<li><code>dw</code>，删除当前光标下的单词/空格</li>
+<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
+<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
+<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
+<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
+<li>复制</li>
+<li><code>y</code>，复制光标所选字符</li>
+<li><code>yw</code>，复制光标后单词</li>
+<li><code>yy</code>，复制当前行</li>
+<li><code>4yy</code>，复制当前行及下面 4 行</li>
+<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
+<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
+<li>粘贴</li>
+<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
+<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
+<li>其他<ul>
+<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
+<li><code>u</code>，撤销</li>
+<li><code>:wq</code>，退出并 <strong>保存</strong></li>
+<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
+<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
+<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
+<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
+<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
+<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜索<ul>
+<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+</ul>
+</li>
+<li>替换<ul>
+<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
+<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
+<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
+<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
+<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
+<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
+<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
+<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
+</ul>
+</li>
+<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
+<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
+</ul>
+<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
+<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
+<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
+<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
+<li>效果如下：<ul>
+<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
+<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
+<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Vim-Install-And-Setting/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cjzwhyky30028msuh6y7w48y4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
+<li>CentOS 安装：yum install -y clamav*</li>
+<li>启动 clamAV 服务：service clamd restart</li>
+<li>更新病毒库：freshclam</li>
+<li>扫描方法：<ul>
+<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
+<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
+<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
+</ul>
+</li>
+<li>如果日志有类似内容，表示有木马病毒：<ul>
+<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
+</ul>
+</li>
+<li>看下当前有多少登录者：who</li>
+<li>看下最近有哪些登录者：last</li>
+<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
+<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
+</ul>
+</li>
+<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
+<li>看下查看系统资源占用有无异常：top</li>
+<li>看下所有进程：ps aux</li>
+<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
+<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
+<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
+<li>更多详细可以用：cat /etc/passwd</li>
+</ul>
+</li>
+<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
+<li>检查某个端口的具体信息：lsof -i :18954</li>
+<li>检查启动项：chkconfig</li>
+<li>检查定时器（重要）：cat /etc/crontab</li>
+<li>检查定时器（重要）：crontab -l<ul>
+<li>vim /var/spool/cron/crontabs/root</li>
+<li>vim /var/spool/cron/root</li>
+</ul>
+</li>
+<li>检查其他系统重要文件：<ul>
+<li>cat /etc/rc.local</li>
+<li>cd /etc/init.d;ll</li>
+</ul>
+</li>
+<li>检查文件：<ul>
+<li>find / -uid 0 –perm -4000 –print</li>
+<li>find / -size +10000k –print</li>
+<li>find / -name “…” –print</li>
+<li>find / -name “.. “ –print</li>
+<li>find / -name “. “ –print</li>
+<li>find / -name “ “ –print</li>
+</ul>
+</li>
+<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
+<li>安装 iftop<ul>
+<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
+<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
+<li>没有安装第三方源的情况：<ul>
+<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
+<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
+<li>解压：tar zxf iftop-0.17.tar.gz</li>
+<li>进入解压目录：cd iftop-0.17/</li>
+<li>编译：./configure</li>
+<li>安装：make &amp;&amp; make install</li>
+</ul>
+</li>
+<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
+</code></pre></li>
+</ul>
+</li>
+<li>运行：iftop<ul>
+<li>显示端口与 IP 信息：iftop -nP</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
+<ul>
+<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
+<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
+<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
+<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
+<p>实战<br>挖矿程序</p>
+<ul>
+<li>先查看调度任务是否有新增内容<ul>
+<li>vim /var/spool/cron/root</li>
+<li>vim /var/spool/cron/crontabs/root</li>
+</ul>
+</li>
+<li>如果有，先停止定时任务：systemctl stop crond</li>
+<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
+<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
+<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
+</ul>
+</li>
+<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
+<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
+</ul>
+</li>
+<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/28/黑客入侵检查/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cjzwhykx40008msuhphtak30g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li>CentOS 7.3</li>
+</ul>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
+<li>免密登录的关键点在于理解谁登录谁。</li>
+<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
+</ul>
+<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
+<li>根据提示回车，共有三次交互提示，都回车即可。</li>
+</ul>
+</li>
+<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
+<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+<li>测试：<code>ssh localhost</code></li>
+</ul>
+<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
+<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
+<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
+</ul>
+<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
+</ul>
+<hr>
+<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
+<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
+<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
+<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
+<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
+</ul>
+</li>
+<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/28/SSH-login-without-password/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-bash" class="post-bash post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/bash/">Bash 常用命令</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="cjzwhykyv0039msuhvpk51ana" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="基础常用命令"><a href="#基础常用命令" class="headerlink" title="基础常用命令"></a>基础常用命令</h2><ul>
+<li><code>某个命令 --h</code>，对这个命令进行解释</li>
+<li><code>某个命令 --help</code>，解释这个命令(更详细)</li>
+<li><code>man某个命令</code>，文档式解释这个命令(更更详细)(执行该命令后,还可以按/+关键字进行查询结果的搜索)</li>
+<li><code>Ctrl + c</code>，结束命令</li>
+<li><code>TAB键</code>，自动补全命令（按一次自动补全，连续按两次，提示所有以输入开头字母的所有命令）</li>
+<li><code>键盘上下键</code>，输入临近的历史命令</li>
+<li><code>history</code>，查看所有的历史命令</li>
+<li><code>Ctrl + r</code>，进入历史命令的搜索功能模式</li>
+<li><code>clear</code>，清除屏幕里面的所有命令</li>
+<li><code>pwd</code>，显示当前目录路径（常用）</li>
+<li><code>firefox&amp;</code>，最后后面的 <strong>&amp;</strong> 符号，表示使用后台方式打开 Firefox，然后显示该进程的 PID 值</li>
+<li><code>jobs</code>，查看后台运行的程序列表</li>
+<li><code>ifconfig</code>，查看内网 IP 等信息（常用）</li>
+<li><code>curl ifconfig.me</code>，查看外网 IP 信息</li>
+<li><code>curl ip.cn</code>，查看外网 IP 信息</li>
+<li><code>locate 搜索关键字</code>，快速搜索系统文件/文件夹（类似 Windows 上的 everything 索引式搜索）（常用）<ul>
+<li><code>updatedb</code>，配合上面的 locate，给 locate 的索引更新（locate 默认是一天更新一次索引）（常用）</li>
+</ul>
+</li>
+<li><code>date</code>，查看系统时间（常用）<ul>
+<li><code>date -s20080103</code>，设置日期（常用）</li>
+<li><code>date -s18:24</code>，设置时间，如果要同时更改 BIOS 时间，再执行 <code>hwclock --systohc</code>（常用）</li>
+</ul>
+</li>
+<li><code>cal</code>，在终端中查看日历，肯定没有农历显示的</li>
+<li><code>uptime</code>，查看系统已经运行了多久，当前有几个用户等信息（常用）</li>
+<li><code>cat 文件路名</code>，显示文件内容（属于打印语句）</li>
+<li><code>cat -n 文件名</code>，显示文件，并每一行内容都编号</li>
+<li><code>more 文件名</code>，用分页的方式查看文件内容（按 space 翻下一页，按 <em>Ctrl + B</em> 返回上页）</li>
+<li><code>less</code>文件名，用分页的方式查看文件内容（带上下翻页）<ul>
+<li>按 <strong>j</strong> 向下移动，按 <strong>k</strong> 向上移动</li>
+<li>按 <strong>/</strong> 后，输入要查找的字符串内容，可以对文件进行向下查询，如果存在多个结果可以按 <strong>n</strong> 调到下一个结果出</li>
+<li>按 <strong>？</strong> 后，输入要查找的字符串内容，可以对文件进行向上查询，如果存在多个结果可以按 <strong>n</strong> 调到下一个结果出</li>
+</ul>
+</li>
+<li><code>shutdown</code><ul>
+<li><code>shutdown -hnow</code>，立即关机</li>
+<li><code>shutdown -h+10</code>，10 分钟后关机</li>
+<li><code>shutdown -h23:30</code>，23:30 关机</li>
+<li><code>shutdown -rnew</code>，立即重启</li>
+</ul>
+</li>
+<li><code>poweroff</code>，立即关机（常用）</li>
+<li><code>reboot</code>，立即重启（常用）</li>
+<li><code>zip mytest.zip /opt/test/</code>，把 /opt 目录下的 test/ 目录进行压缩，压缩成一个名叫 mytest 的 zip 文件<ul>
+<li><code>unzip mytest.zip</code>，对 mytest.zip 这个文件进行解压，解压到当前所在目录</li>
+<li><code>unzip mytest.zip -d /opt/setups/</code>，对 mytest.zip 这个文件进行解压，解压到 /opt/setups/ 目录下</li>
+</ul>
+</li>
+<li><code>tar -cvf mytest.tar mytest/</code>，对 mytest/ 目录进行归档处理（归档和压缩不一样）</li>
+<li><code>tar -xvf mytest.tar</code>，释放 mytest.tar 这个归档文件，释放到当前目录<ul>
+<li><code>tar -xvf mytest.tar -C /opt/setups/</code>，释放 mytest.tar 这个归档文件，释放到 /opt/setups/ 目录下</li>
+</ul>
+</li>
+<li><code>last</code>，显示最近登录的帐户及时间</li>
+<li><code>lastlog</code>，显示系统所有用户各自在最近登录的记录，如果没有登录过的用户会显示 <strong>从未登陆过</strong></li>
+<li><code>ls</code>，列出当前目录下的所有没有隐藏的文件 / 文件夹。<ul>
+<li><code>ls -a</code>，列出包括以.号开头的隐藏文件 / 文件夹（也就是所有文件）</li>
+<li><code>ls -R</code>，显示出目录下以及其所有子目录的文件 / 文件夹（递归地方式，不显示隐藏的文件）</li>
+<li><code>ls -a -R</code>，显示出目录下以及其所有子目录的文件 / 文件夹（递归地方式，显示隐藏的文件）</li>
+<li><code>ls -al</code>，列出目录下所有文件（包含隐藏）的权限、所有者、文件大小、修改时间及名称（也就是显示详细信息）</li>
+<li><code>ls -ld 目录名</code>，显示该目录的基本信息</li>
+<li><code>ls -t</code>，依照文件最后修改时间的顺序列出文件名。</li>
+<li><code>ls -F</code>，列出当前目录下的文件名及其类型。以 <strong>/</strong> 结尾表示为目录名，以 <strong>*</strong> 结尾表示为可执行文件，以 <strong>@</strong> 结尾表示为符号连接</li>
+<li><code>ls -lg</code>，同上，并显示出文件的所有者工作组名。</li>
+<li><code>ls -lh</code>，查看文件夹类文件详细信息，文件大小，文件修改时间</li>
+<li><code>ls /opt | head -5</code>，显示 opt 目录下前 5 条记录</li>
+<li><code>ls -l | grep &#39;.jar&#39;</code>，查找当前目录下所有 jar 文件</li>
+<li><code>ls -l /opt |grep &quot;^-&quot;|wc -l</code>，统计 opt 目录下文件的个数，不会递归统计</li>
+<li><code>ls -lR /opt |grep &quot;^-&quot;|wc -l</code>，统计 opt 目录下文件的个数，会递归统计</li>
+<li><code>ls -l /opt |grep &quot;^d&quot;|wc -l</code>，统计 opt 目录下目录的个数，不会递归统计</li>
+<li><code>ls -lR /opt |grep &quot;^d&quot;|wc -l</code>，统计 opt 目录下目录的个数，会递归统计</li>
+<li><code>ls -lR /opt |grep &quot;js&quot;|wc -l</code>，统计 opt 目录下 js 文件的个数，会递归统计</li>
+<li><code>ls -l</code>，列出目录下所有文件的权限、所有者、文件大小、修改时间及名称（也就是显示详细信息，不显示隐藏文件）。显示出来的效果如下：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x. 1 root root 4096 3月 26 10:57，其中最前面的 - 表示这是一个普通文件</span><br><span class="line">lrwxrwxrwx. 1 root root 4096 3月 26 10:57，其中最前面的 l 表示这是一个链接文件，类似 Windows 的快捷方式</span><br><span class="line">drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是一个目录</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>cd</code>，目录切换<ul>
+<li><code>cd ..</code>，改变目录位置至当前目录的父目录(上级目录)。</li>
+<li><code>cd ~</code>，改变目录位置至用户登录时的工作目录。</li>
+<li><code>cd 回车</code>，回到家目录</li>
+<li><code>cd -</code>，上一个工作目录</li>
+<li><code>cd dir1/</code>，改变目录位置至 dir1 目录下。</li>
+<li><code>cd ~user</code>，改变目录位置至用户的工作目录。</li>
+<li><code>cd ../user</code>，改变目录位置至相对路径user的目录下。</li>
+<li><code>cd /../..</code>，改变目录位置至绝对路径的目录位置下。</li>
+</ul>
+</li>
+<li><code>cp 源文件 目标文件</code>，复制文件<ul>
+<li><code>cp -r 源文件夹 目标文件夹</code>，复制文件夹</li>
+<li><code>cp -r -v 源文件夹 目标文件夹</code>，复制文件夹(显示详细信息，一般用于文件夹很大，需要查看复制进度的时候)</li>
+<li><code>cp /usr/share/easy-rsa/2.0/keys/{ca.crt,server.{crt,key},dh2048.pem,ta.key} /etc/openvpn/keys/</code>，复制同目录下花括号中的文件</li>
+</ul>
+</li>
+<li><code>tar cpf - . | tar xpf - -C /opt</code>，复制当前所有文件到 /opt 目录下，一般如果文件夹文件多的情况下用这个更好，用 cp 比较容易出问题</li>
+<li><code>mv 文件 目标文件夹</code>，移动文件到目标文件夹<ul>
+<li><code>mv 文件</code>，不指定目录重命名后的名字，用来重命名文件</li>
+</ul>
+</li>
+<li><code>touch 文件名</code>，创建一个空白文件/更新已有文件的时间(后者少用)</li>
+<li><code>mkdir 文件夹名</code>，创建文件夹</li>
+<li><code>mkdir -p /opt/setups/nginx/conf/</code>，创建一个名为 conf 文件夹，如果它的上级目录 nginx 没有也会跟着一起生成，如果有则跳过</li>
+<li><code>rmdir 文件夹名</code>，删除文件夹(只能删除文件夹里面是没有东西的文件夹)</li>
+<li><code>rm 文件</code>，删除文件<ul>
+<li><code>rm -r 文件夹</code>，删除文件夹</li>
+<li><code>rm -r -i 文件夹</code>，在删除文件夹里的文件会提示(要的话,在提示后面输入yes)</li>
+<li><code>rm -r -f 文件夹</code>，强制删除</li>
+<li><code>rm -r -f 文件夹1/ 文件夹2/ 文件夹3/</code>删除多个</li>
+</ul>
+</li>
+<li><code>find</code>，高级查找<ul>
+<li><code>find . -name *lin*</code>，其中 . 代表在当前目录找，-name 表示匹配文件名 / 文件夹名，*lin* 用通配符搜索含有lin的文件或是文件夹</li>
+<li><code>find . -iname *lin*</code>，其中 . 代表在当前目录找，-iname 表示匹配文件名 / 文件夹名（忽略大小写差异），*lin* 用通配符搜索含有lin的文件或是文件夹</li>
+<li><code>find / -name *.conf</code>，其中 / 代表根目录查找，*.conf代表搜索后缀会.conf的文件</li>
+<li><code>find /opt -name .oh-my-zsh</code>，其中 /opt 代表目录名，.oh-my-zsh 代表搜索的是隐藏文件 / 文件夹名字为 oh-my-zsh 的</li>
+<li><code>find /opt -type f -iname .oh-my-zsh</code>，其中 /opt 代表目录名，-type f 代表只找文件，.oh-my-zsh 代表搜索的是隐藏文件名字为 oh-my-zsh 的</li>
+<li><code>find /opt -type d -iname .oh-my-zsh</code>，其中 /opt 代表目录名，-type d 代表只找目录，.oh-my-zsh 代表搜索的是隐藏文件夹名字为 oh-my-zsh 的</li>
+<li><code>find . -name &quot;lin*&quot; -exec ls -l {} \;</code>，当前目录搜索lin开头的文件，然后用其搜索后的结果集，再执行ls -l的命令（这个命令可变，其他命令也可以），其中 -exec 和 {} \; 都是固定格式</li>
+<li><code>find /opt -type f -size +800M  -print0 | xargs -0 du -h | sort -nr</code>，找出 /opt 目录下大于 800 M 的文件</li>
+<li><code>find / -name &quot;*tower*&quot; -exec rm {} \;</code>，找到文件并删除</li>
+<li><code>find / -name &quot;*tower*&quot; -exec mv {} /opt \;</code>，找到文件并移到 opt 目录</li>
+<li><code>find . -name &quot;*&quot; |xargs grep &quot;youmeek&quot;</code>，递归查找当前文件夹下所有文件内容中包含 youmeek 的文件</li>
+<li><code>find . -size 0 | xargs rm -f &amp;</code>，删除当前目录下文件大小为0的文件</li>
+<li><code>du -hm --max-depth=2 | sort -nr | head -12</code>，找出系统中占用容量最大的前 12 个目录</li>
+</ul>
+</li>
+<li><code>cat /etc/resolv.conf</code>，查看 DNS 设置</li>
+<li><code>netstat -tlunp</code>，查看当前运行的服务，同时可以查看到：运行的程序已使用端口情况</li>
+<li><code>env</code>，查看所有系统变量</li>
+<li><code>export</code>，查看所有系统变量</li>
+<li><code>echo</code><ul>
+<li><code>echo $JAVA_HOME</code>，查看指定系统变量的值，这里查看的是自己配置的 JAVA_HOME。</li>
+<li><code>echo &quot;字符串内容&quot;</code>，输出 “字符串内容”</li>
+<li><code>echo &gt; aa.txt</code>，清空 aa.txt 文件内容（类似的还有：<code>: &gt; aa.txt</code>，其中 : 是一个占位符, 不产生任何输出）</li>
+</ul>
+</li>
+<li><code>unset $JAVA_HOME</code>，删除指定的环境变量</li>
+<li><code>ln -s /opt/data /opt/logs/data</code>，表示给 /opt/logs 目录下创建一个名为 data 的软链接，该软链接指向到 /opt/data</li>
+<li><code>grep</code><ul>
+<li><code>shell grep -H &#39;安装&#39; *.sh</code>，查找当前目录下所有 sh 类型文件中，文件内容包含 <code>安装</code> 的当前行内容</li>
+<li><code>grep &#39;test&#39; java*</code>，显示当前目录下所有以 java 开头的文件中包含 test 的行</li>
+<li><code>grep &#39;test&#39; spring.ini docker.sh</code>，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行</li>
+</ul>
+</li>
+<li><code>ps</code><ul>
+<li><code>ps –ef|grep java</code>，查看当前系统中有关 java 的所有进程</li>
+<li><code>ps -ef|grep --color java</code>，高亮显示当前系统中有关 java 的所有进程</li>
+</ul>
+</li>
+<li><code>kill</code><ul>
+<li><code>kill 1234</code>，结束 pid 为 1234 的进程</li>
+<li><code>kill -9 1234</code>，强制结束 pid 为 1234 的进程（慎重）</li>
+<li><code>killall java</code>，结束同一进程组内的所有为 java 进程</li>
+<li><code>ps -ef|grep hadoop|grep -v grep|cut -c 9-15|xargs kill -9</code>，结束包含关键字 hadoop 的所有进程</li>
+</ul>
+</li>
+<li><code>head</code><ul>
+<li><code>head -n 10 spring.ini</code>，查看当前文件的前 10 行内容</li>
+</ul>
+</li>
+<li><code>tail</code><ul>
+<li><code>tail -n 10 spring.ini</code>，查看当前文件的后 10 行内容</li>
+<li><code>tail -200f 文件名</code>，查看文件被更新的新内容尾 200 行，如果文件还有在新增可以动态查看到（一般用于查看日记文件）</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户、权限-相关命令"><a href="#用户、权限-相关命令" class="headerlink" title="用户、权限-相关命令"></a>用户、权限-相关命令</h2><ul>
+<li>使用 pem 证书登录：<code>ssh -i /opt/mykey.pem root@192.168.0.70</code><ul>
+<li>证书权限不能太大，不然无法使用：<code>chmod 600 mykey.pem</code></li>
+</ul>
+</li>
+<li><code>hostname</code>，查看当前登陆用户全名</li>
+<li><code>cat /etc/group</code>，查看所有组</li>
+<li><code>cat /etc/passwd</code>，查看所有用户</li>
+<li><code>groups youmeek</code>，查看 youmeek 用户属于哪个组</li>
+<li><code>useradd youmeek -g judasn</code>，添加用户并绑定到 judasn 组下</li>
+<li><code>userdel -r youmeek</code>，删除名字为 youmeek 的用户<ul>
+<li>参数：<code>-r</code>，表示删除用户的时候连同用户的家目录一起删除</li>
+</ul>
+</li>
+<li><p>修改普通用户 youmeek 的权限跟 root 权限一样：</p>
+<ul>
+<li>常用方法（原理是把该用户加到可以直接使用 sudo 的一个权限状态而已）：</li>
+<li>编辑配置文件：<code>vim /etc/sudoers</code></li>
+<li>找到 98 行（预估），有一个：<code>root  ALL=(ALL)   ALL</code>，在这一行下面再增加一行，效果如下：</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">root</span>  ALL=(ALL)   ALL</span><br><span class="line">youmeek  ALL=(ALL)   ALL</span><br></pre></td></tr></table></figure>
+<ul>
+<li>另一种方法：</li>
+<li>编辑系统用户的配置文件：<code>vim /etc/passwd</code>，找到 <strong>root</strong> 和 <strong>youmeek</strong> 各自开头的那一行，比如 root 是：<code>root:x:0:0:root:/root:/bin/zsh</code>，这个代表的含义为：<em>用户名:密码:UserId:GroupId:描述:家目录:登录使用的 shell</em></li>
+<li>通过这两行对比，我们可以直接修改 youmeek 所在行的 UserId 值 和 GroupId 值，都改为 0。</li>
+</ul>
+</li>
+<li><code>groupadd judasn</code>，添加一个名为 judasn 的用户组</li>
+<li><code>groupdel judasn</code>，删除一个名为 judasn 的用户组（前提：先删除组下面的所有用户）</li>
+<li><code>usermod 用户名 -g 组名</code>，把用户修改到其他组下</li>
+<li><code>passwd youmeek</code>，修改 youmeek 用户的密码（前提：只有 root 用户才有修改其他用户的权限，其他用户只能修改自己的）</li>
+<li><code>chmod 777 文件名/目录</code>，给指定文件增加最高权限，系统中的所有人都可以进行读写。<ul>
+<li>linux 的权限分为 rwx。r 代表：可读，w 代表：可写，x 代表：可执行</li>
+<li>这三个权限都可以转换成数值表示，r = 4，w = 2，x = 1，- = 0，所以总和是 7，也就是最大权限。第一个 7 是所属主（user）的权限，第二个 7 是所属组（group）的权限，最后一位 7 是非本群组用户（others）的权限。</li>
+<li><code>chmod -R 777 目录</code> 表示递归目录下的所有文件夹，都赋予 777 权限</li>
+</ul>
+</li>
+<li><code>su</code>：切换到 root 用户，终端目录还是原来的地方（常用）<ul>
+<li><code>su -</code>：切换到 root 用户，其中 <strong>-</strong> 号另起一个终端并切换账号</li>
+<li><code>su 用户名</code>，切换指定用户帐号登陆，终端目录还是原来地方。</li>
+<li><code>su - 用户名</code>，切换到指定用户帐号登陆，其中 <strong>-</strong> 号另起一个终端并切换账号</li>
+</ul>
+</li>
+<li><code>exit</code>，注销当前用户（常用）</li>
+<li><code>sudo 某个命令</code>，使用管理员权限使用命令，使用 sudo 回车之后需要输入当前登录账号的密码。（常用）</li>
+<li><code>passwd</code>，修改当前用户密码（常用）</li>
+<li>添加临时账号，并指定用户根目录，并只有可读权限方法<ul>
+<li>添加账号并指定根目录（用户名 tempuser）：<code>useradd -d /data/logs -m tempuser</code></li>
+<li>设置密码：<code>passwd tempuser</code> 回车设置密码</li>
+<li>删除用户（该用户必须退出 SSH 才能删除成功），也会同时删除组：<code>userdel tempuser</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><ul>
+<li><code>df -h</code>，自动以合适的磁盘容量单位查看磁盘大小和使用空间<ul>
+<li><code>df -k</code>，以磁盘容量单位 K 为数值结果查看磁盘使用情况</li>
+<li><code>df -m</code>，以磁盘容量单位 M 为数值结果查看磁盘使用情况</li>
+</ul>
+</li>
+<li><code>du -sh /opt</code>，查看 opt 这个文件夹大小 （h 的意思 human-readable 用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位）</li>
+<li><code>du -sh ./*</code>，查看当前目录下所有文件夹大小 （h 的意思 human-readable 用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位）</li>
+<li><code>du -sh /opt/setups/</code>，显示 /opt/setups/ 目录所占硬盘空间大小（s 表示 –summarize 仅显示总计，即当前目录的大小。h 表示 –human-readable 以 KB，MB，GB 为单位，提高信息的可读性）</li>
+<li><code>mount /dev/sdb5 /newDir/</code>，把分区 sdb5 挂载在根目录下的一个名为 newDir 的空目录下，需要注意的是：这个目录最好为空，不然已有的那些文件将看不到，除非卸载挂载。<ul>
+<li>挂载好之后，通过：<code>df -h</code>，查看挂载情况。</li>
+</ul>
+</li>
+<li><code>umount /newDir/</code>，卸载挂载，用目录名<ul>
+<li>如果这样卸载不了可以使用：<code>umount -l /newDir/</code></li>
+</ul>
+</li>
+<li><code>umount /dev/sdb5</code>，卸载挂载，用分区名</li>
+</ul>
+<h2 id="wget-下载文件"><a href="#wget-下载文件" class="headerlink" title="wget 下载文件"></a>wget 下载文件</h2><ul>
+<li>常规下载：<code>wget http://www.gitnavi.com/index.html</code></li>
+<li>自动断点下载：<code>wget -c http://www.gitnavi.com/index.html</code></li>
+<li>后台下载：<code>wget -b http://www.gitnavi.com/index.html</code></li>
+<li>伪装代理名称下载：<code>wget --user-agent=&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.204 Safari/534.16&quot; http://www.gitnavi.com/index.html</code></li>
+<li>限速下载：<code>wget --limit-rate=300k http://www.gitnavi.com/index.html</code></li>
+<li>批量下载：<code>wget -i /opt/download.txt</code>，一个下载地址一行</li>
+<li>后台批量下载：<code>wget -b -c -i /opt/download.txt</code>，一个下载地址一行</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>编辑 hosts 文件：<code>vim /etc/hosts</code>，添加内容格式：<code>127.0.0.1 www.youmeek.com</code></li>
+<li>RPM 文件操作命令：<ul>
+<li>安装<ul>
+<li><code>rpm -i example.rpm</code>，安装 example.rpm 包</li>
+<li><code>rpm -iv example.rpm</code>，安装 example.rpm 包并在安装过程中显示正在安装的文件信息</li>
+<li><code>rpm -ivh example.rpm</code>，安装 example.rpm 包并在安装过程中显示正在安装的文件信息及安装进度</li>
+</ul>
+</li>
+<li>查询<ul>
+<li><code>rpm -qa | grep jdk</code>，查看 jdk 是否被安装</li>
+<li><code>rpm -ql jdk</code>，查看 jdk 是否被安装</li>
+</ul>
+</li>
+<li>卸载<ul>
+<li><code>rpm -e jdk</code>，卸载 jdk（一般卸载的时候都要先用 rpm -qa 看下整个软件的全名）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>YUM 软件管理：<ul>
+<li><code>yum install -y httpd</code>，安装 apache</li>
+<li><code>yum remove -y httpd</code>，卸载 apache</li>
+<li><code>yum info -y httpd</code>，查看 apache 版本信息</li>
+<li><code>yum list --showduplicates httpd</code>，查看可以安装的版本</li>
+<li><code>yum install httpd-查询到的版本号</code>，安装指定版本</li>
+<li>更多命令可以看：<a href="http://man.linuxde.net/yum" target="_blank" rel="noopener">http://man.linuxde.net/yum</a></li>
+</ul>
+</li>
+<li>查看某个配置文件，排除掉里面以 # 开头的注释内容：<ul>
+<li><code>grep &#39;^[^#]&#39; /etc/openvpn/server.conf</code></li>
+</ul>
+</li>
+<li>查看某个配置文件，排除掉里面以 # 开头和 ; 开头的注释内容：<ul>
+<li><code>grep &#39;^[^#;]&#39; /etc/openvpn/server.conf</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/28/bash/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cjzwhyky10023msuhksvz6eaw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+
+&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
+</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
+<p>缺点：“DES”：安全性低</p>
+<p>DES算法缺点：</p>
+<pre><code>1、分组比较短。
+
+2、密钥太短。
+
+3、密码生命周期短。
+
+4、安全性低。
+</code></pre><p>AES算法优点：</p>
+<pre><code>1、运算速度快。
+
+2、 对内存的需求非常低，适合于受限环境。
+
+3、分组长度和密钥长度设计灵活。
+
+4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
+
+5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
+
+6、很好的抵抗差分密码分析及线性密码分析的能力。
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/13/加密算法DES AES/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cjzwhykxd000kmsuhzbum2zc2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
+<hr>
+<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
+<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
+<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
+<p>下载安装 Awesomium 1.6.6 SDK</p>
+<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
+<p>安装完成</p>
+<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
+<p>重启MarkdownPad2</p>
+<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
+<p>可以预览</p>
+<hr>
+<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
+<hr>
+
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cjzwhykxf000pmsuhar6tzicm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
+
+需要下载：
+http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
+
+下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
+JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
+JRE：将两个jar文件放到%JRE_HOME%\lib\security下
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/13/java 加密规则变更/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/shell/">Shell</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cjzwhykxq001fmsuhqbq8obsb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="搭建运行环境"><a href="#搭建运行环境" class="headerlink" title="搭建运行环境"></a>搭建运行环境</h2><h3 id="Shell-初体验"><a href="#Shell-初体验" class="headerlink" title="Shell 初体验"></a>Shell 初体验</h3><pre><code># 创建文件
+$ touch test.sh
+# chmod 修改 test.sh 权限
+$ chmod 771 ./test.sh
+$ ll  # 查看权限
+# -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh
+ # 没有修改成功
+$ vi test.sh 
+# 添加 头 #!/bin/bash 或 #!/bin/sh
+$ chmod 771 ./test.sh
+$ ll
+# 修改成功
+# -rwxr-xr-x 1 cango 197121 10 8月  13 15:56 test.sh*
+</code></pre><h3 id="关机操作"><a href="#关机操作" class="headerlink" title="关机操作"></a>关机操作</h3><pre><code># 会立即关闭机器
+shutdown -h now
+
+# 60秒后关机
+shutdown -s -t 60
+</code></pre><h3 id="重启操作"><a href="#重启操作" class="headerlink" title="重启操作"></a>重启操作</h3><p>shutdown -r now<br>sudo reboot<br>这两个命令功能一样，其中shutdown -r now的-r应当就是restart的意思。</p>
+<h2 id="Shell-写入文件"><a href="#Shell-写入文件" class="headerlink" title="Shell 写入文件"></a>Shell 写入文件</h2><h3 id="cat-多行写入"><a href="#cat-多行写入" class="headerlink" title="cat 多行写入"></a>cat 多行写入</h3><h4 id="1-cat-覆盖写入"><a href="#1-cat-覆盖写入" class="headerlink" title="1.cat 覆盖写入"></a>1.cat 覆盖写入</h4><pre><code># 语法： cat &gt; 文件名 &lt;&lt;EOF， 然后把多行文字放在下面，并以EOF结束
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="2-cat-追加写入"><a href="#2-cat-追加写入" class="headerlink" title="2.cat 追加写入"></a>2.cat 追加写入</h4><pre><code># 如果需要追加文本，那就变成cat&gt;&gt;：
+# 语法： cat &gt;&gt; 文件名 &lt;&lt;EOF
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="3-查看写入"><a href="#3-查看写入" class="headerlink" title="3.查看写入"></a>3.查看写入</h4><pre><code># 执行
+$ bash start.sh
+# 输出
+    ___________脚本开始____________
+    hello test.sh
+    21312
+    ___________脚本结束____________
+
+# 查看生成的文件
+$ cat ./test.sh
+# 输出
+
+    #!/bin/bash
+    echo &quot;hello test.sh&quot;
+    echo 21312
+</code></pre><h3 id="echo-输出重定向写入"><a href="#echo-输出重定向写入" class="headerlink" title="echo 输出重定向写入"></a>echo 输出重定向写入</h3><h4 id="1-echo-gt-覆盖写入"><a href="#1-echo-gt-覆盖写入" class="headerlink" title="1.echo &gt; 覆盖写入"></a>1.echo &gt; 覆盖写入</h4><pre><code># 输出重定向
+echo echo &quot;输出重定向&quot;&gt; test1.sh
+</code></pre><h4 id="2-echo-gt-gt-追加写入"><a href="#2-echo-gt-gt-追加写入" class="headerlink" title="2.echo &gt;&gt; 追加写入"></a>2.echo &gt;&gt; 追加写入</h4><pre><code># 输出追加重定向
+echo echo &quot;输出追加重定向&quot; &gt;&gt; test1.sh
+</code></pre><h2 id="Sort-命令常用相关选项"><a href="#Sort-命令常用相关选项" class="headerlink" title="Sort 命令常用相关选项"></a>Sort 命令常用相关选项</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>会检查文件顺序是否已排好序，如果乱序，则输出第一个乱序的行的相关信息，然后返回1</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>指定排序的列数</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>忽略每一行前面所有的空白行，从第一个可见的字符开始比较</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>将小写字母都转换成大写字母进行排序</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>反转降序</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>去除重复行</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>输出命名，重定向</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>按字符来排序</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-M</td>
+<td>以月份排序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="uniq命令的作用"><a href="#uniq命令的作用" class="headerlink" title="uniq命令的作用"></a>uniq命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c/–count</td>
+<td>在每列旁边显示除改行重复出现的次数</td>
+</tr>
+<tr>
+<td>-d/–repeated</td>
+<td>仅显示重复出现的行列</td>
+</tr>
+<tr>
+<td>-s&lt;字符位置&gt;</td>
+<td>忽略比较指定的字符</td>
+</tr>
+<tr>
+<td>-u/–unique</td>
+<td>仅显示只有一次，不重复的行列</td>
+</tr>
+<tr>
+<td>-w&lt;字符位置&gt;</td>
+<td>指定要比较的字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="join命令的作用"><a href="#join命令的作用" class="headerlink" title="join命令的作用"></a>join命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a FILENAME</td>
+<td>FILENAME表示第几个文件，-a1表示第一个文件，-a2表示第二个文件</td>
+</tr>
+<tr>
+<td>-e EMPTY</td>
+<td>若在FILE1与FILE2找不到指定的栏位，则在输出中填入-e选定的字符串</td>
+</tr>
+<tr>
+<td>-i,–ignore-case</td>
+<td>比较时忽略大小写差异</td>
+</tr>
+<tr>
+<td>-o FORMAT</td>
+<td>按照指定的格式显示结果</td>
+</tr>
+<tr>
+<td>-v FILENUM</td>
+<td>-v 1表示只显示FILE1中与FILE2中没有相同栏位的行；</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>2表示只显示FILE2中与FILE1中没有相同栏位的行：</td>
+</tr>
+<tr>
+<td>-t CHAR</td>
+<td>使用栏位的分隔符</td>
+</tr>
+<tr>
+<td>-1 FIELD</td>
+<td>链接FILE1指定的栏位</td>
+</tr>
+<tr>
+<td>-j  FIELD</td>
+<td>等价与-1 FIELD -2 FIELD</td>
+</tr>
+</tbody>
+</table>
+<pre><code># 重复输出
+sort test.txt | uniq -d 
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    <footer class="entry-meta">
+    <a href="/2019/08/13/shell/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Shell/">Shell</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +1273,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cjzam8fzp000ygouh40j95768" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cjzwhykxr001imsuh4mb42ivi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -143,7 +1339,10 @@
 
       
     </div><!-- .entry-content -->
-
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
     <footer class="entry-meta">
     <a href="/2019/07/16/vscode vue 用户代码片段/">
     <time datetime="2019-07-15T16:00:00.000Z" class="entry-date">
@@ -181,7 +1380,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cjzam8g0q002mgouh2rzg0syn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cjzwhykyj0030msuh0zul2vul" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -355,7 +1554,10 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 </code></pre>
       
     </div><!-- .entry-content -->
-
+    
+    <span id="busuanzi_container_page_pv">
+      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
     <footer class="entry-meta">
     <a href="/2019/06/03/netstat查看端口占用情况/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
@@ -378,1099 +1580,10 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 
 
   
-    <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cjzam8fzw001cgouh06nhval0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。<br>1.开启 Chrome 远程调试端口</p>
-<p>首先我们需要在远程调试打开的状态下启动 Chrome, 这样 VS Code 才能 attach 到 Chrome 上。<br>Windows</p>
-<pre><code>右键点击 Chrome 的快捷方式图标，选择属性
-在目标一栏，最后加上 --remote-debugging-port=9222，注意要用空格隔开
-</code></pre><p>macOS</p>
-<pre><code>打开控制台
-
-执行命令 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
-</code></pre><p>Linux</p>
-<pre><code>打开控制台
-执行命令 google-chrome --remote-debugging-port=9222
-</code></pre><p>2.安装 Chrome Debug 插件</p>
-<p>点击 Visual Studio Code 左侧边栏的扩展按钮， 然后在搜索框输入Debugger for Chrome 并安装插件，再输入，安装完成后点击 reload 重启。</p>
-<p>3.创建 Debug 配置文件</p>
-<p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
-<p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
-<p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
-<p>{<br>  // Use IntelliSense to learn about possible attributes.<br>  // Hover to view descriptions of existing attributes.<br>  // For more information, visit: <a href="https://go.microsoft.com/fwlink/?linkid=830387" target="_blank" rel="noopener">https://go.microsoft.com/fwlink/?linkid=830387</a><br>  “version”: “0.2.0”,<br>  “configurations”: [<br>    {<br>      “type”: “chrome”,<br>      “request”: “attach”,<br>      “name”: “Attach to Chrome”,<br>      “port”: 9222,<br>      “webRoot”: “${workspaceRoot}/src”,<br>      “url”: “<a href="http://localhost:8080/#/&quot;" target="_blank" rel="noopener">http://localhost:8080/#/&quot;</a>,　<br>      “sourceMaps”: true,<br>      “sourceMapPathOverrides”: {<br>        “webpack:///src/<em>“: “${webRoot}/</em>“<br>      }<br>    }<br>  ]<br>}</p>
-<p>4.修改 webpack 配置</p>
-<p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
-<p>1.打开根目录下的 config 目录下的 index.js 文件</p>
-<p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
-<p>3.将dev节点下的 cacheBusting 值改为 false</p>
-<p>5.开启调试</p>
-<p>上述配置完成之后：</p>
-<ol>
-<li><p>通过第一步的方式以远程调试打开的方式打开 Chrome</p>
-</li>
-<li><p>在 vue 项目中执行 npm run dev 以调试方式启动项目</p>
-</li>
-<li><p>点击 VS Code 左侧边栏的调试按钮，选择 Attach to Chrome 并点击绿色开始按钮，正常情况下就会出现调试控制条。</p>
-</li>
-</ol>
-<p>现在就可以在 vue 文件的 js 代码中打断点进行调试了。</p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/使用 VS Code 断点调试/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue async await/">vue 事件中的 (native)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cjzam8fzt0017gouhte360n5k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
-<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
-<pre><code>async function test (){
-  return &apos;hello async&apos;;
-}
-let result = test();
-console.log(result);
-// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
-</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
-<pre><code>test().then(v =&gt; {
-  console.log(v); // hello async
-});
-</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
-<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
-<pre><code>async function f() {
-  return await 123;
-}
-
-f().then(v =&gt; console.log(v))
-// 123
-</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
-<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-.catch(e =&gt; console.log(e))
-// 出错了
-</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
-<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-  await Promise.resolve(&apos;hello world&apos;); // 不会执行
-}
-</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
-<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
-<pre><code>async function f() {
-  try {
-    await Promise.reject(&apos;出错了&apos;);
-  } catch(e) {
-  }
-  return await Promise.resolve(&apos;hello world&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-// hello world
-</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
-async submit() {
-    try {
-        this.$refs[formName].validate(valid =&gt; {
-            let res = await submit(...this.submitForm)
-            this.$message.success(res.resultMessage）
-        })
-    } catch (err){
-        console.log(err)
-        this.$message.success(err.resultMessage）
-    }
-}
-</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
-<pre><code>#修改后例：
-   submit() {
-       try {
-           this.$refs[formName].validate(async valid =&gt; {
-               let res = await submit(...this.params)
-               this.$message.success(res.resultMessage）
-           })
-       } catch (err){
-           console.log(err)
-           this.$message.success(err.resultMessage）
-       }
-   }
-</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
-<pre><code>async main() {
-  try {
-    const val1 = await firstStep();
-    const val2 = await secondStep(val1);
-    const val3 = await thirdStep(val1, val2);
-    console.log(&apos;Final: &apos;, val3);
-  }
-  catch (err) {
-    console.error(err);
-  }
-}
-
-await in for 循环
-
-let arr = [1, 2, 3, 4, 5];
-arr.forEach(async item =&gt; {
-  await console.log(item)
-});
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue async await/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="cjzam8fzs0013gouh6oibgzfg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
-
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
-
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
-</code></pre>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="cjzam8fzr0011gouh20ktwewt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
-<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
-<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
-<p><img src="/assets/vueImg/API.png" alt="image"></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p><a href="https://cn.vuejs.org/v2/api/ ##v-text" target="_blank" rel="noopener">v-text</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-html" target="_blank" rel="noopener">v-html</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-show" target="_blank" rel="noopener">v-show</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-if" target="_blank" rel="noopener">v-if</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-else" target="_blank" rel="noopener">v-else</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-else-if" target="_blank" rel="noopener">v-else-if</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-for" target="_blank" rel="noopener">v-for</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-on" target="_blank" rel="noopener">v-on</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-bind" target="_blank" rel="noopener">v-bind</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-model" target="_blank" rel="noopener">v-model</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-slot" target="_blank" rel="noopener">v-slot</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-pre" target="_blank" rel="noopener">v-pre</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-cloak" target="_blank" rel="noopener">v-cloak</a><br><a href="https://cn.vuejs.org/v2/api/ ##v-once" target="_blank" rel="noopener">v-once</a></p>
-<h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
-<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue 一点点/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cjzam8fzb000dgouh679m5unh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cjzam8fzf000hgouh0o7ybqgi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
-<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
-<pre><code>npm install doctoc -g
-</code></pre><p>执行</p>
-<pre><code>doctoc demo.md
-</code></pre><p>文件，即可在文档中自动生成目录</p>
-<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
-<p>优点是：简单快捷，</p>
-<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
-<p>2.npm doctoc生成目录</p>
-<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
-<p>缺点：依赖npm</p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/markdown生成目录/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-node-vue-webpack构建项目" class="post-node-vue-webpack构建项目 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="cjzam8fzk000qgouh07cncdov" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="vuw-cli-全局安装"><a href="#vuw-cli-全局安装" class="headerlink" title="vuw-cli 全局安装"></a>vuw-cli 全局安装</h3><pre><code>npm install  -g vue-cli
-</code></pre><h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><pre><code># 创建项目
-mkdir vue-webpack
-cd vue-webpack
-# 创建模板
-vue init webpack 
-# 安装依赖包
-npm install
-# 运行项目
-npm run dev
-# 访问
-</code></pre><p><a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
-<pre><code># 简单的Vue Webpack项目构建完成
-</code></pre><p> <img src="/assets/vueImg/start.png" alt="image"></p>
-<h3 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h3><pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
-</code></pre><h3 id="跨域代理配置"><a href="#跨域代理配置" class="headerlink" title="跨域代理配置"></a>跨域代理配置</h3><pre><code>#config目录下 index.js 文件配置如下， 可以配置多个
-
-module.exports = {
-  dev: {
-    // Paths
-    assetsSubDirectory: &apos;static&apos;,
-    assetsPublicPath: &apos;/&apos;,
-    proxyTable: {
-      &apos;/api&apos;: {
-        target: &apos;http://10.43.22.175:9000&apos;,
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          &apos;^/api&apos;: &apos;/api&apos;
-        },
-        router: {
-          // when request.headers.host == &apos;dev.localhost:3000&apos;,
-          // override target &apos;http://www.example.org&apos; to &apos;http://localhost:8000&apos;
-          &apos;10.43.22.175:8080&apos; : &apos;http://10.43.22.175:9000&apos;
-        }
-      },
-      &apos;/activity&apos;: {
-        target: &apos;http://10.43.22.149:8081&apos;,
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          &apos;^/activity&apos;: &apos;/activity&apos;
-        },
-        router: {
-          // when request.headers.host == &apos;dev.localhost:3000&apos;,
-          // override target &apos;http://www.example.org&apos; to &apos;http://localhost:8000&apos;
-          &apos;10.43.22.175:8080&apos; : &apos;http://10.43.22.149:8081&apos;
-        }
-      }
-    }
-  }
-}
-</code></pre><h3 id="vue-router-参数"><a href="#vue-router-参数" class="headerlink" title="vue-router 参数"></a>vue-router 参数</h3><h4 id="1-query"><a href="#1-query" class="headerlink" title="1. query"></a>1. query</h4><pre><code>1.this.$router.push({path:&apos;history&apos;, query:{id: &apos;1111&apos;}});
-下一个页面通过this.$route.query.id访问路由参数
- 总结：1. 强制刷新，query不会丢参
- 2. query会拼接到url上 （/history?id=1111）
-</code></pre><h4 id="2-params"><a href="#2-params" class="headerlink" title="2. params"></a>2. params</h4><pre><code>2.this.$router.push({&apos;name&apos;: &apos;history&apos;, params: {id: &apos;1111&apos;}});
-下一个页面通过this.$route.params.id访问路由参数
- 总结：
-    1. 页面刷新参数会丢失
-    2. 不会拼接到url上 例 （/history）
-    3.   router.js 中： 需要添加name属性
-    {
-      path: &apos;history&apos;,
-      name: &apos;history&apos;,
-      meta: {
-        requireAuth: true,
-        title: &apos;历史记录&apos;
-      },
-      component: resolve =&gt; require([&apos;@/views/history.vue&apos;], resolve)
-    }
-    4.注意： 用path访问 参数 undefined
-        例：
-        this.$router.push({&apos;path&apos;: &apos;history&apos;, params: {id: &apos;1111&apos;}});
-        # 下一个页面通过this.$route.params.id访问路由参数
-        undefined
-</code></pre><h4 id="3-其他-id"><a href="#3-其他-id" class="headerlink" title="3.其他 :id"></a>3.其他 :id</h4><pre><code># 跳转
-this.$router.push({&apos;path&apos;: &apos;history/&apos; + row.id});
-or 
-&lt;router-link :to=&apos;`/history/${item.id}`&apos;&gt;&lt;/router-link&gt;
-
-# router.js 中：
-{
-  path: &apos;history/:id&apos;,
-  meta: {
-    requireAuth: true,
-    title: &apos;历史记录&apos;
-  },
-  component: resolve =&gt; require([&apos;@/views/history.vue&apos;], resolve)
-},
-下一个页面通过this.$route.params.id访问路由参数
-1. 页面刷新参数不会丢失
-2. 会拼接到url上 例 （/history/1111111） 
-</code></pre><h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3>
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/05/14/node-vue-webpack构建项目/">
-    <time datetime="2019-05-13T16:00:00.000Z" class="entry-date">
-        2019-05-14
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-关于Java 23种设计模式" class="post-关于Java 23种设计模式 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/05/07/关于Java 23种设计模式/">关于Java 23种设计模式</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/07/关于Java 23种设计模式/" data-id="cjzam8g1a0030gouh5h31ph7t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="java的设计模式大体上分为三大类"><a href="#java的设计模式大体上分为三大类" class="headerlink" title="java的设计模式大体上分为三大类"></a>java的设计模式大体上分为三大类</h2><pre><code>创建型模式（5种）：工厂方法模式，抽象工厂模式，单例模式，建造者模式，原型模式。
-结构型模式（7种）：适配器模式，装饰器模式，代理模式，外观模式，桥接模式，组合模式，享元模式。
-行为型模式（11种）：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
-</code></pre><h2 id="设计模式遵循的原则有6个"><a href="#设计模式遵循的原则有6个" class="headerlink" title="设计模式遵循的原则有6个"></a>设计模式遵循的原则有6个</h2><h3 id="1、开闭原则（Open-Close-Principle）"><a href="#1、开闭原则（Open-Close-Principle）" class="headerlink" title="1、开闭原则（Open Close Principle）"></a>1、开闭原则（Open Close Principle）</h3><pre><code>对扩展开放，对修改关闭。
-</code></pre><h3 id="2、里氏代换原则（Liskov-Substitution-Principle）"><a href="#2、里氏代换原则（Liskov-Substitution-Principle）" class="headerlink" title="2、里氏代换原则（Liskov Substitution Principle）"></a>2、里氏代换原则（Liskov Substitution Principle）</h3><pre><code>只有当衍生类可以替换掉基类，软件单位的功能不受到影响时，基类才能真正被复用，而衍生类也能够在基类的基础上增加新的行为。
-</code></pre><h3 id="3、依赖倒转原则（Dependence-Inversion-Principle）"><a href="#3、依赖倒转原则（Dependence-Inversion-Principle）" class="headerlink" title="3、依赖倒转原则（Dependence Inversion Principle）"></a>3、依赖倒转原则（Dependence Inversion Principle）</h3><pre><code>这个是开闭原则的基础，对接口编程，依赖于抽象而不依赖于具体。
-</code></pre><h3 id="4、接口隔离原则（Interface-Segregation-Principle）"><a href="#4、接口隔离原则（Interface-Segregation-Principle）" class="headerlink" title="4、接口隔离原则（Interface Segregation Principle）"></a>4、接口隔离原则（Interface Segregation Principle）</h3><pre><code>使用多个隔离的借口来降低耦合度。
-</code></pre><h3 id="5、迪米特法则（最少知道原则）（Demeter-Principle）"><a href="#5、迪米特法则（最少知道原则）（Demeter-Principle）" class="headerlink" title="5、迪米特法则（最少知道原则）（Demeter Principle）"></a>5、迪米特法则（最少知道原则）（Demeter Principle）</h3><pre><code>一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立。
-</code></pre><h3 id="6、合成复用原则（Composite-Reuse-Principle）"><a href="#6、合成复用原则（Composite-Reuse-Principle）" class="headerlink" title="6、合成复用原则（Composite Reuse Principle）"></a>6、合成复用原则（Composite Reuse Principle）</h3><pre><code>原则是尽量使用合成/聚合的方式，而不是使用继承。继承实际上破坏了类的封装性，超类的方法可能会被子类修改。
-</code></pre><h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><h3 id="1-工厂模式（Factory）"><a href="#1-工厂模式（Factory）" class="headerlink" title="1. 工厂模式（Factory）"></a>1. 工厂模式（Factory）</h3><p>工厂模式：客户类和工厂类分开。消费者任何时候需要某种产品，只需向工厂请求即可。消费者无须修改就可以接纳新产品。缺点是当产品修改时，工厂类也要做相应的修改。如：如何创建及如何向客户端提供。</p>
-<p> 常用的工厂模式是静态工厂，利用static方法，作为一种类似于常见的工具类Utils等辅助效果，一般情况下工厂类不需要实例化。</p>
-<pre><code>interface food{}
-
-class A implements food{}
-class B implements food{}
-class C implements food{}
-
-public class StaticFactory {
-
-    private StaticFactory(){}
-
-    public static food getA(){  return new A(); }
-    public static food getB(){  return new B(); }
-    public static food getC(){  return new C(); }
-}
-
-class Client{
-    //客户端代码只需要将相应的参数传入即可得到对象
-    //用户不需要了解工厂类内部的逻辑。
-    public void get(String name){
-        food x = null ;
-        if ( name.equals(&quot;A&quot;)) {
-            x = StaticFactory.getA();
-        }else if ( name.equals(&quot;B&quot;)){
-            x = StaticFactory.getB();
-        }else {
-            x = StaticFactory.getC();
-        }
-    }
-}
-</code></pre><h3 id="2-建造者模式（Builder）"><a href="#2-建造者模式（Builder）" class="headerlink" title="2. 建造者模式（Builder）"></a>2. 建造者模式（Builder）</h3><p>建造模式：将产品的内部表象和产品的生成过程分割开来，从而使一个建造过程生成具有不同的内部表象的产品对象。建造模式使得产品内部表象可以独立的变化，客户不必知道产品内部组成的细节。建造模式可以强制实行一种分步骤进行的建造过程。</p>
-<p>在了解之前，先假设有一个问题，我们需要创建一个学生对象，属性有name,number,class,sex,age,school等属性，如果每一个属性都可以为空，也就是说我们可以只用一个name,也可以用一个school,name,或者一个class,number，或者其他任意的赋值来创建一个学生对象，这时该怎么构造？</p>
-<p>难道我们写6个1个输入的构造函数，15个2个输入的构造函数…….吗？这个时候就需要用到Builder模式了。给个例子，大家肯定一看就懂：</p>
-<pre><code>public class Builder {
-
-    static class Student{
-        String name = null ;
-        int number = -1 ;
-        String sex = null ;
-        int age = -1 ;
-        String school = null ;
-
-        //构建器，利用构建器作为参数来构建Student对象
-        static class StudentBuilder{
-            String name = null ;
-            int number = -1 ;
-            String sex = null ;
-            int age = -1 ;
-            String school = null ;
-            public StudentBuilder setName(String name) {
-                this.name = name;
-                return  this ;
-            }
-
-            public StudentBuilder setNumber(int number) {
-                this.number = number;
-                return  this ;
-            }
-
-            public StudentBuilder setSex(String sex) {
-                this.sex = sex;
-                return  this ;
-            }
-
-            public StudentBuilder setAge(int age) {
-                this.age = age;
-                return  this ;
-            }
-
-            public StudentBuilder setSchool(String school) {
-                this.school = school;
-                return  this ;
-            }
-            public Student build() {
-                return new Student(this);
-            }
-        }
-
-        public Student(StudentBuilder builder){
-            this.age = builder.age;
-            this.name = builder.name;
-            this.number = builder.number;
-            this.school = builder.school ;
-            this.sex = builder.sex ;
-        }
-    }
-
-    public static void main( String[] args ){
-        Student a = new Student.StudentBuilder().setAge(13).setName(&quot;LiHua&quot;).build();
-        Student b = new Student.StudentBuilder().setSchool(&quot;sc&quot;).setSex(&quot;Male&quot;).setName(&quot;ZhangSan&quot;).build();
-    }
-}
-</code></pre><h3 id="3、工厂模式（Factory-Method）"><a href="#3、工厂模式（Factory-Method）" class="headerlink" title="3、工厂模式（Factory Method）"></a>3、工厂模式（Factory Method）</h3><p>工厂方法模式：核心工厂类不再负责所有产品的创建，而是将具体创建的工作交给子类去做，成为一个抽象工厂角色，仅负责给出具体工厂类必须实现的接口，而不接触哪一个产品类应当被实例化这种细节。</p>
-<p>一个基础接口定义了功能，每个实现接口的子类就是产品，然后定义一个工厂接口，实现了工厂接口的就是工厂，这时候，接口编程的优点就出现了，我们可以新增产品类（只需要实现产品接口），只需要同时新增一个工厂类，客户端就可以轻松调用新产品的代码。</p>
-<p> 实例代码：</p>
-<pre><code>interface food{}
-
-class A implements food{}
-class B implements food{}
-
-interface produce{ food get();}
-
-class FactoryForA implements produce{
-    @Override
-    public food get() {
-        return new A();
-    }
-}
-class FactoryForB implements produce{
-    @Override
-    public food get() {
-        return new B();
-    }
-}
-public class AbstractFactory {
-    public void ClientCode(String name){
-        food x= new FactoryForA().get();
-        x = new FactoryForB().get();
-    }
-}
-</code></pre><h3 id="4、prototype"><a href="#4、prototype" class="headerlink" title="4、prototype"></a>4、prototype</h3><p>原始模型模式：通过给出一个原型对象来指明所要创建的对象的类型，然后用复制这个原型对象的方法创建出更多同类型的对象。原始模型模式允许动态的增加或减少产品类，产品类不需要非得有任何事先确定的等级结构，原始模型模式适用于任何的等级结构。缺点是每一个类都必须配备一个克隆方法。</p>
-<p>浅拷贝<br>    public class Prototype implements Cloneable{</p>
-<pre><code>    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    protected Object clone()   {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }finally {
-            return null;
-        }
-    }
-
-    public static void main ( String[] args){
-        Prototype pro = new Prototype();
-        Prototype pro1 = (Prototype)pro.clone();
-    }
-}
-</code></pre><p>深拷贝</p>
-<pre><code>public class Professor implements Cloneable {
-
-    private String name;
-    private Integer age;
-
-    public Professor(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Object clone() {
-
-        Object o = null;
-        try {
-            o = super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.out.println(e.toString());
-        }
-        return o;
-    }
-
-}
-
-Student类:
-public class Student implements Cloneable {
-
-    private String name;
-    private Integer age;
-    private Professor professor;
-
-    public Student(String name, Integer age, Professor professor) {
-        this.name = name;
-        this.age = age;
-        this.professor = professor;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Object clone() {
-
-        Student o = null;
-        try {
-            o = (Student) super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.out.println(e.toString());
-        }
-        o.professor = (Professor) professor.clone();
-        return o;
-    }
-}
-
-测试：
-public class Demo01 {
-
-    public static void main(String[] args) {
-
-        Professor p = new Professor(&quot;wangwu&quot;, 50);
-        Student s1 = new Student(&quot;xiaoming&quot;, 20, p);
-        Student s2 = (Student) s1.clone();
-        s2.getProfessor().setName(&quot;xiaowangwu&quot;);
-        s2.getProfessor().setAge(40);
-        System.out.println(&quot;name=&quot; + s1.getProfessor().getName()
-                + &quot;,&quot; + &quot;age=&quot; + s1.getProfessor().getAge());
-        System.out.println(&quot;name=&quot; + s2.getProfessor().getName()
-                + &quot;,&quot; + &quot;age=&quot; + s2.getProfessor().getAge());
-    }
-}
-
-输出结果：
-
-name=wangwu,age=50
-name=xiaowangwu,age=40
-</code></pre><h3 id="5、Sigleton"><a href="#5、Sigleton" class="headerlink" title="5、Sigleton"></a>5、Sigleton</h3><p>单例模式：单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例单例模式。单例模式只应在有真正的“单一实例”的需求时才可使用。</p>
-<p>在内部创建一个实例，构造器全部设置为private，所有方法均在该实例上改动，在创建上要注意类的实例化只能执行一次，可以采用许多种方法来实现，如Synchronized关键字，或者利用内部类等机制来实现。</p>
-<pre><code>public class Singleton {
-    private Singleton(){}
-
-    private static class SingletonBuild{
-        private static Singleton value = new Singleton();
-    }
-
-    public Singleton getInstance(){  return  SingletonBuild.value ;}
-
-}
-</code></pre><h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><h3 id="6、适配器模式（Adapter）"><a href="#6、适配器模式（Adapter）" class="headerlink" title="6、适配器模式（Adapter）"></a>6、适配器模式（Adapter）</h3><p>适配器（变压器）模式：把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作。适配类可以根据参数返还一个合适的实例给客户端。</p>
-<p>适配器模式的作用就是在原来的类上提供新功能。主要可分为3种：</p>
-<pre><code>类适配：创建新类，继承源类，并实现新接口，例如 
-
-class  adapter extends oldClass  implements newFunc{}
-
-对象适配：创建新类持源类的实例，并实现新接口，例如 
-
-class adapter implements newFunc { private oldClass oldInstance ;}
-
-接口适配：创建新的抽象类实现旧接口方法。例如 
-
-abstract class adapter implements oldClassFunc { void newFunc();}
-</code></pre><h3 id="7、桥接模式（Bridge）"><a href="#7、桥接模式（Bridge）" class="headerlink" title="7、桥接模式（Bridge）"></a>7、桥接模式（Bridge）</h3><p>桥梁模式：将抽象化与实现化脱耦，使得二者可以独立的变化，也就是说将他们之间的强关联变成弱关联，也就是指在一个软件系统的抽象化和实现化之间使用组合/聚合关系而不是继承关系，从而使两者可以独立的变化。</p>
-<pre><code>interface DrawAPI {
-    public void drawCircle(int radius, int x, int y);
-}
-class RedCircle implements DrawAPI {
-    @Override
-    public void drawCircle(int radius, int x, int y) {
-        System.out.println(&quot;Drawing Circle[ color: red, radius: &quot;
-                + radius +&quot;, x: &quot; +x+&quot;, &quot;+ y +&quot;]&quot;);
-    }
-}
-class GreenCircle implements DrawAPI {
-    @Override
-    public void drawCircle(int radius, int x, int y) {
-        System.out.println(&quot;Drawing Circle[ color: green, radius: &quot;
-                + radius +&quot;, x: &quot; +x+&quot;, &quot;+ y +&quot;]&quot;);
-    }
-}
-
-abstract class Shape {
-    protected DrawAPI drawAPI;
-    protected Shape(DrawAPI drawAPI){
-        this.drawAPI = drawAPI;
-    }
-    public abstract void draw();
-}
-
-class Circle extends Shape {
-    private int x, y, radius;
-
-    public Circle(int x, int y, int radius, DrawAPI drawAPI) {
-        super(drawAPI);
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-    }
-
-    public void draw() {
-        drawAPI.drawCircle(radius,x,y);
-    }
-}
-
-//客户端使用代码
-Shape redCircle = new Circle(100,100, 10, new RedCircle());
-Shape greenCircle = new Circle(100,100, 10, new GreenCircle());
-redCircle.draw();
-greenCircle.draw();
-</code></pre><h3 id="8、组合模式（Composite）"><a href="#8、组合模式（Composite）" class="headerlink" title="8、组合模式（Composite）"></a>8、组合模式（Composite）</h3><p>合成模式：合成模式将对象组织到树结构中，可以用来描述整体与部分的关系。合成模式就是一个处理对象的树结构的模式。合成模式把部分与整体的关系用树结构表示出来。合成模式使得客户端把一个个单独的成分对象和由他们复合而成的合成对象同等看待。</p>
-<pre><code>abstract class component{}
-
-class File extends  component{ String filename;}
-
-class Folder extends  component{
-    component[] files ;  //既可以放文件File类，也可以放文件夹Folder类。Folder类下又有子文件或子文件夹。
-    String foldername ;
-    public Folder(component[] source){ files = source ;}
-
-    public void scan(){
-        for ( component f:files){
-            if ( f instanceof File){
-                System.out.println(&quot;File &quot;+((File) f).filename);
-            }else if(f instanceof Folder){
-                Folder e = (Folder)f ;
-                System.out.println(&quot;Folder &quot;+e.foldername);
-                e.scan();
-            }
-        }
-    }
-
-}
-</code></pre><h3 id="9、装饰模式（Decorator）"><a href="#9、装饰模式（Decorator）" class="headerlink" title="9、装饰模式（Decorator）"></a>9、装饰模式（Decorator）</h3><p>装饰模式：装饰模式以对客户端透明的方式扩展对象的功能，是继承关系的一个替代方案，提供比继承更多的灵活性。动态给一个对象增加功能，这些功能可以再动态的撤消。增加由一些基本功能的排列组合而产生的非常大量的功能。</p>
-<p>给一类对象增加新的功能，装饰方法与具体的内部逻辑无关。例如：</p>
-<pre><code>interface Source{ void method();}
-public class Decorator implements Source{
-
-    private Source source ;
-    public void decotate1(){
-        System.out.println(&quot;decorate&quot;);
-    }
-    @Override
-    public void method() {
-        decotate1();
-        source.method();
-    }
-}
-</code></pre><h3 id="10、外观模式（Facade）"><a href="#10、外观模式（Facade）" class="headerlink" title="10、外观模式（Facade）"></a>10、外观模式（Facade）</h3><p>门面模式：外部与一个子系统的通信必须通过一个统一的门面对象进行。门面模式提供一个高层次的接口，使得子系统更易于使用。每一个子系统只有一个门面类，而且此门面类只有一个实例，也就是说它是一个单例模式。但整个系统可以有多个门面类。</p>
-<pre><code>public class Facade {
-    private subSystem1 subSystem1 = new subSystem1();
-    private subSystem2 subSystem2 = new subSystem2();
-    private subSystem3 subSystem3 = new subSystem3();
-
-    public void startSystem(){
-        subSystem1.start();
-        subSystem2.start();
-        subSystem3.start();
-    }
-
-    public void stopSystem(){
-        subSystem1.stop();
-        subSystem2.stop();
-        subSystem3.stop();
-    }
-}
-</code></pre><h3 id="11、享元模式（Flyweight）"><a href="#11、享元模式（Flyweight）" class="headerlink" title="11、享元模式（Flyweight）"></a>11、享元模式（Flyweight）</h3><p>享元模式：FLYWEIGHT在拳击比赛中指最轻量级。享元模式以共享的方式高效的支持大量的细粒度对象。享元模式能做到共享的关键是区分内蕴状态和外蕴状态。内蕴状态存储在享元内部，不会随环境的改变而有所不同。外蕴状态是随环境的改变而改变的。外蕴状态不能影响内蕴状态，它们是相互独立的。将可以共享的状态和不可以共享的状态从常规类中区分开来，将不可以共享的状态从类里剔除出去。客户端不可以直接创建被共享的对象，而应当使用一个工厂对象负责创建被共享的对象。享元模式大幅度的降低内存中对象的数量。</p>
-<pre><code>abstract class flywei{ }
-
-public class Flyweight extends flywei{
-    Object obj ;
-    public Flyweight(Object obj){
-        this.obj = obj;
-    }
-}
-
-class  FlyweightFactory{
-    private HashMap&lt;Object,Flyweight&gt; data;
-
-    public FlyweightFactory(){ data = new HashMap&lt;&gt;();}
-
-    public Flyweight getFlyweight(Object object){
-        if ( data.containsKey(object)){
-            return data.get(object);
-        }else {
-            Flyweight flyweight = new Flyweight(object);
-            data.put(object,flyweight);
-            return flyweight;
-        }
-    }
-}
-</code></pre><h3 id="12、代理模式（Proxy）"><a href="#12、代理模式（Proxy）" class="headerlink" title="12、代理模式（Proxy）"></a>12、代理模式（Proxy）</h3><p>代理模式：代理模式给某一个对象提供一个代理对象，并由代理对象控制对源对象的引用。代理就是一个人或一个机构代表另一个人或者一个机构采取行动。某些情况下，客户不想或者不能够直接引用一个对象，代理对象可以在客户和目标对象直接起到中介的作用。客户端分辨不出代理主题对象与真实主题对象。代理模式可以并不知道真正的被代理对象，而仅仅持有一个被代理对象的接口，这时候代理对象不能够创建被代理对象，被代理对象必须有系统的其他角色代为创建并传入。</p>
-<pre><code>interface Source{ void method();}
-
-class OldClass implements Source{
-    @Override
-    public void method() {
-    }
-}
-
-class Proxy implements Source{
-    private Source source = new OldClass();
-
-    void doSomething(){}
-    @Override
-    public void method() {
-        new Class1().Func1();
-        source.method();
-        new Class2().Func2();
-        doSomething();
-    }
-}
-</code></pre><h2 id="行为模式"><a href="#行为模式" class="headerlink" title="行为模式"></a>行为模式</h2><h3 id="13、chain-of-responsibleity"><a href="#13、chain-of-responsibleity" class="headerlink" title="13、chain of responsibleity"></a>13、chain of responsibleity</h3><p>责任链模式：在责任链模式中，很多对象由每一个对象对其下家的引用而接</p>
-<p>起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。客户并不知道链上的哪一个对象最终处理这个请求，系统可以在不影响客户端的情况下动态的重新组织链和分配责任。处理者有两个选择：承担责任或者把责任推给下家。一个请求可以最终不被任何接收端对象所接受。</p>
-<h3 id="14、command"><a href="#14、command" class="headerlink" title="14、command"></a>14、command</h3><p>命令模式：命令模式把一个请求或者操作封装到一个对象中。命令模式把发出命令的责任和执行命令的责任分割开，委派给不同的对象。命令模式允许请求的一方和发送的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求是怎么被接收，以及操作是否执行，何时被执行以及是怎么被执行的。系统支持命令的撤消。</p>
-<h3 id="15、interpreter"><a href="#15、interpreter" class="headerlink" title="15、interpreter"></a>15、interpreter</h3><p>解释器模式：给定一个语言后，解释器模式可以定义出其文法的一种表示，并同时提供一个解释器。客户端可以使用这个解释器来解释这个语言中的句子。解释器模式将描述怎样在有了一个简单的文法后，使用模式设计解释这些语句。在解释器模式里面提到的语言是指任何解释器对象能够解释的任何组合。在解释器模式中需要定义一个代表文法的命令类的等级结构，也就是一系列的组合规则。每一个命令对象都有一个解释方法，代表对命令对象的解释。命令对象的等级结构中的对象的任何排列组合都是一个语言。</p>
-<h3 id="16、iterator"><a href="#16、iterator" class="headerlink" title="16、iterator"></a>16、iterator</h3><p>迭代子模式：迭代子模式可以顺序访问一个聚集中的元素而不必暴露聚集的内部表象。多个对象聚在一起形成的总体称之为聚集，聚集对象是能够包容一组对象的容器对象。迭代子模式将迭代逻辑封装到一个独立的子对象中，从而与聚集本身隔开。迭代子模式简化了聚集的界面。每一个聚集对象都可以有一个或一个以上的迭代子对象，每一个迭代子的迭代状态可以是彼此独立的。迭代算法可以独立于聚集角色变化。</p>
-<h3 id="17、mediator"><a href="#17、mediator" class="headerlink" title="17、mediator"></a>17、mediator</h3><p>调停者模式：调停者模式包装了一系列对象相互作用的方式，使得这些对象不必相互明显作用。从而使他们可以松散偶合。当某些对象之间的作用发生改变时，不会立即影响其他的一些对象之间的作用。保证这些作用可以彼此独立的变化。调停者模式将多对多的相互作用转化为一对多的相互作用。调停者模式将对象的行为和协作抽象化，把对象在小尺度的行为上与其他对象的相互作用分开处理。</p>
-<h3 id="18、memento"><a href="#18、memento" class="headerlink" title="18、memento"></a>18、memento</h3><p>备忘录模式：备忘录对象是一个用来存储另外一个对象内部状态的快照的对象。备忘录模式的用意是在不破坏封装的条件下，将一个对象的状态捉住，并外部化，存储起来，从而可以在将来合适的时候把这个对象还原到存储起来的状态。</p>
-<h3 id="19、observer"><a href="#19、observer" class="headerlink" title="19、observer"></a>19、observer</h3><p>观察者模式：观察者模式定义了一种一队多的依赖关系，让多个观察者对象同时监听某一个主题对象。这个主题对象在状态上发生变化时，会通知所有观察者对象，使他们能够自动更新自己。</p>
-<h3 id="20、state"><a href="#20、state" class="headerlink" title="20、state"></a>20、state</h3><p>状态模式：状态模式允许一个对象在其内部状态改变的时候改变行为。这个对象看上去象是改变了它的类一样。状态模式把所研究的对象的行为包装在不同的状态对象里，每一个状态对象都属于一个抽象状态类的一个子类。状态模式的意图是让一个对象在其内部状态改变的时候，其行为也随之改变。状态模式需要对每一个系统可能取得的状态创立一个状态类的子类。当系统的状态变化时，系统便改变所选的子类。</p>
-<h3 id="21、strategy"><a href="#21、strategy" class="headerlink" title="21、strategy"></a>21、strategy</h3><p>策略模式：策略模式针对一组算法，将每一个算法封装到具有共同接口的独立的类中，从而使得它们可以相互替换。策略模式使得算法可以在不影响到客户端的情况下发生变化。策略模式把行为和环境分开。环境类负责维持和查询行为类，各种算法在具体的策略类中提供。由于算法和环境独立开来，算法的增减，修改都不会影响到环境和客户端。</p>
-<h3 id="22、template-method"><a href="#22、template-method" class="headerlink" title="22、template method"></a>22、template method</h3><p>模板方法模式：模板方法模式准备一个抽象类，将部分逻辑以具体方法以及具体构造子的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。先制定一个顶级逻辑框架，而将逻辑的细节留给具体的子类去实现。</p>
-<h3 id="23、visitor"><a href="#23、visitor" class="headerlink" title="23、visitor"></a>23、visitor</h3><p>访问者模式：访问者模式的目的是封装一些施加于某种数据结构元素之上的操作。一旦这些操作需要修改的话，接受这个操作的数据结构可以保持不变。访问者模式适用于数据结构相对未定的系统，它把数据结构和作用于结构上的操作之间的耦合解脱开，使得操作集合可以相对自由的演化。访问者模式使得增加新的操作变的很容易，就是增加一个新的访问者类。访问者模式将有关的行为集中到一个访问者对象中，而不是分散到一个个的节点类中。当使用访问者模式时，要将尽可能多的对象浏览逻辑放在访问者类中，而不是放到它的子类中。访问者模式可以跨过几个类的等级结构访问属于不同的等级结构的成员类。</p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/05/07/关于Java 23种设计模式/">
-    <time datetime="2019-05-07T01:37:58.422Z" class="entry-date">
-        2019-05-07
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1491,7 +1604,7 @@ class Proxy implements Source{
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1503,23 +1616,23 @@ class Proxy implements Source{
       <ul>
         
           <li>
-            <a href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
+            <a href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
+            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/vue async await/">vue 事件中的 (native)</a>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
           </li>
         
           <li>
-            <a href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+            <a href="/2019/08/13/加密算法DES AES/">加密算法</a>
           </li>
         
       </ul>
@@ -1537,6 +1650,13 @@ class Proxy implements Source{
     <p>&copy; 2019 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv"><i class="fa fa-file-o"></i>本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 
