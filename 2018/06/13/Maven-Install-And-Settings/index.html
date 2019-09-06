@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Maven 资料
+官网：http://maven.apache.org/
+官网下载：http://maven.apache.org/download.cgi
+历史版本下载：https://archive.apache.org/dist/maven/binaries/
+
+Maven 安装（bash 环">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Maven 安装和配置 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Maven 资料 官网：http://maven.apache.org/ 官网下载：http://maven.apache.org/download.cgi 历史版本下载：https://archive.apache.org/dist/maven/binaries/  Maven 安装（bash 环境） Maven 3.3 的 JDK 最低要求是 JDK 7 下载压缩包：wget http://m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven 安装和配置">
+<meta property="og:url" content="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="Maven 资料 官网：http://maven.apache.org/ 官网下载：http://maven.apache.org/download.cgi 历史版本下载：https://archive.apache.org/dist/maven/binaries/  Maven 安装（bash 环境） Maven 3.3 的 JDK 最低要求是 JDK 7 下载压缩包：wget http://m">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-02T09:57:05.865Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maven 安装和配置">
+<meta name="twitter:description" content="Maven 资料 官网：http://maven.apache.org/ 官网下载：http://maven.apache.org/download.cgi 历史版本下载：https://archive.apache.org/dist/maven/binaries/  Maven 安装（bash 环境） Maven 3.3 的 JDK 最低要求是 JDK 7 下载压缩包：wget http://m">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Maven-Install-And-Settings" class="post-Maven-Install-And-Settings post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Maven 安装和配置
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ck07vj0ir0008ycuh8q18o474" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Maven-资料"><a href="#Maven-资料" class="headerlink" title="Maven 资料"></a>Maven 资料</h2><ul>
+<li>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></li>
+<li>官网下载：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></li>
+<li>历史版本下载：<a href="https://archive.apache.org/dist/maven/binaries/" target="_blank" rel="noopener">https://archive.apache.org/dist/maven/binaries/</a></li>
+</ul>
+<h2 id="Maven-安装（bash-环境）"><a href="#Maven-安装（bash-环境）" class="headerlink" title="Maven 安装（bash 环境）"></a>Maven 安装（bash 环境）</h2><ul>
+<li>Maven 3.3 的 JDK 最低要求是 JDK 7</li>
+<li>下载压缩包：<code>wget http://mirrors.cnnic.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz</code></li>
+<li>解压：<code>tar zxvf apache-maven-3.3.9-bin.tar.gz</code></li>
+<li>修改目录名，默认的太长了：<code>mv apache-maven-3.3.9/ maven3.3.9/</code></li>
+<li>移到我个人习惯的安装目录下：<code>mv maven3.3.9/ /usr/local</code></li>
+<li>环境变量设置：<code>vim /etc/profile</code></li>
+<li>在文件最尾巴添加下面内容：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Maven</span></span><br><span class="line"><span class="attr">MAVEN_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">M3_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">PATH</span>=<span class="variable">$PATH</span>:<span class="variable">$M3_HOME</span>/bin</span><br><span class="line"><span class="attr">MAVEN_OPTS</span>=<span class="string">"-Xms256m -Xmx356m"</span></span><br><span class="line">export M3_HOME</span><br><span class="line">export MAVEN_HOME</span><br><span class="line">export PATH</span><br><span class="line">export MAVEN_OPTS</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新配置文件：<code>source /etc/profile</code></li>
+<li>测试是否安装成功：<code>mvn -version</code></li>
+</ul>
+<h2 id="Maven-配置"><a href="#Maven-配置" class="headerlink" title="Maven 配置"></a>Maven 配置</h2><ul>
+<li>创建本地参数：<code>mkdir -p /opt/maven-repository</code></li>
+<li>配置项目连接上私服</li>
+<li>编辑配置文件：<code>vim /usr/local/maven3.3.9/conf/settings.xml</code></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--本地仓库位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/opt/maven-repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">proxies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--设置 Nexus 认证信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--有自己的 nexus 改为自己的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<li><a href="http://maven.apache.org/install.html" target="_blank" rel="noopener">http://maven.apache.org/install.html</a></li>
+<li><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html</a></li>
+<li><a href="http://maven.apache.org/guides/getting-started/index.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/index.html</a></li>
+<li><a href="http://maven.apache.org/general.html" target="_blank" rel="noopener">http://maven.apache.org/general.html</a></li>
+<li><a href="http://blog.csdn.net/sxyx2008/article/details/7975129" target="_blank" rel="noopener">http://blog.csdn.net/sxyx2008/article/details/7975129</a></li>
+<li><a href="http://blog.csdn.net/xuke6677/article/details/8482472" target="_blank" rel="noopener">http://blog.csdn.net/xuke6677/article/details/8482472</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/06/13/Maven-Install-And-Settings/">
+    <time datetime="2018-06-12T16:00:00.000Z" class="entry-date">
+        2018-06-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/01/01/RPC入门总结  RPC定义和原理/" rel="prev"><span class="meta-nav">←</span> RPC入门总结 RPC定义和原理</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/06/06/Node-Install-And-Usage/" rel="next">Node 安装和配置 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

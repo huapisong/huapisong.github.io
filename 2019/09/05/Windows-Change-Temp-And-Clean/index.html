@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="修改 temp 位置
+1.windows临时文件夹分布在三个地方，1：C:\WINDOWS\Temp，这是系统公用的
+2.还有一个在当前登录账户的配置文件夹下，一般是C:\Users\登录的帐号\AppData\Local\Temp
+
+它们都在C盘里面，这样对于控制磁盘碎片是很不利的，所以我们首先要">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Windows temp 的修改和清除 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="修改 temp 位置 1.windows临时文件夹分布在三个地方，1：C:\WINDOWS\Temp，这是系统公用的 2.还有一个在当前登录账户的配置文件夹下，一般是C:\Users\登录的帐号\AppData\Local\Temp  它们都在C盘里面，这样对于控制磁盘碎片是很不利的，所以我们首先要做的就是把Temp统一移到C盘之外的分区，这里以D盘为例。 1.在D盘建立D:\AppData\Lo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows temp 的修改和清除">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="修改 temp 位置 1.windows临时文件夹分布在三个地方，1：C:\WINDOWS\Temp，这是系统公用的 2.还有一个在当前登录账户的配置文件夹下，一般是C:\Users\登录的帐号\AppData\Local\Temp  它们都在C盘里面，这样对于控制磁盘碎片是很不利的，所以我们首先要做的就是把Temp统一移到C盘之外的分区，这里以D盘为例。 1.在D盘建立D:\AppData\Lo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-05T03:25:11.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows temp 的修改和清除">
+<meta name="twitter:description" content="修改 temp 位置 1.windows临时文件夹分布在三个地方，1：C:\WINDOWS\Temp，这是系统公用的 2.还有一个在当前登录账户的配置文件夹下，一般是C:\Users\登录的帐号\AppData\Local\Temp  它们都在C盘里面，这样对于控制磁盘碎片是很不利的，所以我们首先要做的就是把Temp统一移到C盘之外的分区，这里以D盘为例。 1.在D盘建立D:\AppData\Lo">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Windows-Change-Temp-And-Clean" class="post-Windows-Change-Temp-And-Clean post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Windows temp 的修改和清除
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ck07vj0j3000tycuh1y2qmmus" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="修改-temp-位置"><a href="#修改-temp-位置" class="headerlink" title="修改 temp 位置"></a>修改 temp 位置</h2><ul>
+<li>1.windows临时文件夹分布在三个地方，1：C:\WINDOWS\Temp，这是系统公用的</li>
+<li>2.还有一个在当前登录账户的配置文件夹下，一般是C:\Users\登录的帐号\AppData\Local\Temp</li>
+</ul>
+<p>它们都在C盘里面，这样对于控制磁盘碎片是很不利的，所以我们首先要做的就是把Temp统一移到C盘之外的分区，这里以D盘为例。</p>
+<p>1.在D盘建立D:\AppData\Local\Temp目录<br>2.右击”我的电脑”,”属性”,”高级”,打开“环境变量”对话框，将用户变量和系统变量”TEMP”和”TMP” 的值 “%USERPROFILE%\AppData\Local\Temp” 改为 “D:\AppData\Local\Temp”。</p>
+<h2 id="清空-temp"><a href="#清空-temp" class="headerlink" title="清空 temp"></a>清空 temp</h2><p>新建一个文本文档 CleanTEMP.bat，在里面写入两行指令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RD %TEMP% /S/Q</span><br><span class="line">MKDIR %TEMP%</span><br></pre></td></tr></table></figure>
+<p>双击CleanTEMP.bat文件就自动清空Temp文件夹了。</p>
+<h2 id="启动、关机-清空temp"><a href="#启动、关机-清空temp" class="headerlink" title="启动、关机 清空temp"></a>启动、关机 清空temp</h2><p>打开组策略(运行gpedit.msc)，依次打开“计算机配置－Windows 设置－脚本(启动/关机)”，然后随便打开“启动”或“关机”，效果一样，一个是登录时清空Temp一个是关机时清空，这里我选择“关机”。点击“添加”把刚才做好的*.bat(CleanTEMP.bat)文件导入，点“确定”后一切就搞定了。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">
+    <time datetime="2019-09-04T16:00:00.000Z" class="entry-date">
+        2019-09-05
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/08/28/bash/" rel="next">Bash 常用命令 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

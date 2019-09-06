@@ -62,6 +62,240 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-vue + webpack 多模块静态文件导入" class="post-vue + webpack 多模块静态文件导入 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="ck07vj0ji001rycuh5cchv2fj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="多个模块导入静态文件"><a href="#多个模块导入静态文件" class="headerlink" title="多个模块导入静态文件"></a>多个模块导入静态文件</h2><p>项目结构目录<br><img src="/assets/vueImg/projects.png" alt="Image text"></p>
+<p>官方推荐的css及js引用方式如下:</p>
+<pre><code>&lt;!-- 引入样式 --&gt;
+&lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&quot; rel=&quot;stylesheet&quot;&gt; 
+&lt;!-- 引入组件库 --&gt;
+&lt;script src=&quot;https://lib.baomitu.com/vue/2.4.4/vue.min.js&quot;&gt;&lt;/script&gt; 
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/element-ui@2.2.0/lib/index.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>这种方式引入,如果环境只有内网,没有外网的话,会导致页面直接空白.（或cdn 访问不通、不在维护等……）</p>
+<p>很简单把css的href及js的src的网址输入浏览器可以得到css和js的源码,直接拷贝到本地即可.</p>
+<p>index.html 引入</p>
+<pre><code>&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+  &lt;title&gt;xxxxx&lt;/title&gt;
+  &lt;link href=&quot;/static/css/element-ui2.2.0/index.css&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;script src=&apos;/static/js/vue2.7.0/vue.min.js&apos;&gt;&lt;/script&gt;
+  &lt;script src=&apos;/static/js/vue-router3.0.2/vue-router.min.js&apos;&gt;&lt;/script&gt;
+  &lt;script src=&apos;/static/js/element-ui@2.2.0/index.js&apos;&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre><h2 id="静态文件配置（多模块、多服务、各服务端口不同）"><a href="#静态文件配置（多模块、多服务、各服务端口不同）" class="headerlink" title="静态文件配置（多模块、多服务、各服务端口不同）"></a>静态文件配置（多模块、多服务、各服务端口不同）</h2><pre><code># config 配置信息
+assetsSubDirectory: &apos;static&apos;,
+assetsPublicPath: &apos;/&apos;,
+
+# 项目是 vue+webpack 多模块
+ 开发环境中多个模块需要启动多个服务，各服务监听的端口不同，使用离线存储数据时存在跨域不共通的问题。
+ 解决思路： 采用第三方代理服务器，前端所有的请求到代理服务器由代理服务器进行请求分发
+ 实现：采用gulp-connect 做为代理服务器，代理转发的具体代码如下
+
+const gulp = require(&apos;gulp&apos;);
+const connect = require(&apos;gulp-connect&apos;);
+const proxy = require(&apos;http-proxy-middleware&apos;);
+const ipLib = require(&apos;ip&apos;);
+const path = require(&apos;path&apos;);
+const fs = require(&apos;fs&apos;)
+
+
+let currentIp = ipLib.address()
+let globPath = path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;)
+const proxyPort = &apos;7890&apos;
+
+gulp.task(&apos;server&apos;, function(){
+  connect.server({
+    port: proxyPort,
+    host: &apos;0.0.0.0&apos;,
+    middleware: function(connect, opt) {
+      return [
+        proxy(&apos;/login&apos;, {
+          target: &apos;http://www.localhost:8080&apos;, // target host
+          changeOrigin: true,               // needed for virtual hosted sites
+          ws: true,
+          router: { // login
+            [ currentIp + &apos;:&apos;+proxyPort] : &apos;http://&apos; + currentIp + &apos;:10258/&apos;
+          }
+        }),
+        proxy(&apos;/static&apos;, {
+          target: &apos;http://www.localhost:8080&apos;, // target host
+          changeOrigin: true,               // needed for virtual hosted sites
+          ws: true,
+          router: { // static
+            [ currentIp + &apos;:&apos;+proxyPort] : &apos;http://&apos; + currentIp + &apos;:10258/&apos;
+          }
+        }),
+      ]
+    }
+  })
+})
+</code></pre><h2 id="本地使用element-ui-图标不显示或显示错乱的问题"><a href="#本地使用element-ui-图标不显示或显示错乱的问题" class="headerlink" title="本地使用element ui 图标不显示或显示错乱的问题"></a>本地使用element ui 图标不显示或显示错乱的问题</h2><p>但是问题来了,element-ui的index.css拷贝本地之后,会发现图标无法正常显示了.</p>
+<pre><code>原因
+
+在本地的index.css中发现如下代码是网络请求icon的
+
+@charset &quot;UTF-8&quot;;.el-pagination--small .arrow.disabled,.el-table .hidden-columns,.el-table td.is-hidden&gt;*,.el-table th.is-hidden&gt;*,.el-table--hidden{visibility:hidden}@font-face{font-family:element-icons;src:url(fonts/element-icons.woff) format(&quot;woff&quot;),url(fonts/element-icons.ttf) format(&quot;truetype&quot;);font-weight:400;
+</code></pre><p>解决办法</p>
+<p>访问 <a href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.woff" target="_blank" rel="noopener">https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.woff</a><br><a href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.ttf" target="_blank" rel="noopener">https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.ttf</a></p>
+<p>文件自动下载下来,放到项目的/static/css/element-ui2.2.0/fonts文件夹下即可</p>
+<p><img src="/assets/vueImg/staticFile.png" alt="Image text"></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">
+    <time datetime="2019-05-05T16:00:00.000Z" class="entry-date">
+        2019-05-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/05/vue 修改子组件样式/">vue 修改子组件样式</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="ck07vj0jl001yycuhzcka97jn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="Scoped-CSS"><a href="#Scoped-CSS" class="headerlink" title="Scoped CSS"></a>Scoped CSS</h3><p>当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换：</p>
+<pre><code>&lt;style scoped&gt;
+.example {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot;&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>转换结果：</p>
+<pre><code>&lt;style&gt;
+.example[data-v-f3f3eg9] {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot; data-v-f3f3eg9&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><h3 id="混用本地和全局样式"><a href="#混用本地和全局样式" class="headerlink" title="混用本地和全局样式"></a>混用本地和全局样式</h3><p>你可以在一个组件中同时使用有 scoped 和非 scoped 样式：</p>
+<pre><code>&lt;style&gt;
+/* 全局样式 */
+&lt;/style&gt;
+
+&lt;style scoped&gt;
+/* 本地样式 */
+&lt;/style&gt;
+</code></pre><h3 id="子组件的根元素"><a href="#子组件的根元素" class="headerlink" title="子组件的根元素"></a>子组件的根元素</h3><p>使用 scoped 后，父组件的样式将不会渗透到子组件中。不过一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。这样设计是为了让父组件可以从布局的角度出发，调整其子组件根元素的样式。</p>
+<h3 id="深度作用选择器"><a href="#深度作用选择器" class="headerlink" title="深度作用选择器"></a>深度作用选择器</h3><p>如果你希望 scoped 样式中的一个选择器能够作用得“更深”，例如影响子组件，你可以使用 &gt;&gt;&gt; 操作符：</p>
+<pre><code>&lt;style scoped&gt;
+.a &gt;&gt;&gt; .b { /* ... */ }
+&lt;/style&gt;
+</code></pre><p>上述代码将会编译成：</p>
+<pre><code>.a[data-v-f3f3eg9] .b { /* ... */ }
+</code></pre><p>有些像 Sass 之类的预处理器无法正确解析 &gt;&gt;&gt;。这种情况下你可以使用 /deep/ 或 ::v-deep 操作符取而代之——两者都是 &gt;&gt;&gt; 的别名，同样可以正常工作。</p>
+<p>例：</p>
+<pre><code> &lt;template slot-scope=&quot;slotProps&quot;&gt;
+    &lt;xx-input
+    v-model=&quot;slotProps.option.record.name&quot;
+    :type=&quot;form.input.type&quot;
+    placeholder=&quot;请输入&quot;
+    :required=&quot;true&quot;
+    size=&quot;60&quot;
+    class=&quot;table-input&quot;
+  &gt;&lt;/xx-input&gt;
+ &lt;/template&gt;
+
+&lt;style lang=&quot;css&quot; scoped&gt;
+.table-input /deep/ .input-no-label .input__content{
+  margin-bottom: 0;
+}
+&lt;/style&gt;
+</code></pre><h3 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h3><p>通过 v-html 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
+<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><strong>Scoped 样式不能代替 class</strong>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
+<p><strong>在递归组件中小心使用后代选择器!</strong> 对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
+<h3 id="不推荐使用全局样式"><a href="#不推荐使用全局样式" class="headerlink" title="*不推荐使用全局样式"></a>*不推荐使用全局样式</h3><p>参考：<a href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/zh/guide/scoped-css.html</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 修改子组件样式/">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-java生命周期" class="post-java生命周期 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +311,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="cjzwhykyg002umsuhmjrl6vuh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="ck07vj0k80039ycuhy3xeh4s1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -263,10 +497,10 @@ public class Test4 {
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/29/java生命周期/">
     <time datetime="2019-04-29T08:18:11.339Z" class="entry-date">
@@ -304,7 +538,7 @@ public class Test4 {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="cjzwhykyi002ymsuh7579efms" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="ck07vj0ka003dycuhpsaxxjs4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -500,10 +734,10 @@ public CopyOnWriteArraySet() {
 </code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/28/java集合框架/">
     <time datetime="2019-04-27T16:00:00.000Z" class="entry-date">
@@ -541,7 +775,7 @@ public CopyOnWriteArraySet() {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cjzwhykyk0032msuhf0getfm3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="ck07vj0kb003fycuhpcvts66p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -767,10 +1001,10 @@ server {
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/24/nginx解决方案/">
     <time datetime="2019-04-23T16:00:00.000Z" class="entry-date">
@@ -808,7 +1042,7 @@ server {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cjzwhykyl0034msuhpyykk09m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ck07vj0kc003hycuhb2tmr3bx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -850,10 +1084,10 @@ server {
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/18/oracle和mysql区别/">
     <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
@@ -891,7 +1125,7 @@ server {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cjzwhykyw003amsuhw52euojv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ck07vj0ko003nycuht4rnc805" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1221,10 +1455,10 @@ public void set(T value) {
 </code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/18/javaThread/">
     <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
@@ -1262,7 +1496,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cjzwhykx8000dmsuh4nnwnvqj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ck07vj0j0000nycuhlsp0nbdr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1343,10 +1577,10 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/17/Spring Cloud高可用/">
     <time datetime="2019-04-16T16:00:00.000Z" class="entry-date">
@@ -1384,7 +1618,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="cjzwhykyd002pmsuh4m5ceqj9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck07vj0k40032ycuhpjsw8umh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1502,10 +1736,10 @@ public class ComputeClientHystrix implements ComputeClient {
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/15/Spring Cloud(三)断路器/">
     <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
@@ -1543,7 +1777,7 @@ public class ComputeClientHystrix implements ComputeClient {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="cjzwhykye002qmsuh4ngj2cta" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck07vj0k50033ycuhln6f2j3b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1732,10 +1966,10 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/04/12/Spring Cloud(二)服务消费者/">
     <time datetime="2019-04-11T16:00:00.000Z" class="entry-date">
@@ -1746,439 +1980,6 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Spring Cloud(一)服务注册与发现" class="post-Spring Cloud(一)服务注册与发现 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/11/Spring Cloud(一)服务注册与发现/">Spring Cloud构建微服务架构（一）服务注册与发现</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cjzwhykyc002omsuhw8gjtj36" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="Spring-Cloud-简介"><a href="#Spring-Cloud-简介" class="headerlink" title="Spring Cloud 简介"></a>Spring Cloud 简介</h3><p>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
-<p>Spring Cloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品），比如：Spring Cloud Config、Spring Cloud Netflix、Spring Cloud CloudFoundry、Spring Cloud AWS、Spring Cloud Security、Spring Cloud Commons、Spring Cloud Zookeeper、Spring Cloud CLI等项目。</p>
-<h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><p>“微服务架构”在这几年非常的火热，以至于关于微服务架构相关的产品社区也变得越来越活跃（比如：netflix、dubbo），Spring Cloud也因Spring社区的强大知名度和影响力也被广大架构师与开发者备受关注。</p>
-<p>那么什么是“微服务架构”呢？简单的说，微服务架构就是将一个完整的应用从数据存储开始垂直拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展，服务与服务间通过诸如RESTful API的方式互相调用。</p>
-<p>对于“微服务架构”，大家在互联网可以搜索到很多相关的介绍和研究文章来进行学习和了解。也可以阅读始祖Martin Fowler的《Microservices》，本文不做更多的介绍和描述。</p>
-<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p>在简单介绍了Spring Cloud和微服务架构之后，下面回归本文的主旨内容，如何使用Spring Cloud搭建服务注册与发现模块。</p>
-<p>这里我们会用到Spring Cloud Netflix，该项目是Spring Cloud的子项目之一，主要内容是对Netflix公司一系列开源产品的包装，它为Spring Boot应用提供了自配置的Netflix OSS整合。通过一些简单的注解，开发者就可以快速的在应用中配置一下常用模块并构建庞大的分布式系统。它主要提供的模块包括：服务发现（Eureka），断路器（Hystrix），智能路有（Zuul），客户端负载均衡（Ribbon）等。</p>
-<p>所以，我们这里的核心内容就是服务发现模块：Eureka。下面我们动手来做一些尝试。</p>
-<h3 id="创建“服务注册中心”"><a href="#创建“服务注册中心”" class="headerlink" title="创建“服务注册中心”"></a>创建“服务注册中心”</h3><p>创建一个基础的Spring Boot工程，并在pom.xml中引入需要的依赖内容：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-
-&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;
-</code></pre><p>通过@EnableEurekaServer注解启动一个服务注册中心提供给其他应用进行对话。这一步非常的简单，只需要在一个普通的Spring Boot应用中添加这个注解就能开启此功能，比如下面的例子：</p>
-<pre><code>import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
-@EnableEurekaServer
-@SpringBootApplication
-public class EurekaApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaApplication.class, args);
-    }
-
-}
-</code></pre><p>在默认设置下，该服务注册中心也会将自己作为客户端来尝试注册它自己，所以我们需要禁用它的客户端注册行为，只需要在application.properties中问增加如下配置：</p>
-<pre><code>server.port=1000
-eureka.client.register-with-eureka=false
-eureka.client.fetch-registry=false
-eureka.client.serviceUrl.defaultZone=http://localhost:${server.port}/eureka/
-</code></pre><p>为了与后续要进行注册的服务区分，这里将服务注册中心的端口通过server.port属性设置为1000。</p>
-<p><a href="http://localhost:1000/" target="_blank" rel="noopener">启动工程后，访问：http://localhost:1000/</a></p>
-<p>可以看到下面的页面，其中还没有发现任何服务<br> <img src="/assets/SpringCloudImg/eurekaService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
-<h3 id="创建“服务提供方”"><a href="#创建“服务提供方”" class="headerlink" title="创建“服务提供方”"></a>创建“服务提供方”</h3><p>下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
-<p>假设我们有一个提供计算功能的微服务模块，我们实现一个RESTful API，通过传入两个参数a和b，最后返回a + b的结果。</p>
-<p>首先，创建一个基本的Spring Boot应用 compute-service，在pom.xml中，加入如下配置：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-</code></pre><p>其次，实现/add请求处理接口，通过DiscoveryClient对象，在日志中打印出服务实例的相关内容。</p>
-<pre><code>@RestController
-public class ComputeController {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    // 服务注册
-    @Autowired
-    private Registration registration;
-    @Autowired
-    private DiscoveryClient client;
-
-    @RequestMapping(value = &quot;/add&quot; ,method = RequestMethod.GET)
-    public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
-
-        ServiceInstance instance = serviceInstance();
-        Integer r = a + b;
-        logger.info(&quot;/add, host:&quot; + instance.getHost() + &quot;, service_id:&quot; + instance.getServiceId() + &quot;, result:&quot; + r);
-        return r;
-    }
-    public ServiceInstance serviceInstance() {
-        List&lt;ServiceInstance&gt; list = client.getInstances(registration.getServiceId());
-        if (list != null &amp;&amp; list.size() &gt; 0) {
-            for (ServiceInstance itm : list){
-                if (itm.getPort() == 2001)
-                    return itm;
-            }
-        }
-        return null;
-    }
-}
-</code></pre><p>最后在主类中通过加上@EnableDiscoveryClient注解，该注解能激活Eureka中的DiscoveryClient实现，才能实现Controller中对服务信息的输出。</p>
-<pre><code>@EnableDiscoveryClient
-@SpringBootApplication
-public class ComputeServiceApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(ComputeServiceApplication.class, args);
-    }
-
-}
-</code></pre><p>我们在完成了服务内容的实现之后，再继续对application.properties做一些配置工作，具体如下：</p>
-<pre><code>spring.application.name=compute-service
-server.port=2001
-eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
-</code></pre><p>通过spring.application.name属性，我们可以指定微服务的名称后续在调用的时候只需要使用该名称就可以进行服务的访问。</p>
-<p>eureka.client.serviceUrl.defaultZone属性对应服务注册中心的配置内容，指定服务注册中心的位置。</p>
-<p>为了在本机上测试区分服务提供方和服务注册中心，使用server.port属性设置不同的端口。</p>
-<p>启动该工程后，再次访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
-<p>可以看到，我们定义的服务被注册了。<br><img src="/assets/SpringCloudImg/eurekaComputeService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/compute-service</a></p>
-
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2019/04/11/Spring Cloud(一)服务注册与发现/">
-    <time datetime="2019-04-10T16:00:00.000Z" class="entry-date">
-        2019-04-11
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-node+superagent爬虫" class="post-node+superagent爬虫 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/10/node+superagent爬虫/">node  爬虫</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="cjzwhykxn0018msuh6932rvjs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><pre><code>Node.js环境搭建
-</code></pre><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>选择一个目录，新建一个准备存放工程内容的文件夹demo。</p>
-<p>打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下</p>
-<pre><code>$ npm init
-This utility will walk you through creating a package.json file.
-It only covers the most common items, and tries to guess sensible defaults.
-
-See `npm help json` for definitive documentation on these fields
-and exactly what they do.
-
-Use `npm install &lt;pkg&gt;` afterwards to install a package and
-save it as a dependency in the package.json file.
-
-Press ^C at any time to quit.
-package name: (demo) demo
-version: (1.0.0)
-description: 爬虫
-entry point: (index.js)
-test command:
-git repository:
-keywords:
-author: huapisong
-license: (ISC)
-About to write to D:\test\demo\package.json:
-
-{
-  &quot;name&quot;: &quot;demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;爬虫&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;author&quot;: &quot;huapisong&quot;,
-  &quot;license&quot;: &quot;ISC&quot;
-}
-
-
-Is this ok? (yes) yes
-</code></pre><p>此时文件夹下生成了一个package.json文件，其中包含了工程的基本信息以及引用的框架等信息</p>
-<h3 id="框架引入"><a href="#框架引入" class="headerlink" title="框架引入"></a>框架引入</h3><pre><code>superagent：发起http请求
-cheerio：解析http返回的html内容
-async：多线程并发控制
-</code></pre><p>安装命令 npm install –save PACKAGE_NAME，执行以下三条命令后，工程目录下多了一个node_modules目录，该目录就是引入的框架内容。</p>
-<pre><code>$npm install --save superagent
-$npm install --save cheerio
-$npm install --save async
-</code></pre><h3 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a>编码过程</h3><p>工程目录下，创建index.js</p>
-<pre><code>var superagent = require(&apos;superagent&apos;);
-var cheerio = require(&apos;cheerio&apos;);
-var async = require(&apos;async&apos;);
-
-var fs = require(&apos;fs&apos;);
-var request = require(&quot;request&quot;);
-
-console.log(&apos;爬虫程序开始运行......&apos;);
-
-// 第一步，发起请求，获取的列表
-superagent
-    .get(&apos;http://www.wanfangdata.com.cn/keywords/getNewKeywords.do?keywords=java&amp;resource=all&amp;topNumber=18&apos;)
-    .set(&apos;Accept&apos;, &apos;application/json, text/javascript, */*; q=0.01&apos;)
-    .set(&apos;Content-Type&apos;,&apos;text/html;charset=UTF-8&apos;)
-    .end(function(err, res){
-        // res.body, res.headers, res.status
-        //let body = cheerio.load(res.body);
-        // 请求返回后的处理
-        // 将response中返回的结果转换成JSON对象
-        var words = JSON.parse(res.text).word;
-        console.log(&apos;抓取的数据：&apos; + JSON.stringify(words));
-
-        async.mapSeries(words,
-            function (word, callback) {
-                console.log(&apos;抓取的数据：&apos; + word);
-                // 对每个对象的处理逻辑
-                fetchInfo(word, callback);
-                console.timeEnd(&quot;  耗时&quot;);
-
-            },
-            function (err, result) {
-                console.log(&apos;final:\n&apos; + result);
-            }
-        );
-        // 并发遍历 words对象
-        /* var words = JSON.parse(res.text);
-        async.mapLimit(words, 10,
-            function (word, callback) {
-                console.log(&apos;抓取的数据：&apos; + word);
-                // 对每个对象的处理逻辑
-                fetchInfo(word, callback);
-                console.timeEnd(&quot;  耗时&quot;);
-
-            },
-            function (err, result) {
-                console.log(&apos;final:\n&apos; + result);
-            }
-        );*/
-
-    });
-
-var concurrencyCount = 0; // 当前并发数记录
-var fetchInfo = function(word, callback){
-    console.time(&apos;  耗时&apos;);
-    concurrencyCount++;
-    console.log(&apos;并发数：&apos;, concurrencyCount, &apos;，正在抓取的是&apos;, word);
-
-    // 写入文件内容（如果文件不存在会创建一个文件）
-    fs.writeFile(&apos;./try4.txt&apos;, word+&apos;\n&apos;, { &apos;flag&apos;: &apos;a&apos; }, function(err) {
-        if (err) {
-            console.log(&apos;并发数:&apos;, concurrencyCount--, &apos;word&apos;, word);
-            callback(null, word);
-            throw err;
-        }
-        callback(null, word);
-        // 写入成功后读取测试
-        /*fs.readFile(&apos;./try4.txt&apos;, &apos;utf-8&apos;, function(err, data) {
-            if (err) {
-                throw err;
-            }
-            console.log(data);
-        });*/
-    });
-
-}
-</code></pre><p>工程目录下执行命令，node index.js，抓取程序开始执行</p>
-<pre><code> node index.js
-爬虫程序开始运行......
-抓取的数据：[&quot;Java&quot;,&quot;JAVA&quot;,&quot;java&quot;,&quot;Java语言&quot;,&quot;JAVA语言&quot;,&quot;Java技术&quot;,&quot;JAVA技术&quot;,&quot;Java3D&quot;,&quot;JavaEE&quot;,&quot;Java虚拟机&quot;,&quot;Java EE&quot;,&quot;JavaBean&quot;,&quot;Java程序设计&quot;,&quot;JavaScript&quot;,&quot;JAVASCRIPT&quot;,&quot;Javascript&quot;,&quot;Java Applet&quot;]
-抓取的数据：Java
-并发数： 1 ，正在抓取的是 Java
- 耗时: 1.329ms
-抓取的数据：JAVA
-并发数： 2 ，正在抓取的是 JAVA
- 耗时: 0.646ms
-抓取的数据：java
-并发数： 3 ，正在抓取的是 java
- 耗时: 0.625ms
-抓取的数据：Java语言
-并发数： 4 ，正在抓取的是 Java语言
- 耗时: 0.642ms
-抓取的数据：JAVA语言
-并发数： 5 ，正在抓取的是 JAVA语言
- 耗时: 0.663ms
-抓取的数据：Java技术
-并发数： 6 ，正在抓取的是 Java技术
- 耗时: 0.410ms
-抓取的数据：JAVA技术
-并发数： 7 ，正在抓取的是 JAVA技术
- 耗时: 0.395ms
-抓取的数据：Java3D
-并发数： 8 ，正在抓取的是 Java3D
- 耗时: 0.377ms
-抓取的数据：JavaEE
-并发数： 9 ，正在抓取的是 JavaEE
- 耗时: 0.240ms
-抓取的数据：Java虚拟机
-并发数： 10 ，正在抓取的是 Java虚拟机
- 耗时: 0.346ms
-抓取的数据：Java EE
-并发数： 11 ，正在抓取的是 Java EE
- 耗时: 0.306ms
-抓取的数据：JavaBean
-并发数： 12 ，正在抓取的是 JavaBean
- 耗时: 0.323ms
-抓取的数据：Java程序设计
-并发数： 13 ，正在抓取的是 Java程序设计
- 耗时: 0.326ms
-抓取的数据：JavaScript
-并发数： 14 ，正在抓取的是 JavaScript
- 耗时: 0.306ms
-抓取的数据：JAVASCRIPT
-并发数： 15 ，正在抓取的是 JAVASCRIPT
- 耗时: 0.346ms
-抓取的数据：Javascript
-并发数： 16 ，正在抓取的是 Javascript
- 耗时: 1.027ms
-抓取的数据：Java Applet
-并发数： 17 ，正在抓取的是 Java Applet
- 耗时: 0.955ms
-final:
-Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚拟机,Java EE,JavaBean,Java程序设计,JavaScript,JAVASCRIPT,Javascript,Java Applet
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2019/04/10/node+superagent爬虫/">
-    <time datetime="2019-04-09T16:00:00.000Z" class="entry-date">
-        2019-04-10
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Node/">Node</a>
   </div>
 
     
@@ -2215,7 +2016,7 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -2227,7 +2028,11 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
       <ul>
         
           <li>
-            <a href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
           </li>
         
           <li>
@@ -2239,11 +2044,7 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
           </li>
         
           <li>
-            <a href="/2019/08/28/bash/">Bash 常用命令</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/13/加密算法DES AES/">加密算法</a>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
       </ul>
@@ -2261,13 +2062,9 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
     <p>&copy; 2019 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
-
+    <!-- busuanzi start -->
     
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-    <span class="post-meta-divider">|</span>
-    <span id="busuanzi_container_site_uv"><i class="fa fa-file-o"></i>本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    
+    <!-- busuanzi end -->
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 

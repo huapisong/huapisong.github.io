@@ -62,6 +62,445 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ck07vj0jq0028ycuhsm3ll640" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/右键添加Notepad2/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/curl/">curl(选项)(参数)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ck07vj0k60035ycuh1dpzsifg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>举个栗子
+
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;{&quot;serviceType&quot;:&quot;3&quot;}&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceType=3&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+</code></pre><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>curl(选项)(参数)
+</code></pre><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><pre><code>-a/--append  上传文件时，附加到目标文件
+-A/--user-agent &lt;string&gt;  设置用户代理发送给服务器
+-anyauth  可以使用“任何”身份验证方法
+-b/--cookie &lt;name=string/file&gt;  cookie字符串或文件读取位置
+   --basic  使用HTTP基本验证
+-B/--use-ascii  使用ASCII /文本传输
+-c/--cookie-jar &lt;file&gt;  操作结束后把cookie写入到这个文件中
+-C/--continue-at &lt;offset&gt;  断点续转
+-d/--data &lt;data&gt;  HTTP POST方式传送数据
+   --data-ascii &lt;data&gt;  以ascii的方式post数据
+   --data-binary &lt;data&gt;  以二进制的方式post数据
+   --negotiate  使用HTTP身份验证
+   --digest  使用数字身份验证
+   --disable-eprt  禁止使用EPRT或LPRT
+   --disable-epsv  禁止使用EPSV
+-D/--dump-header &lt;file&gt;  把header信息写入到该文件中
+   --egd-file &lt;file&gt;  为随机数据(SSL)设置EGD socket路径
+   --tcp-nodelay  使用TCP_NODELAY选项
+-e/--referer  来源网址
+-E/--cert &lt;cert[:passwd]&gt;  客户端证书文件和密码 (SSL)
+   --cert-type &lt;type&gt;  证书文件类型 (DER/PEM/ENG) (SSL)
+   --key &lt;key&gt;  私钥文件名 (SSL)
+   --key-type &lt;type&gt;  私钥文件类型 (DER/PEM/ENG) (SSL)
+   --pass &lt;pass&gt;  私钥密码 (SSL)
+   --engine &lt;eng&gt;  加密引擎使用 (SSL). &quot;--engine list&quot; for list
+   --cacert &lt;file&gt;  CA证书 (SSL)
+   --capath &lt;directory&gt;  CA目录 (made using c_rehash) to verify peer against (SSL)
+   --ciphers &lt;list&gt;  SSL密码
+   --compressed  要求返回是压缩的形势 (using deflate or gzip)
+   --connect-timeout &lt;seconds&gt;  设置最大请求时间
+   --create-dirs  建立本地目录的目录层次结构
+   --crlf  上传是把LF转变成CRLF
+-f/--fail  连接失败时不显示http错误
+   --ftp-create-dirs  如果远程目录不存在，创建远程目录
+   --ftp-method [multicwd/nocwd/singlecwd]  控制CWD的使用
+   --ftp-pasv  使用 PASV/EPSV 代替端口
+   --ftp-skip-pasv-ip  使用PASV的时候,忽略该IP地址
+   --ftp-ssl  尝试用 SSL/TLS 来进行ftp数据传输
+   --ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输
+-F/--form &lt;name=content&gt;  模拟http表单提交数据
+   --form-string &lt;name=string&gt;  模拟http表单提交数据
+-g/--globoff  禁用网址序列和范围使用{}和[]
+-G/--get  以get的方式来发送数据
+-H/--header &lt;line&gt;  自定义头信息传递给服务器
+   --ignore-content-length  忽略的HTTP头信息的长度
+-i/--include  输出时包括protocol头信息
+-I/--head  只显示请求头信息
+-j/--junk-session-cookies  读取文件进忽略session cookie
+   --interface &lt;interface&gt;  使用指定网络接口/地址
+   --krb4 &lt;level&gt;  使用指定安全级别的krb4
+-k/--insecure  允许不使用证书到SSL站点
+-K/--config  指定的配置文件读取
+-l/--list-only  列出ftp目录下的文件名称
+   --limit-rate &lt;rate&gt;  设置传输速度
+   --local-port&lt;NUM&gt;  强制使用本地端口号
+-m/--max-time &lt;seconds&gt;  设置最大传输时间
+   --max-redirs &lt;num&gt;  设置最大读取的目录数
+   --max-filesize &lt;bytes&gt;  设置最大下载的文件总量
+-M/--manual  显示全手动
+-n/--netrc  从netrc文件中读取用户名和密码
+   --netrc-optional  使用 .netrc 或者 URL来覆盖-n
+   --ntlm  使用 HTTP NTLM 身份验证
+-N/--no-buffer  禁用缓冲输出
+-o/--output  把输出写到该文件中
+-O/--remote-name  把输出写到该文件中，保留远程文件的文件名
+-p/--proxytunnel  使用HTTP代理
+   --proxy-anyauth  选择任一代理身份验证方法
+   --proxy-basic  在代理上使用基本身份验证
+   --proxy-digest  在代理上使用数字身份验证
+   --proxy-ntlm  在代理上使用ntlm身份验证
+-P/--ftp-port &lt;address&gt;  使用端口地址，而不是使用PASV
+-q  作为第一个参数，关闭 .curlrc
+-Q/--quote &lt;cmd&gt;  文件传输前，发送命令到服务器
+-r/--range &lt;range&gt;  检索来自HTTP/1.1或FTP服务器字节范围
+--range-file  读取（SSL）的随机文件
+-R/--remote-time  在本地生成文件时，保留远程文件时间
+   --retry &lt;num&gt;  传输出现问题时，重试的次数
+   --retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间
+   --retry-max-time &lt;seconds&gt;  传输出现问题时，设置最大重试时间
+-s/--silent  静默模式。不输出任何东西
+-S/--show-error  显示错误
+   --socks4 &lt;host[:port]&gt;  用socks4代理给定主机和端口
+   --socks5 &lt;host[:port]&gt;  用socks5代理给定主机和端口
+   --stderr &lt;file&gt;   
+-t/--telnet-option &lt;OPT=val&gt;  Telnet选项设置
+   --trace &lt;file&gt;  对指定文件进行debug
+   --trace-ascii &lt;file&gt;  Like --跟踪但没有hex输出
+   --trace-time  跟踪/详细输出时，添加时间戳
+-T/--upload-file &lt;file&gt;  上传文件
+   --url &lt;URL&gt;  Spet URL to work with
+-u/--user &lt;user[:password]&gt;  设置服务器的用户和密码
+-U/--proxy-user &lt;user[:password]&gt;  设置代理用户名和密码
+-w/--write-out [format]  什么输出完成后
+-x/--proxy &lt;host[:port]&gt;  在给定的端口上使用HTTP代理
+-X/--request &lt;command&gt;  指定什么命令
+-y/--speed-time  放弃限速所要的时间，默认为30
+-Y/--speed-limit  停止传输速度的限制，速度时间
+</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>文件下载
+
+  curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout，将进度信息输出到stderr，不显示进度信息使用--silent选项。
+
+  curl URL --silent
+
+  这条命令是将下载文件输出到终端，所有下载的数据都被写入到stdout。
+
+  使用选项-O将下载的数据写入到文件，必须使用文件的绝对地址：
+
+  curl http://man.linuxde.net/text.iso --silent -O
+
+  选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：
+
+  curl http://man.linuxde.net/test.iso -o filename.iso --progress
+  ######################################### 100.0%
+
+ 断点续传
+
+  curl能够从特定的文件偏移处继续下载，它可以通过指定一个便宜量来下载部分文件：
+
+  curl URL/File -C 偏移量
+
+  #偏移量是以字节为单位的整数，如果让curl自动推断出正确的续传位置使用-C -：
+  curl -C -URL
+
+使用curl设置参照页字符串
+
+  参照页是位于HTTP头部中的一个字符串，用来表示用户是从哪个页面到达当前页面的，如果用户点击网页A中的某个连接，那么用户就会跳转到B网页，网页B头部的参照页字符串就包含网页A的URL。
+
+  使用--referer选项指定参照页字符串：
+
+  curl --referer http://www.google.com http://man.linuxde.net
+
+用curl设置cookies
+
+  使用--cookie &quot;COKKIES&quot;选项来指定cookie，多个cookie使用分号分隔：
+
+  curl http://man.linuxde.net --cookie &quot;user=root;pass=123456&quot;
+
+  将cookie另存为一个文件，使用--cookie-jar选项：
+
+  curl URL --cookie-jar cookie_file
+
+用curl设置用户代理字符串
+
+  有些网站访问会提示只能使用IE浏览器来访问，这是因为这些网站设置了检查用户代理，可以使用curl把用户代理设置为IE，这样就可以访问了。使用--user-agent或者-A选项：
+
+  curl URL --user-agent &quot;Mozilla/5.0&quot;
+  curl URL -A &quot;Mozilla/5.0&quot;
+
+  其他HTTP头部信息也可以使用curl来发送，使用-H&quot;头部信息&quot; 传递多个头部信息，例如：
+
+  curl -H &quot;Host:man.linuxde.net&quot; -H &quot;accept-language:zh-cn&quot; URL
+
+ curl的带宽控制和下载配额
+
+  使用--limit-rate限制curl的下载速度：
+
+  curl URL --limit-rate 50k
+
+  命令中用k（千字节）和m（兆字节）指定下载速度限制。
+
+  使用--max-filesize指定可下载的最大文件大小：
+
+  curl URL --max-filesize bytes
+
+  如果文件大小超出限制，命令则返回一个非0退出码，如果命令正常则返回0。
+
+用curl进行认证
+
+  使用curl选项 -u 可以完成HTTP或者FTP的认证，可以指定密码，也可以不指定密码在后续操作中输入密码：
+
+  curl -u user:pwd http://man.linuxde.net
+  curl -u user http://man.linuxde.net
+
+只打印响应头部信息
+
+    通过-I或者-head可以只打印出HTTP头部信息：
+
+    [root@localhost text]# curl -I http://man.linuxde.net
+      HTTP/1.1 200 OK
+      Server: nginx/1.2.5
+      date: Mon, 10 Dec 2012 09:24:34 GMT
+      Content-Type: text/html; charset=UTF-8
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Pingback: http://man.linuxde.net/xmlrpc.php
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/curl/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ck07vj0j60012ycuh14dypiga" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
+javamelody.jar
+jrobin-1.5.14.jar
+启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
+
+访问：http://主机地址：端口号/项目名/monitoring
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/javamelody/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-SVN-error" class="post-SVN-error post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/27/SVN-error/">svn error - unable to connect to a repository at url 问题解决</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ck07vj0ix000iycuh70p8x0xd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>C:\Users\dell\AppData\Roaming\Subversion
+# 打开文件
+servers
+# 删除
+proxy settings
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/27/SVN-error/">
+    <time datetime="2017-12-26T16:00:00.000Z" class="entry-date">
+        2017-12-27
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/SVN/">SVN</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-node" class="post-node post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +516,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cjzwhykxo001amsuhwd1to6gw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ck07vj0jb001cycuhfbusg8fr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -205,10 +644,10 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
 </code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2017/12/15/node/">
     <time datetime="2017-12-14T16:00:00.000Z" class="entry-date">
@@ -246,7 +685,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cjzwhykxp001dmsuhlxqbrlch" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ck07vj0jf001jycuhunmih0ms" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -325,10 +764,10 @@ $lsnrctl start
 </code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2017/09/01/oracle-expdp-impdp/">
     <time datetime="2017-08-31T16:00:00.000Z" class="entry-date">
@@ -339,92 +778,6 @@ $lsnrctl start
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/数据库/">数据库</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="cjzwhykwq0000msuh7dd0zr2h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
-<pre><code>1. 添加用户
-
-adduser huapisong  //添加一个名为huapisong的用户
-passwd huapisong   //修改密码
-Changing password for user huapisong.
-New UNIX password:     //在这里输入新密码
-Retype new UNIX password:  //再次输入新密码
-passwd: all authentication tokens updated successfully.
-
-2. 赋予root权限
-
-方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
-## Allows people in group wheel to run all commands
-%wheel    ALL=(ALL)    ALL
-# 然后修改用户，使其属于root组（wheel），命令如下：
-
-usermod -g root huapisong
-# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
-## Allow root to run any commands anywhere
-root    ALL=(ALL)     ALL
-huapisong   ALL=(ALL)     ALL
-#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
-如下：
-vi /etc/ssh/sshd_config 
-#添加
-AllowUsers root huapisong
-#多个用户用空格隔开
-
-4. 然后重启sshd服务生效即可，重启命令可以使用:
-#shell
-service sshd restart
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2017/02/06/1.ssh用户权限配置/">
-    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
-        2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </div>
 
     
@@ -452,7 +805,7 @@ service sshd restart
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="cjzwhykx20007msuhvn1i96dg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ck07vj0iq0007ycuh27fsl3y0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -572,10 +925,10 @@ service sshd restart
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2017/02/06/File-Extract-Compress/">
     <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
@@ -598,7 +951,7 @@ service sshd restart
 
 
   
-    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
+    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -606,321 +959,66 @@ service sshd restart
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
+      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="cjzwhykx00005msuhi4i1jcos" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ck07vj0id0000ycuhh79bl2e2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <hr>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
-</li>
-<li><p>以下载 openssh-server 为例：</p>
-<ul>
-<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
-<li>在 /opt/ssh 目录下有如下内容：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
-<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
-</ul>
+        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
+<pre><code>1. 添加用户
 
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2017/01/06/Off-line-Yum-Install/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
+adduser huapisong  //添加一个名为huapisong的用户
+passwd huapisong   //修改密码
+Changing password for user huapisong.
+New UNIX password:     //在这里输入新密码
+Retype new UNIX password:  //再次输入新密码
+passwd: all authentication tokens updated successfully.
 
-    
-    </footer>
-</article>
+2. 赋予root权限
 
+方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
+## Allows people in group wheel to run all commands
+%wheel    ALL=(ALL)    ALL
+# 然后修改用户，使其属于root组（wheel），命令如下：
 
+usermod -g root huapisong
+# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
 
+方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
+## Allow root to run any commands anywhere
+root    ALL=(ALL)     ALL
+huapisong   ALL=(ALL)     ALL
+#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
 
+3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
+如下：
+vi /etc/ssh/sshd_config 
+#添加
+AllowUsers root huapisong
+#多个用户用空格隔开
 
-
-  
-    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="cjzwhykwv0001msuhdng7wkr1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>2.1 安装依赖</p>
-<pre><code>yum -y install gcc gcc-c++ autoconf automake
-yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
-</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
-<pre><code># 解压缩
-tar -zxvf nginx-1.10.2.tar.gz
-
-# 进入压缩目录
-cd nginx-1.10.2
-
-# 进行模块配置
-./configure \
-  --prefix=/usr \
-  --sbin-path=/usr/sbin/nginx \
-  --conf-path=/etc/nginx/nginx.conf \
-  --error-log-path=/var/log/nginx/error.log \
-  --http-log-path=/var/log/nginx/access.log \
-  --pid-path=/var/run/nginx/nginx.pid  \
-  --lock-path=/var/lock/nginx.lock \
-  --user=nginx \
-  --group=nginx \
-  --with-http_ssl_module \
-  --with-http_flv_module \
-  --with-http_stub_status_module \
-  --with-http_gzip_static_module \
-  --http-client-body-temp-path=/var/tmp/nginx/client/ \
-  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
-  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
-  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
-  --http-scgi-temp-path=/var/tmp/nginx/scgi \
-  --with-pcre
-
-# 编译安装
-make &amp;&amp; make install
-</code></pre><p>2.5 安装路径</p>
-<pre><code># 名称路径日志目录
-/var/log/nginx
-# 配置目录
-/etc/nginx
-# PID文件
-/var/run/nginx/nginx.pid
-# 启动文件
-/usr/sbin/nginx
-</code></pre><p>2.6 centos6服务脚本</p>
-<pre><code>#创建文件
-touch /etc/rc.d/init.d/nginx
-chmod +x /etc/rc.d/init.d/nginx
-</code></pre><p>启动脚本</p>
-<pre><code>#!/bin/sh  
-#  
-# nginx - this script starts and stops the nginx daemon  
-#  
-# chkconfig:   - 85 15  
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
-#               proxy and IMAP/POP3 proxy server  
-# processname: nginx  
-
-# Source function library.  
-. /etc/rc.d/init.d/functions  
-
-# Source networking configuration.  
-. /etc/sysconfig/network  
-
-# Check that networking is up.  
-[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
-
-nginx=&quot;/usr/sbin/nginx&quot;  
-prog=$(basename $nginx)  
-
-sysconfig=&quot;/etc/sysconfig/$prog&quot;  
-lockfile=&quot;/var/lock/nginx.lock&quot;  
-pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
-
-NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
-
-[ -f $sysconfig ] &amp;&amp; . $sysconfig  
-
-start() {  
-    [ -x $nginx ] || exit 5  
-    [ -f $NGINX_CONF_FILE ] || exit 6  
-    echo -n $&quot;Starting $prog: &quot;  
-    daemon $nginx -c $NGINX_CONF_FILE  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
-    return $retval  
-}  
-
-stop() {  
-    echo -n $&quot;Stopping $prog: &quot;  
-    killproc -p $pidfile $prog  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
-    return $retval  
-}  
-
-restart() {  
-    configtest_q || return 6  
-    stop  
-    start  
-}  
-
-reload() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reloading $prog: &quot;  
-    killproc -p $pidfile $prog -HUP  
-    echo  
-}  
-
-configtest() {  
-    $nginx -t -c $NGINX_CONF_FILE  
-}  
-
-configtest_q() {  
-    $nginx -t -q -c $NGINX_CONF_FILE  
-}  
-
-rh_status() {  
-    status $prog  
-}  
-
-rh_status_q() {  
-    rh_status &gt;/dev/null 2&gt;&amp;1  
-}  
-
-# Upgrade the binary with no downtime.  
-upgrade() {  
-    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
-
-    configtest_q || return 6  
-    echo -n $&quot;Upgrading $prog: &quot;  
-    killproc -p $pidfile $prog -USR2  
-    retval=$?  
-    sleep 1  
-    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
-        killproc -p $oldbin_pidfile $prog -QUIT  
-        success $&quot;$prog online upgrade&quot;  
-        echo   
-        return 0  
-    else  
-        failure $&quot;$prog online upgrade&quot;  
-        echo  
-        return 1  
-    fi  
-}  
-
-# Tell nginx to reopen logs  
-reopen_logs() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reopening $prog logs: &quot;  
-    killproc -p $pidfile $prog -USR1  
-    retval=$?  
-    echo  
-    return $retval  
-}
-
-case &quot;$1&quot; in
-    start)
-        rh_status_q &amp;&amp; exit 0
-        $1
-        ;;
-    stop)
-        rh_status_q || exit 0
-        $1
-        ;;
-    restart|configtest|reopen_logs)
-        $1
-        ;;
-    force-reload|upgrade)
-        rh_status_q || exit 7
-        upgrade
-        ;;
-    reload)
-        rh_status_q || exit 7
-        $1
-        ;;
-    status|status_q)
-        rh_$1
-        ;;
-    condrestart|try-restart)
-        rh_status_q || exit 7
-        restart
-        ;;
-    *)
-        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
-        exit 2
-esac
-</code></pre><p>开机启动方式</p>
-<pre><code># 开机启动
-chkconfig --add nginx
-chkconfig --level 345 nginx on
-chkconfig --list nginx
-
-# 开机不启动
-chkconfig nginx off
-chkconfig --list nginx
-</code></pre><p>2.7 centos7服务脚本</p>
-<pre><code># 创建文件
-touch /usr/lib/systemd/system/nginx.service
-# 启动脚本
-[Unit]
-Description=nginx
-After=network.target remote-fs.target nss-lookup.target
-
-[Service]
-Type=forking
-ExecStart=/usr/sbin/nginx
-ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s stop
-PrivateTmp=true
-
-[Install]
-WantedBy=multi-user.target
-
-# 开机启动方式
-
-# 开机启动
-systemctl enable nginx.service
-
-# 开机不启动
-systemctl disable nginx.service
-
-# 其他操作
-systemcl ( status | start | stop | reload | restart ) nginx.service
+4. 然后重启sshd服务生效即可，重启命令可以使用:
+#shell
+service sshd restart
 </code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
-    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
+    <a href="/2017/02/06/1.ssh用户权限配置/">
+    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
+        2017-02-06
     </time>
 </a>
     
@@ -954,7 +1052,7 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cjzwhykxj000ymsuhdvb31ooh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ck07vj0j80016ycuh690uend9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1002,10 +1100,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2017/01/06/linux安装JDK/">
     <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
@@ -1028,7 +1126,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 
 
   
-    <article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="post-3.服务器上的iptables防火墙应该如何配置才能更安全 post type-post status-publish format-standard hentry">
+    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1036,356 +1134,52 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">服务器上的iptables防火墙应该如何配置才能更安全</a>
+      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="cjzwhykwy0003msuhua6j0e0n" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ck07vj0iu000dycuhhqxc1u9u" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>3.1 背景</p>
-<pre><code>新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
-    公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
-    下面流程化说明防火墙配置步骤
-</code></pre><p>3.2 封口</p>
-<p>将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配置规则。这里值得提醒的是此操作需要在本机执行，因为 telnet 或者 ssh 的连接会当即断开。</p>
-<pre><code> # 丢弃输入数据流向 
-iptables -P INPUT DROP
- # 丢弃输出数据流向 
-iptables -P OUTPUT DROP
-# 丢弃转向数据流向 
-iptables -P FORWARD DROP
-</code></pre><p>3.3 开放SSH服务</p>
-<p>首先确保 ssh 远程连接开放，添加对 ssh 服务的出入站规则，正常端口为22（端口应该更换成非22）</p>
-<pre><code># 允许任务来源接入服务器的22端口
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-# 允许服务器通过22端口向任何来源发送数据包
-iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
-做好以上的 ssh 服务规则后，任何来源等可以连接，若要求更高级的安全则可以添加准入IP，可以添加多条，其他服务同理。
-# 允许来源IP为221.4.12.28的地址访问服务器的22端口，即ssh服务
-iptables -I INPUT -s 221.4.12.28 -p tcp --dport 22 -j ACCEPT
-</code></pre><p>3.4 启用Ping命令</p>
-<p>当执行 ping 命令时，其实是向目标地址发送 icmp 的数据包并得到回显信息。在服务器内部 ping 外部地址时，属于 OUTPUT，由于服务器的输出已经被DROP掉，所以服务器目前 ping 不通任何外部 IP 地址，考虑到运维的需要，添加允许 ping 外部IP的规则。</p>
-<pre><code># 允许服务器向外部发送icmp的数据包
-iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
-# 允许服务器接收来自外部服务器返回的icmp数据包
-iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
-</code></pre><p>目前服务器可以 ping 外部IP地址了，但外部来源 ping 服务器是不通的。选择不开放来自外部的 ping 请求或许是一个好想法，这样可以迷惑扫描工具避免暴露主机的存活性(高级的扫描工具除外，如 nmap)。<br>下面是服务器接收和响应 ping 请求的出入站规则</p>
-<pre><code># 允许任何来源向服务器发送icmp的数据包
-iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-# 允许服务器向任何来源回显icmp的数据包
-iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
-</code></pre><p>3.5 启用DNS服务<br>服务器 ping 外部IP地址正常了，但 ping 外部的域名时则会显示 unknown host 的错误，这是因为 DNS 服务的53端口没有配置出入站规则。<br>下面是 DNS 服务的规则:</p>
-<pre><code>iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
-iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
-</code></pre><p>3.6 下载软件<br>现在服务器需要从外部下载某些软件，通常我们会使用 wget 或者 curl 这样的工具，执行时发现一直卡着不动。这是因为服务器访问外网的80端口出站和入站规则没有配置，需要添加，如下：</p>
-<pre><code>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --sport 80 -j ACCEPT
-</code></pre><p>备注：使用类似与nginx代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443的服务，规则如下：<br>        iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>        iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
-<pre><code>iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-</code></pre><p>当需要开放本地端口，如127.0.0.1或者localhost的端口时，可以使用以下命令使 通过127.0.0.1的访问全部通过<br>        iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
-<pre><code>iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 443 -j ACCEPT
-</code></pre><p>3.9 删除规则</p>
-<pre><code>iptables -L -n --line-number
-iptables -D INPUT 15
-iptables -D OUTPUT 13
-</code></pre>
+        <hr>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
+</li>
+<li><p>以下载 openssh-server 为例：</p>
+<ul>
+<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
+<li>在 /opt/ssh 目录下有如下内容：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
+<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
+</ul>
+
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
-    <a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
+    <a href="/2017/01/06/Off-line-Yum-Install/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="cjzwhykwz0004msuhcmayq8e1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>4.1.使用背景</p>
-<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
-</code></pre><p>4.2.下载安装脚本</p>
-<pre><code>下载Github上贡献者做好的安装脚本，如下：
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
-
-# 赋予执行权限
-chmod +x letsencrypt.sh
-</code></pre><p>4.3.配置相关信息</p>
-<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
-# only modify the values, key files will be generated automaticly.
-ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
-DOMAIN_KEY=&quot;tiger.com.key&quot;
-DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
-DOMAINS=&quot;DNS:test.tiger.com&quot;
-#ECC=TRUE
-#LIGHTTPD=TRUE
-</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
-<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
-<p>4.4.执行证书生成</p>
-<pre><code>./letsencrypt.sh ./letsencrypt.conf
-</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
-<pre><code>letsencrypt-account.key
-tiger.crt
-tiger.csr
-tiger.chained.crt
-tiger.com.key
-</code></pre><p>4.5.配置证书安装</p>
-<p>这里使用nginx进行证书安装的服务器</p>
-<pre><code>server {
-        listen       443;
-        server_name  test.tiger.com;
-
-    ssl on;
-    ssl_certificate tiger.chained.crt;
-    ssl_certificate_key tiger.com.key;
-    ssl_session_timeout 5m;
-
-    location / {
-        root html;
-        index  index.html index.htm;
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/06/03/java 正则表达式 手机号 邮箱/">java 正则表达式 手机号 邮箱</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="cjzwhykxg000smsuhtw4c53is" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="java-正则表达式-手机号-邮箱"><a href="#java-正则表达式-手机号-邮箱" class="headerlink" title="java 正则表达式 手机号 邮箱"></a>java 正则表达式 手机号 邮箱</h2><pre><code>import java.util.regex.Pattern;
-/**
- * 账户相关属性验证工具
- *
- */
-public class AccountValidatorUtil {
-    /**
-     * 正则表达式：验证用户名
-     */
-    public static final String REGEX_USERNAME = &quot;^[a-zA-Z]\\w{5,20}$&quot;;
-
-    /**
-     * 正则表达式：验证密码
-     */
-    public static final String REGEX_PASSWORD = &quot;^[a-zA-Z0-9]{6,20}$&quot;;
-
-    /**
-     * 正则表达式：验证手机号
-     */
-    public static final String REGEX_MOBILE = &quot;^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$&quot;;
-
-    /**
-     * 正则表达式：验证邮箱
-     */
-    public static final String REGEX_EMAIL = &quot;^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$&quot;;
-
-    /**
-     * 正则表达式：验证汉字
-     */
-    public static final String REGEX_CHINESE = &quot;^[\u4e00-\u9fa5],{0,}$&quot;;
-
-    /**
-     * 正则表达式：验证身份证
-     */
-    public static final String REGEX_ID_CARD = &quot;(^\\d{18}$)|(^\\d{15}$)&quot;;
-
-    /**
-     * 正则表达式：验证URL
-     */
-    public static final String REGEX_URL = &quot;http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&amp;=]*)?&quot;;
-
-    /**
-     * 正则表达式：验证IP地址
-     */
-    public static final String REGEX_IP_ADDR = &quot;(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)&quot;;
-
-    /**
-     * 校验用户名
-     * 
-     * @param username
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isUsername(String username) {
-        return Pattern.matches(REGEX_USERNAME, username);
-    }
-
-    /**
-     * 校验密码
-     * 
-     * @param password
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isPassword(String password) {
-        return Pattern.matches(REGEX_PASSWORD, password);
-    }
-
-    /**
-     * 校验手机号
-     * 
-     * @param mobile
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isMobile(String mobile) {
-        return Pattern.matches(REGEX_MOBILE, mobile);
-    }
-
-    /**
-     * 校验邮箱
-     * 
-     * @param email
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isEmail(String email) {
-        return Pattern.matches(REGEX_EMAIL, email);
-    }
-
-    /**
-     * 校验汉字
-     * 
-     * @param chinese
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isChinese(String chinese) {
-        return Pattern.matches(REGEX_CHINESE, chinese);
-    }
-
-    /**
-     * 校验身份证
-     * 
-     * @param idCard
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isIDCard(String idCard) {
-        return Pattern.matches(REGEX_ID_CARD, idCard);
-    }
-
-    /**
-     * 校验URL
-     * 
-     * @param url
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isUrl(String url) {
-        return Pattern.matches(REGEX_URL, url);
-    }
-
-    /**
-     * 校验IP地址
-     * 
-     * @param ipAddr
-     * @return
-     */
-    public static boolean isIPAddr(String ipAddr) {
-        return Pattern.matches(REGEX_IP_ADDR, ipAddr);
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2016/06/03/java 正则表达式 手机号 邮箱/">
-    <time datetime="2016-06-02T16:00:00.000Z" class="entry-date">
-        2016-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
 
     
@@ -1422,7 +1216,7 @@ public class AccountValidatorUtil {
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1434,7 +1228,11 @@ public class AccountValidatorUtil {
       <ul>
         
           <li>
-            <a href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
           </li>
         
           <li>
@@ -1446,11 +1244,7 @@ public class AccountValidatorUtil {
           </li>
         
           <li>
-            <a href="/2019/08/28/bash/">Bash 常用命令</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/13/加密算法DES AES/">加密算法</a>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
       </ul>
@@ -1468,13 +1262,9 @@ public class AccountValidatorUtil {
     <p>&copy; 2019 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
-
+    <!-- busuanzi start -->
     
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-    <span class="post-meta-divider">|</span>
-    <span id="busuanzi_container_site_uv"><i class="fa fa-file-o"></i>本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    
+    <!-- busuanzi end -->
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 

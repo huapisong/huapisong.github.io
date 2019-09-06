@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
+    <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,48 +70,93 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
+      <a class="article-title" href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cjzwhykxk0011msuhksmns5nh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ck07vj0jh001nycuhlo2xcc8w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
-<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
-<pre><code>npm install doctoc -g
-</code></pre><p>执行</p>
-<pre><code>doctoc demo.md
-</code></pre><p>文件，即可在文档中自动生成目录</p>
-<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
-<p>优点是：简单快捷，</p>
-<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
-<p>2.npm doctoc生成目录</p>
-<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
-<p>缺点：依赖npm</p>
+        <h3 id="1-打开vscode-设置-用户代码片段-vue-模板"><a href="#1-打开vscode-设置-用户代码片段-vue-模板" class="headerlink" title="1.打开vscode 设置-用户代码片段-vue 模板"></a>1.打开vscode 设置-用户代码片段-vue 模板</h3><p><img src="\assets\vueImg\vscode_vue_user_code_config.png" alt="image"><br><img src="\assets\vueImg\vscode_vue_user_code_config1.png" alt="image"></p>
+<h3 id="vue-json-配置信息如下"><a href="#vue-json-配置信息如下" class="headerlink" title="vue.json 配置信息如下"></a>vue.json 配置信息如下</h3><pre><code>{    &quot;Print to console&quot;: {
+        &quot;prefix&quot;: &quot;vue&quot;,
+        &quot;body&quot;: [
+            &quot;&lt;!-- $1 --&gt;&quot;,
+            &quot;&lt;template&gt;&quot;,
+            &quot;&lt;div class=&apos;$2&apos;&gt;$5&lt;/div&gt;&quot;,
+            &quot;&lt;/template&gt;&quot;,
+            &quot;&quot;,
+            &quot;&lt;script&gt;&quot;,
+            &quot;//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）&quot;,
+            &quot;//例如：import 《组件名称》 from &apos;《组件路径》&apos;;&quot;,
+            &quot;&quot;,
+            &quot;export default {&quot;,
+            &quot;//import引入的组件需要注入到对象中才能使用&quot;,
+            &quot;components: {},&quot;,
+            &quot;data() {&quot;,
+            &quot;//这里存放数据&quot;,
+            &quot;return {&quot;,
+            &quot;&quot;,
+            &quot;};&quot;,
+            &quot;},&quot;,
+            &quot;//监听属性 类似于data概念&quot;,
+            &quot;computed: {},&quot;,
+            &quot;//监控data中的数据变化&quot;,
+            &quot;watch: {},&quot;,
+            &quot;//方法集合&quot;,
+            &quot;methods: {&quot;,
+            &quot;&quot;,
+            &quot;},&quot;,
+            &quot;//生命周期 - 创建完成（可以访问当前this实例）&quot;,
+            &quot;created() {&quot;,
+            &quot;&quot;,
+            &quot;},&quot;,
+            &quot;//生命周期 - 挂载完成（可以访问DOM元素）&quot;,
+            &quot;mounted() {&quot;,
+            &quot;&quot;,
+            &quot;},&quot;,
+            &quot;beforeCreate() {}, //生命周期 - 创建之前&quot;,
+            &quot;beforeMount() {}, //生命周期 - 挂载之前&quot;,
+            &quot;beforeUpdate() {}, //生命周期 - 更新之前&quot;,
+            &quot;updated() {}, //生命周期 - 更新之后&quot;,
+            &quot;beforeDestroy() {}, //生命周期 - 销毁之前&quot;,
+            &quot;destroyed() {}, //生命周期 - 销毁完成&quot;,
+            &quot;activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发&quot;,
+            &quot;}&quot;,
+            &quot;&lt;/script&gt;&quot;,
+            &quot;&lt;style lang=&apos;scss&apos; scoped&gt;&quot;,
+            &quot;//@import url($3); 引入公共css类&quot;,
+            &quot;$4&quot;,
+            &quot;&lt;/style&gt;&quot;
+        ],
+        &quot;description&quot;: &quot;Log output to console&quot;
+    }
+}
+</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code>新建test.vue 文件 输入 ‘vue’ 选择配置的vue用户代码片段，如下
+</code></pre><p><img src="\assets\vueImg\vscode_vue_user_code_config2.png" alt="image"><br><img src="\assets\vueImg\vscode_vue_user_code_config3.png" alt="image"></p>
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
-    <a href="/2019/06/03/markdown生成目录/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
+    <a href="/2019/07/16/vscode vue 用户代码片段/">
+    <time datetime="2019-07-15T16:00:00.000Z" class="entry-date">
+        2019-07-16
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
   </div>
 
     
@@ -132,14 +177,14 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue async await/">vue 事件中的 (native)</a>
+      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cjzwhykxs001mmsuh87rrmfdq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="ck07vj0jh001qycuh79c9fubn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -241,10 +286,10 @@ arr.forEach(async item =&gt; {
 </code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/06/03/vue async await/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
@@ -255,6 +300,340 @@ arr.forEach(async item =&gt; {
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ck07vj0jk001vycuh3c2ffth8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
+主要是给自定义的组件添加原生事件。
+# * 给普通的标签加事件，然后加native是无效的
+
+ &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
+     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
+     &lt;/el-button&gt;
+         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
+             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
+         &lt;/el-dropdown-menu&gt;
+ &lt;/el-dropdown&gt;
+</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
+ 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
+
+&lt;template&gt;
+  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
+  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 事件中的 .native/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/js/">js</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="ck07vj0j70013ycuh69ppd20f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/js/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/JS/">JS</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="ck07vj0k9003bycuhpti3f5pw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="netstat-命令详解"><a href="#netstat-命令详解" class="headerlink" title="netstat 命令详解"></a>netstat 命令详解</h2><pre><code>netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。
+</code></pre><h3 id="该命令的一般格式为"><a href="#该命令的一般格式为" class="headerlink" title="该命令的一般格式为"></a>该命令的一般格式为</h3><pre><code>NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval]
+</code></pre><h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><pre><code># 命令中各选项的含义如下：
+  -a            显示所有连接和侦听端口。
+  -b            显示在创建每个连接或侦听端口时涉及的可执行程序。
+                在某些情况下，已知可执行程序承载多个独立的
+                组件，这些情况下，显示创建连接或侦听端口时涉
+                及的组件序列。此情况下，可执行程序的名称
+                位于底部[]中，它调用的组件位于顶部，直至达
+                到 TCP/IP。注意，此选项可能很耗时，并且在您没有
+                足够权限时可能失败。
+  -e            显示以太网统计。此选项可以与 -s 选项结合使用。
+  -f            显示外部地址的完全限定域名(FQDN)。
+  -n            以数字形式显示地址和端口号。
+  -o            显示拥有的与每个连接关联的进程 ID。
+  -p proto      显示 proto 指定的协议的连接；proto 可以是下列任
+                何一个: TCP、UDP、TCPv6 或 UDPv6。如果与 -s 选
+                项一起用来显示每个协议的统计，proto 可以是下列任
+                何一个: IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP
+                或 UDPv6。
+  -r            显示路由表。
+  -s            显示每个协议的统计。默认情况下，显示
+                IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP 和 UDPv6
+                的统计；-p 选项可用于指定默认的子网。
+  -t            显示当前连接卸载状态。
+  interval      重新显示选定的统计，各个显示间暂停的间隔秒数。
+                按 CTRL+C 停止重新显示统计。如果省略，则 netstat
+                将打印当前的配置信息一次。
+</code></pre><h3 id="列标题"><a href="#列标题" class="headerlink" title="列标题"></a>列标题</h3><pre><code>Name            接口的名字
+Mtu             接口的最大传输单位
+Net/Dest        接口所在的网络
+Address         接口的IP地址
+Ipkts           接收到的数据包数目
+Ierrs           接收到时已损坏的数据包数目
+Opkts           发送的数据包数目
+Oeers           发送时已损坏的数据包数目
+Collisions      由这个接口所记录的网络冲突数目
+</code></pre><h3 id="常见状态"><a href="#常见状态" class="headerlink" title="常见状态"></a>常见状态</h3><pre><code># 即连接状态。在原模式中没有状态，在用户数据报协议中也经常没有状态，于是状态列可以空出来。若有状态，通常取值为：
+LISTEN          侦听来自远方的TCP端口的连接请求
+SYN-SENT        在发送连接请求后等待匹配的连接请求
+SYN-RECEIVED    在收到和发送一个连接请求后等待对方对连接请求的确认
+ESTABLISHED     代表一个打开的连接
+FIN-WAIT-1      等待远程TCP连接中断请求，或先前的连接中断请求的确认
+FIN-WAIT-2      从远程TCP等待连接中断请求
+CLOSE-WAIT      等待从本地用户发来的连接中断请求
+CLOSING         等待远程TCP对连接中断的确认
+LAST-ACK        等待原来的发向远程TCP的连接中断请求的确认
+TIME-WAIT       等待足够的时间以确保远程TCP接收到连接中断请求的确认
+CLOSED          没有任何连接状态
+</code></pre><h3 id="命令示例"><a href="#命令示例" class="headerlink" title="命令示例"></a>命令示例</h3><pre><code># window
+netstat
+
+活动连接
+
+协议    本地地址               外部地址                状态
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:52946  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:55759  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:58502  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:65469  ESTABLISHED
+TCP    10.43.22.175:49244     115.239.210.27:https   ESTABLISHED
+TCP    10.43.22.175:49280     ec2-52-26-166-58:https  ESTABLISHED
+TCP    10.43.22.175:49286     ec2-52-26-166-58:https  ESTABLISHED
+TCP    10.43.22.175:49309     115.239.210.27:https   ESTABLISHED
+TCP    10.43.22.175:49317     115.239.210.27:https   ESTABLISHED
+
+# linux
+nestat -ano
+
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
+tcp        0      0 0.0.0.0:9400            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9401            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9091            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9092            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9093            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9094            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9096            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9097            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9098            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9100            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9300            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8661            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9301            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9302            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8662            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 10.42.0.172:7926        10.42.0.171:3306        ESTABLISHED keepalive (1249.51/0/0)
+tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:41354       140.207.127.79:443      CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:15065       10.42.0.172:9092        CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:40634       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:40590       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:13171       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:38967       10.42.0.171:3306        TIME_WAIT   timewait (11.86/0/0)
+...
+...
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  3      [ ]         DGRAM                    6159     /run/systemd/notify
+unix  2      [ ]         DGRAM                    6161     /run/systemd/cgroups-agent
+unix  2      [ ACC ]     STREAM     LISTENING     6169     /run/systemd/journal/stdout
+unix  5      [ ]         DGRAM                    6172     /run/systemd/journal/socket
+unix  11     [ ]         DGRAM                    6174     /dev/log
+unix  2      [ ACC ]     STREAM     LISTENING     15465    /run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     9897     /run/systemd/private
+unix  2      [ ]         DGRAM                    16559    /var/run/chrony/chronyd.sock
+unix  2      [ ]         DGRAM                    9913     /run/systemd/shutdownd
+unix  2      [ ACC ]     SEQPACKET  LISTENING     9922     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     9943     /run/lvm/lvmetad.socket
+unix  2      [ ACC ]     STREAM     LISTENING     15080    /var/run/vmware/guestServicePipe
+unix  2      [ ACC ]     STREAM     LISTENING     9978     /run/lvm/lvmpolld.socket
+unix  3      [ ]         STREAM     CONNECTED     10197
+unix  2      [ ]         STREAM     CONNECTED     34959351
+</code></pre><p>查看端口为8080的情况</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">netstat -ano |grep 8080</span><br></pre></td></tr></table></figure>
+
+TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       59932
+TCP    10.43.22.175:53227     183.3.235.67:8080      ESTABLISHED     5280
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">netstat -ano |grep 8660</span><br></pre></td></tr></table></figure>
+</code></pre><p>输出</p>
+<pre><code>tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29345       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29407       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29595       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:25839       10.42.0.172:8660        CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:29523       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29583       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.182:16848       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29565       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29395       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29345       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29467       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29595       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29339       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29467       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29581       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29407       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29571       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29571       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29523       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.182:16844       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29325       TIME_WAIT   timewait (8.36/0/0)
+tcp        0      0 10.42.0.172:29583       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29581       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29565       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29339       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29395       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29393       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29499       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29499       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29393       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29569       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29541       ESTABLISHED off (0.00/0/0)
+</code></pre><p>被占用端口对应的PID 对应的进程</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">tasklist|grep 8080</span><br></pre></td></tr></table></figure>
+
+node.exe                      8080 Console                    1     11,144 K
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">ps -ef|grep 8660</span><br></pre></td></tr></table></figure>
+
+root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/netstat查看端口占用情况/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </div>
 
     
@@ -282,7 +661,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cjzwhykxx001wmsuhzbfgpwm7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="ck07vj0jn0022ycuhickbdmge" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -344,10 +723,10 @@ arr.forEach(async item =&gt; {
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/06/03/使用 VS Code 断点调试/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
@@ -370,7 +749,7 @@ arr.forEach(async item =&gt; {
 
 
   
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
+    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -378,46 +757,40 @@ arr.forEach(async item =&gt; {
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="cjzwhykxu001qmsuhsv0dn79f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="ck07vj0j90017ycuhv6wrq8cb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
+        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
+<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
+<pre><code>npm install doctoc -g
+</code></pre><p>执行</p>
+<pre><code>doctoc demo.md
+</code></pre><p>文件，即可在文档中自动生成目录</p>
+<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
+<p>优点是：简单快捷，</p>
+<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
+<p>2.npm doctoc生成目录</p>
+<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
+<p>缺点：依赖npm</p>
 
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
-
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
-</code></pre>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
+    <a href="/2019/06/03/markdown生成目录/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -425,7 +798,7 @@ arr.forEach(async item =&gt; {
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
   </div>
 
     
@@ -453,7 +826,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="cjzwhykxt001nmsuhtr38tnsy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="ck07vj0jj001uycuhpkkf03l2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -482,10 +855,10 @@ arr.forEach(async item =&gt; {
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/06/03/vue 一点点/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
@@ -496,57 +869,6 @@ arr.forEach(async item =&gt; {
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cjzwhykxi000xmsuhb0o318mn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     
@@ -574,7 +896,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="cjzwhykxm0015msuhwfjif5y0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="ck07vj0je001hycuh3w431mgq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -676,10 +998,10 @@ or
 </code></pre><h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3>
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/05/14/node-vue-webpack构建项目/">
     <time datetime="2019-05-13T16:00:00.000Z" class="entry-date">
@@ -717,7 +1039,7 @@ or
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/07/关于Java 23种设计模式/" data-id="cjzwhykz0003gmsuhprufs1cd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/07/关于Java 23种设计模式/" data-id="ck07vj0kr003tycuh7zitxidd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1181,10 +1503,10 @@ class Proxy implements Source{
 
       
     </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
     
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
+    <!-- busuanzi  end -->
+
     <footer class="entry-meta">
     <a href="/2019/05/07/关于Java 23种设计模式/">
     <time datetime="2019-05-07T01:37:58.422Z" class="entry-date">
@@ -1195,240 +1517,6 @@ class Proxy implements Source{
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue + webpack 多模块静态文件导入" class="post-vue + webpack 多模块静态文件导入 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/05/06/vue + webpack 多模块静态文件导入/">vue + webpack 多模块静态文件导入</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="cjzwhykxr001jmsuh2xep8xp6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="多个模块导入静态文件"><a href="#多个模块导入静态文件" class="headerlink" title="多个模块导入静态文件"></a>多个模块导入静态文件</h2><p>项目结构目录<br><img src="/assets/vueImg/projects.png" alt="Image text"></p>
-<p>官方推荐的css及js引用方式如下:</p>
-<pre><code>&lt;!-- 引入样式 --&gt;
-&lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&quot; rel=&quot;stylesheet&quot;&gt; 
-&lt;!-- 引入组件库 --&gt;
-&lt;script src=&quot;https://lib.baomitu.com/vue/2.4.4/vue.min.js&quot;&gt;&lt;/script&gt; 
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://unpkg.com/element-ui@2.2.0/lib/index.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>这种方式引入,如果环境只有内网,没有外网的话,会导致页面直接空白.（或cdn 访问不通、不在维护等……）</p>
-<p>很简单把css的href及js的src的网址输入浏览器可以得到css和js的源码,直接拷贝到本地即可.</p>
-<p>index.html 引入</p>
-<pre><code>&lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
-  &lt;title&gt;xxxxx&lt;/title&gt;
-  &lt;link href=&quot;/static/css/element-ui2.2.0/index.css&quot; rel=&quot;stylesheet&quot;&gt;
-  &lt;script src=&apos;/static/js/vue2.7.0/vue.min.js&apos;&gt;&lt;/script&gt;
-  &lt;script src=&apos;/static/js/vue-router3.0.2/vue-router.min.js&apos;&gt;&lt;/script&gt;
-  &lt;script src=&apos;/static/js/element-ui@2.2.0/index.js&apos;&gt;&lt;/script&gt;
-&lt;/head&gt;
-</code></pre><h2 id="静态文件配置（多模块、多服务、各服务端口不同）"><a href="#静态文件配置（多模块、多服务、各服务端口不同）" class="headerlink" title="静态文件配置（多模块、多服务、各服务端口不同）"></a>静态文件配置（多模块、多服务、各服务端口不同）</h2><pre><code># config 配置信息
-assetsSubDirectory: &apos;static&apos;,
-assetsPublicPath: &apos;/&apos;,
-
-# 项目是 vue+webpack 多模块
- 开发环境中多个模块需要启动多个服务，各服务监听的端口不同，使用离线存储数据时存在跨域不共通的问题。
- 解决思路： 采用第三方代理服务器，前端所有的请求到代理服务器由代理服务器进行请求分发
- 实现：采用gulp-connect 做为代理服务器，代理转发的具体代码如下
-
-const gulp = require(&apos;gulp&apos;);
-const connect = require(&apos;gulp-connect&apos;);
-const proxy = require(&apos;http-proxy-middleware&apos;);
-const ipLib = require(&apos;ip&apos;);
-const path = require(&apos;path&apos;);
-const fs = require(&apos;fs&apos;)
-
-
-let currentIp = ipLib.address()
-let globPath = path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;)
-const proxyPort = &apos;7890&apos;
-
-gulp.task(&apos;server&apos;, function(){
-  connect.server({
-    port: proxyPort,
-    host: &apos;0.0.0.0&apos;,
-    middleware: function(connect, opt) {
-      return [
-        proxy(&apos;/login&apos;, {
-          target: &apos;http://www.localhost:8080&apos;, // target host
-          changeOrigin: true,               // needed for virtual hosted sites
-          ws: true,
-          router: { // login
-            [ currentIp + &apos;:&apos;+proxyPort] : &apos;http://&apos; + currentIp + &apos;:10258/&apos;
-          }
-        }),
-        proxy(&apos;/static&apos;, {
-          target: &apos;http://www.localhost:8080&apos;, // target host
-          changeOrigin: true,               // needed for virtual hosted sites
-          ws: true,
-          router: { // static
-            [ currentIp + &apos;:&apos;+proxyPort] : &apos;http://&apos; + currentIp + &apos;:10258/&apos;
-          }
-        }),
-      ]
-    }
-  })
-})
-</code></pre><h2 id="本地使用element-ui-图标不显示或显示错乱的问题"><a href="#本地使用element-ui-图标不显示或显示错乱的问题" class="headerlink" title="本地使用element ui 图标不显示或显示错乱的问题"></a>本地使用element ui 图标不显示或显示错乱的问题</h2><p>但是问题来了,element-ui的index.css拷贝本地之后,会发现图标无法正常显示了.</p>
-<pre><code>原因
-
-在本地的index.css中发现如下代码是网络请求icon的
-
-@charset &quot;UTF-8&quot;;.el-pagination--small .arrow.disabled,.el-table .hidden-columns,.el-table td.is-hidden&gt;*,.el-table th.is-hidden&gt;*,.el-table--hidden{visibility:hidden}@font-face{font-family:element-icons;src:url(fonts/element-icons.woff) format(&quot;woff&quot;),url(fonts/element-icons.ttf) format(&quot;truetype&quot;);font-weight:400;
-</code></pre><p>解决办法</p>
-<p>访问 <a href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.woff" target="_blank" rel="noopener">https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.woff</a><br><a href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.ttf" target="_blank" rel="noopener">https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.ttf</a></p>
-<p>文件自动下载下来,放到项目的/static/css/element-ui2.2.0/fonts文件夹下即可</p>
-<p><img src="/assets/vueImg/staticFile.png" alt="Image text"></p>
-
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">
-    <time datetime="2019-05-05T16:00:00.000Z" class="entry-date">
-        2019-05-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/05/05/vue 修改子组件样式/">vue 修改子组件样式</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="cjzwhykxv001rmsuhad81ssm5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="Scoped-CSS"><a href="#Scoped-CSS" class="headerlink" title="Scoped CSS"></a>Scoped CSS</h3><p>当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换：</p>
-<pre><code>&lt;style scoped&gt;
-.example {
-  color: red;
-}
-&lt;/style&gt;
-
-&lt;template&gt;
-  &lt;div class=&quot;example&quot;&gt;hi&lt;/div&gt;
-&lt;/template&gt;
-</code></pre><p>转换结果：</p>
-<pre><code>&lt;style&gt;
-.example[data-v-f3f3eg9] {
-  color: red;
-}
-&lt;/style&gt;
-
-&lt;template&gt;
-  &lt;div class=&quot;example&quot; data-v-f3f3eg9&gt;hi&lt;/div&gt;
-&lt;/template&gt;
-</code></pre><h3 id="混用本地和全局样式"><a href="#混用本地和全局样式" class="headerlink" title="混用本地和全局样式"></a>混用本地和全局样式</h3><p>你可以在一个组件中同时使用有 scoped 和非 scoped 样式：</p>
-<pre><code>&lt;style&gt;
-/* 全局样式 */
-&lt;/style&gt;
-
-&lt;style scoped&gt;
-/* 本地样式 */
-&lt;/style&gt;
-</code></pre><h3 id="子组件的根元素"><a href="#子组件的根元素" class="headerlink" title="子组件的根元素"></a>子组件的根元素</h3><p>使用 scoped 后，父组件的样式将不会渗透到子组件中。不过一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。这样设计是为了让父组件可以从布局的角度出发，调整其子组件根元素的样式。</p>
-<h3 id="深度作用选择器"><a href="#深度作用选择器" class="headerlink" title="深度作用选择器"></a>深度作用选择器</h3><p>如果你希望 scoped 样式中的一个选择器能够作用得“更深”，例如影响子组件，你可以使用 &gt;&gt;&gt; 操作符：</p>
-<pre><code>&lt;style scoped&gt;
-.a &gt;&gt;&gt; .b { /* ... */ }
-&lt;/style&gt;
-</code></pre><p>上述代码将会编译成：</p>
-<pre><code>.a[data-v-f3f3eg9] .b { /* ... */ }
-</code></pre><p>有些像 Sass 之类的预处理器无法正确解析 &gt;&gt;&gt;。这种情况下你可以使用 /deep/ 或 ::v-deep 操作符取而代之——两者都是 &gt;&gt;&gt; 的别名，同样可以正常工作。</p>
-<p>例：</p>
-<pre><code> &lt;template slot-scope=&quot;slotProps&quot;&gt;
-    &lt;xx-input
-    v-model=&quot;slotProps.option.record.name&quot;
-    :type=&quot;form.input.type&quot;
-    placeholder=&quot;请输入&quot;
-    :required=&quot;true&quot;
-    size=&quot;60&quot;
-    class=&quot;table-input&quot;
-  &gt;&lt;/xx-input&gt;
- &lt;/template&gt;
-
-&lt;style lang=&quot;css&quot; scoped&gt;
-.table-input /deep/ .input-no-label .input__content{
-  margin-bottom: 0;
-}
-&lt;/style&gt;
-</code></pre><h3 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h3><p>通过 v-html 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
-<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><strong>Scoped 样式不能代替 class</strong>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
-<p><strong>在递归组件中小心使用后代选择器!</strong> 对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
-<h3 id="不推荐使用全局样式"><a href="#不推荐使用全局样式" class="headerlink" title="*不推荐使用全局样式"></a>*不推荐使用全局样式</h3><p>参考：<a href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/zh/guide/scoped-css.html</a></p>
-
-      
-    </div><!-- .entry-content -->
-    
-    <span id="busuanzi_container_page_pv">
-      <i class="fa fa-file-o"></i>本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-    </span>
-    <footer class="entry-meta">
-    <a href="/2019/05/05/vue 修改子组件样式/">
-    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
-        2019-05-05
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
   </div>
 
     
@@ -1465,7 +1553,7 @@ gulp.task(&apos;server&apos;, function(){
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1477,7 +1565,11 @@ gulp.task(&apos;server&apos;, function(){
       <ul>
         
           <li>
-            <a href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/bash/">Bash 常用命令</a>
           </li>
         
           <li>
@@ -1489,11 +1581,7 @@ gulp.task(&apos;server&apos;, function(){
           </li>
         
           <li>
-            <a href="/2019/08/28/bash/">Bash 常用命令</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/13/加密算法DES AES/">加密算法</a>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
       </ul>
@@ -1511,13 +1599,9 @@ gulp.task(&apos;server&apos;, function(){
     <p>&copy; 2019 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
-
+    <!-- busuanzi start -->
     
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-    <span class="post-meta-divider">|</span>
-    <span id="busuanzi_container_site_uv"><i class="fa fa-file-o"></i>本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    
+    <!-- busuanzi end -->
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 
