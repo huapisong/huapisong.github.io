@@ -25,7 +25,7 @@ yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
 <meta property="og:site_name" content="随记">
 <meta property="og:description" content="2.1 安装依赖 yum -y install gcc gcc-c++ autoconf automake yum -y install zlib zlib-devel openssl openssl-devel pcre-devel 2.2 创建用户和组    groupadd -r nginx    useradd -s /sbin/nologin -g nginx -r nginx2.3 下">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T01:28:36.265Z">
+<meta property="og:updated_time" content="2019-12-06T02:16:50.232Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Centos7下的nginx编译安装">
 <meta name="twitter:description" content="2.1 安装依赖 yum -y install gcc gcc-c++ autoconf automake yum -y install zlib zlib-devel openssl openssl-devel pcre-devel 2.2 创建用户和组    groupadd -r nginx    useradd -s /sbin/nologin -g nginx -r nginx2.3 下">
@@ -84,7 +84,7 @@ yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ck07vj0ij0003ycuhuwlec1uq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ck3zibufm000118uh4kqy1mr9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -137,6 +137,7 @@ make &amp;&amp; make install
 <pre><code>#创建文件
 touch /etc/rc.d/init.d/nginx
 chmod +x /etc/rc.d/init.d/nginx
+在其中添加如下：
 </code></pre><p>启动脚本</p>
 <pre><code>#!/bin/sh  
 #  
@@ -278,15 +279,19 @@ case &quot;$1&quot; in
         echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
         exit 2
 esac
-</code></pre><p>开机启动方式</p>
-<pre><code># 开机启动
-chkconfig --add nginx
-chkconfig --level 345 nginx on
-chkconfig --list nginx
 
-# 开机不启动
-chkconfig nginx off
-chkconfig --list nginx
+添加nginx服务为系统服务
+开机启动方式
+
+    # 开机启动
+    chkconfig --add nginx
+    chkconfig --level 345 nginx on
+    chkconfig --list nginx
+
+    # 开机不启动
+    chkconfig nginx off
+    chkconfig --list nginx
+添加成功后就可以执行service nginx start、stop、restart、status等操作了。
 </code></pre><p>2.7 centos7服务脚本</p>
 <pre><code># 创建文件
 touch /usr/lib/systemd/system/nginx.service
@@ -315,6 +320,28 @@ systemctl disable nginx.service
 
 # 其他操作
 systemcl ( status | start | stop | reload | restart ) nginx.service
+
+------------------------------------------------------------------------------------------------
+</code></pre><h2 id="CentOS7中使用yum安装Nginx的方法"><a href="#CentOS7中使用yum安装Nginx的方法" class="headerlink" title="CentOS7中使用yum安装Nginx的方法"></a>CentOS7中使用yum安装Nginx的方法</h2><pre><code>最近无意间发现Nginx官方提供了Yum源。因此写个文章记录下。
+
+1、添加源
+</code></pre><p>　　默认情况Centos7中无Nginx的源，最近发现Nginx官网提供了Centos的源地址。因此可以如下执行命令添加源：</p>
+<pre><code>sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+2、安装Nginx
+
+　　通过yum search nginx看看是否已经添加源成功。如果成功则执行下列命令安装Nginx。
+
+sudo yum install -y nginx
+
+3、启动Nginx并设置开机自动运行
+
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+
+4、浏览查看效果
+
+在浏览器中输入您的服务器地址：http://http://10.42.1.50//
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -343,10 +370,10 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2017/01/06/Off-line-Yum-Install/" rel="prev"><span class="meta-nav">←</span> Yum 下载安装包及对应依赖包</a></span>
+        <span class="nav-previous"><a href="/2017/02/06/1.ssh用户权限配置/" rel="prev"><span class="meta-nav">←</span> ssh用户权限配置</a></span>
     
     
-        <span class="nav-next"><a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" rel="next">服务器上的iptables防火墙应该如何配置才能更安全 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2017/01/06/linux安装JDK/" rel="next">Linux 下安装JDK1.8 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -372,7 +399,7 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -384,6 +411,10 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
       <ul>
         
           <li>
+            <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
           </li>
         
@@ -392,15 +423,11 @@ systemcl ( status | start | stop | reload | restart ) nginx.service
           </li>
         
           <li>
-            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
           <li>
             <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
       </ul>

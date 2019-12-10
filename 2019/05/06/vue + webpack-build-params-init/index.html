@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   
   
+  <meta name="description" content="获取 ‘npm run build dev’ 中的参数，修改 global# 在 build.js 中添加如下修改
+
+const yargs = require(&amp;apos;yargs&amp;apos;)
+const fs = require(&amp;apos;fs&amp;apos;)
+let envList = [">
+  
 
   
   
@@ -11,15 +17,19 @@
   
   
   
-  <title>Category: Markdown | 随记</title>
+  <title>编译不同环境 global 参数设置 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="随记">
-<meta property="og:url" content="http://yoursite.com/categories/Markdown/index.html">
+  <meta name="description" content="获取 ‘npm run build dev’ 中的参数，修改 global# 在 build.js 中添加如下修改  const yargs = require(&amp;apos;yargs&amp;apos;) const fs = require(&amp;apos;fs&amp;apos;) let envList = [&amp;apos;prod&amp;apos;, &amp;apos;test&amp;apos;, &amp;apos;dev&amp;apos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译不同环境 global 参数设置">
+<meta property="og:url" content="http://yoursite.com/2019/05/06/vue + webpack-build-params-init/index.html">
 <meta property="og:site_name" content="随记">
+<meta property="og:description" content="获取 ‘npm run build dev’ 中的参数，修改 global# 在 build.js 中添加如下修改  const yargs = require(&amp;apos;yargs&amp;apos;) const fs = require(&amp;apos;fs&amp;apos;) let envList = [&amp;apos;prod&amp;apos;, &amp;apos;test&amp;apos;, &amp;apos;dev&amp;apos">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-10T06:51:10.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随记">
+<meta name="twitter:title" content="编译不同环境 global 参数设置">
+<meta name="twitter:description" content="获取 ‘npm run build dev’ 中的参数，修改 global# 在 build.js 中添加如下修改  const yargs = require(&amp;apos;yargs&amp;apos;) const fs = require(&amp;apos;fs&amp;apos;) let envList = [&amp;apos;prod&amp;apos;, &amp;apos;test&amp;apos;, &amp;apos;dev&amp;apos">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -60,76 +70,103 @@
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue + webpack-build-params-init" class="post-vue + webpack-build-params-init post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
+    <h1 class="entry-title article-title">
+      编译不同环境 global 参数设置
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack-build-params-init/" data-id="ck3zibugo001t18uhf1p5whjp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="获取-‘npm-run-build-dev’-中的参数，修改-global"><a href="#获取-‘npm-run-build-dev’-中的参数，修改-global" class="headerlink" title="获取 ‘npm run build dev’ 中的参数，修改 global"></a>获取 ‘npm run build dev’ 中的参数，修改 global</h2><pre><code># 在 build.js 中添加如下修改
+
+const yargs = require(&apos;yargs&apos;)
+const fs = require(&apos;fs&apos;)
+let envList = [&apos;prod&apos;, &apos;test&apos;, &apos;dev&apos;, &apos;local&apos;, &apos;stage&apos;];
+let globConfig = (yargs.argv.config &amp;&amp; envList.includes(yargs.argv.config)) ? yargs.argv.config : (yargs.argv._[0]? yargs.argv._[0]: envList[2]);
+let versionConfig = yargs.argv.vers ? yargs.argv.vers : &apos;1.0.0.0&apos;;
+console.log(&apos;building for&apos;, globConfig,)
+console.log(yargs.argv, yargs.argv._[0])
+
+let glogFile = fs.readFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;), &apos;utf-8&apos;)
+let curFile = glogFile.replace(/(let\s*env\s*\=\s*)(\d+)(\s*\;)/gi, (s0, s1, s2, s3) =&gt; {
+  let config = 4
+  // (globConfig === &apos;test&apos;) ? 2 : ((globConfig === &apos;prod&apos;) ? 1 : ((globConfig === &apos;dev&apos;) ? 3: globConfig === &apos;stage&apos; ? 5 : 4))
+  switch(globConfig) {
+    case &apos;test&apos;:
+      config = 2
+      break;
+    case &apos;prod&apos;:
+      config = 1
+      break;
+    case &apos;dev&apos;:
+      config = 3
+      break;
+    case &apos;stage&apos;:
+      config = 5
+      break;
+    default:
+      config = 4
+  }
+  return s1 + config + s3;
+}).replace(/(let\s*version\s*\=\s*\&quot;)(.*)(\&quot;\;)/gi, (s0, s1, s2, s3) =&gt; {
+  return s1 + versionConfig + s3;
+})
+
+fs.writeFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;), curFile, &apos;utf-8&apos;);
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/06/vue + webpack-build-params-init/">
+    <time datetime="2019-05-05T16:00:00.000Z" class="entry-date">
+        2019-05-06
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
   </div>
 
     
     </footer>
 </article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
-    </h1>
-  
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2019/06/03/markdown生成目录/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
 
     
-    </footer>
-</article>
-  
-  
-    </div></section>
-  
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/05/07/关于Java 23种设计模式/" rel="prev"><span class="meta-nav">←</span> 关于Java 23种设计模式</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/05/06/vue + webpack 多模块静态文件导入/" rel="next">vue + webpack 多模块静态文件导入 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
 
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">

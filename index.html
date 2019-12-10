@@ -62,6 +62,79 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-Nginx-Install-For-Windows" class="post-Nginx-Install-For-Windows post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="ck3zibufv000818uh3bm7h47b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="下载-amp-准备"><a href="#下载-amp-准备" class="headerlink" title="下载&amp;准备"></a>下载&amp;准备</h3><p>下载 <a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></p>
+<p>文档 <a href="http://nginx.org/en/docs/windows.html" target="_blank" rel="noopener">http://nginx.org/en/docs/windows.html</a></p>
+<p>解压安装</p>
+<h3 id="配置启动"><a href="#配置启动" class="headerlink" title="配置启动"></a>配置启动</h3><pre><code># 启动
+cd c:\
+unzip nginx-1.17.3.zip
+cd nginx-1.17.3
+start nginx
+
+# 双击nginx.exe 启动
+</code></pre><p>通过访问<a href="http://localhost:80" target="_blank" rel="noopener">http://localhost:80</a>，检查是否启动</p>
+<h3 id="Nginx在Windows环境下查看nginx进程"><a href="#Nginx在Windows环境下查看nginx进程" class="headerlink" title="Nginx在Windows环境下查看nginx进程"></a>Nginx在Windows环境下查看nginx进程</h3><p>cmd命令窗口输入命令检查是否启动</p>
+<pre><code>$ tasklist -fi &quot;imagename eq nginx.exe&quot;
+
+映像名称                       PID 会话名              会话#       内存使用
+========================= ======== ================ =========== ============
+nginx.exe                     3716 Console                    1      7,432 K
+nginx.exe                     3204 Console                    1      7,596 K
+# 强制杀进程
+taskkill /PID 10920 /F
+</code></pre><p>nginx的配置文件是conf目录下的nginx.conf，默认配置的nginx监听的端口为80，如果80端口被占用可以修改为未被占用的端口即可<br>检查80端口是否被占用的命令是：</p>
+<pre><code>netstat -ano | findstr 0.0.0.0:80
+# 或
+netstat -ano | findstr &quot;80&quot;
+</code></pre><p>当我们修改了nginx的配置文件nginx.conf 时，不需要关闭nginx后重新启动nginx，只需要执行命令 nginx -s reload 即可让改动生效</p>
+<p>nginx -s stop 快速退出<br>nginx -s quit 优雅退出<br>nginx -s reload 更换配置，启动新的工作进程，优雅的关闭以往的工作进程<br>nginx -s reopen 重新打开日志文件</p>
+<h3 id="设置debug的日志级别"><a href="#设置debug的日志级别" class="headerlink" title="设置debug的日志级别"></a>设置debug的日志级别</h3><pre><code># 配置文件中设置error_log的级别为：
+error_log  logs/error.log  debug;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/09/10/Nginx-Install-For-Windows/">
+    <time datetime="2019-09-09T16:00:00.000Z" class="entry-date">
+        2019-09-10
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Windows-Change-Temp-And-Clean" class="post-Windows-Change-Temp-And-Clean post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +150,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ck07vj0j3000tycuh1y2qmmus" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ck3zibug9000u18uh1fso7fm0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -132,7 +205,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="ck07vj0kn003mycuhkfxum188" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="ck3zibui2003m18uhlk8ep7by" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -455,6 +528,214 @@
 
 
   
+    <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="ck3zibufu000718uhn68objsy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
+<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
+<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
+<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
+<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
+<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
+<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
+<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
+    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
+</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
+本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
+&lt;/span&gt;
+</code></pre><p>3.安装教程</p>
+<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
+<pre><code># visitors count
+counter: true
+</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
+<pre><code>{% if theme.footer.counter %}
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    {% endif %}
+</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
+<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
+<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
+<pre><code># Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: false
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
+site_uv_footer:
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
+site_pv_footer:
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
+page_pv_footer:
+</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
+<pre><code>site_uv表示是否显示整个网站的UV数
+site_pv表示是否显示整个网站的PV数
+page_pv表示是否显示每个页面的PV数
+当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
+
+# Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: true
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: 访客数
+site_uv_footer: 人
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: 总访问量
+site_pv_footer: 次
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
+page_pv_footer:
+</code></pre><p>注意事项</p>
+<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
+使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
+网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
+</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Hexo-busuanzi/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="ck3zibug2000i18uhqozy5moa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li>CentOS 7.3</li>
+</ul>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
+<li>免密登录的关键点在于理解谁登录谁。</li>
+<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
+</ul>
+<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
+<li>根据提示回车，共有三次交互提示，都回车即可。</li>
+</ul>
+</li>
+<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
+<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+<li>测试：<code>ssh localhost</code></li>
+</ul>
+<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
+<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
+<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
+</ul>
+<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
+</ul>
+<hr>
+<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
+<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
+<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
+<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
+<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
+</ul>
+</li>
+<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/SSH-login-without-password/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -470,7 +751,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="ck07vj0jr002bycuht5mag06l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="ck3zibuh0002k18uhpvnr31hv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -609,214 +890,6 @@
 
 
   
-    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="ck07vj0iw000gycuh21maxnno" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
-<li>CentOS 7.3</li>
-</ul>
-<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
-<li>免密登录的关键点在于理解谁登录谁。</li>
-<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
-</ul>
-<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
-<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
-<li>根据提示回车，共有三次交互提示，都回车即可。</li>
-</ul>
-</li>
-<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
-<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
-<li>测试：<code>ssh localhost</code></li>
-</ul>
-<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
-<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
-<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
-</ul>
-<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
-<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
-</ul>
-<hr>
-<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
-<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
-<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
-<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
-<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
-</ul>
-</li>
-<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/SSH-login-without-password/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="ck07vj0im0004ycuheki7qy4q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
-<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
-<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
-<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
-<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
-<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
-<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
-<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
-<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
-    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
-&lt;/span&gt;
-</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
-<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
-本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
-&lt;/span&gt;
-</code></pre><p>3.安装教程</p>
-<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
-<pre><code># visitors count
-counter: true
-</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
-<pre><code>{% if theme.footer.counter %}
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    {% endif %}
-</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
-<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
-<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
-<pre><code># Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-# count values only if the other configs are false
-enable: false
-# custom uv span for the whole site
-site_uv: true
-site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
-site_uv_footer:
-# custom pv span for the whole site
-site_pv: true
-site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
-site_pv_footer:
-# custom pv span for one page only
-page_pv: true
-page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
-page_pv_footer:
-</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
-<pre><code>site_uv表示是否显示整个网站的UV数
-site_pv表示是否显示整个网站的PV数
-page_pv表示是否显示每个页面的PV数
-当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
-
-# Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-# count values only if the other configs are false
-enable: true
-# custom uv span for the whole site
-site_uv: true
-site_uv_header: 访客数
-site_uv_footer: 人
-# custom pv span for the whole site
-site_pv: true
-site_pv_header: 总访问量
-site_pv_footer: 次
-# custom pv span for one page only
-page_pv: true
-page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
-page_pv_footer:
-</code></pre><p>注意事项</p>
-<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
-使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
-网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
-</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/Hexo-busuanzi/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
     <!---->
 
@@ -832,7 +905,7 @@ page_pv_footer:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="ck07vj0j2000rycuhoqb934lf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="ck3zibug8000s18uhdba31vqk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -998,72 +1071,6 @@ page_pv_footer:
 
 
   
-    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="ck07vj0iz000kycuhj2vg3c5t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
-<hr>
-<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
-<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
-<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
-<p>下载安装 Awesomium 1.6.6 SDK</p>
-<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
-<p>安装完成</p>
-<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
-<p>重启MarkdownPad2</p>
-<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
-<p>可以预览</p>
-<hr>
-<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
-<hr>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1079,7 +1086,7 @@ page_pv_footer:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ck07vj0jg001mycuh30oe7wk3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ck3zibugm001o18uh50h62k51" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1305,7 +1312,7 @@ sort test.txt | uniq -d
 
 
   
-    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1313,45 +1320,36 @@ sort test.txt | uniq -d
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ck07vj0jp0027ycuh67k5aeqb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="ck3zibug7000q18uh0aa7lkr0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+        <hr>
+<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
+<hr>
+<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
+<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
+<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
+<p>下载安装 Awesomium 1.6.6 SDK</p>
+<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
+<p>安装完成</p>
+<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
+<p>重启MarkdownPad2</p>
+<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
+<p>可以预览</p>
+<hr>
+<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
+<hr>
 
-&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
-</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
-<p>缺点：“DES”：安全性低</p>
-<p>DES算法缺点：</p>
-<pre><code>1、分组比较短。
-
-2、密钥太短。
-
-3、密码生命周期短。
-
-4、安全性低。
-</code></pre><p>AES算法优点：</p>
-<pre><code>1、运算速度快。
-
-2、 对内存的需求非常低，适合于受限环境。
-
-3、分组长度和密钥长度设计灵活。
-
-4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
-
-5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
-
-6、很好的抵抗差分密码分析及线性密码分析的能力。
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -1359,7 +1357,7 @@ sort test.txt | uniq -d
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/13/加密算法DES AES/">
+    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
     <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
         2019-08-13
     </time>
@@ -1367,7 +1365,7 @@ sort test.txt | uniq -d
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
   </div>
 
     
@@ -1395,7 +1393,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="ck07vj0j3000uycuhwu12aucm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="ck3zibuga000v18uh9mksobsp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1462,7 +1460,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1474,6 +1472,10 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
       <ul>
         
           <li>
+            <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
           </li>
         
@@ -1482,15 +1484,11 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
           </li>
         
           <li>
-            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
           <li>
             <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
       </ul>

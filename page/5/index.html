@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
+    <article id="post-String-Reverse" class="post-String-Reverse post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,20 +70,246 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
+      <a class="article-title" href="/2018/02/06/String-Reverse/">String 的反转</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ck07vj0jq0028ycuhsm3ll640" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="ck3zibug6000o18uhhjam8eb9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
+        <pre><code>package com.example.demo;
+
+import java.util.Stack;
+
+/**
+ * String 的反转
+ */
+public class Reverse {
+    private String str = null;
+
+    public Reverse(String str) {
+        this.str = str;
+    }
+
+    // 数组实现String反转
+    public String reverseByArray() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        for (int i = 0; i &lt; ch.length / 2; i++) {
+            char temp = ch[i];
+            ch[i] = ch[ch.length - i - 1];
+            ch[ch.length - i - 1] = temp;
+        }
+        return new String(ch);
+    }
+
+    // 用栈实现String反转
+    public String reverseByStack() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        for (char c : ch) {
+            stack.push(c);// 每个字符，推进栈
+        }
+        for (int i = 0; i &lt; ch.length; i++) {
+            ch[i] = stack.pop();// 移除这个堆栈的顶部对象
+        }
+        return new String(ch);
+    }
+
+    // 用逆序遍历实现String反转
+    public String reverseBySort() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = str.length() - 1; i &gt;= 0; i--) {
+            sb.append(str.charAt(i));// 使用StringBuffer从右往左拼接字符
+        }
+        return sb.toString();
+    }
+
+    // 使用位运算实现String反转
+    public String reverseByBit() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        int len = str.length();
+        for (int i = 0; i &lt; len / 2; i++) {
+            ch[i] ^= ch[len - 1 - i];
+            ch[len - 1 - i] ^= ch[i];
+            ch[i] ^= ch[len - 1 - i];
+        }
+        return new String(ch);
+    }
+
+    //使用递归实现String反转
+    public String reverseByRecursive(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (str.length() == 1) {
+            return str;
+        } else {
+            // 从下标为1开始截取字符串，在返回下标为0的字符
+            return reverseByRecursive(str.substring(1)) + str.charAt(0);
+        }
+    }
+
+    // 使用 StringBuilder reverse() 方法反转
+    public String reverseByStringBuilder(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        String s = &quot;123456&quot;;
+
+        Reverse r = new Reverse(s);
+        System.out.println(r.reverseByArray());
+        System.out.println(r.reverseByStack());
+        System.out.println(r.reverseBySort());
+        System.out.println(r.reverseByBit());
+        System.out.println(r.reverseByRecursive(s));
+        System.out.println(r.reverseByStringBuilder(s));
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/02/06/String-Reverse/">
+    <time datetime="2018-02-05T16:00:00.000Z" class="entry-date">
+        2018-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-maven-instruction" class="post-maven-instruction post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/29/maven-instruction/">maven使用简单介绍</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="ck3zibugg001c18uhkyvs8hvo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
+<p>详细教程：<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">https://www.w3cschool.cn/maven/</a></p>
+<h3 id="简单使用maven做什么-？"><a href="#简单使用maven做什么-？" class="headerlink" title="简单使用maven做什么 ？"></a>简单使用maven做什么 <strong>？</strong></h3><ul>
+<li>提供了项目对象模型（POM）文件来管理项目的构建。</li>
+<li><p>仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">本地仓库用来存储项目的依赖库；</span><br><span class="line">中央仓库是下载依赖库的默认位置；</span><br><span class="line">远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远程仓库是中央仓库的补充。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>构建不依赖于IDE的标准化项目（导入IDE只需要以maven项目导入即可）</p>
+</li>
+<li>目录结构统一并且简单，约定大于配置，被其他构建工具以及项目广泛采用</li>
+<li>统一对项目依赖的jar包进行管理，明确jar包依赖以及对应的版本自动下载等（<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">细节请看详细教程</a>）</li>
+</ul>
+<h3 id="maven的下载安装"><a href="#maven的下载安装" class="headerlink" title="maven的下载安装"></a>maven的下载安装</h3><h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. <strong>下载</strong></h4><p>进入<a href="http://maven.apache.org/" target="_blank" rel="noopener">官网</a>选择download菜单进入下载页面<br><img src="/assets/mavenImg/download.png" alt="image"><br>tar.gz文件对应linux系统<br>zip文件对应windows系统</p>
+<h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. <strong>安装</strong></h4><pre><code>解压即可使用  
+对于在windows下使用maven，如果需要使用cmd执行命令的话，需要在path环境变量中添加maven/bin目录即可，使用IDE并不需要配置环境变量等  
+推荐目录结构如下：
+</code></pre><p><img src="/assets/mavenImg/maven-directory.png" alt="image"></p>
+<pre><code>第一个为解压后的文件目录  
+第二个用来作为maven的全局文件（settings.xml）存放目录（IDE中需要在maven配置中指向此文件才会生效，日后更换maven版本只需要更换原来的maven解压路径即可，不必再做配置）  
+第三个用来作为maven下载jar包的本地仓库存放目录（需要在settings.xml配置文件中指定，不然存放到默认路径C盘中，不方便管理与查找）  
+</code></pre><h4 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. <strong>配置</strong></h4><p>在解压的文件目录下进入conf文件夹，其中有默认的settings.xml配置文件<br><img src="/assets/mavenImg/maven-conf-directory.png" alt="image"><br>配置文件一般只需要配置2个地方，一个是下载jar包的本地仓库存放目录，另外一个为下载jar包的国内镜像地址（默认地址为国外，速度较慢）<br><img src="/assets/mavenImg/maven-conf-repository.png" alt="image"><br>从默认的注释中复制出来，配置上前面定好的本地仓库存放目录，如果不配置则会存放到注释中默认指向地址${user.home}/.m2/repository<br><img src="/assets/mavenImg/maven-conf-mirror.png" alt="image"><br>依旧从默认的注释中复制镜像出来，id与name可以随意起名，mirrorOf为central则说明是中央仓库，URL推荐填写阿里云maven仓库地址 <a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a><br>之后保存，复制出一份存放在前面设置的maven全局文件存放目录下面（当替换maven版本时，内置的配置文件使用IDE设置好全局文件时可不用更改，更换maven版本也只是解压新版本后在IDE中设置新的maven安装路径就完成了）  </p>
+<h3 id="IDE中配置maven"><a href="#IDE中配置maven" class="headerlink" title="IDE中配置maven"></a>IDE中配置maven</h3><ol>
+<li><p><strong>MyEclipse</strong><br>点击导航栏window进入preferences搜索maven<br><img src="/assets/mavenImg/myeclipse-maven.png" alt="image"><br>建议勾选Download Artifact Sources（下载jar包的同时下载源码，方便直接点方法进源码查看）<br><img src="/assets/mavenImg/myeclipse-maven-install.png" alt="image"><br>添加安装的maven<br><img src="/assets/mavenImg/myeclipse-maven-settings.png" alt="image"><br>设置好maven的全局配置文件路径（本地仓库存放目录自动扫描文件中的目录）<br>至此完成了MyEclipse中maven的配置  </p>
+</li>
+<li><p><strong>IDEA</strong><br>不要在打开项目的时候选择file/settings，那样设置完只会针对当前项目，若打开了项目，则选择file/Close Project关闭项目回退到初始idea界面</p>
+</li>
+</ol>
+<p><img src="/assets/mavenImg/idea-settings.png" alt="image"><br><img src="/assets/mavenImg/idea-settings1.png" alt="image"><br>指定好maven的安装目录以及配置文件位置<br><img src="/assets/mavenImg/idea-maven.png" alt="image"><br><img src="/assets/mavenImg/idea-maven-importing.png" alt="image"><br>至此完成了idea中的maven的配置</p>
+<h3 id="创建一个maven的java-web项目"><a href="#创建一个maven的java-web项目" class="headerlink" title="创建一个maven的java web项目"></a>创建一个maven的java web项目</h3><ol>
+<li><p><strong>MyEclipse</strong><br><img src="/assets/mavenImg/myeclipse-create01.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create02.png" alt="image"><br>选取项目模板java web项目为maven-archetype-webapp<br><img src="/assets/mavenImg/myeclipse-create03.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+<li><p><strong>IDEA</strong><br>新建项目<br><img src="/assets/mavenImg/idea-create01.png" alt="image"><br><img src="/assets/mavenImg/idea-create02.png" alt="image"><br><img src="/assets/mavenImg/idea-create03.png" alt="image"><br><img src="/assets/mavenImg/idea-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+</ol>
+<h3 id="maven的java-web项目的目录结构"><a href="#maven的java-web项目的目录结构" class="headerlink" title="maven的java web项目的目录结构"></a>maven的java web项目的目录结构</h3><p><a href="/assets/mavenImg/pom.xml">pom.xml项目配置文件例子，包含普通项目所需jar包引入，行间内置注释</a><br><img src="/assets/mavenImg/maven-directory-javaweb.png" alt="文件目录结构">  </p>
+<pre><code>```
+project
+│   pom.xml（maven项目配置文件）
+│
+└───src（源码根目录）
+│   │
+│   └───main（源码主目录）
+│   │   │
+│   │   └───java（java源码目录）
+│   │   │   │
+│   │   │   └───xxx（项目包名）
+│   │   │   └───sql（包名，有清空数据库在java源码目录下同级放置）
+│   │   │
+│   │   └───resources（源码所使用的资源文件目录，存放配置文件）
+│   │   │   │
+│   │   │   └───config（配置文件）
+│   │   │        │
+│   │   │        └───jdbc
+│   │   │        └───mybatis
+│   │   │        └───spring
+│   │   │
+│   │   └───webapp（web文件目录，等同于WebRoot）
+│   │   │
+│   │
+│   └───test（测试目录，测试用例等，小项目暂未使用）
+│        │   xxxTest.java
+│        │   ...
+│    
+└───target（maven项目默认编译输出目录，自动生成）
+          │   ...
+```  
+</code></pre><ol>
+<li>java源码目录使用模板生成没有此文件夹，自行创建并设置为源码目录，MyEclipse设置方式为文件夹右键Build Path/Use as Source Folder，idea为右键Make Directory as/Sources Root</li>
+<li>resources资源文件目录在导入maven项目时此文件夹为普通文件夹，需要IDE设置为资源文件夹，MyEclipse设置方式同上，idea为右键Make Directory as/Resources Root</li>
+<li>如果需要引入特殊jar包（第三方支付等），跟以前方式一致</li>
+<li>旧项目转化为maven项目，按照上述创建一个maven项目，直接打开2边的文件夹，直接拷贝到相应地方，删除多余jar包以及原来多余编译生成的文件即可，无需其余操作，反之把maven项目转化也一样（需要把编译目录下的jar包拷过去）</li>
+</ol>
 
       
     </div><!-- .entry-content -->
@@ -92,7 +318,60 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/右键添加Notepad2/">
+    <a href="/2018/01/29/maven-instruction/">
+    <time datetime="2018-01-28T16:00:00.000Z" class="entry-date">
+        2018-01-29
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="ck3zibugy002f18uho150d7o1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>刷新 DNS 解析缓存</p>
+<pre><code># cmd 执行 
+ipconfig /flushdns
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/刷新 DNS 解析缓存/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -101,6 +380,99 @@
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ck3zibugc001318uhb2j3fxo7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
+javamelody.jar
+jrobin-1.5.14.jar
+启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
+
+访问：http://主机地址：端口号/项目名/monitoring
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/javamelody/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
 
     
@@ -128,7 +500,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ck07vj0k60035ycuh1dpzsifg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ck3zibuhl003518uhfmpg0p1t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -353,7 +725,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
 
 
   
-    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -361,63 +733,21 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ck07vj0j60012ycuh14dypiga" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ck3zibugx002c18uhcitv9m0c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
-        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
-        &lt;version&gt;1.60.0&lt;/version&gt;
-    &lt;/dependency&gt;
+        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
 
-# Configuration.java
-
-import net.bull.javamelody.MonitoringFilter;
-import net.bull.javamelody.SessionListener;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- *
- * @author zqs
- * @since
- */
-@Configuration
-public class JavamelodyConfiguration {
-    @Bean
-    public FilterRegistrationBean monitorFilter(){
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
-        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
-        return filterRegistrationBean;
-    }
-
-    @Bean
-    public ServletListenerRegistrationBean sessionListener(){
-        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
-        servletListenerRegistrationBean.setListener(new SessionListener());
-        return servletListenerRegistrationBean;
-    }
-}   
-</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
-javamelody.jar
-jrobin-1.5.14.jar
-启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
-
-访问：http://主机地址：端口号/项目名/monitoring
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -425,7 +755,7 @@ jrobin-1.5.14.jar
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/javamelody/">
+    <a href="/2018/01/01/右键添加Notepad2/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -433,7 +763,7 @@ jrobin-1.5.14.jar
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
+  <a class="article-category-link" href="/categories/随记/">随记</a>
   </div>
 
     
@@ -461,7 +791,7 @@ jrobin-1.5.14.jar
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ck07vj0ix000iycuh70p8x0xd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ck3zibug4000k18uh6lfxobqk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -516,7 +846,7 @@ proxy settings
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ck07vj0jb001cycuhfbusg8fr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ck3zibugl001l18uhcqwj28z3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -685,7 +1015,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ck07vj0jf001jycuhunmih0ms" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ck3zibugk001j18uh984gyfh0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -805,7 +1135,7 @@ $lsnrctl start
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ck07vj0iq0007ycuh27fsl3y0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ck3zibufr000518uhvdxbd7jj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -951,247 +1281,6 @@ $lsnrctl start
 
 
   
-    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ck07vj0id0000ycuhh79bl2e2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
-<pre><code>1. 添加用户
-
-adduser huapisong  //添加一个名为huapisong的用户
-passwd huapisong   //修改密码
-Changing password for user huapisong.
-New UNIX password:     //在这里输入新密码
-Retype new UNIX password:  //再次输入新密码
-passwd: all authentication tokens updated successfully.
-
-2. 赋予root权限
-
-方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
-## Allows people in group wheel to run all commands
-%wheel    ALL=(ALL)    ALL
-# 然后修改用户，使其属于root组（wheel），命令如下：
-
-usermod -g root huapisong
-# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
-## Allow root to run any commands anywhere
-root    ALL=(ALL)     ALL
-huapisong   ALL=(ALL)     ALL
-#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
-如下：
-vi /etc/ssh/sshd_config 
-#添加
-AllowUsers root huapisong
-#多个用户用空格隔开
-
-4. 然后重启sshd服务生效即可，重启命令可以使用:
-#shell
-service sshd restart
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/02/06/1.ssh用户权限配置/">
-    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
-        2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ck07vj0j80016ycuh690uend9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
-<p>一、安装环境</p>
-<pre><code>● Centos6.5系统
-● JDK版本：1.8
-● 工具： FlashFXP V5.2.0, MobaXterm V10.5
-</code></pre><p>二、安装步骤</p>
-<p>第一步：下载安装包</p>
-<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
-
-由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
-</code></pre><p>第二步： 上传jdk1.8 安装包</p>
-<pre><code># 上传jdk1.8 安装包
-scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
-# 进入jdk目录
-cd /hupisong/java/
-# 解压JDK1.8安装包
-tar -zxvf jdk-8u131-linux-x64.tar.gz
-</code></pre><p>第三步、修改环境变量</p>
-<pre><code># 编辑文件
-vi /etc/profile
-# 按 &apos;i&apos; 键编辑
-# 编辑,在最后一行添加
-# 添加内容如下 
-export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
-export PATH=$JAVA_HOME/bin:$PATH
-# 退出编辑并保存：
-# 按&apos;esc&apos;键退出编辑 
-# 输入&apos;:wq&apos; 保存编辑内容
-:wq 
-# 加载设置的变量，使其生效
- source /etc/profile
-</code></pre><p>第四步、测试是否安装成功</p>
-<pre><code># 输入命令
-java -version
-#成功结果如下：
-java version &quot;1.8.0_131&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
-</code></pre><p>至此，安装结束</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/linux安装JDK/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ck07vj0iu000dycuhhqxc1u9u" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
-</li>
-<li><p>以下载 openssh-server 为例：</p>
-<ul>
-<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
-<li>在 /opt/ssh 目录下有如下内容：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
-<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/Off-line-Yum-Install/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1216,7 +1305,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1228,6 +1317,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
       <ul>
         
           <li>
+            <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
           </li>
         
@@ -1236,15 +1329,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
           </li>
         
           <li>
-            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
           <li>
             <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
           </li>
         
       </ul>
