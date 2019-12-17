@@ -4,11 +4,7 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="C:\Users\dell\AppData\Roaming\Subversion
-# 打开文件
-servers
-# 删除
-proxy settings">
+  <meta name="description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改">
   
 
   
@@ -17,19 +13,19 @@ proxy settings">
   
   
   
-  <title>svn error - unable to connect to a repository at url 问题解决 | 随记</title>
+  <title>启动报错 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="C:\Users\dell\AppData\Roaming\Subversion # 打开文件 servers # 删除 proxy settings">
+  <meta name="description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改 nginx -t 2.已经启动nginx或者配置文件中的端口号被占用检查端口是否被占用 netst">
 <meta property="og:type" content="article">
-<meta property="og:title" content="svn error - unable to connect to a repository at url 问题解决">
-<meta property="og:url" content="http://yoursite.com/2017/12/27/SVN-error/index.html">
+<meta property="og:title" content="启动报错">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/Nginx.service failed/index.html">
 <meta property="og:site_name" content="随记">
-<meta property="og:description" content="C:\Users\dell\AppData\Roaming\Subversion # 打开文件 servers # 删除 proxy settings">
+<meta property="og:description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改 nginx -t 2.已经启动nginx或者配置文件中的端口号被占用检查端口是否被占用 netst">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T02:48:48.793Z">
+<meta property="og:updated_time" content="2019-12-17T06:32:50.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="svn error - unable to connect to a repository at url 问题解决">
-<meta name="twitter:description" content="C:\Users\dell\AppData\Roaming\Subversion # 打开文件 servers # 删除 proxy settings">
+<meta name="twitter:title" content="启动报错">
+<meta name="twitter:description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改 nginx -t 2.已经启动nginx或者配置文件中的端口号被占用检查端口是否被占用 netst">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -70,7 +66,7 @@ proxy settings">
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-SVN-error" class="post-SVN-error post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Nginx.service failed" class="post-Nginx.service failed post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -78,24 +74,63 @@ proxy settings">
         
   
     <h1 class="entry-title article-title">
-      svn error - unable to connect to a repository at url 问题解决
+      启动报错
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ck49hqbkq000i34uhenurqrkv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="ck49hqbkj000834uh1ms8c762" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <pre><code>C:\Users\dell\AppData\Roaming\Subversion
-# 打开文件
-servers
-# 删除
-proxy settings
+        <h2 id="启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下"><a href="#启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下" class="headerlink" title="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下"></a>启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下</h2><h3 id="1-nginx配置文件有错误"><a href="#1-nginx配置文件有错误" class="headerlink" title="1.nginx配置文件有错误"></a>1.nginx配置文件有错误</h3><pre><code>运行下面命令查看修改
+nginx -t
+</code></pre><h3 id="2-已经启动nginx或者配置文件中的端口号被占用"><a href="#2-已经启动nginx或者配置文件中的端口号被占用" class="headerlink" title="2.已经启动nginx或者配置文件中的端口号被占用"></a>2.已经启动nginx或者配置文件中的端口号被占用</h3><pre><code>检查端口是否被占用
+netstat -tnlp
+
+如果端口已经被占用，自己权衡一下是换个端口还是把占用端口的进程杀掉
+检查nginx是否已经启动
+ps -aux | grep nginx
+
+如果已经启动使用下面命令干掉即可
+
+pkill -9 nginx
+</code></pre><h2 id="解决Nginx出现403-forbidden-13-Permission-denied-报错"><a href="#解决Nginx出现403-forbidden-13-Permission-denied-报错" class="headerlink" title="解决Nginx出现403 forbidden (13: Permission denied)报错"></a>解决Nginx出现403 forbidden (13: Permission denied)报错</h2><p>查看nginx日志，路径为/var/log/nginx/error.log。打开日志发现报错Permission denied，详细报错如下</p>
+<pre><code>&quot;/app/index.html&quot; is forbidden (13: Permission denied), client: 10.43.25.6, server: localhost, request: &quot;GET / HTTP/1.1&quot;, host: &quot;10.42.1.50&quot;
+</code></pre><h3 id="由于启动用户和nginx工作用户不一致所致"><a href="#由于启动用户和nginx工作用户不一致所致" class="headerlink" title="由于启动用户和nginx工作用户不一致所致"></a>由于启动用户和nginx工作用户不一致所致</h3><pre><code># 查看nginx的启动用户，发现是nginx，而为是用root启动的
+ps aux | grep nginx
+
+# 显示如下：
+nginx      1180  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+nginx      1181  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+
+# 将nginx.config的user改为和启动用户一致
+vi conf/nginx.conf
+
+# 修改如下：
+# user  nginx;
+user  root;
+</code></pre><h3 id="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"><a href="#权限问题，如果nginx没有web目录的操作权限，也会出现403错误" class="headerlink" title="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"></a>权限问题，如果nginx没有web目录的操作权限，也会出现403错误</h3><pre><code># 修改权限
+chmod -R 777 /app
+</code></pre><h3 id="SELinux设置为开启状态（enabled）的原因"><a href="#SELinux设置为开启状态（enabled）的原因" class="headerlink" title="SELinux设置为开启状态（enabled）的原因"></a>SELinux设置为开启状态（enabled）的原因</h3><pre><code># 查看当前selinux的状态
+/usr/sbin/sestatus
+
+# 显示如下：
+SELinux status:                 enabled
+
+# 将SELINUX=enforcing 修改为 SELINUX=disabled 状态
+vi /etc/selinux/config
+
+# 修改如下：
+#SELINUX=enforcing
+SELINUX=disabled
+
+# 重启生效
+reboot
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -104,15 +139,15 @@ proxy settings
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/12/27/SVN-error/">
-    <time datetime="2017-12-26T16:00:00.000Z" class="entry-date">
-        2017-12-27
+    <a href="/2019/12/17/Nginx.service failed/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/SVN/">SVN</a>
+  <a class="article-category-link" href="/categories/Nginx/">Nginx</a>
   </div>
 
     
@@ -124,10 +159,8 @@ proxy settings
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2018/01/01/javamelody/" rel="prev"><span class="meta-nav">←</span> javamelody java系统监控插件</a></span>
     
-    
-        <span class="nav-next"><a href="/2017/12/15/node/" rel="next">node.js yeoman grunt 快速构建项目 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/12/17/AES/" rel="next">AES 加密、解密 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
