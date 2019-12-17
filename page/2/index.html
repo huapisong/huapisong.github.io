@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,44 +70,27 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ck3zibugz002h18uhmspmsaa5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="ck49b895i000zmkuh5w4zd0k9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
 
-&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
-</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
-<p>缺点：“DES”：安全性低</p>
-<p>DES算法缺点：</p>
-<pre><code>1、分组比较短。
+需要下载：
+http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
 
-2、密钥太短。
-
-3、密码生命周期短。
-
-4、安全性低。
-</code></pre><p>AES算法优点：</p>
-<pre><code>1、运算速度快。
-
-2、 对内存的需求非常低，适合于受限环境。
-
-3、分组长度和密钥长度设计灵活。
-
-4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
-
-5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
-
-6、很好的抵抗差分密码分析及线性密码分析的能力。
+下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
+JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
+JRE：将两个jar文件放到%JRE_HOME%\lib\security下
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -116,7 +99,7 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/13/加密算法DES AES/">
+    <a href="/2019/08/13/java 加密规则变更/">
     <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
         2019-08-13
     </time>
@@ -124,7 +107,248 @@
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/shell/">Shell</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ck49b895y001vmkuhzk5vopoy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="搭建运行环境"><a href="#搭建运行环境" class="headerlink" title="搭建运行环境"></a>搭建运行环境</h2><h3 id="Shell-初体验"><a href="#Shell-初体验" class="headerlink" title="Shell 初体验"></a>Shell 初体验</h3><pre><code># 创建文件
+$ touch test.sh
+# chmod 修改 test.sh 权限
+$ chmod 771 ./test.sh
+$ ll  # 查看权限
+# -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh
+ # 没有修改成功
+$ vi test.sh 
+# 添加 头 #!/bin/bash 或 #!/bin/sh
+$ chmod 771 ./test.sh
+$ ll
+# 修改成功
+# -rwxr-xr-x 1 cango 197121 10 8月  13 15:56 test.sh*
+</code></pre><h3 id="关机操作"><a href="#关机操作" class="headerlink" title="关机操作"></a>关机操作</h3><pre><code># 会立即关闭机器
+shutdown -h now
+
+# 60秒后关机
+shutdown -s -t 60
+</code></pre><h3 id="重启操作"><a href="#重启操作" class="headerlink" title="重启操作"></a>重启操作</h3><p>shutdown -r now<br>sudo reboot<br>这两个命令功能一样，其中shutdown -r now的-r应当就是restart的意思。</p>
+<h2 id="Shell-写入文件"><a href="#Shell-写入文件" class="headerlink" title="Shell 写入文件"></a>Shell 写入文件</h2><h3 id="cat-多行写入"><a href="#cat-多行写入" class="headerlink" title="cat 多行写入"></a>cat 多行写入</h3><h4 id="1-cat-覆盖写入"><a href="#1-cat-覆盖写入" class="headerlink" title="1.cat 覆盖写入"></a>1.cat 覆盖写入</h4><pre><code># 语法： cat &gt; 文件名 &lt;&lt;EOF， 然后把多行文字放在下面，并以EOF结束
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="2-cat-追加写入"><a href="#2-cat-追加写入" class="headerlink" title="2.cat 追加写入"></a>2.cat 追加写入</h4><pre><code># 如果需要追加文本，那就变成cat&gt;&gt;：
+# 语法： cat &gt;&gt; 文件名 &lt;&lt;EOF
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="3-查看写入"><a href="#3-查看写入" class="headerlink" title="3.查看写入"></a>3.查看写入</h4><pre><code># 执行
+$ bash start.sh
+# 输出
+    ___________脚本开始____________
+    hello test.sh
+    21312
+    ___________脚本结束____________
+
+# 查看生成的文件
+$ cat ./test.sh
+# 输出
+
+    #!/bin/bash
+    echo &quot;hello test.sh&quot;
+    echo 21312
+</code></pre><h3 id="echo-输出重定向写入"><a href="#echo-输出重定向写入" class="headerlink" title="echo 输出重定向写入"></a>echo 输出重定向写入</h3><h4 id="1-echo-gt-覆盖写入"><a href="#1-echo-gt-覆盖写入" class="headerlink" title="1.echo &gt; 覆盖写入"></a>1.echo &gt; 覆盖写入</h4><pre><code># 输出重定向
+echo echo &quot;输出重定向&quot;&gt; test1.sh
+</code></pre><h4 id="2-echo-gt-gt-追加写入"><a href="#2-echo-gt-gt-追加写入" class="headerlink" title="2.echo &gt;&gt; 追加写入"></a>2.echo &gt;&gt; 追加写入</h4><pre><code># 输出追加重定向
+echo echo &quot;输出追加重定向&quot; &gt;&gt; test1.sh
+</code></pre><h2 id="Sort-命令常用相关选项"><a href="#Sort-命令常用相关选项" class="headerlink" title="Sort 命令常用相关选项"></a>Sort 命令常用相关选项</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>会检查文件顺序是否已排好序，如果乱序，则输出第一个乱序的行的相关信息，然后返回1</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>指定排序的列数</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>忽略每一行前面所有的空白行，从第一个可见的字符开始比较</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>将小写字母都转换成大写字母进行排序</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>反转降序</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>去除重复行</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>输出命名，重定向</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>按字符来排序</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-M</td>
+<td>以月份排序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="uniq命令的作用"><a href="#uniq命令的作用" class="headerlink" title="uniq命令的作用"></a>uniq命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c/–count</td>
+<td>在每列旁边显示除改行重复出现的次数</td>
+</tr>
+<tr>
+<td>-d/–repeated</td>
+<td>仅显示重复出现的行列</td>
+</tr>
+<tr>
+<td>-s&lt;字符位置&gt;</td>
+<td>忽略比较指定的字符</td>
+</tr>
+<tr>
+<td>-u/–unique</td>
+<td>仅显示只有一次，不重复的行列</td>
+</tr>
+<tr>
+<td>-w&lt;字符位置&gt;</td>
+<td>指定要比较的字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="join命令的作用"><a href="#join命令的作用" class="headerlink" title="join命令的作用"></a>join命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a FILENAME</td>
+<td>FILENAME表示第几个文件，-a1表示第一个文件，-a2表示第二个文件</td>
+</tr>
+<tr>
+<td>-e EMPTY</td>
+<td>若在FILE1与FILE2找不到指定的栏位，则在输出中填入-e选定的字符串</td>
+</tr>
+<tr>
+<td>-i,–ignore-case</td>
+<td>比较时忽略大小写差异</td>
+</tr>
+<tr>
+<td>-o FORMAT</td>
+<td>按照指定的格式显示结果</td>
+</tr>
+<tr>
+<td>-v FILENUM</td>
+<td>-v 1表示只显示FILE1中与FILE2中没有相同栏位的行；</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>2表示只显示FILE2中与FILE1中没有相同栏位的行：</td>
+</tr>
+<tr>
+<td>-t CHAR</td>
+<td>使用栏位的分隔符</td>
+</tr>
+<tr>
+<td>-1 FIELD</td>
+<td>链接FILE1指定的栏位</td>
+</tr>
+<tr>
+<td>-j  FIELD</td>
+<td>等价与-1 FIELD -2 FIELD</td>
+</tr>
+</tbody>
+</table>
+<pre><code># 重复输出
+sort test.txt | uniq -d 
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/shell/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Shell/">Shell</a>
   </div>
 
     
@@ -152,7 +376,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ck3zibugm001p18uh00m7x3eg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ck49b895x001umkuhv9io8j2a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -244,6 +468,290 @@
 
 
   
+    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ck49b89610022mkuh8p07vuc7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
+主要是给自定义的组件添加原生事件。
+# * 给普通的标签加事件，然后加native是无效的
+
+ &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
+     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
+     &lt;/el-button&gt;
+         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
+             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
+         &lt;/el-dropdown-menu&gt;
+ &lt;/el-dropdown&gt;
+</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
+ 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
+
+&lt;template&gt;
+  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
+  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 事件中的 .native/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="ck49b89620023mkuhfucnw7s0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
+<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
+<pre><code>async function test (){
+  return &apos;hello async&apos;;
+}
+let result = test();
+console.log(result);
+// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
+</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
+<pre><code>test().then(v =&gt; {
+  console.log(v); // hello async
+});
+</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
+<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
+<pre><code>async function f() {
+  return await 123;
+}
+
+f().then(v =&gt; console.log(v))
+// 123
+</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
+<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+.catch(e =&gt; console.log(e))
+// 出错了
+</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
+<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+  await Promise.resolve(&apos;hello world&apos;); // 不会执行
+}
+</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
+<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
+<pre><code>async function f() {
+  try {
+    await Promise.reject(&apos;出错了&apos;);
+  } catch(e) {
+  }
+  return await Promise.resolve(&apos;hello world&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+// hello world
+</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
+async submit() {
+    try {
+        this.$refs[formName].validate(valid =&gt; {
+            let res = await submit(...this.submitForm)
+            this.$message.success(res.resultMessage）
+        })
+    } catch (err){
+        console.log(err)
+        this.$message.success(err.resultMessage）
+    }
+}
+</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
+<pre><code>#修改后例：
+   submit() {
+       try {
+           this.$refs[formName].validate(async valid =&gt; {
+               let res = await submit(...this.params)
+               this.$message.success(res.resultMessage）
+           })
+       } catch (err){
+           console.log(err)
+           this.$message.success(err.resultMessage）
+       }
+   }
+</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
+<pre><code>async main() {
+  try {
+    const val1 = await firstStep();
+    const val2 = await secondStep(val1);
+    const val3 = await thirdStep(val1, val2);
+    console.log(&apos;Final: &apos;, val3);
+  }
+  catch (err) {
+    console.error(err);
+  }
+}
+
+await in for 循环
+
+let arr = [1, 2, 3, 4, 5];
+arr.forEach(async item =&gt; {
+  await console.log(item)
+});
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue async await/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="ck49b89630025mkuhv11h0wf5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
+<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
+<p><img src="/assets/vueImg/API.png" alt="image"></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><pre><code>[v-text](https://cn.vuejs.org/v2/api/ ##v-text)
+[v-html](https://cn.vuejs.org/v2/api/ ##v-html)
+[v-show](https://cn.vuejs.org/v2/api/ ##v-show)
+[v-if](https://cn.vuejs.org/v2/api/ ##v-if)
+[v-else](https://cn.vuejs.org/v2/api/ ##v-else)
+[v-else-if](https://cn.vuejs.org/v2/api/ ##v-else-if)
+[v-for](https://cn.vuejs.org/v2/api/ ##v-for)
+[v-on](https://cn.vuejs.org/v2/api/ ##v-on)
+[v-bind](https://cn.vuejs.org/v2/api/ ##v-bind)
+[v-model](https://cn.vuejs.org/v2/api/ ##v-model)
+[v-slot](https://cn.vuejs.org/v2/api/ ##v-slot)
+[v-pre](https://cn.vuejs.org/v2/api/ ##v-pre)
+[v-cloak](https://cn.vuejs.org/v2/api/ ##v-cloak)
+[v-once](https://cn.vuejs.org/v2/api/ ##v-once)
+</code></pre><h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
+<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
+<p>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev<br>$ npm run build<br>$ npm run unit<br>$ npm run e2e</p>
+<p>$ vue init webpack#develop my-project<br>$ vue init username/repo my-project</p>
+<p>Documentation can be found at <a href="https://vuejs-templates.github.io/webpack" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 一点点/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -259,7 +767,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="ck3zibugv002718uhv615zhfo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="ck49b8966002dmkuhsy56chgb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -347,125 +855,6 @@
 
 
   
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ck3zibugs002118uh0qfv4kv0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
-
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
-
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="ck3zibugd001418uhsja2zasz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -481,7 +870,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="ck3zibuhq003d18uhbwk59wsf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="ck49b896x003jmkuhnlp65kqf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -681,149 +1070,6 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 
 
   
-    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="ck3zibugp001w18uhq8088tdt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
-<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
-<pre><code>async function test (){
-  return &apos;hello async&apos;;
-}
-let result = test();
-console.log(result);
-// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
-</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
-<pre><code>test().then(v =&gt; {
-  console.log(v); // hello async
-});
-</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
-<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
-<pre><code>async function f() {
-  return await 123;
-}
-
-f().then(v =&gt; console.log(v))
-// 123
-</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
-<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-.catch(e =&gt; console.log(e))
-// 出错了
-</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
-<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-  await Promise.resolve(&apos;hello world&apos;); // 不会执行
-}
-</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
-<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
-<pre><code>async function f() {
-  try {
-    await Promise.reject(&apos;出错了&apos;);
-  } catch(e) {
-  }
-  return await Promise.resolve(&apos;hello world&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-// hello world
-</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
-async submit() {
-    try {
-        this.$refs[formName].validate(valid =&gt; {
-            let res = await submit(...this.submitForm)
-            this.$message.success(res.resultMessage）
-        })
-    } catch (err){
-        console.log(err)
-        this.$message.success(err.resultMessage）
-    }
-}
-</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
-<pre><code>#修改后例：
-   submit() {
-       try {
-           this.$refs[formName].validate(async valid =&gt; {
-               let res = await submit(...this.params)
-               this.$message.success(res.resultMessage）
-           })
-       } catch (err){
-           console.log(err)
-           this.$message.success(err.resultMessage）
-       }
-   }
-</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
-<pre><code>async main() {
-  try {
-    const val1 = await firstStep();
-    const val2 = await secondStep(val1);
-    const val3 = await thirdStep(val1, val2);
-    console.log(&apos;Final: &apos;, val3);
-  }
-  catch (err) {
-    console.error(err);
-  }
-}
-
-await in for 循环
-
-let arr = [1, 2, 3, 4, 5];
-arr.forEach(async item =&gt; {
-  await console.log(item)
-});
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue async await/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -839,7 +1085,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="ck3zibugf001918uh826byanm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="ck49b895r001fmkuhyma0g8rx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -886,7 +1132,7 @@ arr.forEach(async item =&gt; {
 
 
   
-    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
+    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -894,42 +1140,20 @@ arr.forEach(async item =&gt; {
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
+      <a class="article-title" href="/2019/06/03/js/">js</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="ck3zibugq001x18uhzf6jli3s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="ck49b895n001amkuhhawup2we" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
-<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
-<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
-<p><img src="/assets/vueImg/API.png" alt="image"></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><pre><code>[v-text](https://cn.vuejs.org/v2/api/ ##v-text)
-[v-html](https://cn.vuejs.org/v2/api/ ##v-html)
-[v-show](https://cn.vuejs.org/v2/api/ ##v-show)
-[v-if](https://cn.vuejs.org/v2/api/ ##v-if)
-[v-else](https://cn.vuejs.org/v2/api/ ##v-else)
-[v-else-if](https://cn.vuejs.org/v2/api/ ##v-else-if)
-[v-for](https://cn.vuejs.org/v2/api/ ##v-for)
-[v-on](https://cn.vuejs.org/v2/api/ ##v-on)
-[v-bind](https://cn.vuejs.org/v2/api/ ##v-bind)
-[v-model](https://cn.vuejs.org/v2/api/ ##v-model)
-[v-slot](https://cn.vuejs.org/v2/api/ ##v-slot)
-[v-pre](https://cn.vuejs.org/v2/api/ ##v-pre)
-[v-cloak](https://cn.vuejs.org/v2/api/ ##v-cloak)
-[v-once](https://cn.vuejs.org/v2/api/ ##v-once)
-</code></pre><h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
-<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
-<p>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev<br>$ npm run build<br>$ npm run unit<br>$ npm run e2e</p>
-<p>$ vue init webpack#develop my-project<br>$ vue init username/repo my-project</p>
-<p>Documentation can be found at <a href="https://vuejs-templates.github.io/webpack" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack</a></p>
+        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
 
       
     </div><!-- .entry-content -->
@@ -938,7 +1162,7 @@ arr.forEach(async item =&gt; {
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/vue 一点点/">
+    <a href="/2019/06/03/js/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -946,150 +1170,7 @@ arr.forEach(async item =&gt; {
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-node-vue-webpack构建项目" class="post-node-vue-webpack构建项目 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/05/14/node-vue-webpack构建项目/">node-vue-webpack 构建项目</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="ck3zibugj001g18uhpf4xsstx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="vuw-cli-全局安装"><a href="#vuw-cli-全局安装" class="headerlink" title="vuw-cli 全局安装"></a>vuw-cli 全局安装</h3><pre><code>npm install  -g vue-cli
-</code></pre><h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><pre><code># 创建项目
-mkdir vue-webpack
-cd vue-webpack
-# 创建模板
-vue init webpack 
-# 安装依赖包
-npm install
-# 运行项目
-npm run dev
-# 访问
-</code></pre><p><a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
-<pre><code># 简单的Vue Webpack项目构建完成
-</code></pre><p> <img src="/assets/vueImg/start.png" alt="image"></p>
-<h3 id="安装cnpm"><a href="#安装cnpm" class="headerlink" title="安装cnpm"></a>安装cnpm</h3><pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
-</code></pre><h3 id="跨域代理配置"><a href="#跨域代理配置" class="headerlink" title="跨域代理配置"></a>跨域代理配置</h3><pre><code>#config目录下 index.js 文件配置如下， 可以配置多个
-
-module.exports = {
-  dev: {
-    // Paths
-    assetsSubDirectory: &apos;static&apos;,
-    assetsPublicPath: &apos;/&apos;,
-    proxyTable: {
-      &apos;/api&apos;: {
-        target: &apos;http://10.43.22.175:9000&apos;,
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          &apos;^/api&apos;: &apos;/api&apos;
-        },
-        router: {
-          // when request.headers.host == &apos;dev.localhost:3000&apos;,
-          // override target &apos;http://www.example.org&apos; to &apos;http://localhost:8000&apos;
-          &apos;10.43.22.175:8080&apos; : &apos;http://10.43.22.175:9000&apos;
-        }
-      },
-      &apos;/activity&apos;: {
-        target: &apos;http://10.43.22.149:8081&apos;,
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          &apos;^/activity&apos;: &apos;/activity&apos;
-        },
-        router: {
-          // when request.headers.host == &apos;dev.localhost:3000&apos;,
-          // override target &apos;http://www.example.org&apos; to &apos;http://localhost:8000&apos;
-          &apos;10.43.22.175:8080&apos; : &apos;http://10.43.22.149:8081&apos;
-        }
-      }
-    }
-  }
-}
-</code></pre><h3 id="vue-router-参数"><a href="#vue-router-参数" class="headerlink" title="vue-router 参数"></a>vue-router 参数</h3><h4 id="1-query"><a href="#1-query" class="headerlink" title="1. query"></a>1. query</h4><pre><code>1.this.$router.push({path:&apos;history&apos;, query:{id: &apos;1111&apos;}});
-下一个页面通过this.$route.query.id访问路由参数
- 总结：1. 强制刷新，query不会丢参
- 2. query会拼接到url上 （/history?id=1111）
-</code></pre><h4 id="2-params"><a href="#2-params" class="headerlink" title="2. params"></a>2. params</h4><pre><code>2.this.$router.push({&apos;name&apos;: &apos;history&apos;, params: {id: &apos;1111&apos;}});
-下一个页面通过this.$route.params.id访问路由参数
- 总结：
-    1. 页面刷新参数会丢失
-    2. 不会拼接到url上 例 （/history）
-    3.   router.js 中： 需要添加name属性
-    {
-      path: &apos;history&apos;,
-      name: &apos;history&apos;,
-      meta: {
-        requireAuth: true,
-        title: &apos;历史记录&apos;
-      },
-      component: resolve =&gt; require([&apos;@/views/history.vue&apos;], resolve)
-    }
-    4.注意： 用path访问 参数 undefined
-        例：
-        this.$router.push({&apos;path&apos;: &apos;history&apos;, params: {id: &apos;1111&apos;}});
-        # 下一个页面通过this.$route.params.id访问路由参数
-        undefined
-</code></pre><h4 id="3-其他-id"><a href="#3-其他-id" class="headerlink" title="3.其他 :id"></a>3.其他 :id</h4><pre><code># 跳转
-this.$router.push({&apos;path&apos;: &apos;history/&apos; + row.id});
-or 
-&lt;router-link :to=&apos;`/history/${item.id}`&apos;&gt;&lt;/router-link&gt;
-
-# router.js 中：
-{
-  path: &apos;history/:id&apos;,
-  meta: {
-    requireAuth: true,
-    title: &apos;历史记录&apos;
-  },
-  component: resolve =&gt; require([&apos;@/views/history.vue&apos;], resolve)
-},
-下一个页面通过this.$route.params.id访问路由参数
-1. 页面刷新参数不会丢失
-2. 会拼接到url上 例 （/history/1111111） 
-</code></pre><h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/05/14/node-vue-webpack构建项目/">
-    <time datetime="2019-05-13T16:00:00.000Z" class="entry-date">
-        2019-05-14
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     
@@ -1105,7 +1186,7 @@ or
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1126,7 +1207,7 @@ or
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1138,6 +1219,10 @@ or
       <ul>
         
           <li>
+            <a href="/2019/12/17/AES/">AES 加密、解密</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
           </li>
         
@@ -1146,15 +1231,11 @@ or
           </li>
         
           <li>
-            <a href="/2019/08/28/bash/">Bash 常用命令</a>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
           </li>
         
           <li>
             <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
           </li>
         
       </ul>

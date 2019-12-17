@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="填充模式的区别  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding
+  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>AES 加密、解密 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="填充模式的区别  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding   某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。 - ZeroPadding，数据长度不对齐时使用0填充，否则不填充。 - PKCS7Pa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AES 加密、解密">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/AES/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="填充模式的区别  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding   某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。 - ZeroPadding，数据长度不对齐时使用0填充，否则不填充。 - PKCS7Pa">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-17T03:28:02.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AES 加密、解密">
+<meta name="twitter:description" content="填充模式的区别  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding   某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。 - ZeroPadding，数据长度不对齐时使用0填充，否则不填充。 - PKCS7Pa">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-AES" class="post-AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      AES 加密、解密
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="ck49b894w0003mkuhq793mde3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="填充模式的区别"><a href="#填充模式的区别" class="headerlink" title="填充模式的区别"></a>填充模式的区别</h2><p>  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding</p>
+<p>  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。</p>
+<pre><code>- ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
+- PKCS7Padding，假设数据长度需要填充n(n&gt;0)个字节才对齐，那么填充n个字节，每个字节都- 是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
+- PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。两者的区别在于PKCS5Padding是限制块大小的PKCS7Padding
+</code></pre><p>  由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密</p>
+<h2 id="前端-crypto-js-AES-加解密"><a href="#前端-crypto-js-AES-加解密" class="headerlink" title="前端 crypto-js AES 加解密"></a>前端 crypto-js AES 加解密</h2><pre><code># vue 使用 npm install crypto-js --save
+# util.js
+import Vue from &apos;vue&apos;;
+import CryptoJS from &apos;crypto-js&apos;;
+// 由于对称解密使用的算法是 AES-128-CBC算法，数据采用 PKCS#7 填充， BASE64输出， 字符集utf8， 因此这里的 key 需要为16位！
+const key = CryptoJS.enc.Utf8.parse(&quot;1234123412ABCDEF&quot;);  //十六位十六进制数作为密钥
+const iv = CryptoJS.enc.Utf8.parse(&apos;ABCDEF1234123412&apos;);   //十六位十六进制数作为密钥偏移量
+/**
+* 加密 AES + BASE64
+* @param {*} word 
+*/
+export function encrypt(word) {
+  var encrypted = CryptoJS.AES.encrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  return String(encrypted);
+};
+
+/**
+* 解密
+* @param {*} word 
+*/
+export function decrypt(word) {
+  var decrypt = CryptoJS.AES.decrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+  return decryptedStr;
+};
+</code></pre><h2 id="后端-java-AES-加解密"><a href="#后端-java-AES-加解密" class="headerlink" title="后端 java AES 加解密"></a>后端 java AES 加解密</h2><pre><code>import org.apache.commons.codec.binary.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.math.BigInteger;
+
+public class AES {
+//    密钥
+    private static String keyWord = &quot;1234123412ABCDEF&quot;;
+//    密钥偏移量
+    private static String iv = &quot;ABCDEF1234123412&quot;;
+    /**
+    * 加密
+    * @param src 加密字符串
+    * @param key 密钥
+    * @return 加密后的字符串
+    */
+    public static String Encrypt(String src, String key) throws Exception {
+        // 判断密钥是否为空
+        if (key == null) {
+            key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+        }
+        Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);    // 算法/模式/补码方式
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(iv.getBytes()));
+        byte[] encrypted = cipher.doFinal(src.getBytes(&quot;utf-8&quot;));
+        return new Base64().encodeToString(encrypted);//base64
+//        return binary(encrypted, 16); //十六进制
+    }
+
+    /**
+    * 解密
+    * @param src 解密字符串
+    * @param key 密钥
+    * @return 解密后的字符串
+    */
+    public static String Decrypt(String src, String key) throws Exception {
+        try {
+            // 判断Key是否正确
+            if (key == null) {
+                key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+            }
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv.getBytes()));
+
+            byte[] encrypted1 = new Base64().decode(src);//base64
+//            byte[] encrypted1 = toByteArray(src);//十六进制
+            try {
+                byte[] original = cipher.doFinal(encrypted1);
+                String originalString = new String(original,&quot;utf-8&quot;);
+                return originalString;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return null;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+    }
+
+    /**
+    * 将byte[]转为各种进制的字符串
+    * @param bytes byte[]
+    * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制
+    * @return 转换后的字符串
+    */
+    public static String binary(byte[] bytes, int radix){
+        return new BigInteger(1, bytes).toString(radix);    // 这里的1代表正数
+    }
+
+    /**
+    * 16进制的字符串表示转成字节数组
+    *
+    * @param hexString 16进制格式的字符串
+    * @return 转换后的字节数组
+    **/
+    public static byte[] toByteArray(String hexString) {
+        if (hexString.isEmpty())
+            throw new IllegalArgumentException(&quot;this hexString must not be empty&quot;);
+
+        hexString = hexString.toLowerCase();
+        final byte[] byteArray = new byte[hexString.length() / 2];
+        int k = 0;
+        for (int i = 0; i &lt; byteArray.length; i++) {//因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
+            byte high = (byte) (Character.digit(hexString.charAt(k), 16) &amp; 0xff);
+            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) &amp; 0xff);
+            byteArray[i] = (byte) (high &lt;&lt; 4 | low);
+            k += 2;
+        }
+        return byteArray;
+    }
+
+    public static void main(String[] args) throws Exception {
+        // 密钥
+        String key = &quot;1234123412ABCDEF&quot;;
+        // 需要加密的字符串
+        String src = &quot;123456&quot;;
+        System.out.println(src);
+        // 加密
+        String enString = Encrypt(src, key);
+        System.out.println(&quot;加密后的字串是：&quot; + enString);
+        // 解密
+        String DeString = Decrypt(enString, key);
+        System.out.println(&quot;解密后的字串是：&quot; + DeString);
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/AES/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/AES/">AES</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/09/10/Nginx-Install-For-Windows/" rel="next">nginx for windows <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/17/AES/">AES 加密、解密</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -62,6 +62,499 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-javaThread" class="post-javaThread post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/javaThread/">java 线程</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ck49b8979003rmkuhjegfebk8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><pre><code>进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
+线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。
+线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。
+多进程是指操作系统能同时运行多个任务（程序）。
+多线程是指在同一程序中有多个顺序流在执行。
+
+多线程的存在其实就是“最大限度的利用cpu资源”，当某一个线程的处理不需要占用cpu而之和I/O打交道的时候，让需要占用cpu资源的其他线程有机会获得cpu资源。从根本上说，这就是说多线程编程的目的。
+多线程目的： 使用多线程，可以帮助我们编写出cpu最大利用率的高效程序，使得空闲时间降到最低
+
+在java中要想实现多线程：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">继续Thread类</span><br><span class="line">实现Runable接口</span><br><span class="line">通过Callable创建线程</span><br><span class="line">线程池来实现</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="ExecutorService-创建线程池"><a href="#ExecutorService-创建线程池" class="headerlink" title="ExecutorService  创建线程池"></a>ExecutorService  创建线程池</h3><pre><code>// 创建一个可缓存的线程池，调用execute将重用以前构成的线程（如果线程可用）。
+// 如果没有可用的线程，则创建一个新线程并添加到池中。终止并从缓存中移出那些已有60秒钟未被使用的线程。
+Executors.newCachedThreadPool();
+// 创建固定数目的线程池
+Executors.newFixedThreadPool(1);
+// 创建一个单线程化的Executor
+Executors.newSingleThreadExecutor();
+// 创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代Time类。
+Executors.newScheduledThreadPool(1);
+</code></pre><p> 为什么不推荐通过Executors直接创建线程池</p>
+<pre><code>原因：
+java中BlockingQueue主要有两种实现，分别是ArrayBlockingQueue和LinkedBlockingQueue。ArrayBlockingQueue是一个用数组实现的有界阻塞队列，必须设置容量。
+而LinkedBlockingQueue是一个用链表实现的有界阻塞队列，容量可以选择进行设置，不设置的话，将是一个无边界的阻塞队列，最大长度为Integer.MAX_VALUE.
+
+查看new SingleExecutor时的源码可以发现，在创建LinkedBlockingQueue时，并未指定容量。
+此时，LinkedBlockingQueue就是一个无边界队列，对于一个无边界队列来说，是可以不断的向队列中加入任务的，这种情况下就有可能因为任务过多而导致内存溢出的问题。
+</code></pre><p> 创建线程池的正确方法：</p>
+<pre><code>避免使用Executors创建线程池，主要是避免使用其中的默认实现，那么我们可以自己直接调用ThreadPoolExecutor的构造函数自己创建线程池。在创建的同时，给BlockQueue指定容量就可以了。
+
+ExecutorService executor = new ThreadPoolExecutor(10, 10,
+        60L, TimeUnit.SECONDS,
+        new ArrayBlockingQueue&lt;Runnable&gt;(10));
+
+这种情况下，一旦提交的线程数超过当前可用线程数时，就会抛出java.util.concurrent.RejectedExecutionException，
+这是因为当前线程池使用的队列是有界边界队列，队列已经满了便无法继续处理新的请求。但是异常（Exception）总比发生错误（Error）要好。
+</code></pre><h3 id="ExecutorService-shutdown-、ShutdownNow-、awaitTermination"><a href="#ExecutorService-shutdown-、ShutdownNow-、awaitTermination" class="headerlink" title="ExecutorService  shutdown()、ShutdownNow()、awaitTermination()"></a>ExecutorService  shutdown()、ShutdownNow()、awaitTermination()</h3><pre><code>shutdown() 停止接收新任务，原来的任务继续执行
+    1、停止接收新的submit的任务；
+    2、已经提交的任务（包括正在跑的和队列中等待的）,会继续执行完成；
+    3、等到第2步完成后，才真正停止；
+
+ShutdownNow() 停止接收新任务，原来的任务停止执行
+    1、跟 shutdown() 一样，先停止接收新submit的任务；
+    2、忽略队列里等待的任务；
+    3、尝试将正在执行的任务interrupt中断；
+    4、返回未执行的任务列表；
+
+awaitTermination(long timeOut, TimeUnit unit)：当前线程阻塞
+    当前线程阻塞，直到：
+    等所有已提交的任务（包括正在跑的和队列中等待的）执行完；
+    或者 等超时时间到了（timeout 和 TimeUnit设定的时间）；
+    或者 线程被中断，抛出InterruptedException
+
+区别
+
+    1、shutdown() 和 shutdownNow() 的区别
+        shutdown() 只是关闭了提交通道，用submit()是无效的；而内部该怎么跑还是怎么跑，跑完再停。
+        shutdownNow() 能立即停止线程池，正在跑的和正在等待的任务都停下了。
+    2、shutdown() 和 awaitTermination() 的区别
+        shutdown() 后，不能再提交新的任务进去；但是 awaitTermination() 后，可以继续提交。
+        awaitTermination()是阻塞的，返回结果是线程池是否已停止（true/false）；shutdown() 不阻塞。
+
+总结
+    1、优雅的关闭，用 shutdown()
+    2、想立马关闭，并得到未执行任务列表，用shutdownNow()
+    3、优雅的关闭，并允许关闭声明后新任务能提交，用 awaitTermination()
+    4、关闭功能 【从强到弱】 依次是：shuntdownNow() &gt; shutdown() &gt; awaitTermination()
+</code></pre><p>例：</p>
+<p>1、扩展Thread类实现的多线程例子</p>
+<pre><code>public static void main(String[] args) {
+    MyThread T1 = new MyThread(&quot;A&quot;);
+    MyThread T2 = new MyThread(&quot;B&quot;);
+    T1.start();
+    T2.start();
+}
+class MyThread extends Thread {
+    private String name;
+    public MyThread(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println(name+&quot;:&quot;+i);
+            try {
+                sleep(1000); //休眠1秒，避免太快导致看不到同时执行
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+}
+
+结果：
+   A:0
+   B:0
+   A:1
+   B:1
+   A:2
+   B:2
+   A:3
+   B:3
+   A:4
+   B:4
+</code></pre><p>2、实现Runnable 、 ExecutorService 接口的多线程例子</p>
+<pre><code>    ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                     60L, TimeUnit.SECONDS,
+                     new ArrayBlockingQueue&lt;Runnable&gt;(10));
+    public static void main(String[] args) {
+        // executor
+        /*for (int i = 0; i &lt; Integer.MAX_VALUE; i++) {
+            executor.execute(new SubThread());
+        }*/
+
+        // Runnable
+        executor.execute(new MyRunnable());
+    }
+
+ // 1. Runnable
+class SubThread implements Runnable {
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) { //do nothing
+        }
+    }
+}
+
+ // 2. Runnable
+class MyRunnable implements Runnable{
+
+    public void run(){
+        System.out.println(&quot;Runnable:run()....&quot;);
+        int i=0;
+        while(i&lt;20){
+            i++;
+            for(int j=0;j&lt;1000000;j++);
+            System.out.println(&quot;i=&quot;+i);
+        }
+    }
+}
+结果：
+    Runnable:run()....
+    i=1
+    i=2
+    i=3
+    i=4
+    i=5
+    i=6
+    i=7
+    i=8
+    i=9
+    i=10
+    i=11
+    i=12
+    i=13
+    i=14
+    i=15
+    i=16
+    i=17
+    i=18
+    i=19
+    i=20
+</code></pre><p>3、实现Callable接口的多线程例子  </p>
+<pre><code>    ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                             60L, TimeUnit.SECONDS,
+                             new ArrayBlockingQueue&lt;Runnable&gt;(10));
+    public static void main(String[] args) {
+        // Callable
+        Future future1 = executor.submit(new MyCallable());
+        Future future2 = executor.submit(new MyCallable());
+        try {
+            System.out.println(future1.get());
+            System.out.println(future2.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        // 停止接收新任务，原来的任务继续执行
+        executor.shutdown();
+    }
+class MyCallable implements Callable&lt;String&gt; {
+    public String call() throws Exception {
+        System.out.println(&quot;开始执行Callable&quot;);
+        String[] ss={&quot;zhangsan&quot;,&quot;lisi&quot;};
+        long[] num=new long[2];
+        for(int i=0;i&lt;1000000;i++){
+            num[(int)(Math.random()*2)]++;
+        }
+
+        if(num[0]&gt;num[1]){
+            return ss[0];
+        }else if(num[0]&lt;num[1]){
+            throw new Exception(&quot;弃权!&quot;);
+        }else{
+            return ss[1];
+        }
+    }
+}
+
+结果;
+
+开始执行Callable
+开始执行Callable
+zhangsan
+zhangsan
+</code></pre><h3 id="wait和sleep的区别"><a href="#wait和sleep的区别" class="headerlink" title="wait和sleep的区别"></a>wait和sleep的区别</h3><pre><code>1.wait和notify方法定义在Object类中，因此会被所有的类所继承。 这些方法都是final的，即它们都是不能被重写的，不能通过子类覆写去改变它们的行为。 而sleep方法是在Thread类中是由native修饰的，本地方法。
+2.当线程调用了wait()方法时，它会释放掉对象的锁。 
+    Thread.sleep()，它会导致线程睡眠指定的毫秒数，但线程在睡眠的过程中是不会释放掉对象的锁的。
+3.正因为wait方法会释放锁，所以调用该方法时，当前的线程必须拥有当前对象的monitor，也即lock，就是锁。
+要确保调用wait()方法的时候拥有锁，即，wait()方法的调用必须放在synchronized方法或synchronized块中。
+4.sleep方法时间到，线程处于临时阻塞状态或者运行状态。 wait方法如果没有被设置时间，就必须要通过notify或者notifyAll来唤醒。
+</code></pre><p>notify()</p>
+<pre><code>notify()方法会唤醒一个等待当前对象的锁的线程。 如果多个线程在等待，它们中的一个将会选择被唤醒。
+这种选择是随意的，和具体实现有关。（线程等待一个对象的锁是由于调用了wait方法中的一个）。
+
+被唤醒的线程是不能被执行的，需要等到当前线程放弃这个对象的锁。
+被唤醒的线程将和其他线程以通常的方式进行竞争，来获得对象的锁。也就是说，被唤醒的线程并没有什么优先权，也没有什么劣势，对象的下一个线程还是需要通过一般性的竞争。
+且notify方法和wait一样，是需要放在synchronized方法或synchronized块中。
+
+notifyAll()方法会唤醒在此对象监视器上等待的所有线程。线程通过调用其中一个 wait 方法，在对象的监视器上等待。
+直到当前线程放弃此对象上的锁定，才能继续执行被唤醒的线程。被唤醒的线程将以常规方式与在该对象上主动同步的其他所有线程进行竞争；
+</code></pre><p>   尽量使用notifyAll()，notify()非常容易导致死锁。</p>
+<h2 id="ThreadLocal-的简单使用及实现的原理"><a href="#ThreadLocal-的简单使用及实现的原理" class="headerlink" title="ThreadLocal 的简单使用及实现的原理"></a>ThreadLocal 的简单使用及实现的原理</h2><h3 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h3><pre><code>ThreadLocal的实例代表了一个线程局部的变量，每条线程都只能看到自己的值，并不会意识到其它的线程中也存在该变量。
+
+它采用采用空间来换取时间的方式，解决多线程中相同变量的访问冲突问题。
+</code></pre><h3 id="ThreadLocal是什么"><a href="#ThreadLocal是什么" class="headerlink" title="ThreadLocal是什么"></a>ThreadLocal是什么</h3><pre><code>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。
+</code></pre><h3 id="ThreadLocal的核心机制"><a href="#ThreadLocal的核心机制" class="headerlink" title="ThreadLocal的核心机制"></a>ThreadLocal的核心机制</h3><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个Thread线程内部都有一个Map。</span><br><span class="line">Map里面存储线程本地对象（key）和线程的变量副本（value）</span><br><span class="line">但是，Thread内部的Map是由ThreadLocal维护的，由ThreadLocal负责向map获取和设置线程的变量值。</span><br></pre></td></tr></table></figure>
+</code></pre><p>所以对于不同的线程，每次获取副本值时，别的线程并不能获取到当前线程的副本值，形成了副本的隔离，互不干扰</p>
+<h3 id="ThreadLocal的简单使用"><a href="#ThreadLocal的简单使用" class="headerlink" title="ThreadLocal的简单使用"></a>ThreadLocal的简单使用</h3><p>下面的例子中，创建了两个线程，然后线程对各自的局部变量进行递增的操作。每个线程中的局部变量的初始值都是100。</p>
+<pre><code>public class ThreadLocalTest {
+    // ThreadLocal中的值
+    static class Bank {
+        ThreadLocal&lt;Integer&gt; t = new ThreadLocal&lt;Integer&gt;() {
+            // 重写里面的方法就可以修改初始值了
+            @Override
+            protected Integer initialValue(){
+                return 100;
+            }
+        };
+        public int get() {
+            return t.get();
+        }
+        public void set() {
+            // 获取值
+            t.set(t.get() + 10);
+        }
+        public void set(Integer value) {
+            // 获取值
+            t.set(value);
+        }
+    }
+    /** 定义对ThreadLocal的操作，也就是在原来的基础上进行加10的操作，然后打印出结果。 */
+    // 对ThreadLocal的操作
+    static class Transfer implements Runnable {
+        Bank bank;
+        public Transfer(Bank bank) {
+            this.bank = bank;
+        }
+        @Override
+        public void run() {
+            for (int i = 0; i &lt; 10; i++) {
+                //
+                bank.set();
+                // 输出不同线程的ThreadLocal的值
+                System.out.println(Thread.currentThread() + &quot;：：：&quot; + bank.get());
+            }
+        }
+    }
+    /** 创建两个线程并启动，主线程等待这两个线程执行完成。最值得注意的就是主线程中输出的bank.get()，输出的初始值100。 */
+    // 创建线程并等待线程执行完成
+    public static void main(String[] args) throws InterruptedException {
+        //
+        Bank bank = new Bank();
+        // bank.set(50);
+        // 多个线程都是同时操作一个变量，但是不同线程的结果是互不影响的
+        Transfer t = new Transfer(bank);
+        Thread t1 = new Thread(t);
+        t1.start();
+        Thread t2 = new Thread(t);
+        t2.start();
+        t1.join();
+        t2.join();
+        // 需要注意的是，这个是main（） 线程中的变量，输出的是 ThreadLocal&lt;Integer&gt; t 的初始值， 也就是100
+        System.out.println(bank.get());
+    }
+}
+</code></pre><h3 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h3><p>ThreadLocal类提供如下几个核心方法：</p>
+<pre><code>public T get() { }
+public void set(T value) { }
+public void remove() { }
+protected T initialValue() { }
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get()方法用于获取当前线程的副本变量值。</span><br><span class="line">set()方法用于保存当前线程的副本变量值。</span><br><span class="line">initialValue()为当前线程初始副本变量值。</span><br><span class="line">remove()方法移除当前前程的副本变量值</span><br></pre></td></tr></table></figure>
+</code></pre><p>每个Thread的对象都有一个ThreadLocalMap，当创建一个ThreadLocal的时候，就会将该ThreadLocal对象添加到该Map中，其中键就是ThreadLocal，值可以是任意类型。</p>
+<p>在该类中，重要的方法就是两个：set()和get()方法。当调用ThreadLocal的get()方法的时候，会先找到当前线程的ThreadLocalMap，然后再找到对应的值。set()方法也是一样。</p>
+<pre><code>public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings(&quot;unchecked&quot;)
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/javaThread/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud高可用" class="post-Spring Cloud高可用 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/17/Spring Cloud高可用/">Spring Cloud构建微服务架构  高可用</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ck49b895d000pmkuh6znpygei" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="一、SpringCloud简介"><a href="#一、SpringCloud简介" class="headerlink" title="一、SpringCloud简介"></a>一、SpringCloud简介</h3><p>Spring Cloud是一系列框架的有序集合。<br>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。<br>Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<h3 id="二、微服务的注册与发现-Eureka"><a href="#二、微服务的注册与发现-Eureka" class="headerlink" title="二、微服务的注册与发现-Eureka"></a>二、微服务的注册与发现-Eureka</h3><p> Eureka是Netflix开源的服务发现组件，本身是基于Rest的服务，它包含服务端和客户端两部分；在SpringCloud中将它集成在其中，从而实现了微服务的发现与注册；</p>
+<ul>
+<li>Eureka的GitHub：<a href="https://github.com/Netflix/Eureka" target="_blank" rel="noopener">https://github.com/Netflix/Eureka</a></li>
+</ul>
+<p>Eureka Server可以运行多个实例来构建集群，解决单点问题，Eureka Server采用的是Peer to Peer对等通信。这是一种去中心化的架构，无master/slave区分，每一个Peer都是对等的。在这种架构中，节点通过彼此互相注册来提高可用性，每个节点需要添加一个或多个有效的serviceUrl指向其他节点。每个节点都可被视为其他节点的副本。</p>
+<p>如果某台Eureka Server宕机，Eureka Client的请求会自动切换到新的Eureka Server节点，当宕机的服务器重新恢复后，Eureka会再次将其纳入到服务器集群管理之中。当节点开始接受客户端请求时，所有的操作都会进行replicateToPeer（节点间复制）操作，将请求复制到其他Eureka Server当前所知的所有节点中。</p>
+<p>简单来说，Eureka Server的高可用，实际上就是将自己也作为服务向其他服务注册中心进行注册，这样就可以形成一组相互注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果。</p>
+<p> 集群模式下，Eureka的架构图：<br><img src="/assets/SpringCloudImg/eurekaService1.png" alt="image"><br>Eureka Server</p>
+<pre><code>- 服务端-没有存储，内存保持，每服务实例需要发送心跳去续约 
+- 客户端-在内存中缓存着eureka的注册信息，因此不必每请求到eureka查找服务 
+- eureka之间会做注册服务同步，从而保证状态一致，客户端只需访问一个
+</code></pre><p>eureka Service Provider</p>
+<pre><code>- 会向Eureka Server做Register（服务注册）、Renew（服务续约）、Cancel（服务下线）等操作 
+</code></pre><p>Service Consumer</p>
+<pre><code>- 会向Eureka Server获取注册服务列表，并消费服务
+</code></pre><h3 id="三、Eureka的高可用"><a href="#三、Eureka的高可用" class="headerlink" title="三、Eureka的高可用"></a>三、Eureka的高可用</h3><p>eureka 项目下复制application.properties<br>分别命名为：</p>
+<pre><code>application-server1.properties, application-server2.properties, application-server3.properties
+</code></pre><p>修改hosts文件：</p>
+<pre><code>127.0.0.1    localhost server1 server2 server3
+</code></pre><p>application-server1.properties的配置文件：</p>
+<pre><code>server.port=1001
+spring.application.name=eureka-server-1
+spring.profiles.active=server1
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server1
+eureka.client.serviceUrl.defaultZone=http://server2:1002/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server2.properties的配置文件：</p>
+<pre><code>server.port=1002
+spring.application.name=eureka-server-2
+spring.profiles.active=server2
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server2
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server3.properties的配置文件：</p>
+<pre><code>server.port=1003
+spring.application.name=eureka-server-3
+spring.profiles.active=server3
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server3
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>compute-service   项目下复制application.properties 为： application-dev.properties<br>配置信息：</p>
+<pre><code>spring.application.name=compute-service
+server.port=2001
+eureka.client.serviceUrl.defaultZone=http://server3:1003/eureka/,http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>分别启动服务端server3、server2、server1、compute-service</p>
+<pre><code># 分别在项目下 执行 mvn clean install  命令编译 生成 target
+ mvn clean install
+
+# 在 /SpringCloudDemo/eureka/target 下执行,启动
+
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server1
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server2
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server3
+
+# 在 /SpringCloudDemo/compute-service/target 下执行,启动
+java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+</code></pre><p>访问，<a href="http://localhost:1001/" target="_blank" rel="noopener">http://localhost:1001/</a>，<a href="http://localhost:1002/" target="_blank" rel="noopener">http://localhost:1002/</a>，<a href="http://localhost:1003/" target="_blank" rel="noopener">http://localhost:1003/</a>，如下：<br><img src="/assets/SpringCloudImg/keepalived1.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived2.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived3.png" alt="image"></p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
+<p>至此，完成了Eureka的高可用；</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/17/Spring Cloud高可用/">
+    <time datetime="2019-04-16T16:00:00.000Z" class="entry-date">
+        2019-04-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +570,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck3zibuhh003218uhzrmafw0g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck49b896p0036mkuhl1unt8we" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -236,7 +729,7 @@ public class ComputeClientHystrix implements ComputeClient {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck3zibuhj003318uhw73q9h89" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck49b896q0037mkuh3vznn9so" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -466,7 +959,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ck3zibuhe003118uh1uwsc5h3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ck49b896p0035mkuhx3j6xo7g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -669,7 +1162,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ck3zibugi001e18uh0938uvyb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ck49b895t001kmkuhqvv7jo5c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -899,7 +1392,7 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ck3zibugw002a18uhsn5mcd94" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ck49b8967002gmkuhnfcqxee7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -948,86 +1441,6 @@ https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
 
 
   
-    <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue elemetUl /">vue elementUi</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ck3zibugr001z18uhxjqfqvmv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
-
-# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
-
-Element UI该组件已经在属性层面提供了解决办法，只要添加
-:modal-append-to-body=&quot;false&quot;
-就可以了。
-</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
-&lt;el-form :model=&quot;form&quot;&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
-# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
-&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-
-# 方法二：
-# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
-&lt;el-form :model=&quot;form&quot;&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/03/26/vue elemetUl /">
-    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
-        2019-03-26
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1043,7 +1456,7 @@ Element UI该组件已经在属性层面提供了解决办法，只要添加
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ck3zibugu002518uhpy42ood5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ck49b89640028mkuhv6a2bs1d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1113,6 +1526,86 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
 
 
   
+    <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/03/26/vue elemetUl /">vue elementUi</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ck49b89630027mkuhtu585exw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
+
+# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
+
+Element UI该组件已经在属性层面提供了解决办法，只要添加
+:modal-append-to-body=&quot;false&quot;
+就可以了。
+</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
+# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
+&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+
+# 方法二：
+# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/03/26/vue elemetUl /">
+    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
+        2019-03-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-RPC入门总结  RPC定义和原理" class="post-RPC入门总结  RPC定义和原理 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1128,7 +1621,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ck3zibuhd003018uhgkc00tfu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ck49b896o0034mkuhi0nxd5mt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1315,152 +1808,10 @@ RPC的特点
 
 
   
-    <article id="post-Maven-Install-And-Settings" class="post-Maven-Install-And-Settings post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/06/13/Maven-Install-And-Settings/">Maven 安装和配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ck3zibufx000b18uhn68r16nr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Maven-资料"><a href="#Maven-资料" class="headerlink" title="Maven 资料"></a>Maven 资料</h2><ul>
-<li>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></li>
-<li>官网下载：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></li>
-<li>历史版本下载：<a href="https://archive.apache.org/dist/maven/binaries/" target="_blank" rel="noopener">https://archive.apache.org/dist/maven/binaries/</a></li>
-</ul>
-<h2 id="Maven-安装（bash-环境）"><a href="#Maven-安装（bash-环境）" class="headerlink" title="Maven 安装（bash 环境）"></a>Maven 安装（bash 环境）</h2><ul>
-<li>Maven 3.3 的 JDK 最低要求是 JDK 7</li>
-<li>下载压缩包：<code>wget http://mirrors.cnnic.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz</code></li>
-<li>解压：<code>tar zxvf apache-maven-3.3.9-bin.tar.gz</code></li>
-<li>修改目录名，默认的太长了：<code>mv apache-maven-3.3.9/ maven3.3.9/</code></li>
-<li>移到我个人习惯的安装目录下：<code>mv maven3.3.9/ /usr/local</code></li>
-<li>环境变量设置：<code>vim /etc/profile</code></li>
-<li>在文件最尾巴添加下面内容：</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Maven</span></span><br><span class="line"><span class="attr">MAVEN_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">M3_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">PATH</span>=<span class="variable">$PATH</span>:<span class="variable">$M3_HOME</span>/bin</span><br><span class="line"><span class="attr">MAVEN_OPTS</span>=<span class="string">"-Xms256m -Xmx356m"</span></span><br><span class="line">export M3_HOME</span><br><span class="line">export MAVEN_HOME</span><br><span class="line">export PATH</span><br><span class="line">export MAVEN_OPTS</span><br></pre></td></tr></table></figure>
-<ul>
-<li>刷新配置文件：<code>source /etc/profile</code></li>
-<li>测试是否安装成功：<code>mvn -version</code></li>
-</ul>
-<h2 id="Maven-配置"><a href="#Maven-配置" class="headerlink" title="Maven 配置"></a>Maven 配置</h2><ul>
-<li>创建本地参数：<code>mkdir -p /opt/maven-repository</code></li>
-<li>配置项目连接上私服</li>
-<li>编辑配置文件：<code>vim /usr/local/maven3.3.9/conf/settings.xml</code></li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--本地仓库位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/opt/maven-repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">proxies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--设置 Nexus 认证信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--有自己的 nexus 改为自己的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
-<li><a href="http://maven.apache.org/install.html" target="_blank" rel="noopener">http://maven.apache.org/install.html</a></li>
-<li><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html</a></li>
-<li><a href="http://maven.apache.org/guides/getting-started/index.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/index.html</a></li>
-<li><a href="http://maven.apache.org/general.html" target="_blank" rel="noopener">http://maven.apache.org/general.html</a></li>
-<li><a href="http://blog.csdn.net/sxyx2008/article/details/7975129" target="_blank" rel="noopener">http://blog.csdn.net/sxyx2008/article/details/7975129</a></li>
-<li><a href="http://blog.csdn.net/xuke6677/article/details/8482472" target="_blank" rel="noopener">http://blog.csdn.net/xuke6677/article/details/8482472</a></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/06/13/Maven-Install-And-Settings/">
-    <time datetime="2018-06-12T16:00:00.000Z" class="entry-date">
-        2018-06-13
-    </time>
-</a>
-    
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Node-Install-And-Usage" class="post-Node-Install-And-Usage post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/06/06/Node-Install-And-Usage/">Node 安装和配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ck3zibufy000d18uhuk50w165" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Node-安装"><a href="#Node-安装" class="headerlink" title="Node 安装"></a>Node 安装</h2><ul>
-<li>官网：<a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a></li>
-<li>官网下载：<a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/</a></li>
-<li>历史版本下载：<a href="https://nodejs.org/zh-cn/download/releases/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/releases/</a></li>
-<li>官网安装教程：<a href="https://nodejs.org/en/download/package-manager/" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/</a></li>
-<li>官网 CentOS 系统下的安装教程：<a href="https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora</a></li>
-<li>官网文档复制过来就是：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果你是要安装 node 8 系列，下载这个 yum 源</span></span><br><span class="line">curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你是要安装 node 9 系列，下载这个 yum 源</span></span><br><span class="line">curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -</span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后通过 yum 开始安装（软件大小：51M 左右）</span></span><br><span class="line">sudo yum -y install nodejs</span><br></pre></td></tr></table></figure>
-<ul>
-<li>验证：<code>node -v</code></li>
-<li>注意:因为网络原因，最好先把脚本下载到本地，再用代理进行安装</li>
-</ul>
-<h2 id="nrm-快速切换-NPM-源"><a href="#nrm-快速切换-NPM-源" class="headerlink" title="nrm 快速切换 NPM 源"></a>nrm 快速切换 NPM 源</h2><ul>
-<li>安装：<code>npm install -g nrm</code></li>
-<li>列表源：<code>nrm ls</code></li>
-<li>使用源：<code>nrm use taobao</code></li>
-<li>更多使用方法：<a href="https://segmentfault.com/a/1190000000473869" target="_blank" rel="noopener">https://segmentfault.com/a/1190000000473869</a></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/06/06/Node-Install-And-Usage/">
-    <time datetime="2018-06-05T16:00:00.000Z" class="entry-date">
-        2018-06-06
-    </time>
-</a>
-    
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1481,7 +1832,7 @@ RPC的特点
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1493,6 +1844,10 @@ RPC的特点
       <ul>
         
           <li>
+            <a href="/2019/12/17/AES/">AES 加密、解密</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
           </li>
         
@@ -1501,15 +1856,11 @@ RPC的特点
           </li>
         
           <li>
-            <a href="/2019/08/28/bash/">Bash 常用命令</a>
+            <a href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
           </li>
         
           <li>
             <a href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
           </li>
         
       </ul>
