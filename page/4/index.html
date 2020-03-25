@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-oracle和mysql区别" class="post-oracle和mysql区别 post type-post status-publish format-standard hentry">
+    <article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,52 +70,76 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/18/oracle和mysql区别/">MySQL与Oracle的区别</a>
+      <a class="article-title" href="/2019/05/05/vue 修改子组件样式/">vue 修改子组件样式</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ck49hqbmq003t34uh6kktj539" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="ck86y4a57002jwwuhnpuemer6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>一、并发性</p>
-<p>并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。</p>
-<p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
-<p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
-<p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
-<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
-<p>三、事务<br>oracle很早就完全支持事务。</p>
-<p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
-<p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
-<p>五、提交方式<br>oracle默认不自动提交，需要用户手动提交。<br>mysql默认是自动提交。</p>
-<p>六、逻辑备份</p>
-<p>oracle逻辑备份时不锁定数据，且备份的数据是一致的。</p>
-<p>mysql逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用。</p>
-<p>七、热备份<br>oracle有成熟的热备工具rman，热备时，不影响用户使用数据库。即使备份的数据库不一致，也可以在恢复时通过归档日志和联机重做日志进行一致的回复。<br>mysql:<br>myisam的引擎，用mysql自带的mysqlhostcopy热备时，需要给表加读锁，影响dml操作。<br>innodb的引擎，它会备份innodb的表和索引，但是不会备份.frm文件。用ibbackup备份时，会有一个日志文件记录备份期间的数据变化，因此可以不用锁表，不影响其他用户使用数据库。但此工具是收费的。<br>innobackup是结合ibbackup使用的一个脚本，他会协助对.frm文件的备份。</p>
-<p>八、sql语句的扩展和灵活性<br>mysql对sql语句有很多非常实用而方便的扩展，比如limit功能，insert可以一次插入多行数据，select某些管理数据可以不加from。<br>oracle在这方面感觉更加稳重传统一些。</p>
-<p>九、复制<br>oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。<br>mysql:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。</p>
-<p>十、性能诊断<br>oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等<br>mysql的诊断调优方法较少，主要有慢查询日志。</p>
-<p>十一、权限与安全</p>
-<p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
-<p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
-<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
-<p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
-<p>这就完成了一个客户端与服务端交互的过程。</p>
-<p>其他：</p>
-<ol>
-<li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
-<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
-</li>
-</ol>
-<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
+        <h3 id="Scoped-CSS"><a href="#Scoped-CSS" class="headerlink" title="Scoped CSS"></a>Scoped CSS</h3><p>当 style  标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换：</p>
+<pre><code>&lt;style scoped&gt;
+.example {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot;&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>转换结果：</p>
+<pre><code>&lt;style&gt;
+.example[data-v-f3f3eg9] {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot; data-v-f3f3eg9&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><h3 id="混用本地和全局样式"><a href="#混用本地和全局样式" class="headerlink" title="混用本地和全局样式"></a>混用本地和全局样式</h3><p>你可以在一个组件中同时使用有 scoped 和非 scoped 样式：</p>
+<pre><code>&lt;style&gt;
+/* 全局样式 */
+&lt;/style&gt;
+
+&lt;style scoped&gt;
+/* 本地样式 */
+&lt;/style&gt;
+</code></pre><h3 id="子组件的根元素"><a href="#子组件的根元素" class="headerlink" title="子组件的根元素"></a>子组件的根元素</h3><p>使用 scoped 后，父组件的样式将不会渗透到子组件中。不过一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。这样设计是为了让父组件可以从布局的角度出发，调整其子组件根元素的样式。</p>
+<h3 id="深度作用选择器"><a href="#深度作用选择器" class="headerlink" title="深度作用选择器"></a>深度作用选择器</h3><p>如果你希望 scoped 样式中的一个选择器能够作用得“更深”，例如影响子组件，你可以使用 &gt;&gt;&gt; 操作符：</p>
+<pre><code>&lt;style scoped&gt;
+.a &gt;&gt;&gt; .b { /* ... */ }
+&lt;/style&gt;
+</code></pre><p>上述代码将会编译成：</p>
+<pre><code>.a[data-v-f3f3eg9] .b { /* ... */ }
+</code></pre><p>有些像 Sass 之类的预处理器无法正确解析 &gt;&gt;&gt;。这种情况下你可以使用 /deep/ 或 ::v-deep 操作符取而代之——两者都是 &gt;&gt;&gt; 的别名，同样可以正常工作。</p>
+<p>例：</p>
+<pre><code> &lt;template slot-scope=&quot;slotProps&quot;&gt;
+    &lt;xx-input
+    v-model=&quot;slotProps.option.record.name&quot;
+    :type=&quot;form.input.type&quot;
+    placeholder=&quot;请输入&quot;
+    :required=&quot;true&quot;
+    size=&quot;60&quot;
+    class=&quot;table-input&quot;
+  &gt;&lt;/xx-input&gt;
+ &lt;/template&gt;
+
+&lt;style lang=&quot;css&quot; scoped&gt;
+.table-input /deep/ .input-no-label .input__content{
+  margin-bottom: 0;
+}
+&lt;/style&gt;
+</code></pre><h3 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h3><p>通过 v-html 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
+<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><strong>Scoped 样式不能代替 class</strong>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
+<p><strong>在递归组件中小心使用后代选择器!</strong> 对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
+<h3 id="不推荐使用全局样式"><a href="#不推荐使用全局样式" class="headerlink" title="*不推荐使用全局样式"></a>*不推荐使用全局样式</h3><p>参考：<a href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/zh/guide/scoped-css.html</a></p>
 
       
     </div><!-- .entry-content -->
@@ -124,15 +148,746 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/04/18/oracle和mysql区别/">
-    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
-        2019-04-18
+    <a href="/2019/05/05/vue 修改子组件样式/">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-java生命周期" class="post-java生命周期 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/29/java生命周期/">java生命周期</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="ck86y4a640044wwuhobcm9jil" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>引言</p>
+<pre><code>最近有位细心的朋友在阅读笔者的文章时，对java类的生命周期问题有一些疑惑，笔者打开百度搜了一下相关的问题，看到网上的资料很少有把这个问题讲明白的，主要是因为目前国内java方面的教材大多只是告诉你“怎样做”，但至于“为什么这样做”却不多说，所以造成大家在基础和原理方面的知识比较匮乏，所以笔者今天就斗胆来讲一下这个问题，权当抛砖引玉，希望对在这个问题上有疑惑的朋友有所帮助，文中有说的不对的地方，也希望各路高手前来指正。
+
+方法区：在java的虚拟机中有一块专门用来存放已经加载的类信息、常量、静态变量以及方法代码的内存区域，叫做方法区。
+常量池：常量池是方法区的一部分，主要用来存放常量和类中的符号引用等信息。
+堆区：用于存放类的对象实例。
+栈区：也叫java虚拟机栈，是由一个一个的栈帧组成的后进先出的栈式结构，栈桢中存放方法运行时产生的局部变量、方法出口等信息。当调用一个方法时，虚拟机栈中就会创建一个栈帧存放这些数据，当方法调用完成时，栈帧消失，如果方法中调用了其他方法，则继续在栈顶创建新的栈桢。
+</code></pre><p>除了以上四个内存区域之外，jvm中的运行时内存区域还包括本地方法栈和程序计数器</p>
+<h3 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h3><p>当我们编写一个java的源文件后，经过编译会生成一个后缀名为class的文件，这种文件叫做字节码文件，只有这种字节码文件才能够在java虚拟机中运行，java类的生命周期就是指一个class文件从加载到卸载的全过程。</p>
+<p>一个java类的完整的生命周期会经历加载、连接、初始化、使用、和卸载五个阶段，当然也有在加载或者连接之后没有被初始化就直接被使用的情况，如图所示：<br><img src="/assets/javaImg/lifeCycle.jpg" alt="Image text"></p>
+<p>下面我们就依次来说一说这五个阶段。</p>
+<p>加载</p>
+<p>在java中，我们经常会接触到一个词——类加载，它和这里的加载并不是一回事，通常我们说类加载指的是类的生命周期中加载、连接、初始化三个阶段。在加载阶段，java虚拟机会做什么工作呢？其实很简单，就是找到需要加载的类并把类的信息加载到jvm的方法区中，然后在堆区中实例化一个java.lang.Class对象，作为方法区中这个类的信息的入口。</p>
+<p>类的加载方式比较灵活，我们最常用的加载方式有两种，一种是根据类的全路径名找到相应的class文件，然后从class文件中读取文件内容；另一种是从jar文件中读取。另外，还有下面几种方式也比较常用：</p>
+<pre><code>从网络中获取：比如10年前十分流行Applet。
+根据一定的规则实时生成，比如设计模式中的动态代理模式，就是根据相应的类自动生成它的代理类。
+从非class文件中获取，其实这与直接从class文件中获取的方式本质上是一样的，这些非class文件在jvm中运行之前会被转换为可被jvm所识别的字节码文件。
+</code></pre><p>对于加载的时机，各个虚拟机的做法并不一样，但是有一个原则，就是当jvm“预期”到一个类将要被使用时，就会在使用它之前对这个类进行加载。比如说，在一段代码中出现了一个类的名字，jvm在执行这段代码之前并不能确定这个类是否会被使用到，于是，有些jvm会在执行前就加载这个类，而有些则在真正需要用的时候才会去加载它，这取决于具体的jvm实现。我们常用的hotspot虚拟机是采用的后者，就是说当真正用到一个类的时候才对它进行加载。</p>
+<p>加载阶段是类的生命周期中的第一个阶段，加载阶段之后，是连接阶段。有一点需要注意，就是有时连接阶段并不会等加载阶段完全完成之后才开始，而是交叉进行，可能一个类只加载了一部分之后，连接阶段就已经开始了。但是这两个阶段总的开始时间和完成时间总是固定的：加载阶段总是在连接阶段之前开始，连接阶段总是在加载阶段完成之后完成。</p>
+<p>连接</p>
+<p>连接阶段比较复杂，一般会跟加载阶段和初始化阶段交叉进行，这个阶段的主要任务就是做一些加载后的验证工作以及一些初始化前的准备工作，可以细分为三个步骤：验证、准备和解析。</p>
+<p>1、验证：当一个类被加载之后，必须要验证一下这个类是否合法，比如这个类是不是符合字节码的格式、变量与方法是不是有重复、数据类型是不是有效、继承与实现是否合乎标准等等。总之，这个阶段的目的就是保证加载的类是能够被jvm所运行。</p>
+<p>2、准备：准备阶段的工作就是为类的静态变量分配内存并设为jvm默认的初值，对于非静态的变量，则不会为它们分配内存。有一点需要注意，这时候，静态变量的初值为jvm默认的初值，而不是我们在程序中设定的初值。jvm默认的初值是这样的：</p>
+<pre><code>基本类型（int、long、short、char、byte、boolean、float、double）的默认值为0。
+引用类型的默认值为null。
+常量的默认值为我们程序中设定的值，比如我们在程序中定义final static int a = 100，则准备阶段中a的初值就是100。
+</code></pre><p>3、解析：这一阶段的任务就是把常量池中的符号引用转换为直接引用。那么什么是符号引用，什么又是直接引用呢？我们来举个例子：我们要找一个人，我们现有的信息是这个人的身份证号是1234567890。只有这个信息我们显然找不到这个人，但是通过公安局的身份系统，我们输入1234567890这个号之后，就会得到它的全部信息：比如安徽省黄山市余暇村18号张三，通过这个信息我们就能找到这个人了。这里，123456790就好比是一个符号引用，而安徽省黄山市余暇村18号张三就是直接引用。在内存中也是一样，比如我们要在内存中找一个类里面的一个叫做show的方法，显然是找不到。但是在解析阶段，jvm就会把show这个名字转换为指向方法区的的一块内存地址，比如c17164，通过c17164就可以找到show这个方法具体分配在内存的哪一个区域了。这里show就是符号引用，而c17164就是直接引用。在解析阶段，jvm会将所有的类或接口名、字段名、方法名转换为具体的内存地址。</p>
+<p>4、连接阶段完成之后会根据使用的情况（直接引用还是被动引用）来选择是否对类进行初始化。</p>
+<p>初始化</p>
+<p>如果一个类被直接引用，就会触发类的初始化。在java中，直接引用的情况有：</p>
+<p>通过new关键字实例化对象、读取或设置类的静态变量、调用类的静态方法。</p>
+<p>通过反射方式执行以上三种行为。</p>
+<p>初始化子类的时候，会触发父类的初始化。</p>
+<p>作为程序入口直接运行时（也就是直接调用main方法）。</p>
+<p>除了以上四种情况，其他使用类的方式叫做被动引用，而被动引用不会触发类的初始化。请看主动引用的示例代码：</p>
+<pre><code>import java.lang.reflect.Field;  
+import java.lang.reflect.Method;  
+
+class InitClass{  
+    static {  
+        System.out.println(&quot;初始化InitClass&quot;);  
+    }  
+    public static String a = null;  
+    public static void method(){}  
+}  
+
+class SubInitClass extends InitClass{}  
+
+public class Test1 {  
+
+    /**  
+     * 主动引用引起类的初始化的第四种情况就是运行Test1的main方法时  
+     * 导致Test1初始化，这一点很好理解，就不特别演示了。  
+     * 本代码演示了前三种情况，以下代码都会引起InitClass的初始化，  
+     * 但由于初始化只会进行一次，运行时请将注解去掉，依次运行查看结果。  
+     * @param args  
+     * @throws Exception  
+     */ 
+    public static void main(String[] args) throws Exception{  
+    //  主动引用引起类的初始化一: new对象、读取或设置类的静态变量、调用类的静态方法。  
+    //  new InitClass();  
+    //  InitClass.a = &quot;&quot;;  
+    //  String a = InitClass.a;  
+    //  InitClass.method();  
+
+    //  主动引用引起类的初始化二：通过反射实例化对象、读取或设置类的静态变量、调用类的静态方法。  
+    //  Class cls = InitClass.class;  
+    //  cls.newInstance();  
+
+    //  Field f = cls.getDeclaredField(&quot;a&quot;);  
+    //  f.get(null);  
+    //  f.set(null, &quot;s&quot;);  
+
+    //  Method md = cls.getDeclaredMethod(&quot;method&quot;);  
+    //  md.invoke(null, null);  
+
+    //  主动引用引起类的初始化三：实例化子类，引起父类初始化。  
+    //  new SubInitClass();  
+
+    }  
+} 
+</code></pre><p>上面的程序演示了主动引用触发类的初始化的四种情况。</p>
+<p>类的初始化过程是这样的：按照顺序自上而下运行类中的变量赋值语句和静态语句，如果有父类，则首先按照顺序运行父类中的变量赋值语句和静态语句。先看一个例子，首先建两个类用来显示赋值操作：</p>
+<pre><code>public class Field1{  
+    public Field1(){  
+        System.out.println(&quot;Field1构造方法&quot;);  
+    }  
+}  
+public class Field2{  
+    public Field2(){  
+        System.out.println(&quot;Field2构造方法&quot;);  
+    }  
+}  
+</code></pre><p>下面是演示初始化顺序的代码：</p>
+<pre><code>class InitClass2{  
+    static{  
+        System.out.println(&quot;运行父类静态代码&quot;);  
+    }  
+    public static Field1 f1 = new Field1();  
+    public static Field1 f2;   
+}  
+
+class SubInitClass2 extends InitClass2{  
+    static{  
+        System.out.println(&quot;运行子类静态代码&quot;);  
+    }  
+    public static Field2 f2 = new Field2();  
+}  
+
+public class Test2 {  
+    public static void main(String[] args) throws ClassNotFoundException{  
+        new SubInitClass2();  
+    }  
+} 
+</code></pre><p>上面的代码中，初始化的顺序是：第03行，第05行，第11行，第13行。第04行是声明操作，没有赋值，所以不会被运行。而下面的代码：</p>
+<pre><code>class InitClass2{  
+    public static Field1 f1 = new Field1();  
+    public static Field1 f2;  
+    static{  
+        System.out.println(&quot;运行父类静态代码&quot;);  
+    }  
+}  
+
+class SubInitClass2 extends InitClass2{  
+    public static Field2 f2 = new Field2();  
+    static{  
+        System.out.println(&quot;运行子类静态代码&quot;);  
+    }  
+}  
+
+public class Test2 {  
+    public static void main(String[] args) throws ClassNotFoundException{  
+        new SubInitClass2();  
+    }  
+}  
+</code></pre><p>初始化顺序为：第02行、第05行、第10行、第12行，各位可以运行程序查看结果。</p>
+<p>在类的初始化阶段，只会初始化与类相关的赋值语句和静态语句，也就是有static关键字修饰的信息，没有static修饰的赋值语句和静态语句在实例化对象的时候才会运行。</p>
+<p>使用</p>
+<p>类的使用包括主动引用和被动引用，主动引用在初始化的章节中已经说过了，下面我们主要来说一下被动引用：</p>
+<pre><code>引用父类的静态字段，只会引起父类的初始化，而不会引起子类的初始化。
+定义类数组，不会引起类的初始化。
+引用类的常量，不会引起类的初始化。
+</code></pre><p>被动引用的示例代码：</p>
+<pre><code>class InitClass{  
+    static {  
+        System.out.println(&quot;初始化InitClass&quot;);  
+    }  
+    public static String a = null;  
+    public final static String b = &quot;b&quot;;  
+    public static void method(){}  
+}  
+
+class SubInitClass extends InitClass{  
+    static {  
+        System.out.println(&quot;初始化SubInitClass&quot;);  
+    }  
+}  
+
+public class Test4 {  
+
+    public static void main(String[] args) throws Exception{  
+    //  String a = SubInitClass.a;// 引用父类的静态字段，只会引起父类初始化，而不会引起子类的初始化  
+    //  String b = InitClass.b;// 使用类的常量不会引起类的初始化  
+        SubInitClass[] sc = new SubInitClass[10];// 定义类数组不会引起类的初始化  
+    }  
+}  
+</code></pre><p>最后总结一下使用阶段：使用阶段包括主动引用和被动引用，主动饮用会引起类的初始化，而被动引用不会引起类的初始化。</p>
+<p>当使用阶段完成之后，java类就进入了卸载阶段。</p>
+<p>卸载</p>
+<p>关于类的卸载，笔者在单例模式讨论篇：单例模式与垃圾回收一文中有过描述，在类使用完之后，如果满足下面的情况，类就会被卸载：</p>
+<p>该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。</p>
+<p>加载该类的ClassLoader已经被回收。</p>
+<p>该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射访问该类的方法。</p>
+<p>如果以上三个条件全部满足，jvm就会在方法区垃圾回收的时候对类进行卸载，类的卸载过程其实就是在方法区中清空类信息，java类的整个生命周期就结束了。</p>
+<p>总结</p>
+<p>做java的朋友对于对象的生命周期可能都比较熟悉，对象基本上都是在jvm的堆区中创建，在创建对象之前，会触发类加载（加载、连接、初始化），当类初始化完成后，根据类信息在堆区中实例化类对象，初始化非静态变量、非静态代码以及默认构造方法，当对象使用完之后会在合适的时候被jvm垃圾收集器回收。读完本文后我们知道，对象的生命周期只是类的生命周期中使用阶段的主动引用的一种情况（即实例化类对象）。而类的整个生命周期则要比对象的生命周期长的多。</p>
+<p>原文链接：<a href="http://blog.csdn.net/zhengzhb/article/details/7517213" target="_blank" rel="noopener">http://blog.csdn.net/zhengzhb/article/details/7517213</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/29/java生命周期/">
+    <time datetime="2019-04-29T08:18:11.339Z" class="entry-date">
+        2019-04-29
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-java集合框架" class="post-java集合框架 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/28/java集合框架/">java 集合框架</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="ck86y4a650046wwuhe7gtouum" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="一、只有光头才能变强"><a href="#一、只有光头才能变强" class="headerlink" title="一、只有光头才能变强"></a>一、只有光头才能变强</h3><h4 id="1、-什么是Java集合API"><a href="#1、-什么是Java集合API" class="headerlink" title="1、 什么是Java集合API"></a>1、 什么是Java集合API</h4><pre><code>Java集合框架API是用来表示和操作集合的统一框架，它包含接口、实现类、以及帮助程序员完成一些编程的算法。简言之，API在上层完成以下几件事：
+
+● 编程更加省力，提高城程序速度和代码质量
+
+● 非关联的API提高互操作性
+
+● 节省学习使用新API成本
+
+● 节省设计新API的时间
+
+● 鼓励、促进软件重用
+
+具体来说，有6个集合接口，最基本的是Collection接口，由三个接口Set、List、SortedSet继承，另外两个接口是Map、SortedMap,这两个接口不继承Collection，表示映射而不是真正的集合。
+</code></pre><h4 id="2、-什么是Iterator"><a href="#2、-什么是Iterator" class="headerlink" title="2、 什么是Iterator"></a>2、 什么是Iterator</h4><pre><code>一些集合类提供了内容遍历的功能，通过java.util.Iterator接口。这些接口允许遍历对象的集合。依次操作每个元素对象。当使用 Iterators时，在获得Iterator的时候包含一个集合快照。通常在遍历一个Iterator的时候不建议修改集合本省。
+</code></pre><h4 id="3、-Iterator与ListIterator有什么区别"><a href="#3、-Iterator与ListIterator有什么区别" class="headerlink" title="3、 Iterator与ListIterator有什么区别"></a>3、 Iterator与ListIterator有什么区别</h4><pre><code>Iterator:只能正向遍历集合，适用于获取移除元素。ListIerator：继承Iterator,可以双向列表的遍历，同样支持元素的修改。
+</code></pre><h4 id="4、-什么是HaspMap和Map"><a href="#4、-什么是HaspMap和Map" class="headerlink" title="4、 什么是HaspMap和Map"></a>4、 什么是HaspMap和Map</h4><pre><code>Map是接口，Java 集合框架中一部分，用于存储键值对，HashMap是用哈希算法实现Map的类。
+</code></pre><h4 id="5、-HashMap与HashTable有什么区别？对比Hashtable-VS-HashMap"><a href="#5、-HashMap与HashTable有什么区别？对比Hashtable-VS-HashMap" class="headerlink" title="5、 HashMap与HashTable有什么区别？对比Hashtable VS HashMap"></a>5、 HashMap与HashTable有什么区别？对比Hashtable VS HashMap</h4><pre><code>两者都是用key-value方式获取数据。Hashtable是原始集合类之一(也称作遗留类)。HashMap作为新集合框架的一部分在Java2的1.2版本中加入。它们之间有一下区别：
+
+● HashMap和Hashtable大致是等同的，除了非同步和空值(HashMap允许null值作为key和value，而Hashtable不可以)。
+
+● HashMap没法保证映射的顺序一直不变，但是作为HashMap的子类LinkedHashMap，如果想要预知的顺序迭代(默认按照插入顺序),你可以很轻易的置换为HashMap，如果使用Hashtable就没那么容易了。
+
+● HashMap不是同步的，而Hashtable是同步的。
+
+● 迭代HashMap采用快速失败机制，而Hashtable不是，所以这是设计的考虑点。
+</code></pre><h4 id="6、-在Hashtable上下文中同步是什么意思"><a href="#6、-在Hashtable上下文中同步是什么意思" class="headerlink" title="6、 在Hashtable上下文中同步是什么意思"></a>6、 在Hashtable上下文中同步是什么意思</h4><pre><code>同步意味着在一个时间点只能有一个线程可以修改哈希表，任何线程在执行hashtable的更新操作前需要获取对象锁，其他线程等待锁的释放。
+</code></pre><h4 id="7、-什么叫做快速失败特性"><a href="#7、-什么叫做快速失败特性" class="headerlink" title="7、 什么叫做快速失败特性"></a>7、 什么叫做快速失败特性</h4><pre><code>从高级别层次来说快速失败是一个系统或软件对于其故障做出的响应。一个快速失败系统设计用来即时报告可能会导致失败的任何故障情况，它通常用来停止正常的操作而不是尝试继续做可能有缺陷的工作。当有问题发生时，快速失败系统即时可见地发错错误告警。在Java中，快速失败与iterators有关。如果一个iterator在集合对象上创建了，其它线程欲“结构化”的修改该集合对象，并发修改异常 (ConcurrentModificationException) 抛出。
+</code></pre><h4 id="8、-怎样使Hashmap同步"><a href="#8、-怎样使Hashmap同步" class="headerlink" title="8、 怎样使Hashmap同步"></a>8、 怎样使Hashmap同步</h4><pre><code>HashMap可以通过Map m = Collections.synchronizedMap（hashMap）来达到同步的效果。
+</code></pre><h4 id="9、-什么时候使用Hashtable，什么时候使用HashMap"><a href="#9、-什么时候使用Hashtable，什么时候使用HashMap" class="headerlink" title="9、 什么时候使用Hashtable，什么时候使用HashMap"></a>9、 什么时候使用Hashtable，什么时候使用HashMap</h4><pre><code>基本的不同点是Hashtable同步HashMap不是的，所以无论什么时候有多个线程访问相同实例的可能时，就应该使用Hashtable，反之使用HashMap。非线程安全的数据结构能带来更好的性能。
+
+如果在将来有一种可能—你需要按顺序获得键值对的方案时，HashMap是一个很好的选择，因为有HashMap的一个子类 LinkedHashMap。所以如果你想可预测的按顺序迭代(默认按插入的顺序)，你可以很方便用LinkedHashMap替换HashMap。反观要是使用的Hashtable就没那么简单了。同时如果有多个线程访问HashMap，Collections.synchronizedMap()可以代替，总的来说HashMap更灵活。
+</code></pre><h4 id="10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector"><a href="#10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector" class="headerlink" title="10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector"></a>10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector</h4><pre><code>你应该使用ArrayList而不是Vector是因为默认情况下你是非同步访问的，Vector同步了每个方法，你几乎从不要那样做，通常有想要同步的是整个操作序列。同步单个的操作也不安全(如果你迭代一个Vector,你还是要加锁，以避免其它线程在同一时刻改变集合).而且效率更慢。当然同样有锁的开销即使你不需要，这是个很糟糕的方法在默认情况下同步访问。你可以一直使用Collections.sychronizedList来装饰一个集合。
+
+事实上Vector结合了“可变数组”的集合和同步每个操作的实现。这是另外一个设计上的缺陷。Vector还有些遗留的方法在枚举和元素获取的方法，这些方法不同于List接口，如果这些方法在代码中程序员更趋向于想用它。尽管枚举速度更快，但是他们不能检查如果集合在迭代的时候修改了，这样将导致问题。尽管以上诸多原因，oracle也从没宣称过要废弃Vector.
+</code></pre><h3 id="二、CopyOnWriteArrayList-Set-介绍"><a href="#二、CopyOnWriteArrayList-Set-介绍" class="headerlink" title="二、CopyOnWriteArrayList(Set)介绍"></a>二、CopyOnWriteArrayList(Set)介绍</h3><p>一般来说，我们会认为：CopyOnWriteArrayList是同步List的替代品，CopyOnWriteArraySet是同步Set的替代品。</p>
+<p>无论是Hashtable–&gt;ConcurrentHashMap，还是说Vector–&gt;CopyOnWriteArrayList。JUC下支持并发的容器与老一代的线程安全类相比，总结起来就是加锁粒度的问题</p>
+<pre><code>Hashtable、Vector加锁的粒度大(直接在方法声明处使用synchronized)
+ConcurrentHashMap、CopyOnWriteArrayList加锁粒度小(用各种的方式来实现线程安全，比如我们知道的ConcurrentHashMap用了cas锁、volatile等方式来实现线程安全..)
+JUC下的线程安全容器在遍历的时候不会抛出ConcurrentModificationException异常
+</code></pre><p>所以一般来说，我们都会使用JUC包下给我们提供的线程安全容器，而不是使用老一代的线程安全容器。</p>
+<p>下面我们来看看CopyOnWriteArrayList是怎么实现的，为什么使用迭代器遍历的时候就不用额外加锁，也不会抛出ConcurrentModificationException异常。</p>
+<h4 id="2-1CopyOnWriteArrayList实现原理"><a href="#2-1CopyOnWriteArrayList实现原理" class="headerlink" title="2.1CopyOnWriteArrayList实现原理"></a>2.1CopyOnWriteArrayList实现原理</h4><p>我们还是先来回顾一下COW：</p>
+<pre><code>如果有多个调用者（callers）同时请求相同资源（如内存或磁盘上的数据存储），他们会共同获取相同的指针指向相同的资源，直到某个调用者试图修改资源的内容时，系统才会真正复制一份专用副本（private copy）给该调用者，而其他调用者所见到的最初的资源仍然保持不变。优点是如果调用者没有修改该资源，就不会有副本（private copy）被建立，因此多个调用者只是读取操作时可以共享同一份资源。
+</code></pre><p>概括一下CopyOnWriteArrayList源码注释介绍了什么：</p>
+<pre><code>CopyOnWriteArrayList是线程安全容器(相对于ArrayList)，底层通过复制数组的方式来实现。
+CopyOnWriteArrayList在遍历的使用不会抛出ConcurrentModificationException异常，并且遍历的时候就不用额外加锁
+元素可以为null
+</code></pre><h4 id="2-1-1看一下CopyOnWriteArrayList基本的结构"><a href="#2-1-1看一下CopyOnWriteArrayList基本的结构" class="headerlink" title="2.1.1看一下CopyOnWriteArrayList基本的结构"></a>2.1.1看一下CopyOnWriteArrayList基本的结构</h4><pre><code>/** 可重入锁对象 */
+final transient ReentrantLock lock = new ReentrantLock();
+
+/** CopyOnWriteArrayList底层由数组实现，volatile修饰 */
+private transient volatile Object[] array;
+
+/**
+ * 得到数组
+ */
+final Object[] getArray() {
+    return array;
+}
+
+/**
+ * 设置数组
+ */
+final void setArray(Object[] a) {
+    array = a;
+}
+
+/**
+ * 初始化CopyOnWriteArrayList相当于初始化数组
+ */
+public CopyOnWriteArrayList() {
+    setArray(new Object[0]);
+}
+</code></pre><p>看起来挺简单的，CopyOnWriteArrayList底层就是数组，加锁就交由ReentrantLock来完成。</p>
+<h4 id="2-1-2常见方法的实现"><a href="#2-1-2常见方法的实现" class="headerlink" title="2.1.2常见方法的实现"></a>2.1.2常见方法的实现</h4><p>根据上面的分析我们知道如果遍历Vector/SynchronizedList是需要自己手动加锁的。</p>
+<p>CopyOnWriteArrayList使用迭代器遍历时不需要显示加锁，看看add()、clear()、remove()与get()方法的实现可能就有点眉目了。</p>
+<p>首先我们可以看看add()方法</p>
+<pre><code>public boolean add(E e) {
+
+    // 加锁
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+
+        // 得到原数组的长度和元素
+        Object[] elements = getArray();
+        int len = elements.length;
+
+        // 复制出一个新数组
+        Object[] newElements = Arrays.copyOf(elements, len + 1);
+
+        // 添加时，将新元素添加到新数组中
+        newElements[len] = e;
+
+        // 将volatile Object[] array 的指向替换成新数组
+        setArray(newElements);
+        return true;
+    } finally {
+        lock.unlock();
+    }
+}
+</code></pre><p>通过代码我们可以知道：在添加的时候就上锁，并复制一个新数组，增加操作在新数组上完成，将array指向到新数组中，最后解锁。</p>
+<p>再来看看size()方法：</p>
+<pre><code>public int size() {
+
+    // 直接得到array数组的长度
+    return getArray().length;
+}
+</code></pre><p>再来看看get()方法：</p>
+<pre><code>public E get(int index) {
+    return get(getArray(), index);
+}
+
+final Object[] getArray() {
+    return array;
+}
+</code></pre><p>那再来看看set()方法</p>
+<pre><code>public E set(int index, E element) {
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+
+        // 得到原数组的旧值
+        Object[] elements = getArray();
+        E oldValue = get(elements, index);
+
+        // 判断新值和旧值是否相等
+        if (oldValue != element) {
+
+            // 复制新数组，新值在新数组中完成
+            int len = elements.length;
+            Object[] newElements = Arrays.copyOf(elements, len);
+            newElements[index] = element;
+
+            // 将array引用指向新数组
+            setArray(newElements);
+        } else {
+            // Not quite a no-op; enssures volatile write semantics
+            setArray(elements);
+        }
+        return oldValue;
+    } finally {
+        lock.unlock();
+    }
+}
+</code></pre><p>对于remove()、clear()跟set()和add()是类似的，这里我就不再贴出代码了。</p>
+<p>总结：</p>
+<pre><code>在修改时，复制出一个新数组，修改的操作在新数组中完成，最后将新数组交由array变量指向。
+写加锁，读不加锁
+</code></pre><h4 id="2-1-3剖析为什么遍历时不用调用者显式加锁"><a href="#2-1-3剖析为什么遍历时不用调用者显式加锁" class="headerlink" title="2.1.3剖析为什么遍历时不用调用者显式加锁"></a>2.1.3剖析为什么遍历时不用调用者显式加锁</h4><p>常用的方法实现我们已经基本了解了，但还是不知道为啥能够在容器遍历的时候对其进行修改而不抛出异常。所以，来看一下他的迭代器吧：</p>
+<pre><code>// 1. 返回的迭代器是COWIterator
+public Iterator&lt;E&gt; iterator() {
+    return new COWIterator&lt;E&gt;(getArray(), 0);
+}
+
+
+// 2. 迭代器的成员属性
+private final Object[] snapshot;
+private int cursor;
+
+// 3. 迭代器的构造方法
+private COWIterator(Object[] elements, int initialCursor) {
+    cursor = initialCursor;
+    snapshot = elements;
+}
+
+// 4. 迭代器的方法...
+public E next() {
+    if (! hasNext())
+        throw new NoSuchElementException();
+    return (E) snapshot[cursor++];
+}
+
+//.... 可以发现的是，迭代器所有的操作都基于snapshot数组，而snapshot是传递进来的array数组
+</code></pre><p>到这里，我们应该就可以想明白了！CopyOnWriteArrayList在使用迭代器遍历的时候，操作的都是原数组！</p>
+<h4 id="2-1-4CopyOnWriteArrayList缺点"><a href="#2-1-4CopyOnWriteArrayList缺点" class="headerlink" title="2.1.4CopyOnWriteArrayList缺点"></a>2.1.4CopyOnWriteArrayList缺点</h4><p>看了上面的实现源码，我们应该也大概能分析出CopyOnWriteArrayList的缺点了。</p>
+<pre><code>内存占用：如果CopyOnWriteArrayList经常要增删改里面的数据，经常要执行add()、set()、remove()的话，那是比较耗费内存的。
+    因为我们知道每次add()、set()、remove()这些增删改操作都要复制一个数组出来。
+
+数据一致性：CopyOnWrite容器只能保证数据的最终一致性，不能保证数据的实时一致性。
+    从上面的例子也可以看出来，比如线程A在迭代CopyOnWriteArrayList容器的数据。线程B在线程A迭代的间隙中将CopyOnWriteArrayList部分的数据修改了(已经调用setArray()了)。但是线程A迭代出来的是原有的数据。
+</code></pre><h4 id="2-1-5CopyOnWriteSet"><a href="#2-1-5CopyOnWriteSet" class="headerlink" title="2.1.5CopyOnWriteSet"></a>2.1.5CopyOnWriteSet</h4><p>CopyOnWriteArraySet的原理就是CopyOnWriteArrayList。</p>
+<pre><code>private final CopyOnWriteArrayList&lt;E&gt; al;
+
+public CopyOnWriteArraySet() {
+    al = new CopyOnWriteArrayList&lt;E&gt;();
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/28/java集合框架/">
+    <time datetime="2019-04-27T16:00:00.000Z" class="entry-date">
+        2019-04-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-nginx解决方案" class="post-nginx解决方案 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/24/nginx解决方案/">Nginx解决方案</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="ck86y4a68004awwuhtq40qg7h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="1-方案场景"><a href="#1-方案场景" class="headerlink" title="1.方案场景"></a>1.方案场景</h3><p>现有多台应用服务器，要实现所有的访问先访问到反向代理服务器上再转内部对应的应用。</p>
+<pre><code>反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。简而言之就是隐藏所有的服务器，与之相对的是正向代理，如我们常用的vpn，目的是隐藏访问客户端。
+</code></pre><p>我们在这里打算采用Nginx作为方向代理的服务器</p>
+<h3 id="2-什么是nginx"><a href="#2-什么是nginx" class="headerlink" title="2.什么是nginx"></a>2.什么是nginx</h3><pre><code>Nginx(&quot;engine x&quot;)是一款是由俄罗斯的程序设计师Igor Sysoev开发高性能的 Web和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。
+在高连接并发的情况下，Nginx是Apache服务器不错的替代品。
+</code></pre><h3 id="3-nginx安装"><a href="#3-nginx安装" class="headerlink" title="3.nginx安装"></a>3.nginx安装</h3><pre><code>在/usr/local/src下进行，否则后面会编译错误
+</code></pre><h4 id="3-1-安装编译工具和库文件"><a href="#3-1-安装编译工具和库文件" class="headerlink" title="3.1 安装编译工具和库文件"></a>3.1 安装编译工具和库文件</h4><pre><code>yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel
+</code></pre><h4 id="3-2-安装PCRE"><a href="#3-2-安装PCRE" class="headerlink" title="3.2 安装PCRE"></a>3.2 安装PCRE</h4><p> PCRE 作用是让 Nginx 支持 Rewrite 功能。<br> 下载 PCRE 安装包，下载地址： <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a></p>
+<pre><code>wget http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz
+</code></pre><p> 解压安装包</p>
+<pre><code>tar zxvf pcre-8.35.tar.gz
+</code></pre><p> 进入安装包目录</p>
+<pre><code>cd pcre-8.35
+</code></pre><p> 编译安装</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p> 查看pcre版本</p>
+<pre><code>pcre-config --version
+</code></pre><p> 若有版本显示，表明安装成功</p>
+<h4 id="3-3-安装Nginx"><a href="#3-3-安装Nginx" class="headerlink" title="3.3 安装Nginx"></a>3.3 安装Nginx</h4><p>下载 Nginx，下载地址：<a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a></p>
+<pre><code>wget http://nginx.org/download/nginx-1.6.2.tar.gz
+</code></pre><p>解压安装包</p>
+<pre><code>tar zxvf nginx-1.6.2.tar.gz
+</code></pre><p>进入安装包目录</p>
+<pre><code>cd nginx-1.6.2
+</code></pre><p>编译安装</p>
+<pre><code>./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/usr/local/src/pcre-8.35
+make
+make isntall
+</code></pre><p>注意，编译安装的路径要按照实际安装的路径来，本次是在/usr/local/src下</p>
+<p>查看nginx版本</p>
+<pre><code>/usr/local/webserver/nginx/sbin/nginx -v
+</code></pre><p>若有版本显示，表明安装成功</p>
+<h3 id="4-nginx的配置"><a href="#4-nginx的配置" class="headerlink" title="4.nginx的配置"></a>4.nginx的配置</h3><p>nginx的配置文件在/usr/local/webserver/nginx/conf/nginx.conf下，我们只要修改nginx.conf的内容就可以修改Nginx的配置<br>配置文件的格式如下</p>
+<pre><code>main # 全局设置
+events { # Nginx工作模式
+    ....
+}
+http { # http设置
+    ....
+    upstream myproject { # 负载均衡服务器设置
+        .....
+    }
+    server  { # 主机设置
+        ....
+        location { # URL匹配
+            ....
+        }
+    }
+    server  {
+        ....
+        location {
+            ....
+        }
+    }
+    ....
+}
+</code></pre><h4 id="4-1-main模块"><a href="#4-1-main模块" class="headerlink" title="4.1 main模块"></a>4.1 main模块</h4><p>main区域是一个全局设置</p>
+<pre><code>#user 来指定Nginx Worker进程运行用户以及用户组，默认由nobody账号运行。
+user  nobody;
+#指定了Nginx要开启的子进程数。每个Nginx进程平均耗费10M~12M内存。根据经验，一般指定1个进程就足够了，如果是多核CPU，建议指定和CPU的数量一样的进程数即可。我这里写2，那么就会开启2个子进程，总共3个进程。
+worker_processes  1;
+
+#error_log 来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
+error_log  logs/error.log;
+error_log  logs/error.log  notice;
+error_log  logs/error.log  info;
+#pid 来指定进程id的存储文件位置。
+pid        logs/nginx.pid
+</code></pre><h4 id="4-2-events模块"><a href="#4-2-events模块" class="headerlink" title="4.2 events模块"></a>4.2 events模块</h4><p>events模块来用指定nginx的工作模式和工作模式及连接数上限，一般是这样</p>
+<pre><code>events {
+    use kqueue; #用来指定Nginx的工作模式
+    #指定Nginx的单个进程的最大连接数，即接收到的前端的最大请求数，默认为1024
+    worker_connections  1024;
+}
+</code></pre><h4 id="4-3-http模块"><a href="#4-3-http模块" class="headerlink" title="4.3 http模块"></a>4.3 http模块</h4><p>  http是Nginx的核心模块，它负责http服务器相关属性的配置，里面的server和upstream子模块至关重要，我们在设置方向代理、负债均衡以及虚拟目录等的时候，就是依赖于这两个模块的配置</p>
+<pre><code>http {
+     #设定mime类型,类型由mime.type文件定义
+    include       /etc/nginx/mime.types;
+    #设定了默认的类型为二进制流，也就是当文件类型未定义时使用这种方式
+    default_type  application/octet-stream;
+
+    #用于设置日志的格式，和记录哪些参数，这里设置为main，刚好用于access_log来纪录这种类型。
+    log_format main &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                    &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                    &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+    #设定日志文件，后面的main是日志的格式样式，对应于log_format的main。
+    access_log    /var/log/nginx/access.log main;
+
+    #用于开启高效文件传输模式。将tcp_nopush和tcp_nodelay两个指令设置为on用于防止网络阻塞。
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+
+    #设置客户端连接保持活动的超时时间。在超过这个时间之后，服务器会关闭该连接。
+    keepalive_timeout 10;
+
+    #设定负载均衡的服务器列表
+    upstream load_balance_server {
+        ......
+    }
+
+   #HTTP服务器
+   server {
+       ......
+    }
+}
+</code></pre><h5 id="4-3-1-upstream模块"><a href="#4-3-1-upstream模块" class="headerlink" title="4.3.1 upstream模块"></a>4.3.1 upstream模块</h5><p>  upstream主要负责负载均衡，通过一个简单的调度算法来实现客户端IP到后端服务器的负载均衡。</p>
+<pre><code>upstream test.com{
+    ip_hash;
+    server 123.206.117.62:80;
+    server 123.206.117.62:80 down;
+    server 123.206.117.62:8080  max_fails=3  fail_timeout=20s;
+    server 123.206.117.62:8080;
+}
+</code></pre><blockquote>
+<ul>
+<li>上面的代码，test.com是upstream指定的负载均衡器的名称，这个名称可以任意指定，在后面需要的地方直接调用即可。</li>
+<li>ip_hash这是其中的一种负载均衡调度算法，Nginx的负载均衡模块目前支持4种调度算法<blockquote>
+<ul>
+<li>weight 轮询（默认）。每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某台服务器宕机，故障系统被自动剔除，使用户访问不受影响。weight。指定轮询权值，weight值越大，分配到的访问机率越高，主要用于后端每个服务器性能不均的情况下。</li>
+<li>ip_hash。每个请求按访问IP的hash结果分配，这样来自同一个IP的访客固定访问一个后端服务器，有效解决了动态网页存在的session共享问题。</li>
+<li>fair（第三方）。比上面两个更加智能的负载均衡算法。此种算法可以依据页面大小和加载时间长短智能地进行负载均衡，也就是根据后端服务器的响应时间来分配请求，响应时间短的优先分配。Nginx本身是不支持fair的，如果需要使用这种调度算法，必须下载Nginx的upstream_fair模块。</li>
+<li>url_hash（第三方）。按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，可以进一步提高后端缓存服务器的效率。Nginx本身是不支持url_hash的，如果需要使用这种调度算法，必须安装Nginx的hash软件包。</li>
+</ul>
+</blockquote>
+</li>
+<li>server指定的是各种服务器，包括服务器的ip、端口以及每个后端服务器在负载均衡中的状态，常用的状态有：<blockquote>
+<ol>
+<li>down，表示当前的server暂时不参与负载均衡。</li>
+<li>backup，预留的备份机器。当其他所有的非backup机器出现故障或者忙的时候，才会请求backup机器，因此这台机器的压力最轻。</li>
+<li>max_fails，允许请求失败的次数，默认为1。当超过最大次数时，返回proxy_next_upstream 模块定义的错误。</li>
+<li>fail_timeout，在经历了max_fails次失败后，暂停服务的时间。max_fails可以和fail_timeout一起使用。<br>注意：当负载调度算法为ip_hash时，后端服务器在负载均衡调度中的状态不能是weight和backup。其它情况可以是weight，表示负载的权重，默认为1，weight越大，权重越大。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<h5 id="4-3-2-server模块"><a href="#4-3-2-server模块" class="headerlink" title="4.3.2 server模块"></a>4.3.2 server模块</h5><p>  server模块是http的子模块，它用来定一个虚拟主机，它的基本配置如下</p>
+<pre><code>server {
+    #指定虚拟主机的服务端口
+    listen 8080;
+    #用来指定IP地址或者域名，多个域名之间用空格分开。
+    server_name localhost 123.206.117.62 www.test.com;
+    # 全局定义，如果都是这一个目录，这样定义最简单。
+    root   /Users/marscheng/www; #示在这整个server虚拟主机内，全部的root web根目录。注意要和locate {}下面定义的区分开来。
+    index  index.php index.html index.htm; #全局定义访问的默认首页地址。注意要和locate {}下面定义的区分开来。
+    charset utf-8;#网页的默认编码格式
+    #用来指定此虚拟主机的访问日志存放路径，最后的main用于指定访问日志的输出格式
+    access_log  usr/local/var/log/host.access.log  main;
+    #错误日志文件
+    error_log  usr/local/var/log/host.error.log  error;
+    #用于定位的配置
+    location / {
+          ....  
+        }
+
+}
+</code></pre><p>  location模块</p>
+<p>  location模块一般是在server中定义的，它在Nginx中用的最多，无论是负载均衡、反向代理还是虚拟域名，都跟它的配置有关。</p>
+<p>  location是用来定位，解析url,定位URL，所以，它也提供了强大的正则匹配功能，也支持条件判断匹配，用户可以通过location指令实现Nginx对动态、静态网页进行过滤处理。</p>
+<ol>
+<li><p>设定默认首页和虚拟机目录</p>
+<pre><code>location / {
+  #指令用于指定访问根目录时，虚拟主机的web目录，这个目录可以是相对路径（相对路径是相对于nginx的安装目录）。也可以是绝对路径。
+  root   /Users/marscheng/www;
+  #用于设定我们只输入域名后访问的默认首页地址，有个先后顺序：index.php index.html index.htm，如果没有开启目录浏览权限，又找不到这些默认首页，就会报403错误。
+  index  index.jsp index.html index.htm;
+}
+</code></pre></li>
+<li><p>用正则表达式匹配</p>
+<pre><code>location ~ \.html$ { #匹配.html结尾的URL，用来解析html文件。里面的root也是一样，用来表示虚拟主机的根目录。
+  root           /Users/marscheng/www;
+  fastcgi_pass   127.0.0.1:9000;
+  fastcgi_index  index.html;
+  include        fastcgi.conf;
+}
+</code></pre></li>
+</ol>
+<p>这里只是简单介绍，详细的配置可以参考这篇文章：<br><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
+<p>网上还有一篇介绍Nginx比较好的，文章，地址如下：<br><a href="http://www.jianshu.com/p/bed000e1830b" target="_blank" rel="noopener">http://www.jianshu.com/p/bed000e1830b</a></p>
+<h3 id="5-方案设计"><a href="#5-方案设计" class="headerlink" title="5.方案设计"></a>5.方案设计</h3><p>根据场景设计了如下的配置方案：</p>
+<pre><code>http {
+#此处省略一些基本配置
+
+upstream product_server{
+    server 9.236.2.35:8081;
+}
+
+upstream admin_server{
+    server 9.236.2.36:8082;
+}
+
+upstream finance_server{
+    server 9.236.2.37:8083;
+}
+
+server {
+    #此处省略一些基本配置
+    #根据不同正则匹配默认指向不同的的server
+    location / {
+        proxy_pass http://product_server;
+    }
+
+    location /product/{
+        proxy_pass http://product_server;
+    }
+
+    location /admin/ {
+        proxy_pass http://admin_server;
+    }
+
+    location /finance/ {
+        proxy_pass http://finance_server;
+    }
+}
+</code></pre><p>}</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/24/nginx解决方案/">
+    <time datetime="2019-04-23T16:00:00.000Z" class="entry-date">
+        2019-04-24
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </div>
 
     
@@ -160,7 +915,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ck49hqbmz003z34uhhkbhb7yc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ck86y4a6k004lwwuh0liqp5h8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -516,6 +1271,89 @@ public void set(T value) {
 
 
   
+    <article id="post-oracle和mysql区别" class="post-oracle和mysql区别 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/oracle和mysql区别/">MySQL与Oracle的区别</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ck86y4a69004cwwuh1h3tp63n" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>一、并发性</p>
+<p>并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。</p>
+<p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
+<p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
+<p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
+<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
+<p>三、事务<br>oracle很早就完全支持事务。</p>
+<p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
+<p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
+<p>五、提交方式<br>oracle默认不自动提交，需要用户手动提交。<br>mysql默认是自动提交。</p>
+<p>六、逻辑备份</p>
+<p>oracle逻辑备份时不锁定数据，且备份的数据是一致的。</p>
+<p>mysql逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用。</p>
+<p>七、热备份<br>oracle有成熟的热备工具rman，热备时，不影响用户使用数据库。即使备份的数据库不一致，也可以在恢复时通过归档日志和联机重做日志进行一致的回复。<br>mysql:<br>myisam的引擎，用mysql自带的mysqlhostcopy热备时，需要给表加读锁，影响dml操作。<br>innodb的引擎，它会备份innodb的表和索引，但是不会备份.frm文件。用ibbackup备份时，会有一个日志文件记录备份期间的数据变化，因此可以不用锁表，不影响其他用户使用数据库。但此工具是收费的。<br>innobackup是结合ibbackup使用的一个脚本，他会协助对.frm文件的备份。</p>
+<p>八、sql语句的扩展和灵活性<br>mysql对sql语句有很多非常实用而方便的扩展，比如limit功能，insert可以一次插入多行数据，select某些管理数据可以不加from。<br>oracle在这方面感觉更加稳重传统一些。</p>
+<p>九、复制<br>oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。<br>mysql:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。</p>
+<p>十、性能诊断<br>oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等<br>mysql的诊断调优方法较少，主要有慢查询日志。</p>
+<p>十一、权限与安全</p>
+<p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
+<p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
+<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
+<p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
+<p>这就完成了一个客户端与服务端交互的过程。</p>
+<p>其他：</p>
+<ol>
+<li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
+<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
+</li>
+</ol>
+<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/oracle和mysql区别/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud高可用" class="post-Spring Cloud高可用 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -531,7 +1369,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ck49hqbkw000r34uhxb57w2o1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ck86y4a4b000vwwuh4xdp8lfx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -653,7 +1491,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck49hqbmd003d34uhucq5ba9d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck86y4a60003xwwuhkz0r390y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -797,6 +1635,84 @@ public class ComputeClientHystrix implements ComputeClient {
 
 
   
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="ck86y4a4a000twwuhp4krvnn3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -812,7 +1728,7 @@ public class ComputeClientHystrix implements ComputeClient {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck49hqbmf003f34uhwykyax0j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck86y4a61003ywwuh408stofa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1027,668 +1943,6 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
 
 
   
-    <article id="post-Spring Cloud(一)服务注册与发现" class="post-Spring Cloud(一)服务注册与发现 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/11/Spring Cloud(一)服务注册与发现/">Spring Cloud构建微服务架构（一）服务注册与发现</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ck49hqbme003e34uhyld2ljtv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="Spring-Cloud-简介"><a href="#Spring-Cloud-简介" class="headerlink" title="Spring Cloud 简介"></a>Spring Cloud 简介</h3><p>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
-<p>Spring Cloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品），比如：Spring Cloud Config、Spring Cloud Netflix、Spring Cloud CloudFoundry、Spring Cloud AWS、Spring Cloud Security、Spring Cloud Commons、Spring Cloud Zookeeper、Spring Cloud CLI等项目。</p>
-<h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><p>“微服务架构”在这几年非常的火热，以至于关于微服务架构相关的产品社区也变得越来越活跃（比如：netflix、dubbo），Spring Cloud也因Spring社区的强大知名度和影响力也被广大架构师与开发者备受关注。</p>
-<p>那么什么是“微服务架构”呢？简单的说，微服务架构就是将一个完整的应用从数据存储开始垂直拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展，服务与服务间通过诸如RESTful API的方式互相调用。</p>
-<p>对于“微服务架构”，大家在互联网可以搜索到很多相关的介绍和研究文章来进行学习和了解。也可以阅读始祖Martin Fowler的《Microservices》，本文不做更多的介绍和描述。</p>
-<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p>在简单介绍了Spring Cloud和微服务架构之后，下面回归本文的主旨内容，如何使用Spring Cloud搭建服务注册与发现模块。</p>
-<p>这里我们会用到Spring Cloud Netflix，该项目是Spring Cloud的子项目之一，主要内容是对Netflix公司一系列开源产品的包装，它为Spring Boot应用提供了自配置的Netflix OSS整合。通过一些简单的注解，开发者就可以快速的在应用中配置一下常用模块并构建庞大的分布式系统。它主要提供的模块包括：服务发现（Eureka），断路器（Hystrix），智能路有（Zuul），客户端负载均衡（Ribbon）等。</p>
-<p>所以，我们这里的核心内容就是服务发现模块：Eureka。下面我们动手来做一些尝试。</p>
-<h3 id="创建“服务注册中心”"><a href="#创建“服务注册中心”" class="headerlink" title="创建“服务注册中心”"></a>创建“服务注册中心”</h3><p>创建一个基础的Spring Boot工程，并在pom.xml中引入需要的依赖内容：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-
-&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;
-</code></pre><p>通过@EnableEurekaServer注解启动一个服务注册中心提供给其他应用进行对话。这一步非常的简单，只需要在一个普通的Spring Boot应用中添加这个注解就能开启此功能，比如下面的例子：</p>
-<pre><code>import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
-@EnableEurekaServer
-@SpringBootApplication
-public class EurekaApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaApplication.class, args);
-    }
-
-}
-</code></pre><p>在默认设置下，该服务注册中心也会将自己作为客户端来尝试注册它自己，所以我们需要禁用它的客户端注册行为，只需要在application.properties中问增加如下配置：</p>
-<pre><code>server.port=1000
-eureka.client.register-with-eureka=false
-eureka.client.fetch-registry=false
-eureka.client.serviceUrl.defaultZone=http://localhost:${server.port}/eureka/
-</code></pre><p>为了与后续要进行注册的服务区分，这里将服务注册中心的端口通过server.port属性设置为1000。</p>
-<p><a href="http://localhost:1000/" target="_blank" rel="noopener">启动工程后，访问：http://localhost:1000/</a></p>
-<p>可以看到下面的页面，其中还没有发现任何服务<br> <img src="/assets/SpringCloudImg/eurekaService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
-<h3 id="创建“服务提供方”"><a href="#创建“服务提供方”" class="headerlink" title="创建“服务提供方”"></a>创建“服务提供方”</h3><p>下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
-<p>假设我们有一个提供计算功能的微服务模块，我们实现一个RESTful API，通过传入两个参数a和b，最后返回a + b的结果。</p>
-<p>首先，创建一个基本的Spring Boot应用 compute-service，在pom.xml中，加入如下配置：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-</code></pre><p>其次，实现/add请求处理接口，通过DiscoveryClient对象，在日志中打印出服务实例的相关内容。</p>
-<pre><code>@RestController
-public class ComputeController {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    // 服务注册
-    @Autowired
-    private Registration registration;
-    @Autowired
-    private DiscoveryClient client;
-
-    @RequestMapping(value = &quot;/add&quot; ,method = RequestMethod.GET)
-    public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
-
-        ServiceInstance instance = serviceInstance();
-        Integer r = a + b;
-        logger.info(&quot;/add, host:&quot; + instance.getHost() + &quot;, service_id:&quot; + instance.getServiceId() + &quot;, result:&quot; + r);
-        return r;
-    }
-    public ServiceInstance serviceInstance() {
-        List&lt;ServiceInstance&gt; list = client.getInstances(registration.getServiceId());
-        if (list != null &amp;&amp; list.size() &gt; 0) {
-            for (ServiceInstance itm : list){
-                if (itm.getPort() == 2001)
-                    return itm;
-            }
-        }
-        return null;
-    }
-}
-</code></pre><p>最后在主类中通过加上@EnableDiscoveryClient注解，该注解能激活Eureka中的DiscoveryClient实现，才能实现Controller中对服务信息的输出。</p>
-<pre><code>@EnableDiscoveryClient
-@SpringBootApplication
-public class ComputeServiceApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(ComputeServiceApplication.class, args);
-    }
-
-}
-</code></pre><p>我们在完成了服务内容的实现之后，再继续对application.properties做一些配置工作，具体如下：</p>
-<pre><code>spring.application.name=compute-service
-server.port=2001
-eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
-</code></pre><p>通过spring.application.name属性，我们可以指定微服务的名称后续在调用的时候只需要使用该名称就可以进行服务的访问。</p>
-<p>eureka.client.serviceUrl.defaultZone属性对应服务注册中心的配置内容，指定服务注册中心的位置。</p>
-<p>为了在本机上测试区分服务提供方和服务注册中心，使用server.port属性设置不同的端口。</p>
-<p>启动该工程后，再次访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
-<p>可以看到，我们定义的服务被注册了。<br><img src="/assets/SpringCloudImg/eurekaComputeService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/compute-service</a></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/11/Spring Cloud(一)服务注册与发现/">
-    <time datetime="2019-04-10T16:00:00.000Z" class="entry-date">
-        2019-04-11
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-node+superagent爬虫" class="post-node+superagent爬虫 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/10/node+superagent爬虫/">node  爬虫</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ck49hqblf001p34uhfnoq4pkl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><pre><code>Node.js环境搭建
-</code></pre><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>选择一个目录，新建一个准备存放工程内容的文件夹demo。</p>
-<p>打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下</p>
-<pre><code>$ npm init
-This utility will walk you through creating a package.json file.
-It only covers the most common items, and tries to guess sensible defaults.
-
-See `npm help json` for definitive documentation on these fields
-and exactly what they do.
-
-Use `npm install &lt;pkg&gt;` afterwards to install a package and
-save it as a dependency in the package.json file.
-
-Press ^C at any time to quit.
-package name: (demo) demo
-version: (1.0.0)
-description: 爬虫
-entry point: (index.js)
-test command:
-git repository:
-keywords:
-author: huapisong
-license: (ISC)
-About to write to D:\test\demo\package.json:
-
-{
-  &quot;name&quot;: &quot;demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;爬虫&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;author&quot;: &quot;huapisong&quot;,
-  &quot;license&quot;: &quot;ISC&quot;
-}
-
-
-Is this ok? (yes) yes
-</code></pre><p>此时文件夹下生成了一个package.json文件，其中包含了工程的基本信息以及引用的框架等信息</p>
-<h3 id="框架引入"><a href="#框架引入" class="headerlink" title="框架引入"></a>框架引入</h3><pre><code>superagent：发起http请求
-cheerio：解析http返回的html内容
-async：多线程并发控制
-</code></pre><p>安装命令 npm install –save PACKAGE_NAME，执行以下三条命令后，工程目录下多了一个node_modules目录，该目录就是引入的框架内容。</p>
-<pre><code>$npm install --save superagent
-$npm install --save cheerio
-$npm install --save async
-</code></pre><h3 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a>编码过程</h3><p>工程目录下，创建index.js</p>
-<pre><code>var superagent = require(&apos;superagent&apos;);
-var cheerio = require(&apos;cheerio&apos;);
-var async = require(&apos;async&apos;);
-
-var fs = require(&apos;fs&apos;);
-var request = require(&quot;request&quot;);
-
-console.log(&apos;爬虫程序开始运行......&apos;);
-
-// 第一步，发起请求，获取的列表
-superagent
-    .get(&apos;http://www.wanfangdata.com.cn/keywords/getNewKeywords.do?keywords=java&amp;resource=all&amp;topNumber=18&apos;)
-    .set(&apos;Accept&apos;, &apos;application/json, text/javascript, */*; q=0.01&apos;)
-    .set(&apos;Content-Type&apos;,&apos;text/html;charset=UTF-8&apos;)
-    .end(function(err, res){
-        // res.body, res.headers, res.status
-        //let body = cheerio.load(res.body);
-        // 请求返回后的处理
-        // 将response中返回的结果转换成JSON对象
-        var words = JSON.parse(res.text).word;
-        console.log(&apos;抓取的数据：&apos; + JSON.stringify(words));
-
-        async.mapSeries(words,
-            function (word, callback) {
-                console.log(&apos;抓取的数据：&apos; + word);
-                // 对每个对象的处理逻辑
-                fetchInfo(word, callback);
-                console.timeEnd(&quot;  耗时&quot;);
-
-            },
-            function (err, result) {
-                console.log(&apos;final:\n&apos; + result);
-            }
-        );
-        // 并发遍历 words对象
-        /* var words = JSON.parse(res.text);
-        async.mapLimit(words, 10,
-            function (word, callback) {
-                console.log(&apos;抓取的数据：&apos; + word);
-                // 对每个对象的处理逻辑
-                fetchInfo(word, callback);
-                console.timeEnd(&quot;  耗时&quot;);
-
-            },
-            function (err, result) {
-                console.log(&apos;final:\n&apos; + result);
-            }
-        );*/
-
-    });
-
-var concurrencyCount = 0; // 当前并发数记录
-var fetchInfo = function(word, callback){
-    console.time(&apos;  耗时&apos;);
-    concurrencyCount++;
-    console.log(&apos;并发数：&apos;, concurrencyCount, &apos;，正在抓取的是&apos;, word);
-
-    // 写入文件内容（如果文件不存在会创建一个文件）
-    fs.writeFile(&apos;./try4.txt&apos;, word+&apos;\n&apos;, { &apos;flag&apos;: &apos;a&apos; }, function(err) {
-        if (err) {
-            console.log(&apos;并发数:&apos;, concurrencyCount--, &apos;word&apos;, word);
-            callback(null, word);
-            throw err;
-        }
-        callback(null, word);
-        // 写入成功后读取测试
-        /*fs.readFile(&apos;./try4.txt&apos;, &apos;utf-8&apos;, function(err, data) {
-            if (err) {
-                throw err;
-            }
-            console.log(data);
-        });*/
-    });
-
-}
-</code></pre><p>工程目录下执行命令，node index.js，抓取程序开始执行</p>
-<pre><code> node index.js
-爬虫程序开始运行......
-抓取的数据：[&quot;Java&quot;,&quot;JAVA&quot;,&quot;java&quot;,&quot;Java语言&quot;,&quot;JAVA语言&quot;,&quot;Java技术&quot;,&quot;JAVA技术&quot;,&quot;Java3D&quot;,&quot;JavaEE&quot;,&quot;Java虚拟机&quot;,&quot;Java EE&quot;,&quot;JavaBean&quot;,&quot;Java程序设计&quot;,&quot;JavaScript&quot;,&quot;JAVASCRIPT&quot;,&quot;Javascript&quot;,&quot;Java Applet&quot;]
-抓取的数据：Java
-并发数： 1 ，正在抓取的是 Java
- 耗时: 1.329ms
-抓取的数据：JAVA
-并发数： 2 ，正在抓取的是 JAVA
- 耗时: 0.646ms
-抓取的数据：java
-并发数： 3 ，正在抓取的是 java
- 耗时: 0.625ms
-抓取的数据：Java语言
-并发数： 4 ，正在抓取的是 Java语言
- 耗时: 0.642ms
-抓取的数据：JAVA语言
-并发数： 5 ，正在抓取的是 JAVA语言
- 耗时: 0.663ms
-抓取的数据：Java技术
-并发数： 6 ，正在抓取的是 Java技术
- 耗时: 0.410ms
-抓取的数据：JAVA技术
-并发数： 7 ，正在抓取的是 JAVA技术
- 耗时: 0.395ms
-抓取的数据：Java3D
-并发数： 8 ，正在抓取的是 Java3D
- 耗时: 0.377ms
-抓取的数据：JavaEE
-并发数： 9 ，正在抓取的是 JavaEE
- 耗时: 0.240ms
-抓取的数据：Java虚拟机
-并发数： 10 ，正在抓取的是 Java虚拟机
- 耗时: 0.346ms
-抓取的数据：Java EE
-并发数： 11 ，正在抓取的是 Java EE
- 耗时: 0.306ms
-抓取的数据：JavaBean
-并发数： 12 ，正在抓取的是 JavaBean
- 耗时: 0.323ms
-抓取的数据：Java程序设计
-并发数： 13 ，正在抓取的是 Java程序设计
- 耗时: 0.326ms
-抓取的数据：JavaScript
-并发数： 14 ，正在抓取的是 JavaScript
- 耗时: 0.306ms
-抓取的数据：JAVASCRIPT
-并发数： 15 ，正在抓取的是 JAVASCRIPT
- 耗时: 0.346ms
-抓取的数据：Javascript
-并发数： 16 ，正在抓取的是 Javascript
- 耗时: 1.027ms
-抓取的数据：Java Applet
-并发数： 17 ，正在抓取的是 Java Applet
- 耗时: 0.955ms
-final:
-Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚拟机,Java EE,JavaBean,Java程序设计,JavaScript,JAVASCRIPT,Javascript,Java Applet
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/10/node+superagent爬虫/">
-    <time datetime="2019-04-09T16:00:00.000Z" class="entry-date">
-        2019-04-10
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Node/">Node</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-几个能够免费生成二维码的api接口" class="post-几个能够免费生成二维码的api接口 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/08/几个能够免费生成二维码的api接口/">几个能够免费生成二维码的api接口</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ck49hqblv002j34uh6963ggxu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>1.百度网盘(可使用https)</p>
-<pre><code>http://pan.baidu.com/share/qrcode?w=150&amp;h=150&amp;url=内容
-</code></pre><p>2.iClick接口 (无https)</p>
-<pre><code>http://bshare.optimix.asia/barCode?site=weixin&amp;url=内容
-</code></pre><p>3.JiaThis 接口(无https)</p>
-<pre><code>http://s.jiathis.com/qrcode.php?url=内容
-</code></pre><p>4.联图网(无https)</p>
-<pre><code>http://qr.liantu.com/api.php?text=内容
-</code></pre><p>5.K780数据网(支持https和http)</p>
-<pre><code>http://api.k780.com:88/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
-
-https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
-</code></pre><p>6.QR Code Generator(https接口)</p>
-<pre><code>https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=内容
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/08/几个能够免费生成二维码的api接口/">
-    <time datetime="2019-04-07T16:00:00.000Z" class="entry-date">
-        2019-04-08
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue elemetUl /">vue elementUi</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ck49hqblk001z34uhir7gg77g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
-
-# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
-
-Element UI该组件已经在属性层面提供了解决办法，只要添加
-:modal-append-to-body=&quot;false&quot;
-就可以了。
-</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
-&lt;el-form :model=&quot;form&quot;&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
-# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
-&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-
-# 方法二：
-# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
-&lt;el-form :model=&quot;form&quot;&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/03/26/vue elemetUl /">
-    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
-        2019-03-26
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ck49hqbls002d34uh1xjfslpu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
-</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
-* 组件之间的通信
-* @param Vue
-*/
-const install = (Vue) =&gt;{
-  const Bus = new Vue({
-      methods:{
-          emit(event, ...args){
-              this.$emit(event, ...args)
-          },
-          on (event, callback){
-              this.$on(event, callback)
-          },
-          off(event, callback){
-              this.$off(event, callback)
-          }
-      }
-  })
-  Vue.prototype.$bus = Bus
-}
-export default install
-</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
-Vue.use(VueBus)
-</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
-let num = Math.floor(Math.random() * 100 + 1);
-this.$bus.$emit(&apos;getMenu&apos;, num);
-
-# 组件 b
-,created() {
-    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
-        // console.log(target);
-        this.getMenus();
-    });
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/03/26/vue组件之间通信/">
-    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
-        2019-03-26
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1713,7 +1967,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1725,23 +1979,23 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
       <ul>
         
           <li>
+            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/AES/">AES 加密、解密</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
           </li>
         
       </ul>
@@ -1756,7 +2010,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
 </div>
       </div>
       <footer id="colophon" role="contentinfo">
-    <p>&copy; 2019 花皮松
+    <p>&copy; 2020 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
     <!-- busuanzi start -->

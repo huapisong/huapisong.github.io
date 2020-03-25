@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="下载https://www.openoffice.org/download/
+Windows上安装openoffice1.找到安装目录
+cd  C:\Program Files (x86)\OpenOffice 4\program
+2.运行启动命令
+soffice -headless -accept">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>openoffice | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下载https://www.openoffice.org/download/ Windows上安装openoffice1.找到安装目录 cd  C:\Program Files (x86)\OpenOffice 4\program 2.运行启动命令 soffice -headless -accept=&amp;quot;socket,host=127.0.0.1,port=8100;urp;&amp;quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openoffice">
+<meta property="og:url" content="http://yoursite.com/2020/03/19/Openoffice-install-and-startservice/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="下载https://www.openoffice.org/download/ Windows上安装openoffice1.找到安装目录 cd  C:\Program Files (x86)\OpenOffice 4\program 2.运行启动命令 soffice -headless -accept=&amp;quot;socket,host=127.0.0.1,port=8100;urp;&amp;quot;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-25T06:22:53.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="openoffice">
+<meta name="twitter:description" content="下载https://www.openoffice.org/download/ Windows上安装openoffice1.找到安装目录 cd  C:\Program Files (x86)\OpenOffice 4\program 2.运行启动命令 soffice -headless -accept=&amp;quot;socket,host=127.0.0.1,port=8100;urp;&amp;quot;">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Openoffice-install-and-startservice" class="post-Openoffice-install-and-startservice post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      openoffice
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/03/19/Openoffice-install-and-startservice/" data-id="ck86y4a47000mwwuhr0mpxm73" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>下载<a href="https://www.openoffice.org/download/" target="_blank" rel="noopener">https://www.openoffice.org/download/</a></p>
+<h2 id="Windows上安装openoffice"><a href="#Windows上安装openoffice" class="headerlink" title="Windows上安装openoffice"></a>Windows上安装openoffice</h2><pre><code>1.找到安装目录
+cd  C:\Program Files (x86)\OpenOffice 4\program
+2.运行启动命令
+soffice -headless -accept=&quot;socket,host=127.0.0.1,port=8100;urp;&quot; -nofirststartwizard
+# 安装命令介绍
+# host=127.0.0.1 项目本地能访问，改成 host=0.0.0.0 可外网访问
+# port=8100 监测的端口，默认8100，可以更改端口
+# 查看端口8100是否启动
+netstat -n|greo 8100
+# 输出 说明启动
+TCP    127.0.0.1:8100         127.0.0.1:52724        ESTABLISHED
+</code></pre><h2 id="Linux上安装openoffice"><a href="#Linux上安装openoffice" class="headerlink" title="Linux上安装openoffice"></a>Linux上安装openoffice</h2><ol>
+<li><p>登录服务器，查看linux服务器位数：getconf  LONG_BIT，开始上传对应位数的安装包</p>
+</li>
+<li><p>到/usr/local目录下：cd /usr/local    创建文件夹:mkdir openoffice</p>
+</li>
+<li><p>把上传的文件移动到/usr/local/openoffice:  mv  Apa*.tar.gz  /usr/local/openoffice</p>
+</li>
+<li><p>进入到目录： cd /usr/local/openoffice/  解压文件：tar -zxvf Apa*.tar.gz</p>
+</li>
+<li><p>从当前进入目录：cd zh-CN 从当前进入目录：cd RPMS/</p>
+</li>
+<li><p>安装rpm : rpm -ivh *.rpm</p>
+</li>
+<li><p>安装进度达到100%后，安装桌面图形化，进入目录： cd desktop-integration/，安装程序：rpm -ivh openoffice4.1.5-redhat-menus-4.1.5-9789.noarch.rpm</p>
+</li>
+<li><p>进入目录启动openoffice：cd /opt/openoffice4/program</p>
+</li>
+<li><p>启动命令：./soffice -headless -accept=”socket,host=172.16.210.46,port=8100;urp;” -nofirststartwizard &amp;</p>
+</li>
+<li><p>查看端口是否启动成功： netstat -tln</p>
+</li>
+<li><p>卸载openoffice:rpm -e <code>rpm -qa |grep openoffice</code> <code>rpm -qa |grep ooobasis</code></p>
+</li>
+<li><p>删除安装包：①cd /usr/local/   ②rm -rf openoffice</p>
+</li>
+<li><p>删除安装程序：①cd /opt/  ②rm -rf openoffice4</p>
+</li>
+</ol>
+<p>启动openoffice命令：</p>
+<pre><code>cd /opt/openoffice4/program
+./soffice -headless -accept=&quot;socket,host=127.0.0.1,port=8100;urp;&quot; -nofirststartwizard &amp;
+# 或
+/opt/openoffice4/program/soffice -headless -accept=&quot;socket,host=127.0.0.1,port=8100;urp;&quot; -nofirststartwizard &amp;
+</code></pre><p>查看端口是否启动成功： netstat -tln</p>
+<p>打开Linux某个端口防火墙命令<br>    firewall-cmd –zone=public –add-port=8100/tcp –permanent</p>
+<pre><code>firewall-cmd --reload
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2020/03/19/Openoffice-install-and-startservice/">
+    <time datetime="2020-03-18T16:00:00.000Z" class="entry-date">
+        2020-03-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Openoffice/">Openoffice</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/12/26/jvm crash分析工具/" rel="next">一次操作系统报错OutOfMemory Error的处理记录 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2020 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

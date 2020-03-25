@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="maven配置pom.xml
+&amp;lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi --&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;g">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>POI word转html | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="maven配置pom.xml &amp;lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi --&amp;gt; &amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;poi&amp;lt;/artifactId&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="POI word转html">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="maven配置pom.xml &amp;lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi --&amp;gt; &amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;poi&amp;lt;/artifactId&amp;gt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-25T06:07:51.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="POI word转html">
+<meta name="twitter:description" content="maven配置pom.xml &amp;lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi --&amp;gt; &amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;org.apache.poi&amp;lt;/groupId&amp;gt;     &amp;lt;artifactId&amp;gt;poi&amp;lt;/artifactId&amp;gt;">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-POI-Word-Convert-HTML" class="post-POI-Word-Convert-HTML post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      POI word转html
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="ck86y4a5x003twwuh8i7bfpgq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="maven配置"><a href="#maven配置" class="headerlink" title="maven配置"></a>maven配置</h2><pre><code>pom.xml
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/ooxml-schemas --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;ooxml-schemas&lt;/artifactId&gt;
+    &lt;version&gt;1.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-scratchpad&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-ooxml-schemas&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/xdocreport --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;fr.opensagres.xdocreport&lt;/groupId&gt;
+    &lt;artifactId&gt;xdocreport&lt;/artifactId&gt;
+    &lt;version&gt;2.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="异常-找不到org-apache-poi-POIXMLDocumentPart类"><a href="#异常-找不到org-apache-poi-POIXMLDocumentPart类" class="headerlink" title="异常 找不到org/apache/poi/POIXMLDocumentPart类"></a>异常 找不到org/apache/poi/POIXMLDocumentPart类</h2><pre><code>POIXMLDocumentPart已全版本更换放置的位置到org.apache.poi.ooxml包下，更新xdocreport至2.0.2
+&lt;dependency&gt;
+    &lt;groupId&gt;fr.opensagres.xdocreport&lt;/groupId&gt;
+    &lt;artifactId&gt;xdocreport&lt;/artifactId&gt;
+    &lt;version&gt;2.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h2><pre><code>import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+
+import fr.opensagres.poi.xwpf.converter.core.*;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.converter.PicturesManager;
+import org.apache.poi.hwpf.converter.WordToHtmlConverter;
+import org.apache.poi.hwpf.usermodel.Picture;
+import org.apache.poi.hwpf.usermodel.PictureType;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.w3c.dom.Document;
+
+/**
+* @ClassName DocConvertHtmlUtil
+* @Description: word 转 html 工具类
+* @Author huapisong
+* @Date 2020/3/24
+* @Version V1.0
+**/
+public class DocConvertHtmlUtil {
+    private final static String tempPath = &quot;E:\\srv\\apps\\data\\&quot;;
+
+    public static void main(String[] args) throws ParserConfigurationException, TransformerException, IOException {
+        String sourceFilePath = &quot;E:\\home\\testPdfObject\\JL20012000000128.docx&quot;;
+        String sourceFilePathDoc = &quot;E:\\home\\testPdfObject\\CG2020032400002782.doc&quot;;
+        String filePath = &quot;E:\\srv\\apps\\data\\doc.html&quot;;
+//        doc2Html(sourceFilePathDoc, filePath);
+//        docConvertHtml(sourceFilePath);
+
+        docxConvertHtml(sourceFilePath);
+    }
+
+    /**
+    * docx 转 html
+    * @param sourceFilePath 
+    */
+    public static void docxConvertHtml(String sourceFilePath) {
+
+        try {
+            String outPutFile = &quot;E:\\srv\\apps\\data\\&quot;;
+            String htmlName = &quot;docx.html&quot;;
+            String fileOutName = outPutFile;
+            long startTime = System.currentTimeMillis();
+            XWPFDocument document = new XWPFDocument(new FileInputStream(sourceFilePath));
+
+            XHTMLOptions options = XHTMLOptions.create();
+//            options.URIResolver(new BasicURIResolver(outPutFile));
+            // 导出图片
+//            File imageFolder = new File(outPutFile);
+//            options.setExtractor(new FileImageExtractor(imageFolder));
+            // URI resolver
+//            options.setIgnoreStylesIfUnused(false);
+//            options.setFragment(true);
+            // Extract image
+            //  File imageFolder = new File( FileTools.getInstance().getRoot() + savePath);
+            IImageExtractor extractor = new IImageExtractor() {
+                private String savePath = &quot;&quot;;
+
+                public IImageExtractor setSavePath(String savePath) {
+                    this.savePath = savePath;
+                    return this;
+                }
+
+                @Override
+                public void extract(String arg0, byte[] arg1) throws IOException {
+                    byte[] bytev = arg1;
+                    String fileName = arg0.substring(arg0.lastIndexOf(&quot;/&quot;) + 1);
+                    FileTools.getInstance().saveFile(savePath, fileName, bytev);
+                }
+            }.setSavePath(outPutFile);
+            options.setExtractor(extractor);
+            options.URIResolver(new IURIResolver() {
+                private String savePath = &quot;&quot;;
+
+                public IURIResolver init(String savePath) {
+                    this.savePath = savePath;
+                    return this;
+                }
+
+                @Override
+                public String resolve(String arg0) {
+                    String fileName = arg0.substring(arg0.lastIndexOf(&quot;/&quot;) + 1);
+                    return savePath + fileName + &quot;.html&quot;;
+                }
+            }.init(outPutFile));
+            // 3) 将 XWPFDocument转换成XHTML
+            OutputStream out = new FileOutputStream(new File(outPutFile + htmlName));
+            XHTMLConverter.getInstance().convert(document, out, options);
+
+            System.out.println(&quot;Generate &quot; + fileOutName + &quot; with &quot; + (System.currentTimeMillis() - startTime) + &quot; ms.&quot;);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+    * doc转换为html
+    *
+    * @param fileName
+    * @param outPutFile
+    * @throws TransformerException
+    * @throws IOException
+    * @throws ParserConfigurationException
+    */
+    public static void doc2Html(String fileName, String outPutFile) throws TransformerException, IOException, ParserConfigurationException {
+        long startTime = System.currentTimeMillis();
+        HWPFDocument wordDocument = new HWPFDocument(new FileInputStream(fileName));
+        WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+        wordToHtmlConverter.setPicturesManager(new PicturesManager() {
+            public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
+                return &quot;test/&quot; + suggestedName;
+            }
+        });
+        wordToHtmlConverter.processDocument(wordDocument);
+        // 保存图片
+        List&lt;Picture&gt; pics = wordDocument.getPicturesTable().getAllPictures();
+        if (pics != null) {
+            for (int i = 0; i &lt; pics.size(); i++) {
+                Picture pic = (Picture) pics.get(i);
+                System.out.println();
+                try {
+                    pic.writeImageContent(new FileOutputStream(tempPath + pic.suggestFullFileName()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Document htmlDocument = wordToHtmlConverter.getDocument();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        DOMSource domSource = new DOMSource(htmlDocument);
+        StreamResult streamResult = new StreamResult(out);
+
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer serializer = tf.newTransformer();
+        serializer.setOutputProperty(OutputKeys.ENCODING, &quot;utf-8&quot;);
+        serializer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);
+        serializer.setOutputProperty(OutputKeys.METHOD, &quot;html&quot;);
+        serializer.transform(domSource, streamResult);
+        out.close();
+        writeFile(new String(out.toByteArray()), outPutFile);
+        System.out.println(&quot;Generate &quot; + outPutFile + &quot; with &quot; + (System.currentTimeMillis() - startTime) + &quot; ms.&quot;);
+    }
+
+    /**
+    * 写文件
+    *
+    * @param content
+    * @param path
+    */
+    public static void writeFile(String content, String path) {
+        FileOutputStream fos = null;
+        BufferedWriter bw = null;
+        try {
+            File file = new File(path);
+            fos = new FileOutputStream(file);
+            bw = new BufferedWriter(new OutputStreamWriter(fos, &quot;utf-8&quot;));
+            bw.write(content);
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fos != null)
+                    fos.close();
+            } catch (IOException ie) {
+            }
+        }
+    }
+
+    /**
+    * doc 转 html
+    * @param sourceFilePath
+    */
+    public static void docConvertHtml(String sourceFilePath) {
+
+        String filePath = &quot;E:\\srv\\apps\\data\\&quot;;
+        String htmlName = &quot;doc.html&quot;;
+
+        try {
+            FileInputStream input = new FileInputStream(sourceFilePath);
+            HWPFDocument wordDocument = new HWPFDocument(input);
+            WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+            //解析word文档
+            wordToHtmlConverter.processDocument(wordDocument);
+            Document htmlDocument = wordToHtmlConverter.getDocument();
+            File htmlFile = new File(filePath + htmlName);
+            OutputStream outStream = new FileOutputStream(htmlFile);
+            DOMSource domSource = new DOMSource(htmlDocument);
+            StreamResult streamResult = new StreamResult(outStream);
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer serializer = factory.newTransformer();
+            serializer.setOutputProperty(OutputKeys.ENCODING, &quot;utf-8&quot;);
+            serializer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);
+            serializer.setOutputProperty(OutputKeys.METHOD, &quot;html&quot;);
+            serializer.transform(domSource, streamResult);
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    static class LocalFile{
+        /**
+        * 保存文件
+        * @param fileName
+        * @param foldPath
+        * @param bins
+        * @return
+        */
+        public static void saveFile(String foldPath,String fileName,byte[] bins){
+            try {
+                //data格式为：data:image/png;base64,iVBOR
+                //以,分割
+                StringBuilder filePath = new StringBuilder();
+                filePath.append(foldPath).append(File.separatorChar).append(StringUtil.getUUID()).append(fileName);
+
+                File localFile = new File(filePath.toString());
+                FileOutputStream os = new FileOutputStream(localFile);
+                os.write(bins);
+                os.flush();
+                os.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private static class FileTools {
+        public static LocalFile getInstance() {
+            return null;
+        }
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/POI-Word-Convert-HTML/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/POI/">POI</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/12/17/vue-Quill-Editor/" rel="prev"><span class="meta-nav">←</span> vue中Quill富文本编辑器的使用</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/12/17/Nginx.service failed/" rel="next">启动报错 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2020 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

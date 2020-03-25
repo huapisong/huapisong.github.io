@@ -62,6 +62,1093 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-File-Extract-Compress" class="post-File-Extract-Compress post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/02/06/File-Extract-Compress/">Linux 下常用压缩文件的解压、压缩</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ck86y4a3x0007wwuhx3s0l0ox" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="常用压缩包解压令整理"><a href="#常用压缩包解压令整理" class="headerlink" title="常用压缩包解压令整理"></a>常用压缩包<strong>解压</strong>令整理</h2><ul>
+<li>Linux 后缀为 <code>.war</code> 格式的文件（一般用在部署 Tomcat 项目的时候）</li>
+<li><p>命令：<code>unzip -oq XXXXXX.war -d ROOT</code></p>
+<ul>
+<li>如果没有 ROOT 目录会自动创建 ROOT 目录。</li>
+</ul>
+</li>
+<li><p>Linux 后缀为 <code>.tar.gz</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar zxvf XXXXXX.tar.gz</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.bz2</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>bzip2 -d XXXXXX.bz2</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar.bz2</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar jxvf XXXXXX.tar.bz2</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar zxvf XXXXXX.tar</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.gz</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>gunzip XXXXXX.gz</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.zip</code> 格式的文件-解压</p>
+</li>
+<li>命令：<code>unzip XXXXXX.zip</code></li>
+<li><p>命令：<code>unzip XXXXXX.zip -d /opt/</code>，解压到指定目录</p>
+</li>
+<li><p>Linux 后缀为 <code>.7z</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>7za x XXXXXX.7z</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar.xz</code> 格式的文件-解压，解压出来是tar，再对tar进行解压</p>
+</li>
+<li>命令：<code>tar xf XXXXXX.tar.xz</code></li>
+</ul>
+<hr>
+<h2 id="常用文件进行压缩命令整理"><a href="#常用文件进行压缩命令整理" class="headerlink" title="常用文件进行压缩命令整理"></a>常用文件进行<strong>压缩</strong>命令整理</h2><ul>
+<li>Linux 压缩文件夹为后缀 <code>.war</code> 格式的文件（最好不要对根目录进行压缩，不然会多出一级目录）</li>
+<li>命令：<code>jar -cvfM0 cas.war /opt/cas/META-INF /opt/cas/WEB-INF /opt/cas/index.jsp</code></li>
+<li><p>或者命令：<code>cd 项目根目录 ; jar -cvfM0 cas.war ./*</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -zcvf test11.tar test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar.gz</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -zcvf test11.tar.gz test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.bz2</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>bzip2 -v test.txt</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar.bz2</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -jcvf test11.tar.gz test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.zip</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>zip -r test1.zip /opt/test1/</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.7z</code> 格式的文件</p>
+</li>
+<li>命令：<code>7za a test1.7z /opt/test1/</code></li>
+</ul>
+<h2 id="分卷压缩"><a href="#分卷压缩" class="headerlink" title="分卷压缩"></a>分卷压缩</h2><ul>
+<li>分卷压缩：<code>zip -s 100M myFile.zip --out newFile.zip</code></li>
+<li>最终效果：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">newFile.z01</span><br><span class="line">newFile.z02</span><br><span class="line">newFile.z03</span><br><span class="line">newFile.z04</span><br><span class="line">newFile.zip</span><br></pre></td></tr></table></figure>
+<h2 id="特殊格式"><a href="#特殊格式" class="headerlink" title="特殊格式"></a>特殊格式</h2><ul>
+<li>7z<ul>
+<li>7z 的安装：<ul>
+<li>访问官网下载解压包：<a href="http://sourceforge.net/projects/p7zip/files/p7zip/" target="_blank" rel="noopener">http://sourceforge.net/projects/p7zip/files/p7zip/</a></li>
+<li>解压压缩包：<code>tar jxvf p7zip_15.14_src_all.tar.bz2</code></li>
+<li>进入目录：<code>cd p7zip_15.14</code></li>
+<li>执行安装：<code>sh install.sh</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>rar<ul>
+<li>rar 的安装：<ul>
+<li>下载：<code>wget http://www.rarlab.com/rar/rarlinux-3.8.0.tar.gz</code></li>
+<li>解压下载下来的压缩包：<code>tar zxvf rarlinux-3.8.0.tar.gz</code></li>
+<li>进入解压后目录：<code>cd rar</code></li>
+<li>编译：<code>make</code></li>
+<li>安装：<code>make install</code></li>
+</ul>
+</li>
+<li>rar 解压：<code>rar x 文件名.rar</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="jar-包操作"><a href="#jar-包操作" class="headerlink" title="jar 包操作"></a>jar 包操作</h2><h3 id="修改-jar-包配置文件"><a href="#修改-jar-包配置文件" class="headerlink" title="修改 jar 包配置文件"></a>修改 jar 包配置文件</h3><ul>
+<li>命令：<code>vim mytest.jar</code>，这时候会展示 jar 中所有层级目录下的所有文件</li>
+<li>输入：<code>/log4j2.xml</code> 回车，光标定位到该文件，然后再回车，进入编辑该文件状态</li>
+<li>此时可以修改配置文件了，修改后 <code>:wq</code> 保存退出，接着 <code>：q</code> 退出 jar 编辑状态</li>
+</ul>
+<h3 id="更新-Jar-包中的文件"><a href="#更新-Jar-包中的文件" class="headerlink" title="更新 Jar 包中的文件"></a>更新 Jar 包中的文件</h3><ul>
+<li>替换（新增）jar 根目录下的文件：<code>jar uvf mytest.jar ClassToAdd.class</code>  </li>
+<li>一般 class 文件都是在多层目录里面的，需要这样做：<code>jar uvf mytest.jar com/youmeek/ClassToAdd.class</code><ul>
+<li>需要在 jar 所在的文件夹下创建：<code>mkdir -p ./com/youmeek</code>，该目录必须和原 jar 里面的层级目录结构一致</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/02/06/File-Extract-Compress/">
+    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
+        2017-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ck86y4a46000lwwuhw96zhyno" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
+</li>
+<li><p>以下载 openssh-server 为例：</p>
+<ul>
+<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
+<li>在 /opt/ssh 目录下有如下内容：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
+<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/Off-line-Yum-Install/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ck86y4a3s0003wwuhkstofby5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>2.1 安装依赖</p>
+<pre><code>yum -y install gcc gcc-c++ autoconf automake
+yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
+</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
+<pre><code># 解压缩
+tar -zxvf nginx-1.10.2.tar.gz
+
+# 进入压缩目录
+cd nginx-1.10.2
+
+# 进行模块配置
+./configure \
+  --prefix=/usr \
+  --sbin-path=/usr/sbin/nginx \
+  --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/var/log/nginx/error.log \
+  --http-log-path=/var/log/nginx/access.log \
+  --pid-path=/var/run/nginx/nginx.pid  \
+  --lock-path=/var/lock/nginx.lock \
+  --user=nginx \
+  --group=nginx \
+  --with-http_ssl_module \
+  --with-http_flv_module \
+  --with-http_stub_status_module \
+  --with-http_gzip_static_module \
+  --http-client-body-temp-path=/var/tmp/nginx/client/ \
+  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
+  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
+  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+  --http-scgi-temp-path=/var/tmp/nginx/scgi \
+  --with-pcre
+
+# 编译安装
+make &amp;&amp; make install
+</code></pre><p>2.5 安装路径</p>
+<pre><code># 名称路径日志目录
+/var/log/nginx
+# 配置目录
+/etc/nginx
+# PID文件
+/var/run/nginx/nginx.pid
+# 启动文件
+/usr/sbin/nginx
+</code></pre><p>2.6 centos6服务脚本</p>
+<pre><code>#创建文件
+touch /etc/rc.d/init.d/nginx
+chmod +x /etc/rc.d/init.d/nginx
+在其中添加如下：
+</code></pre><p>启动脚本</p>
+<pre><code>#!/bin/sh  
+#  
+# nginx - this script starts and stops the nginx daemon  
+#  
+# chkconfig:   - 85 15  
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
+#               proxy and IMAP/POP3 proxy server  
+# processname: nginx  
+
+# Source function library.  
+. /etc/rc.d/init.d/functions  
+
+# Source networking configuration.  
+. /etc/sysconfig/network  
+
+# Check that networking is up.  
+[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
+
+nginx=&quot;/usr/sbin/nginx&quot;  
+prog=$(basename $nginx)  
+
+sysconfig=&quot;/etc/sysconfig/$prog&quot;  
+lockfile=&quot;/var/lock/nginx.lock&quot;  
+pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
+
+NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
+
+[ -f $sysconfig ] &amp;&amp; . $sysconfig  
+
+start() {  
+    [ -x $nginx ] || exit 5  
+    [ -f $NGINX_CONF_FILE ] || exit 6  
+    echo -n $&quot;Starting $prog: &quot;  
+    daemon $nginx -c $NGINX_CONF_FILE  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
+    return $retval  
+}  
+
+stop() {  
+    echo -n $&quot;Stopping $prog: &quot;  
+    killproc -p $pidfile $prog  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
+    return $retval  
+}  
+
+restart() {  
+    configtest_q || return 6  
+    stop  
+    start  
+}  
+
+reload() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reloading $prog: &quot;  
+    killproc -p $pidfile $prog -HUP  
+    echo  
+}  
+
+configtest() {  
+    $nginx -t -c $NGINX_CONF_FILE  
+}  
+
+configtest_q() {  
+    $nginx -t -q -c $NGINX_CONF_FILE  
+}  
+
+rh_status() {  
+    status $prog  
+}  
+
+rh_status_q() {  
+    rh_status &gt;/dev/null 2&gt;&amp;1  
+}  
+
+# Upgrade the binary with no downtime.  
+upgrade() {  
+    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
+
+    configtest_q || return 6  
+    echo -n $&quot;Upgrading $prog: &quot;  
+    killproc -p $pidfile $prog -USR2  
+    retval=$?  
+    sleep 1  
+    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
+        killproc -p $oldbin_pidfile $prog -QUIT  
+        success $&quot;$prog online upgrade&quot;  
+        echo   
+        return 0  
+    else  
+        failure $&quot;$prog online upgrade&quot;  
+        echo  
+        return 1  
+    fi  
+}  
+
+# Tell nginx to reopen logs  
+reopen_logs() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reopening $prog logs: &quot;  
+    killproc -p $pidfile $prog -USR1  
+    retval=$?  
+    echo  
+    return $retval  
+}
+
+case &quot;$1&quot; in
+    start)
+        rh_status_q &amp;&amp; exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest|reopen_logs)
+        $1
+        ;;
+    force-reload|upgrade)
+        rh_status_q || exit 7
+        upgrade
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status|status_q)
+        rh_$1
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 7
+        restart
+        ;;
+    *)
+        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
+        exit 2
+esac
+
+添加nginx服务为系统服务
+开机启动方式
+
+    # 开机启动
+    chkconfig --add nginx
+    chkconfig --level 345 nginx on
+    chkconfig --list nginx
+
+    # 开机不启动
+    chkconfig nginx off
+    chkconfig --list nginx
+添加成功后就可以执行service nginx start、stop、restart、status等操作了。
+</code></pre><p>2.7 centos7服务脚本</p>
+<pre><code># 创建文件
+touch /usr/lib/systemd/system/nginx.service
+# 启动脚本
+[Unit]
+Description=nginx
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+# 开机启动方式
+
+# 开机启动
+systemctl enable nginx.service
+
+# 开机不启动
+systemctl disable nginx.service
+
+# 其他操作
+systemcl ( status | start | stop | reload | restart ) nginx.service
+
+------------------------------------------------------------------------------------------------
+</code></pre><h2 id="CentOS7中使用yum安装Nginx的方法"><a href="#CentOS7中使用yum安装Nginx的方法" class="headerlink" title="CentOS7中使用yum安装Nginx的方法"></a>CentOS7中使用yum安装Nginx的方法</h2><pre><code>最近无意间发现Nginx官方提供了Yum源。因此写个文章记录下。
+
+1、添加源
+</code></pre><p>　　默认情况Centos7中无Nginx的源，最近发现Nginx官网提供了Centos的源地址。因此可以如下执行命令添加源：</p>
+<pre><code>sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+2、安装Nginx
+
+　　通过yum search nginx看看是否已经添加源成功。如果成功则执行下列命令安装Nginx。
+
+sudo yum install -y nginx
+
+3、启动Nginx并设置开机自动运行
+
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+
+4、浏览查看效果
+
+在浏览器中输入您的服务器地址：http://http://10.42.1.50//
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ck86y4a4r001nwwuhnr73y29q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
+<p>一、安装环境</p>
+<pre><code>● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+</code></pre><p>二、安装步骤</p>
+<p>第一步：下载安装包</p>
+<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
+
+由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
+</code></pre><p>第二步： 上传jdk1.8 安装包</p>
+<pre><code># 上传jdk1.8 安装包
+scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
+# 进入jdk目录
+cd /hupisong/java/
+# 解压JDK1.8安装包
+tar -zxvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>第三步、修改环境变量</p>
+<pre><code># 编辑文件
+vi /etc/profile
+# 按 &apos;i&apos; 键编辑
+# 编辑,在最后一行添加
+# 添加内容如下 
+export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
+export PATH=$JAVA_HOME/bin:$PATH
+# 退出编辑并保存：
+# 按&apos;esc&apos;键退出编辑 
+# 输入&apos;:wq&apos; 保存编辑内容
+:wq 
+# 加载设置的变量，使其生效
+ source /etc/profile
+</code></pre><p>第四步、测试是否安装成功</p>
+<pre><code># 输入命令
+java -version
+#成功结果如下：
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>至此，安装结束</p>
+<p><a href="https://github.com/xpbob/CrashAnalysis" target="_blank" rel="noopener">https://github.com/xpbob/CrashAnalysis</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/linux安装JDK/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="post-3.服务器上的iptables防火墙应该如何配置才能更安全 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">服务器上的iptables防火墙应该如何配置才能更安全</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="ck86y4a3t0004wwuh79ie76ov" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>3.1 背景</p>
+<pre><code>新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
+    公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
+    下面流程化说明防火墙配置步骤
+</code></pre><p>3.2 封口</p>
+<p>将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配置规则。这里值得提醒的是此操作需要在本机执行，因为 telnet 或者 ssh 的连接会当即断开。</p>
+<pre><code> # 丢弃输入数据流向 
+iptables -P INPUT DROP
+ # 丢弃输出数据流向 
+iptables -P OUTPUT DROP
+# 丢弃转向数据流向 
+iptables -P FORWARD DROP
+</code></pre><p>3.3 开放SSH服务</p>
+<p>首先确保 ssh 远程连接开放，添加对 ssh 服务的出入站规则，正常端口为22（端口应该更换成非22）</p>
+<pre><code># 允许任务来源接入服务器的22端口
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+# 允许服务器通过22端口向任何来源发送数据包
+iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
+做好以上的 ssh 服务规则后，任何来源等可以连接，若要求更高级的安全则可以添加准入IP，可以添加多条，其他服务同理。
+# 允许来源IP为221.4.12.28的地址访问服务器的22端口，即ssh服务
+iptables -I INPUT -s 221.4.12.28 -p tcp --dport 22 -j ACCEPT
+</code></pre><p>3.4 启用Ping命令</p>
+<p>当执行 ping 命令时，其实是向目标地址发送 icmp 的数据包并得到回显信息。在服务器内部 ping 外部地址时，属于 OUTPUT，由于服务器的输出已经被DROP掉，所以服务器目前 ping 不通任何外部 IP 地址，考虑到运维的需要，添加允许 ping 外部IP的规则。</p>
+<pre><code># 允许服务器向外部发送icmp的数据包
+iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+# 允许服务器接收来自外部服务器返回的icmp数据包
+iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</code></pre><p>目前服务器可以 ping 外部IP地址了，但外部来源 ping 服务器是不通的。选择不开放来自外部的 ping 请求或许是一个好想法，这样可以迷惑扫描工具避免暴露主机的存活性(高级的扫描工具除外，如 nmap)。<br>下面是服务器接收和响应 ping 请求的出入站规则</p>
+<pre><code># 允许任何来源向服务器发送icmp的数据包
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+# 允许服务器向任何来源回显icmp的数据包
+iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
+</code></pre><p>3.5 启用DNS服务<br>服务器 ping 外部IP地址正常了，但 ping 外部的域名时则会显示 unknown host 的错误，这是因为 DNS 服务的53端口没有配置出入站规则。<br>下面是 DNS 服务的规则:</p>
+<pre><code>iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
+iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
+</code></pre><p>3.6 下载软件<br>现在服务器需要从外部下载某些软件，通常我们会使用 wget 或者 curl 这样的工具，执行时发现一直卡着不动。这是因为服务器访问外网的80端口出站和入站规则没有配置，需要添加，如下：</p>
+<pre><code>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --sport 80 -j ACCEPT
+</code></pre><p>备注：使用类似与nginx代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443的服务，规则如下：<br>        iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>        iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
+<pre><code>iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+</code></pre><p>当需要开放本地端口，如127.0.0.1或者localhost的端口时，可以使用以下命令使 通过127.0.0.1的访问全部通过<br>        iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
+<pre><code>iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 443 -j ACCEPT
+</code></pre><p>3.9 删除规则</p>
+<pre><code>iptables -L -n --line-number
+iptables -D INPUT 15
+iptables -D OUTPUT 13
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="ck86y4a3p0001wwuhxe3sv4j1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>4.1.使用背景</p>
+<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+</code></pre><p>4.2.下载安装脚本</p>
+<pre><code>下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
+
+# 赋予执行权限
+chmod +x letsencrypt.sh
+</code></pre><p>4.3.配置相关信息</p>
+<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
+# only modify the values, key files will be generated automaticly.
+ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
+DOMAIN_KEY=&quot;tiger.com.key&quot;
+DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
+DOMAINS=&quot;DNS:test.tiger.com&quot;
+#ECC=TRUE
+#LIGHTTPD=TRUE
+</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
+<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
+<p>4.4.执行证书生成</p>
+<pre><code>./letsencrypt.sh ./letsencrypt.conf
+</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
+<pre><code>letsencrypt-account.key
+tiger.crt
+tiger.csr
+tiger.chained.crt
+tiger.com.key
+</code></pre><p>4.5.配置证书安装</p>
+<p>这里使用nginx进行证书安装的服务器</p>
+<pre><code>server {
+        listen       443;
+        server_name  test.tiger.com;
+
+    ssl on;
+    ssl_certificate tiger.chained.crt;
+    ssl_certificate_key tiger.com.key;
+    ssl_session_timeout 5m;
+
+    location / {
+        root html;
+        index  index.html index.htm;
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-java中set接口的用法" class="post-java中set接口的用法 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/06/03/java中set接口的用法/">java中set接口的用法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="ck86y4a630042wwuhgs256202" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="java中的set接口有如下的特点"><a href="#java中的set接口有如下的特点" class="headerlink" title="java中的set接口有如下的特点"></a>java中的set接口有如下的特点</h2><pre><code>不允许出现重复元素；
+集合中的元素位置无顺序；
+有且只有一个值为null的元素。
+</code></pre><p>因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为：</p>
+<pre><code>互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。
+
+无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按照序关系排序。但就集合本身的特性而言，元素之间没有必然的序。
+
+空集的性质：空集是一切集合的子集
+
+
+
+  Set不保存重复的元素。Set中最常被使用的是测试归属性，你可以很容易的询问某个对象是否在某个Set中。Set具有与Collection完全一样的接口，因此没有任何额外的功能。实际上Set就是Collection，只是行为不同。
+</code></pre><p>实现了Set接口的主要有HashSet、TreeSet、LinkedHashSet这几个共同点就是每个相同的项只保存一份。他们也有不同点，区别如下：</p>
+<h2 id="1-HashSet"><a href="#1-HashSet" class="headerlink" title="1. HashSet"></a>1. HashSet</h2><p>HashSet使用的是相当复杂的方式来存储元素的，使用HashSet能够最快的获取集合中的元素，效率非常高（以空间换时间）。会根据hashcode和equals来庞端是否是同一个对象，如果hashcode一样，并且equals返回true，则是同一个对象，不能重复存放。</p>
+<pre><code>package cn.set;
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Student{
+    int id;
+    public Student(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student){
+            Student  stu = (Student) obj;
+            if (stu.id == this.id)
+                return true;
+        }
+        return false;
+    }
+}
+public class HashSetTest {
+    public static void main(String[] args) {
+        Set&lt;Student&gt; set = new HashSet&lt;Student&gt;();
+        Student s1 = new Student(1);
+        Student s2 = new Student(1);
+        Student s3 = new Student(2);
+        set.add(s1);
+        set.add(s2);
+        set.add(s3);
+        for (Student s : set) {
+            System.out.println(s);
+        }
+    }
+}
+</code></pre><p>正如上例所示，重写了hashCode()和equals()方法来区分同意对象后，就不能存放同以对象了。如果注释这两个方法，则所有Student对象视为不同对象，都可以存放。</p>
+<h2 id="2-TreeSet"><a href="#2-TreeSet" class="headerlink" title="2.TreeSet"></a>2.TreeSet</h2><p>　　TreeSet也不能存放重复对象，但是TreeSet会自动排序，如果存放的对象不能排序则会报错，所以存放的对象必须指定排序规则。排序规则包括自然排序和客户排序。</p>
+<p>　　①自然排序：TreeSet要添加哪个对象就在哪个对象类上面实现java.lang.Comparable接口，并且重写comparaTo()方法，返回0则表示是同一个对象，否则为不同对象。</p>
+<p>　　②客户排序：建立一个第三方类并实现java.util.Comparator接口。并重写方法。定义集合形式为TreeSet ts = new TreeSet(new 第三方类());</p>
+<p>下面一个例子用TreeSet存放自然排序的对象：</p>
+<pre><code>package cn.set;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+class Student1 implements Comparable&lt;Student1&gt;{
+    int id;
+    public Student1(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student1){
+            Student1  stu = (Student1) obj;
+            if (stu.id == this.id)
+                return true;
+        }
+        return false;
+    }
+    public int compareTo(Student1 o) {
+        return (this.id-o.id);
+    }
+}
+
+public class TreeSetTest {
+    public static void main(String[] args) {
+        Set&lt;Student1&gt; set = new TreeSet&lt;Student1&gt;();
+        Student1 s1 = new Student1(5);
+        Student1 s2 = new Student1(1);
+        Student1 s3 = new Student1(2);
+        Student1 s4 = new Student1(4);
+        Student1 s5 = new Student1(3);
+        set.add(s1);
+        set.add(s2);
+        set.add(s3);
+        set.add(s4);
+        set.add(s5);
+        for (Student1 s : set) {
+            System.out.println(s);
+        }
+    }
+
+}
+</code></pre><p>输出结果为：<br>    1<br>    2<br>    3<br>    4<br>    5</p>
+<p>下面一个例子用TreeSet存放客户排序的对象：</p>
+<pre><code>package com.set;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+class Student1 implements Comparable&lt;Student1&gt;{
+    int id;
+    public Student1(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student1){
+            Student1  stu = (Student1) obj;
+            if (stu.id == this.id)
+                return true;
+        }
+        return false;
+    }
+    public int compareTo(Student1 o) {
+        return (this.id-o.id);
+    }
+}
+
+public class TreeSetTest {
+    public static void main(String[] args) {
+        Set&lt;Student1&gt; set = new TreeSet&lt;Student1&gt;();
+        Student1 s1 = new Student1(5);
+        Student1 s2 = new Student1(1);
+        Student1 s3 = new Student1(2);
+        Student1 s4 = new Student1(4);
+        Student1 s5 = new Student1(3);
+        set.add(s1);
+        set.add(s2);
+        set.add(s3);
+        set.add(s4);
+        set.add(s5);
+        for (Student1 s : set) {
+            System.out.println(s);
+        }
+    }
+
+}
+</code></pre><p>输出结果为：</p>
+<pre><code>5
+4
+3
+2
+1
+</code></pre><p>大家都知道List存放时按照插入顺序排序的，其实也可以用自然排序和客户排序对List集合排序，大家请看：</p>
+<pre><code>package cn.set;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class MySort1 implements java.util.Comparator&lt;Student3&gt;{
+    public int compare(Student3 o1, Student3 o2) {
+        return o2.id-o1.id;
+    }
+}
+class Student3 implements Comparable&lt;Student3&gt;{
+    int id;
+    public Student3(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    public int compareTo(Student3 o) {
+        return (this.id-o.id);
+    }
+}
+
+public class ListSort {
+    public static void main(String[] args) {
+        List&lt;Student3&gt; list = new ArrayList&lt;Student3&gt;();
+        Student3 s1 = new Student3(5);
+        Student3 s2 = new Student3(1);
+        Student3 s3 = new Student3(2);
+        Student3 s4 = new Student3(4);
+        Student3 s5 = new Student3(3);
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        list.add(s4);
+        list.add(s5);
+        System.out.println(list);
+        //自然排序：
+        Collections.sort(list);
+        System.out.println(list);
+        //客户排序
+        Collections.sort(list, new MySort1());
+        System.out.println(list);
+    }
+}
+</code></pre><p>输出结果为：</p>
+<pre><code>[5, 1, 2, 4, 3]
+[1, 2, 3, 4, 5]
+[5, 4, 3, 2, 1]
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2016/06/03/java中set接口的用法/">
+    <time datetime="2016-06-02T16:00:00.000Z" class="entry-date">
+        2016-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +1164,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="ck49hqbl4001634uhedslrd71" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="ck86y4a4l001dwwuhva8w9fwj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -253,7 +1340,7 @@ public class AccountValidatorUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="ck49hqbl3001434uhs538myb3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="ck86y4a4j0018wwuhqugkfp61" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -341,7 +1428,7 @@ HTTP响应也是由三个部分组成，分别是：状态行、消息报头、�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="ck49hqbn0004034uhvdkccdrx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="ck86y4a6k004mwwuhfakkm1s4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -722,7 +1809,7 @@ git commit --amend
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -734,23 +1821,23 @@ git commit --amend
       <ul>
         
           <li>
+            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/AES/">AES 加密、解密</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
           </li>
         
       </ul>
@@ -765,7 +1852,7 @@ git commit --amend
 </div>
       </div>
       <footer id="colophon" role="contentinfo">
-    <p>&copy; 2019 花皮松
+    <p>&copy; 2020 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
     <!-- busuanzi start -->
