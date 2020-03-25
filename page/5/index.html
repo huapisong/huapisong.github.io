@@ -62,6 +62,236 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/12/Spring Cloud(二)服务消费者/">Spring Cloud构建微服务架构（二）服务消费者</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck86zca1u00410kuhwc2og0lj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？</p>
+<h3 id="Ribbon"><a href="#Ribbon" class="headerlink" title="Ribbon"></a>Ribbon</h3><p>Ribbon是一个基于HTTP和TCP客户端的负载均衡器。Feign中也使用Ribbon，后续会介绍Feign的使用。</p>
+<p>Ribbon可以在通过客户端中配置的ribbonServerList服务端列表去轮询访问以达到均衡负载的作用。</p>
+<p>当Ribbon与Eureka联合使用时，ribbonServerList会被DiscoveryEnabledNIWSServerList重写，扩展成从Eureka注册中心中获取服务端列表。同时它也会用NIWSDiscoveryPing来取代IPing，它将职责委托给Eureka来确定服务端是否已经启动。</p>
+<p>下面我们通过实例看看如何使用Ribbon来调用服务，并实现客户端的均衡负载。<br>准备工作</p>
+<pre><code>启动服务注册中心：eureka
+启动服务提供方：compute-service
+修改compute-service中的server-port为2000，再启动一个服务提供方：compute-service
+</code></pre><p>此时访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
+<p>可以看到COMPUTE-SERVICE服务有两个单元正在运行：</p>
+<pre><code>zangqisong-PC:compute-service:2001
+zangqisong-PC:compute-service:2000
+</code></pre><p><img src="/assets/SpringCloudImg/eurekaComputeService1.png" alt="image"><br>使用Ribbon实现客户端负载均衡的消费者</p>
+<p>构建一个基本Spring Boot项目，并在pom.xml中加入如下内容：</p>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-ribbon&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+        &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+        &lt;version&gt;RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+</code></pre><p>在应用主类中，通过@EnableDiscoveryClient注解来添加发现服务能力。创建RestTemplate实例，并通过@LoadBalanced注解开启均衡负载能力。</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class EurekaRibbonApplication {
+
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaRibbonApplication.class, args);
+    }
+
+}
+</code></pre><p>创建ConsumerController来消费COMPUTE-SERVICE的add服务。通过直接RestTemplate来调用服务，计算10 + 20的值。</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public String add() {
+        return restTemplate.getForEntity(&quot;http://COMPUTE-SERVICE/add?a=10&amp;b=20&quot;, String.class).getBody();
+    }
+
+}
+</code></pre><p>application.properties中配置eureka服务注册中心</p>
+<pre><code>spring.application.name=ribbon-consumer
+server.port=2002
+eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
+</code></pre><p><a href="http://localhost:2002/add" target="_blank" rel="noopener">启动该应用，并访问两次：http://localhost:2002/add</a></p>
+<p>然后，打开compute-service的两个服务提供方，分别输出了类似下面的日志内容：</p>
+<pre><code>端口为2000服务提供端的日志：
+
+2019-04-16 13:48:40.690  INFO 79592 --- [nio-2000-exec-2] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
+
+端口为2001服务提供端的日志：
+
+2019-04-16 13:48:40.811  INFO 114792 --- [nio-2001-exec-7] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2001, result:30
+</code></pre><p>可以看到，之前启动的两个compute-service服务端分别被调用了一次。到这里，我们已经通过Ribbon在客户端已经实现了对服务调用的均衡负载。</p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka-ribbon</a></p>
+<h3 id="Feign"><a href="#Feign" class="headerlink" title="Feign"></a>Feign</h3><p>Feign是一个声明式的Web Service客户端，它使得编写Web Serivce客户端变得更加简单。我们只需要使用Feign来创建一个接口并用注解来配置它既可完成。它具备可插拔的注解支持，包括Feign注解和JAX-RS注解。Feign也支持可插拔的编码器和解码器。Spring Cloud为Feign增加了对Spring MVC注解的支持，还整合了Ribbon和Eureka来提供均衡负载的HTTP客户端实现。</p>
+<p>下面，通过一个例子来展现Feign如何方便的声明对上述computer-service服务的定义和调用。</p>
+<p>创建一个Spring Boot工程，配置pom.xml，将上述的配置中的ribbon依赖替换成feign的依赖即可，具体如下：</p>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+        &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+        &lt;version&gt;RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre><p>在应用主类中通过@EnableFeignClients注解开启Feign功能，具体如下：</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+public class EurekaFeignApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaFeignApplication.class, args);
+    }
+
+}
+</code></pre><p>定义compute-service服务的接口，具体如下：</p>
+<pre><code>@FeignClient(&quot;compute-service&quot;)
+public interface ComputeClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = &quot;/add&quot;)
+    Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b);
+
+}
+
+使用@FeignClient(&quot;compute-service&quot;)注解来绑定该接口对应compute-service服务
+通过Spring MVC的注解来配置compute-service服务下的具体实现。
+</code></pre><p>在web层中调用上面定义的ComputeClient，具体如下：</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    ComputeClient computeClient;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public Integer add() {
+        return computeClient.add(10, 20);
+    }
+
+}
+</code></pre><p>application.properties中不用变，指定eureka服务注册中心即可，如：</p>
+<pre><code>spring.application.name=feign-consumer
+server.port=2003
+eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
+</code></pre><p><a href="http://localhost:2003/add" target="_blank" rel="noopener">启动该应用，访问几次：http://localhost:2003/add</a></p>
+<p>再观察日志，可以得到之前使用Ribbon时一样的结果，对服务提供方实现了均衡负载。</p>
+<pre><code>2019-04-16 14:48:21.475  INFO 114792 --- [nio-2001-exec-9] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
+2019-04-16 14:48:21.741  INFO 79592 --- [nio-2000-exec-4] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
+</code></pre><p>这一节我们通过Feign以接口和注解配置的方式，轻松实现了对compute-service服务的绑定，这样我们就可以在本地应用中像本地服务一下的调用它，并且做到了客户端均衡负载。</p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">示例可参见：SpringCloudDemo/eureka-feign</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/12/Spring Cloud(二)服务消费者/">
+    <time datetime="2019-04-11T16:00:00.000Z" class="entry-date">
+        2019-04-12
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(一)服务注册与发现" class="post-Spring Cloud(一)服务注册与发现 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +307,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ck86y4a5z003wwwuh5jvon4xp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ck86zca1v00420kuhg7qmk744" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -280,7 +510,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ck86y4a4v001vwwuhd80n9z1d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ck86zca0k001w0kuh91d0jjka" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -510,7 +740,7 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ck86y4a5a002owwuhvboc6lrj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ck86zca0y002s0kuhsaid11d0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -574,7 +804,7 @@ https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ck86y4a58002lwwuhw56znon1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ck86zca0w002o0kuhynwzb61a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -659,7 +889,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ck86y4a53002ewwuhcjmd91ur" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ck86zca0t002h0kuhqeheefw8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -739,7 +969,7 @@ Element UI该组件已经在属性层面提供了解决办法，只要添加
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ck86y4a5y003uwwuh0cz7q9lx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ck86zca1s003y0kuhsml0uz9t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -941,7 +1171,7 @@ RPC的特点
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="ck86y4a4c000xwwuh5mwmzn9h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="ck86zca0500110kuhq8ecj8zo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1096,7 +1326,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ck86y4a3z000bwwuh30s5kn92" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ck86zc9zr000d0kuhfvca5ygm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1174,7 +1404,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ck86y4a44000iwwuhnhjzdts7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ck86zc9zx000l0kuh42f3zijk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1223,165 +1453,10 @@ public class TestController extends BaseController{
 
 
   
-    <article id="post-String-Reverse" class="post-String-Reverse post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/02/06/String-Reverse/">String 的反转</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="ck86y4a4e0011wwuhue4b89jm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>package com.example.demo;
-
-import java.util.Stack;
-
-/**
- * String 的反转
- */
-public class Reverse {
-    private String str = null;
-
-    public Reverse(String str) {
-        this.str = str;
-    }
-
-    // 数组实现String反转
-    public String reverseByArray() {
-        if (str == null || str.length() == 1) {
-            return str;
-        }
-        char[] ch = str.toCharArray();// 字符串转换成字符数组
-        for (int i = 0; i &lt; ch.length / 2; i++) {
-            char temp = ch[i];
-            ch[i] = ch[ch.length - i - 1];
-            ch[ch.length - i - 1] = temp;
-        }
-        return new String(ch);
-    }
-
-    // 用栈实现String反转
-    public String reverseByStack() {
-        if (str == null || str.length() == 1) {
-            return str;
-        }
-        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();
-        char[] ch = str.toCharArray();// 字符串转换成字符数组
-        for (char c : ch) {
-            stack.push(c);// 每个字符，推进栈
-        }
-        for (int i = 0; i &lt; ch.length; i++) {
-            ch[i] = stack.pop();// 移除这个堆栈的顶部对象
-        }
-        return new String(ch);
-    }
-
-    // 用逆序遍历实现String反转
-    public String reverseBySort() {
-        if (str == null || str.length() == 1) {
-            return str;
-        }
-        StringBuffer sb = new StringBuffer();
-        for (int i = str.length() - 1; i &gt;= 0; i--) {
-            sb.append(str.charAt(i));// 使用StringBuffer从右往左拼接字符
-        }
-        return sb.toString();
-    }
-
-    // 使用位运算实现String反转
-    public String reverseByBit() {
-        if (str == null || str.length() == 1) {
-            return str;
-        }
-        char[] ch = str.toCharArray();// 字符串转换成字符数组
-        int len = str.length();
-        for (int i = 0; i &lt; len / 2; i++) {
-            ch[i] ^= ch[len - 1 - i];
-            ch[len - 1 - i] ^= ch[i];
-            ch[i] ^= ch[len - 1 - i];
-        }
-        return new String(ch);
-    }
-
-    //使用递归实现String反转
-    public String reverseByRecursive(String str) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        if (str.length() == 1) {
-            return str;
-        } else {
-            // 从下标为1开始截取字符串，在返回下标为0的字符
-            return reverseByRecursive(str.substring(1)) + str.charAt(0);
-        }
-    }
-
-    // 使用 StringBuilder reverse() 方法反转
-    public String reverseByStringBuilder(String str) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        StringBuilder sb = new StringBuilder(str);
-        return sb.reverse().toString();
-    }
-
-    public static void main(String[] args) {
-        String s = &quot;123456&quot;;
-
-        Reverse r = new Reverse(s);
-        System.out.println(r.reverseByArray());
-        System.out.println(r.reverseByStack());
-        System.out.println(r.reverseBySort());
-        System.out.println(r.reverseByBit());
-        System.out.println(r.reverseByRecursive(s));
-        System.out.println(r.reverseByStringBuilder(s));
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/02/06/String-Reverse/">
-    <time datetime="2018-02-05T16:00:00.000Z" class="entry-date">
-        2018-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1402,7 +1477,7 @@ public class Reverse {
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1418,19 +1493,19 @@ public class Reverse {
           </li>
         
           <li>
+            <a href="/2020/01/16/Git-remote-and-push/">git 开发生产仓库同步代码</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
           </li>
         
           <li>
-            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+            <a href="/2019/12/17/AES/">AES 加密、解密</a>
           </li>
         
           <li>
             <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
           </li>
         
       </ul>

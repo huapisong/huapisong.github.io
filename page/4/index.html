@@ -62,6 +62,92 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-vue + webpack-build-params-init" class="post-vue + webpack-build-params-init post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/06/vue + webpack-build-params-init/">编译不同环境 global 参数设置</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack-build-params-init/" data-id="ck86zca0r002e0kuhedg3jro4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="获取-‘npm-run-build-dev’-中的参数，修改-global"><a href="#获取-‘npm-run-build-dev’-中的参数，修改-global" class="headerlink" title="获取 ‘npm run build dev’ 中的参数，修改 global"></a>获取 ‘npm run build dev’ 中的参数，修改 global</h2><pre><code># 在 build.js 中添加如下修改
+
+const yargs = require(&apos;yargs&apos;)
+const fs = require(&apos;fs&apos;)
+let envList = [&apos;prod&apos;, &apos;test&apos;, &apos;dev&apos;, &apos;local&apos;, &apos;stage&apos;];
+let globConfig = (yargs.argv.config &amp;&amp; envList.includes(yargs.argv.config)) ? yargs.argv.config : (yargs.argv._[0]? yargs.argv._[0]: envList[2]);
+let versionConfig = yargs.argv.vers ? yargs.argv.vers : &apos;1.0.0.0&apos;;
+console.log(&apos;building for&apos;, globConfig,)
+console.log(yargs.argv, yargs.argv._[0])
+
+let glogFile = fs.readFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;), &apos;utf-8&apos;)
+let curFile = glogFile.replace(/(let\s*env\s*\=\s*)(\d+)(\s*\;)/gi, (s0, s1, s2, s3) =&gt; {
+  let config = 4
+  // (globConfig === &apos;test&apos;) ? 2 : ((globConfig === &apos;prod&apos;) ? 1 : ((globConfig === &apos;dev&apos;) ? 3: globConfig === &apos;stage&apos; ? 5 : 4))
+  switch(globConfig) {
+    case &apos;test&apos;:
+      config = 2
+      break;
+    case &apos;prod&apos;:
+      config = 1
+      break;
+    case &apos;dev&apos;:
+      config = 3
+      break;
+    case &apos;stage&apos;:
+      config = 5
+      break;
+    default:
+      config = 4
+  }
+  return s1 + config + s3;
+}).replace(/(let\s*version\s*\=\s*\&quot;)(.*)(\&quot;\;)/gi, (s0, s1, s2, s3) =&gt; {
+  return s1 + versionConfig + s3;
+})
+
+fs.writeFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;), curFile, &apos;utf-8&apos;);
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/06/vue + webpack-build-params-init/">
+    <time datetime="2019-05-05T16:00:00.000Z" class="entry-date">
+        2019-05-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +163,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="ck86y4a57002jwwuhnpuemer6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="ck86zca0v002n0kuha68lggu9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -184,7 +270,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="ck86y4a640044wwuhobcm9jil" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="ck86zca1z00480kuhrbep91q5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -411,7 +497,7 @@ public class Test4 {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="ck86y4a650046wwuhe7gtouum" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="ck86zca20004a0kuhjt7f5htb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -648,7 +734,7 @@ public CopyOnWriteArraySet() {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="ck86y4a68004awwuhtq40qg7h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="ck86zca22004e0kuh398bfycf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -915,7 +1001,7 @@ server {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ck86y4a6k004lwwuh0liqp5h8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ck86zca2e004p0kuhnwu03a8b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1286,7 +1372,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ck86y4a69004cwwuh1h3tp63n" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ck86zca23004g0kuhlcdao2ac" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1369,7 +1455,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ck86y4a4b000vwwuh4xdp8lfx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ck86zca03000x0kuhx65zrnc5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1476,6 +1562,84 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 
 
   
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="ck86zca02000v0kuhjh9cgx65" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1491,7 +1655,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck86y4a60003xwwuhkz0r390y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ck86zca1t00400kuhn2d0oi3o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1635,318 +1799,10 @@ public class ComputeClientHystrix implements ComputeClient {
 
 
   
-    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="ck86y4a4a000twwuhp4krvnn3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
-##开启限流
-zuul:
-    # 定义的路由规则
-    routes:
-    export-service:
-        path:  /main/api/
-        url: exportPdf
-        serviceId: export-service
-    ratelimit:
-    enabled: true
-#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
-#      ##针对某个 url 进行限流，不影响其他 
-    policy-list:
-        - export-service:
-        - limit: 1 #3秒内只能刷新一次
-            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
-            type:
-#              - origin
-            - url
-#      policies:
-#        export-service:
-#          - limit: 1
-#            refresh-interval: 10
-#            type:
-#  #            - user
-#              - origin
-#  #            - url
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/15/Spring Cloud限流/">
-    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
-        2019-04-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/12/Spring Cloud(二)服务消费者/">Spring Cloud构建微服务架构（二）服务消费者</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ck86y4a61003ywwuh408stofa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？</p>
-<h3 id="Ribbon"><a href="#Ribbon" class="headerlink" title="Ribbon"></a>Ribbon</h3><p>Ribbon是一个基于HTTP和TCP客户端的负载均衡器。Feign中也使用Ribbon，后续会介绍Feign的使用。</p>
-<p>Ribbon可以在通过客户端中配置的ribbonServerList服务端列表去轮询访问以达到均衡负载的作用。</p>
-<p>当Ribbon与Eureka联合使用时，ribbonServerList会被DiscoveryEnabledNIWSServerList重写，扩展成从Eureka注册中心中获取服务端列表。同时它也会用NIWSDiscoveryPing来取代IPing，它将职责委托给Eureka来确定服务端是否已经启动。</p>
-<p>下面我们通过实例看看如何使用Ribbon来调用服务，并实现客户端的均衡负载。<br>准备工作</p>
-<pre><code>启动服务注册中心：eureka
-启动服务提供方：compute-service
-修改compute-service中的server-port为2000，再启动一个服务提供方：compute-service
-</code></pre><p>此时访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
-<p>可以看到COMPUTE-SERVICE服务有两个单元正在运行：</p>
-<pre><code>zangqisong-PC:compute-service:2001
-zangqisong-PC:compute-service:2000
-</code></pre><p><img src="/assets/SpringCloudImg/eurekaComputeService1.png" alt="image"><br>使用Ribbon实现客户端负载均衡的消费者</p>
-<p>构建一个基本Spring Boot项目，并在pom.xml中加入如下内容：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-ribbon&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
-        &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
-        &lt;version&gt;RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-</code></pre><p>在应用主类中，通过@EnableDiscoveryClient注解来添加发现服务能力。创建RestTemplate实例，并通过@LoadBalanced注解开启均衡负载能力。</p>
-<pre><code>@SpringBootApplication
-@EnableDiscoveryClient
-@EnableCircuitBreaker
-public class EurekaRibbonApplication {
-
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaRibbonApplication.class, args);
-    }
-
-}
-</code></pre><p>创建ConsumerController来消费COMPUTE-SERVICE的add服务。通过直接RestTemplate来调用服务，计算10 + 20的值。</p>
-<pre><code>@RestController
-public class ConsumerController {
-
-    @Autowired
-    RestTemplate restTemplate;
-
-    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
-    public String add() {
-        return restTemplate.getForEntity(&quot;http://COMPUTE-SERVICE/add?a=10&amp;b=20&quot;, String.class).getBody();
-    }
-
-}
-</code></pre><p>application.properties中配置eureka服务注册中心</p>
-<pre><code>spring.application.name=ribbon-consumer
-server.port=2002
-eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
-</code></pre><p><a href="http://localhost:2002/add" target="_blank" rel="noopener">启动该应用，并访问两次：http://localhost:2002/add</a></p>
-<p>然后，打开compute-service的两个服务提供方，分别输出了类似下面的日志内容：</p>
-<pre><code>端口为2000服务提供端的日志：
-
-2019-04-16 13:48:40.690  INFO 79592 --- [nio-2000-exec-2] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
-
-端口为2001服务提供端的日志：
-
-2019-04-16 13:48:40.811  INFO 114792 --- [nio-2001-exec-7] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2001, result:30
-</code></pre><p>可以看到，之前启动的两个compute-service服务端分别被调用了一次。到这里，我们已经通过Ribbon在客户端已经实现了对服务调用的均衡负载。</p>
-<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka-ribbon</a></p>
-<h3 id="Feign"><a href="#Feign" class="headerlink" title="Feign"></a>Feign</h3><p>Feign是一个声明式的Web Service客户端，它使得编写Web Serivce客户端变得更加简单。我们只需要使用Feign来创建一个接口并用注解来配置它既可完成。它具备可插拔的注解支持，包括Feign注解和JAX-RS注解。Feign也支持可插拔的编码器和解码器。Spring Cloud为Feign增加了对Spring MVC注解的支持，还整合了Ribbon和Eureka来提供均衡负载的HTTP客户端实现。</p>
-<p>下面，通过一个例子来展现Feign如何方便的声明对上述computer-service服务的定义和调用。</p>
-<p>创建一个Spring Boot工程，配置pom.xml，将上述的配置中的ribbon依赖替换成feign的依赖即可，具体如下：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
-        &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
-        &lt;version&gt;RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</code></pre><p>在应用主类中通过@EnableFeignClients注解开启Feign功能，具体如下：</p>
-<pre><code>@SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-public class EurekaFeignApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaFeignApplication.class, args);
-    }
-
-}
-</code></pre><p>定义compute-service服务的接口，具体如下：</p>
-<pre><code>@FeignClient(&quot;compute-service&quot;)
-public interface ComputeClient {
-
-    @RequestMapping(method = RequestMethod.GET, value = &quot;/add&quot;)
-    Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b);
-
-}
-
-使用@FeignClient(&quot;compute-service&quot;)注解来绑定该接口对应compute-service服务
-通过Spring MVC的注解来配置compute-service服务下的具体实现。
-</code></pre><p>在web层中调用上面定义的ComputeClient，具体如下：</p>
-<pre><code>@RestController
-public class ConsumerController {
-
-    @Autowired
-    ComputeClient computeClient;
-
-    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
-    public Integer add() {
-        return computeClient.add(10, 20);
-    }
-
-}
-</code></pre><p>application.properties中不用变，指定eureka服务注册中心即可，如：</p>
-<pre><code>spring.application.name=feign-consumer
-server.port=2003
-eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
-</code></pre><p><a href="http://localhost:2003/add" target="_blank" rel="noopener">启动该应用，访问几次：http://localhost:2003/add</a></p>
-<p>再观察日志，可以得到之前使用Ribbon时一样的结果，对服务提供方实现了均衡负载。</p>
-<pre><code>2019-04-16 14:48:21.475  INFO 114792 --- [nio-2001-exec-9] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
-2019-04-16 14:48:21.741  INFO 79592 --- [nio-2000-exec-4] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
-</code></pre><p>这一节我们通过Feign以接口和注解配置的方式，轻松实现了对compute-service服务的绑定，这样我们就可以在本地应用中像本地服务一下的调用它，并且做到了客户端均衡负载。</p>
-<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">示例可参见：SpringCloudDemo/eureka-feign</a></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/12/Spring Cloud(二)服务消费者/">
-    <time datetime="2019-04-11T16:00:00.000Z" class="entry-date">
-        2019-04-12
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1967,7 +1823,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1983,19 +1839,19 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
           </li>
         
           <li>
+            <a href="/2020/01/16/Git-remote-and-push/">git 开发生产仓库同步代码</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
           </li>
         
           <li>
-            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+            <a href="/2019/12/17/AES/">AES 加密、解密</a>
           </li>
         
           <li>
             <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
           </li>
         
       </ul>

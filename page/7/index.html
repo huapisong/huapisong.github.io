@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-File-Extract-Compress" class="post-File-Extract-Compress post type-post status-publish format-standard hentry">
+    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,131 +70,56 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/File-Extract-Compress/">Linux 下常用压缩文件的解压、压缩</a>
+      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ck86y4a3x0007wwuhx3s0l0ox" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ck86zc9zb00000kuhu7o8adiu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="常用压缩包解压令整理"><a href="#常用压缩包解压令整理" class="headerlink" title="常用压缩包解压令整理"></a>常用压缩包<strong>解压</strong>令整理</h2><ul>
-<li>Linux 后缀为 <code>.war</code> 格式的文件（一般用在部署 Tomcat 项目的时候）</li>
-<li><p>命令：<code>unzip -oq XXXXXX.war -d ROOT</code></p>
-<ul>
-<li>如果没有 ROOT 目录会自动创建 ROOT 目录。</li>
-</ul>
-</li>
-<li><p>Linux 后缀为 <code>.tar.gz</code> 格式的文件-解压</p>
-</li>
-<li><p>命令：<code>tar zxvf XXXXXX.tar.gz</code></p>
-</li>
-<li><p>Linux 后缀为 <code>.bz2</code> 格式的文件-解压</p>
-</li>
-<li><p>命令：<code>bzip2 -d XXXXXX.bz2</code></p>
-</li>
-<li><p>Linux 后缀为 <code>.tar.bz2</code> 格式的文件-解压</p>
-</li>
-<li><p>命令：<code>tar jxvf XXXXXX.tar.bz2</code></p>
-</li>
-<li><p>Linux 后缀为 <code>.tar</code> 格式的文件-解压</p>
-</li>
-<li><p>命令：<code>tar zxvf XXXXXX.tar</code></p>
-</li>
-<li><p>Linux 后缀为 <code>.gz</code> 格式的文件-解压</p>
-</li>
-<li><p>命令：<code>gunzip XXXXXX.gz</code></p>
-</li>
-<li><p>Linux 后缀为 <code>.zip</code> 格式的文件-解压</p>
-</li>
-<li>命令：<code>unzip XXXXXX.zip</code></li>
-<li><p>命令：<code>unzip XXXXXX.zip -d /opt/</code>，解压到指定目录</p>
-</li>
-<li><p>Linux 后缀为 <code>.7z</code> 格式的文件-解压</p>
-</li>
-<li><p>命令：<code>7za x XXXXXX.7z</code></p>
-</li>
-<li><p>Linux 后缀为 <code>.tar.xz</code> 格式的文件-解压，解压出来是tar，再对tar进行解压</p>
-</li>
-<li>命令：<code>tar xf XXXXXX.tar.xz</code></li>
-</ul>
-<hr>
-<h2 id="常用文件进行压缩命令整理"><a href="#常用文件进行压缩命令整理" class="headerlink" title="常用文件进行压缩命令整理"></a>常用文件进行<strong>压缩</strong>命令整理</h2><ul>
-<li>Linux 压缩文件夹为后缀 <code>.war</code> 格式的文件（最好不要对根目录进行压缩，不然会多出一级目录）</li>
-<li>命令：<code>jar -cvfM0 cas.war /opt/cas/META-INF /opt/cas/WEB-INF /opt/cas/index.jsp</code></li>
-<li><p>或者命令：<code>cd 项目根目录 ; jar -cvfM0 cas.war ./*</code></p>
-</li>
-<li><p>Linux 压缩文件为后缀 <code>.tar</code> 格式的文件</p>
-</li>
-<li><p>命令：<code>tar -zcvf test11.tar test11</code></p>
-</li>
-<li><p>Linux 压缩文件为后缀 <code>.tar.gz</code> 格式的文件</p>
-</li>
-<li><p>命令：<code>tar -zcvf test11.tar.gz test11</code></p>
-</li>
-<li><p>Linux 压缩文件为后缀 <code>.bz2</code> 格式的文件</p>
-</li>
-<li><p>命令：<code>bzip2 -v test.txt</code></p>
-</li>
-<li><p>Linux 压缩文件为后缀 <code>.tar.bz2</code> 格式的文件</p>
-</li>
-<li><p>命令：<code>tar -jcvf test11.tar.gz test11</code></p>
-</li>
-<li><p>Linux 压缩文件为后缀 <code>.zip</code> 格式的文件</p>
-</li>
-<li><p>命令：<code>zip -r test1.zip /opt/test1/</code></p>
-</li>
-<li><p>Linux 压缩文件为后缀 <code>.7z</code> 格式的文件</p>
-</li>
-<li>命令：<code>7za a test1.7z /opt/test1/</code></li>
-</ul>
-<h2 id="分卷压缩"><a href="#分卷压缩" class="headerlink" title="分卷压缩"></a>分卷压缩</h2><ul>
-<li>分卷压缩：<code>zip -s 100M myFile.zip --out newFile.zip</code></li>
-<li>最终效果：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">newFile.z01</span><br><span class="line">newFile.z02</span><br><span class="line">newFile.z03</span><br><span class="line">newFile.z04</span><br><span class="line">newFile.zip</span><br></pre></td></tr></table></figure>
-<h2 id="特殊格式"><a href="#特殊格式" class="headerlink" title="特殊格式"></a>特殊格式</h2><ul>
-<li>7z<ul>
-<li>7z 的安装：<ul>
-<li>访问官网下载解压包：<a href="http://sourceforge.net/projects/p7zip/files/p7zip/" target="_blank" rel="noopener">http://sourceforge.net/projects/p7zip/files/p7zip/</a></li>
-<li>解压压缩包：<code>tar jxvf p7zip_15.14_src_all.tar.bz2</code></li>
-<li>进入目录：<code>cd p7zip_15.14</code></li>
-<li>执行安装：<code>sh install.sh</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>rar<ul>
-<li>rar 的安装：<ul>
-<li>下载：<code>wget http://www.rarlab.com/rar/rarlinux-3.8.0.tar.gz</code></li>
-<li>解压下载下来的压缩包：<code>tar zxvf rarlinux-3.8.0.tar.gz</code></li>
-<li>进入解压后目录：<code>cd rar</code></li>
-<li>编译：<code>make</code></li>
-<li>安装：<code>make install</code></li>
-</ul>
-</li>
-<li>rar 解压：<code>rar x 文件名.rar</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="jar-包操作"><a href="#jar-包操作" class="headerlink" title="jar 包操作"></a>jar 包操作</h2><h3 id="修改-jar-包配置文件"><a href="#修改-jar-包配置文件" class="headerlink" title="修改 jar 包配置文件"></a>修改 jar 包配置文件</h3><ul>
-<li>命令：<code>vim mytest.jar</code>，这时候会展示 jar 中所有层级目录下的所有文件</li>
-<li>输入：<code>/log4j2.xml</code> 回车，光标定位到该文件，然后再回车，进入编辑该文件状态</li>
-<li>此时可以修改配置文件了，修改后 <code>:wq</code> 保存退出，接着 <code>：q</code> 退出 jar 编辑状态</li>
-</ul>
-<h3 id="更新-Jar-包中的文件"><a href="#更新-Jar-包中的文件" class="headerlink" title="更新 Jar 包中的文件"></a>更新 Jar 包中的文件</h3><ul>
-<li>替换（新增）jar 根目录下的文件：<code>jar uvf mytest.jar ClassToAdd.class</code>  </li>
-<li>一般 class 文件都是在多层目录里面的，需要这样做：<code>jar uvf mytest.jar com/youmeek/ClassToAdd.class</code><ul>
-<li>需要在 jar 所在的文件夹下创建：<code>mkdir -p ./com/youmeek</code>，该目录必须和原 jar 里面的层级目录结构一致</li>
-</ul>
-</li>
-</ul>
+        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
+<pre><code>1. 添加用户
 
+adduser huapisong  //添加一个名为huapisong的用户
+passwd huapisong   //修改密码
+Changing password for user huapisong.
+New UNIX password:     //在这里输入新密码
+Retype new UNIX password:  //再次输入新密码
+passwd: all authentication tokens updated successfully.
+
+2. 赋予root权限
+
+方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
+## Allows people in group wheel to run all commands
+%wheel    ALL=(ALL)    ALL
+# 然后修改用户，使其属于root组（wheel），命令如下：
+
+usermod -g root huapisong
+# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
+
+方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
+## Allow root to run any commands anywhere
+root    ALL=(ALL)     ALL
+huapisong   ALL=(ALL)     ALL
+#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
+
+3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
+如下：
+vi /etc/ssh/sshd_config 
+#添加
+AllowUsers root huapisong
+#多个用户用空格隔开
+
+4. 然后重启sshd服务生效即可，重启命令可以使用:
+#shell
+service sshd restart
+</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -202,7 +127,7 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/02/06/File-Extract-Compress/">
+    <a href="/2017/02/06/1.ssh用户权限配置/">
     <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
         2017-02-06
     </time>
@@ -223,7 +148,7 @@
 
 
   
-    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
+    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -231,36 +156,52 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
+      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ck86y4a46000lwwuhw96zhyno" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="ck86zca0g001n0kuhdktnd025" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <hr>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
-</li>
-<li><p>以下载 openssh-server 为例：</p>
-<ul>
-<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
-<li>在 /opt/ssh 目录下有如下内容：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
-<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
-</ul>
-
+        <p>内存使用情况</p>
+<pre><code>free -m
+</code></pre><p>释放缓存前同步</p>
+<pre><code>sync
+</code></pre><p>释放所有缓存</p>
+<pre><code># 删除内存缓存
+echo 3 &gt; /proc/sys/vm/drop_caches
+#  查看文件内容
+cat /proc/sys/vm/drop_caches
+</code></pre><p>释放缓存数字参数说明</p>
+<pre><code>0 – 不释放
+1 – 释放页缓存
+2 – 释放dentries和inodes
+3 – 释放所有缓存
+</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
+<pre><code>total——总物理内存
+used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
+free——完全未被使用的内存
+shared——应用程序共享内存
+buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
+cached——缓存，用于已打开的文件
+note:
+    total=used+free
+    used=buffers+cached (maybe add shared also)
+</code></pre><p>第二行：描述应用程序的内存使用</p>
+<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
+<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
+<pre><code>-buffers/cache=used-buffers-cached
++buffers/cache=free+buffers+cached
+</code></pre><p>第三行：表示swap的使用</p>
+<pre><code>used——已使用
+free——未使用
+</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -268,9 +209,9 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/01/06/Off-line-Yum-Install/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
+    <a href="/2017/02/06/linux 内存清理释放命令/">
+    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
+        2017-02-06
     </time>
 </a>
     
@@ -304,7 +245,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ck86y4a3s0003wwuhkstofby5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ck86zc9zf00010kuhbhjreeu8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -606,7 +547,7 @@ sudo systemctl enable nginx.service
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ck86y4a4r001nwwuhnr73y29q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ck86zca0i001r0kuhmpu0iwn5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -681,6 +622,166 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 
 
   
+    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ck86zc9zy000m0kuhaqgtfm24" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
+</li>
+<li><p>以下载 openssh-server 为例：</p>
+<ul>
+<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
+<li>在 /opt/ssh 目录下有如下内容：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
+<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/Off-line-Yum-Install/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="ck86zc9zj00040kuho5awxl7y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>4.1.使用背景</p>
+<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+</code></pre><p>4.2.下载安装脚本</p>
+<pre><code>下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
+
+# 赋予执行权限
+chmod +x letsencrypt.sh
+</code></pre><p>4.3.配置相关信息</p>
+<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
+# only modify the values, key files will be generated automaticly.
+ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
+DOMAIN_KEY=&quot;tiger.com.key&quot;
+DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
+DOMAINS=&quot;DNS:test.tiger.com&quot;
+#ECC=TRUE
+#LIGHTTPD=TRUE
+</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
+<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
+<p>4.4.执行证书生成</p>
+<pre><code>./letsencrypt.sh ./letsencrypt.conf
+</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
+<pre><code>letsencrypt-account.key
+tiger.crt
+tiger.csr
+tiger.chained.crt
+tiger.com.key
+</code></pre><p>4.5.配置证书安装</p>
+<p>这里使用nginx进行证书安装的服务器</p>
+<pre><code>server {
+        listen       443;
+        server_name  test.tiger.com;
+
+    ssl on;
+    ssl_certificate tiger.chained.crt;
+    ssl_certificate_key tiger.com.key;
+    ssl_session_timeout 5m;
+
+    location / {
+        root html;
+        index  index.html index.htm;
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="post-3.服务器上的iptables防火墙应该如何配置才能更安全 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -696,7 +797,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="ck86y4a3t0004wwuh79ie76ov" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="ck86zc9zi00030kuh5gwn927s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -781,100 +882,6 @@ iptables -D OUTPUT 13
 
 
   
-    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="ck86y4a3p0001wwuhxe3sv4j1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>4.1.使用背景</p>
-<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
-</code></pre><p>4.2.下载安装脚本</p>
-<pre><code>下载Github上贡献者做好的安装脚本，如下：
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
-
-# 赋予执行权限
-chmod +x letsencrypt.sh
-</code></pre><p>4.3.配置相关信息</p>
-<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
-# only modify the values, key files will be generated automaticly.
-ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
-DOMAIN_KEY=&quot;tiger.com.key&quot;
-DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
-DOMAINS=&quot;DNS:test.tiger.com&quot;
-#ECC=TRUE
-#LIGHTTPD=TRUE
-</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
-<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
-<p>4.4.执行证书生成</p>
-<pre><code>./letsencrypt.sh ./letsencrypt.conf
-</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
-<pre><code>letsencrypt-account.key
-tiger.crt
-tiger.csr
-tiger.chained.crt
-tiger.com.key
-</code></pre><p>4.5.配置证书安装</p>
-<p>这里使用nginx进行证书安装的服务器</p>
-<pre><code>server {
-        listen       443;
-        server_name  test.tiger.com;
-
-    ssl on;
-    ssl_certificate tiger.chained.crt;
-    ssl_certificate_key tiger.com.key;
-    ssl_session_timeout 5m;
-
-    location / {
-        root html;
-        index  index.html index.htm;
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-java中set接口的用法" class="post-java中set接口的用法 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -890,7 +897,7 @@ tiger.com.key
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="ck86y4a630042wwuhgs256202" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="ck86zca1y00460kuhbzzatb4t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1164,7 +1171,7 @@ public class ListSort {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="ck86y4a4l001dwwuhva8w9fwj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="ck86zca0c001e0kuhyru7yh10" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1340,7 +1347,7 @@ public class AccountValidatorUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="ck86y4a4j0018wwuhqugkfp61" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="ck86zca0a00190kuhft4th7ac" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1413,382 +1420,10 @@ HTTP响应也是由三个部分组成，分别是：状态行、消息报头、�
 
 
   
-    <article id="post-初识git" class="post-初识git post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/01/01/初识git/">初识git</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="ck86y4a6k004mwwuhfakkm1s4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><hr>
-<pre><code>ssh-keygen -t rsa -C &quot;gitcafe 注册邮箱&quot;  
-</code></pre><p>密码一定要设置，这是为了防止别人往你的项目里乱push 东西。</p>
-<hr>
-<pre><code>less ~/.ssh/id_rsa.pub  
-</code></pre><p>就会看到你生成的密钥了，打开gitcafe 账户设置的SSH 公钥管理，点添加新的密钥，输入你less 得到的那一坨东西提交。</p>
-<p>之后进行一下git 的全局设置</p>
-<hr>
-<pre><code>git config --global user.name &quot;gitcafe 用户名&quot;  
-git config --global user.email &quot;gitcafe 注册邮箱&quot;  
-</code></pre><p>下面选择你的项目目录，假设是「~/gitcafe/hello」吧，cd 进去，里面新建一个测试文件。</p>
-<p>配置一下你的项目（和目录同名不同名无所谓）</p>
-<hr>
-<pre><code>git init  
-git remote add origin git@gitcafe.com:用户名/项目名.git  
-</code></pre><p>上面第二行「git remote add」其实还设置了一个别称，以后输入origin 这个更加简短的别称就可以了。</p>
-<p>然后add 下文件，第一次先把整个当前目录add 进去就行</p>
-<hr>
-<pre><code>git add .  
-</code></pre><p>然后你可以看下当前你的项目里各个文件的提交状态</p>
-<hr>
-<pre><code>git status  
-</code></pre><p>这时候你还不能push，因为你的gitcafe 还没有建立这个项目呢（虽然你git remote add 在本地添加了）。进去你的gitcafe，新建一个和你本地指定的项目名字一样的项目（不一定是你的项目的目录名，是git remote add 指定的那个）。这时候选择那个「初始化项目README.md 文件」之类的东西吧，正好练习下怎么整合远程变更，因为当很多人做项目的时候，别人push 了你这边就需要整合下变更才能push。</p>
-<p>先写一个commit 信息并且push 一下（默认的分支名称是master）</p>
-<hr>
-<pre><code>git commit -m &quot;hello gitcafe&quot;  
-git push -u origin master  
-</code></pre><p>因为gitcafe 上有本地不存在的两个文件「README.md」和「.gitignore」，所以这次push 肯定是失败的。</p>
-<p>把gitcafe 上的文件都pull 过来</p>
-<hr>
-<pre><code>git pull origin master  
-</code></pre><p>这个时候本地和gitcafe 就一致了，这个时候push 就可以了。</p>
-<p>如果想删除项目中的文件，例如删除hello 项目中的「README.md」和「.gitignore」（就像git add 那样）</p>
-<hr>
-<pre><code>git commit -m &quot;delete README.md .gitignore&quot;  
-git rm README.md .gitignore  
-</code></pre><p>写个commit 信息然后push 一下，你的项目里（无论本地和gitcafe）就没有这两个文件了。</p>
-<p>这就是看了百度了半小时git 使用方法依葫芦画瓢学的，很少一点东西，而且感觉比右键拯救世界的TortoiseSVN 麻烦好多=。=</p>
-<h2 id="2-git-常用指令"><a href="#2-git-常用指令" class="headerlink" title="2. git 常用指令"></a>2. git 常用指令</h2><p>只是记录备用</p>
-<pre><code>git branch 查看本地所有分支
-git status 查看当前状态 
-git commit 提交 
-git branch -a 查看所有的分支
-git branch -r 查看远程所有分支
-git commit -am &quot;init&quot; 提交并且加注释 
-git remote add origin git@192.168.1.119:ndshow 增加一个远程服务器端
-git push origin master 将文件给推到服务器上 
-git remote show origin 显示远程库origin里的资源 
-git push origin master:develop
-git push origin master:hb-dev 将本地库与服务器上的库进行关联 
-git checkout --track origin/dev 切换到远程dev分支
-git branch -D master develop 删除本地库develop
-git checkout -b dev 建立一个新的本地分支dev
-git merge origin/dev 将分支dev与当前分支进行合并
-git checkout dev 切换到本地dev分支
-git remote show 查看远程库
-git add . 添加当前目录
-git rm 文件名(包括路径) 从git中删除指定文件
-git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来
-git config --list 看所有用户
-git ls-files 看已经被提交的
-git rm [file name] 删除一个文件
-git commit -a 提交当前repos的所有的改变
-git add [file name] 添加一个文件到git index
-git commit -v 当你用－v参数的时候可以看commit的差异
-git commit -m &quot;This is the message describing the commit&quot; 添加commit信息
-git commit -a -a是代表add，把所有的change加到git index里然后再commit
-git commit -a -v 一般提交命令
-git log 看你commit的日志
-git diff 查看尚未暂存的更新
-git rm a.a 移除文件(从暂存区和工作区中删除)
-git rm --cached a.a 移除文件(只从暂存区中删除)
-git commit -m &quot;remove&quot; 移除文件(从Git中删除)
-git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)
-git diff --cached 或 $ git diff --staged 查看尚未提交的更新
-git stash push 将文件给push到一个临时空间中
-git stash pop 将文件从临时空间pop下来
----------------------------------------------------------
-git remote add origin git@github.com:username/Hello-World.git
-git push origin master 将本地项目给提交到服务器中
------------------------------------------------------------
-git pull 本地与服务器端同步
------------------------------------------------------------------
-git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。
-git push origin serverfix:awesomebranch
-------------------------------------------------------------------
-git fetch 相当于是从远程获取最新版本到本地，不会自动merge
-git commit -a -m &quot;log_message&quot; (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ：
-git branch branch_0.1 master 从主分支master创建branch_0.1分支
-git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0
-git checkout branch_1.0/master 切换到branch_1.0/master分支
-
-------------------------------------------------------------------
-git branch 删除远程branch
-git push origin :branch_remote_name
-git branch -r -d branch_remote_name
-</code></pre><h2 id="3-git-指令速查表"><a href="#3-git-指令速查表" class="headerlink" title="3. git 指令速查表"></a>3. git 指令速查表</h2><p>至于这一堆高达上的表格？这个是凑字数的，我还不知道这辈子能不能用到呢！</p>
-<h2 id="1、常用的Git命令"><a href="#1、常用的Git命令" class="headerlink" title="1、常用的Git命令"></a>1、常用的Git命令</h2><p>命令                     简要说明</p>
-<p>git add                  添加至暂存区</p>
-<p>git add–interactive     交互式添加</p>
-<p>git apply                应用补丁</p>
-<p>git am                   应用邮件格式补丁</p>
-<p>git annotate             同义词，等同于 git blame</p>
-<p>git archive              文件归档打包</p>
-<p>git bisect               二分查找</p>
-<p>git blame                文件逐行追溯</p>
-<p>git branch               分支管理</p>
-<p>git cat-file             版本库对象研究工具</p>
-<p>git checkout             检出到工作区、切换或创建分支</p>
-<p>git cherry-pick          提交拣选</p>
-<p>git citool               图形化提交，相当于 git gui 命令</p>
-<p>git clean                清除工作区未跟踪文件</p>
-<p>git clone                克隆版本库</p>
-<p>git commit               提交</p>
-<p>git config               查询和修改配置</p>
-<p>git describe             通过里程碑直观地显示提交ID</p>
-<p>git diff                 差异比较</p>
-<p>git difftool             调用图形化差异比较工具</p>
-<p>git fetch                获取远程版本库的提交</p>
-<p>git format-patch         创建邮件格式的补丁文件。参见 git am 命令</p>
-<p>git grep                 文件内容搜索定位工具</p>
-<p>git gui                  基于Tcl/Tk的图形化工具，侧重提交等操作</p>
-<p>git help                 帮助</p>
-<p>git init                 版本库初始化</p>
-<p>git init-db*             同义词，等同于 git init</p>
-<p>git log                 显示提交日志</p>
-<p>git merge               分支合并</p>
-<p>git mergetool           图形化冲突解决</p>
-<p>git mv                  重命名</p>
-<p>git pull                拉回远程版本库的提交</p>
-<p>git push                推送至远程版本库</p>
-<p>git rebase              分支变基</p>
-<p>git rebase–interactive 交互式分支变基</p>
-<p>git reflog              分支等引用变更记录管理</p>
-<p>git remote              远程版本库管理</p>
-<p>git repo-config*        同义词，等同于 git config</p>
-<p>git reset               重置改变分支“游标”指向</p>
-<p>git rev-parse           将各种引用表示法转换为哈希值等</p>
-<p>git revert              反转提交</p>
-<p>git rm                  删除文件</p>
-<p>git show                显示各种类型的对象</p>
-<p>git stage*              同义词，等同于 git add</p>
-<p>git stash               保存和恢复进度</p>
-<p>git status              显示工作区文件状态</p>
-<p>git tag                 里程碑管理</p>
-<h3 id="2、对象库操作相关命令"><a href="#2、对象库操作相关命令" class="headerlink" title="2、对象库操作相关命令"></a>2、对象库操作相关命令</h3><p>命令                    简要说明</p>
-<p>git commit-tree         从树对象创建提交</p>
-<p>git hash-object         从标准输入或文件计算哈希值或创建对象</p>
-<p>git ls-files            显示工作区和暂存区文件</p>
-<p>git ls-tree             显示树对象包含的文件</p>
-<p>git mktag               读取标准输入创建一个里程碑对象</p>
-<p>git mktree              读取标准输入创建一个树对象</p>
-<p>git read-tree           读取树对象到暂存区</p>
-<p>git update-index        工作区内容注册到暂存区及暂存区管理</p>
-<p>git unpack-file         创建临时文件包含指定 blob 的内容</p>
-<p>git write-tree          从暂存区创建一个树对象</p>
-<h3 id="3、引用操作相关命令"><a href="#3、引用操作相关命令" class="headerlink" title="3、引用操作相关命令"></a>3、引用操作相关命令</h3><p>命令                    简要说明</p>
-<p>git check-ref-format    检查引用名称是否符合规范</p>
-<p>git for-each-ref        引用迭代器，用于shell编程</p>
-<p>git ls-remote           显示远程版本库的引用</p>
-<p>git name-rev            将提交ID显示为友好名称</p>
-<p>git peek-remote*        过时命令，请使用 git ls-remote</p>
-<p>git rev-list            显示版本范围</p>
-<p>git show-branch         显示分支列表及拓扑关系</p>
-<p>git show-ref            显示本地引用</p>
-<p>git symbolic-ref        显示或者设置符号引用</p>
-<p>git update-ref          更新引用的指向</p>
-<p>git verify-tag          校验 GPG 签名的Tag</p>
-<h3 id="4、版本库管理相关命令"><a href="#4、版本库管理相关命令" class="headerlink" title="4、版本库管理相关命令"></a>4、版本库管理相关命令</h3><p>命令                    简要说明</p>
-<p>git count-objects       显示松散对象的数量和磁盘占用</p>
-<p>git filter-branch       版本库重构</p>
-<p>git fsck                对象库完整性检查</p>
-<p>git fsck-objects*       同义词，等同于 git fsck</p>
-<p>git gc                  版本库存储优化</p>
-<p>git index-pack          从打包文件创建对应的索引文件</p>
-<p>git lost-found*         过时，请使用 git fsck –lost-found 命令</p>
-<p>git pack-objects        从标准输入读入对象ID，打包到文件</p>
-<p>git pack-redundant      查找多余的 pack 文件</p>
-<p>git pack-refs           将引用打包到 .git/packed-refs 文件中</p>
-<p>git prune               从对象库删除过期对象</p>
-<p>git prune-packed        将已经打包的松散对象删除</p>
-<p>git relink              为本地版本库中相同的对象建立硬连接</p>
-<p>git repack              将版本库未打包的松散对象打包</p>
-<p>git show-index          读取包的索引文件，显示打包文件中的内容</p>
-<p>git unpack-objects      从打包文件释放文件</p>
-<p>git verify-pack         校验对象库打包文件</p>
-<h3 id="5、数据传输相关命令"><a href="#5、数据传输相关命令" class="headerlink" title="5、数据传输相关命令"></a>5、数据传输相关命令</h3><p>命令                    简要说明</p>
-<p>git fetch-pack          执行 git fetch 或 git pull 命令时在本地执行此命令，用于从其他版本库获取缺失的对象</p>
-<p>git receive-pack        执行 git push 命令时在远程执行的命令，用于接受推送的数据</p>
-<p>git send-pack           执行 git push 命令时在本地执行的命令，用于向其他版本库推送数据</p>
-<p>git upload-archive      执行 git archive –remote 命令基于远程版本库创建归档时，远程版本库执行此命令传送归档</p>
-<p>git upload-pack         执行 git fetch 或 git pull 命令时在远程执行此命令，将对象打包、上传</p>
-<p>6、邮件相关命令</p>
-<p>命令                    简要说明</p>
-<p>git imap-send           将补丁通过 IMAP 发送</p>
-<p>git mailinfo            从邮件导出提交说明和补丁</p>
-<p>git mailsplit           将 mbox 或 Maildir 格式邮箱中邮件逐一提取为文件</p>
-<p>git request-pull        创建包含提交间差异和执行PULL操作地址的信息</p>
-<p>git send-email          发送邮件</p>
-<p>7、协议相关命令</p>
-<p>命令                    简要说明</p>
-<p>git daemon              实现Git协议</p>
-<p>git http-backend        实现HTTP协议的CGI程序，支持智能HTTP协议</p>
-<p>git instaweb            即时启动浏览器通过 gitweb 浏览当前版本库</p>
-<p>git shell               受限制的shell，提供仅执行Git命令的SSH访问</p>
-<p>git update-server-info  更新哑协议需要的辅助文件</p>
-<p>git http-fetch          通过HTTP协议获取版本库</p>
-<p>git http-push           通过HTTP/DAV协议推送</p>
-<p>git remote-ext          由Git命令调用，通过外部命令提供扩展协议支持</p>
-<p>git remote-fd           由Git命令调用，使用文件描述符作为协议接口</p>
-<p>git remote-ftp          由Git命令调用，提供对FTP协议的支持</p>
-<p>git remote-ftps         由Git命令调用，提供对FTPS协议的支持</p>
-<p>git remote-http         由Git命令调用，提供对HTTP协议的支持</p>
-<p>git remote-https        由Git命令调用，提供对HTTPS协议的支持</p>
-<p>git remote-testgit      协议扩展示例脚本</p>
-<p>8、版本库转换和交互相关命令</p>
-<p>命令                    简要说明</p>
-<p>git archimport          导入Arch版本库到Git</p>
-<p>git bundle              提交打包和解包，以便在不同版本库间传递</p>
-<p>git cvsexportcommit     将Git的一个提交作为一个CVS检出</p>
-<p>git cvsimport           导入CVS版本库到Git。或者使用 cvs2git</p>
-<p>git cvsserver           Git的CVS协议模拟器，可供CVS命令访问Git版本库</p>
-<p>git fast-export         将提交导出为 git-fast-import 格式</p>
-<p>git fast-import         其他版本库迁移至Git的通用工具</p>
-<p>git svn                 Git 作为前端操作 Subversion</p>
-<p>9、合并相关的辅助命令</p>
-<p>命令                    简要说明</p>
-<p>git merge-base          供其他脚本调用，找到两个或多个提交最近的共同祖先</p>
-<p>git merge-file          针对文件的两个不同版本执行三向文件合并</p>
-<p>git merge-index         对index中的冲突文件调用指定的冲突解决工具</p>
-<p>git merge-octopus       合并两个以上分支。参见 git merge 的octopus合并策略</p>
-<p>git merge-one-file      由 git merge-index 调用的标准辅助程序</p>
-<p>git merge-ours          合并使用本地版本，抛弃他人版本。参见 git merge 的ours合并策略</p>
-<p>git merge-recursive     针对两个分支的三向合并。参见 git merge 的recursive合并策略</p>
-<p>git merge-resolve       针对两个分支的三向合并。参见 git merge 的resolve合并策略</p>
-<p>git merge-subtree       子树合并。参见 git merge 的 subtree 合并策略</p>
-<p>git merge-tree          显式三向合并结果，不改变暂存区</p>
-<p>git fmt-merge-msg       供执行合并操作的脚本调用，用于创建一个合并提交说明</p>
-<p>git rerere              重用所记录的冲突解决方案</p>
-<p>10、 杂项</p>
-<p>命令                    简要说明</p>
-<p>git bisect–helper      由 git bisect 命令调用，确认二分查找进度</p>
-<p>git check-attr          显示某个文件是否设置了某个属性</p>
-<p>git checkout-index      从暂存区拷贝文件至工作区</p>
-<p>git cherry              查找没有合并到上游的提交</p>
-<p>git diff-files          比较暂存区和工作区，相当于 git diff –raw</p>
-<p>git diff-index          比较暂存区和版本库，相当于 git diff –cached –raw</p>
-<p>git diff-tree           比较两个树对象，相当于 git diff –raw A B</p>
-<p>git difftool–helper    由 git difftool 命令调用，默认要使用的差异比较工具</p>
-<p>git get-tar-commit-id   从 git archive 创建的 tar 包中提取提交ID</p>
-<p>git gui–askpass        命令 git gui 的获取用户口令输入界面</p>
-<p>git notes               提交评论管理</p>
-<p>git patch-id            补丁过滤行号和空白字符后生成补丁唯一ID</p>
-<p>git quiltimport         将Quilt补丁列表应用到当前分支</p>
-<p>git replace             提交替换</p>
-<p>git shortlog            对 git log 的汇总输出，适合于产品发布说明</p>
-<p>git stripspace          删除空行，供其他脚本调用</p>
-<p>git submodule           子模组管理</p>
-<p>git tar-tree            过时命令，请使用 git archive</p>
-<p>git var                 显示 Git 环境变量</p>
-<p>git web–browse         启动浏览器以查看目录或文件</p>
-<p>git whatchanged         显示提交历史及每次提交的改动</p>
-<p>git-mergetool–lib      包含于其他脚本中，提供合并/差异比较工具的选择和执行</p>
-<p>git-parse-remote        包含于其他脚本中，提供操作远程版本库的函数</p>
-<p>git-sh-setup            包含于其他脚本中，提供 shell 编程的函数库</p>
-<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><pre><code>#删除分支&amp;添加分支
- # 添加本地关联的远程库
-git remote add zqs git@172.81.205.48:scf-service/scf-service.git
-git remote add zqs git@172.81.205.48:scf-service/scf_modules_app.git
-
-# 删除本地关联的远程库
-git remote remove zqs
-
-# 将某个远程主机的更新，全部取回本地
-$ git fetch --all
-# 将某个远程主机分支最新更新，取回本地
-$ git reset --hard origin/development 
-# 合并版本 根据 commit id 
-git cherry-pick 134ceeb9aa3c3e4c1565978b07311cb308eefebe
- # 打包 commit 版本
- git diff-tree -r -no-commit-id --name-only 41242f6f3cfe6f712a9cd2e1858d94de8a51ee09 | xargs tar -rf dev_061401.tar
-
-# 合并版本 根据 commit id 
-git cherry-pick 134ceeb9aa3c3e4c1565978b07311cb308eefebe aa2eb06db72615d1369fd4bd889526a580de37d7
-----------------------------------添加项目------------------------------
-
---Git global setup
-
-git config --global user.name &quot;zangqisong&quot;
-git config --global user.email &quot;zangqisong@cangoonline.com&quot;
-
---Create a new repository
-
-mkdir scf-service
-cd scf-service
-git init
---touch README.md
-git add .
-git commit -m &quot;first commit&quot;
-git remote add origin git@172.81.205.48:scf-service/scf-service.git
-git push -u origin master
-
---Push an existing Git repository
-
-cd scf-service
-git remote add origin git@172.81.205.48:scf-service/scf-service.git
-git push -u origin master
-----------------------------------添加项目------------------------------
-
-----------------------------------忽略文件------------------------------
-# 添加忽略文件
-touch .gitignore
-#   清除记录
-git rm -r --cached .
-# 添加记录
-git add .
-git commit -m &quot;update .gitignore&quot;
-----------------------------------忽略文件------------------------------
-# 修改备注
-git commit --amend 
-</code></pre><p>在pull命令后紧接着使用–llow-unrelated-histories选项来解决问题（该选项可以合并两个独立启动仓库的历史）。</p>
-<p>命令： $git pull origin master –allow-unrelated-histories</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2014/01/01/初识git/">
-    <time datetime="2013-12-31T16:00:00.000Z" class="entry-date">
-        2014-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Git/">Git</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+        <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1809,7 +1444,7 @@ git commit --amend
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1825,19 +1460,19 @@ git commit --amend
           </li>
         
           <li>
+            <a href="/2020/01/16/Git-remote-and-push/">git 开发生产仓库同步代码</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
           </li>
         
           <li>
-            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+            <a href="/2019/12/17/AES/">AES 加密、解密</a>
           </li>
         
           <li>
             <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/Nginx.service failed/">启动报错</a>
           </li>
         
       </ul>
