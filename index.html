@@ -77,7 +77,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/03/19/Openoffice-install-and-startservice/" data-id="ck86zca00000p0kuh8n7t49ci" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/03/19/Openoffice-install-and-startservice/" data-id="ck8s5f2ym000ptcuhmywgmg33" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -175,7 +175,7 @@ TCP    127.0.0.1:8100         127.0.0.1:52724        ESTABLISHED
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/01/16/Git-remote-and-push/" data-id="ck86zc9zk00050kuh8fng75hl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/01/16/Git-remote-and-push/" data-id="ck8s5f2yb0008tcuhc3vx4zf0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -230,7 +230,7 @@ git push -u origin  --tags
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/26/jvm crash分析工具/" data-id="ck86zca0f001m0kuh2tkk8yej" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/26/jvm crash分析工具/" data-id="ck8s5f2z3001ktcuhcvxh995n" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -306,7 +306,7 @@ jstack 227771|grep -A 13 0x3d62b、
 
 
   
-    <article id="post-AES" class="post-AES post type-post status-publish format-standard hentry">
+    <article id="post-vue-Quill-Editor" class="post-vue-Quill-Editor post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -314,170 +314,258 @@ jstack 227771|grep -A 13 0x3d62b、
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/17/AES/">AES 加密、解密</a>
+      <a class="article-title" href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="ck86zc9zn00070kuh4uny3mvz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="ck8s5f30r004jtcuh37esfu38" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="填充模式的区别"><a href="#填充模式的区别" class="headerlink" title="填充模式的区别"></a>填充模式的区别</h2><p>  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding</p>
-<p>  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。</p>
-<pre><code>- ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
-- PKCS7Padding，假设数据长度需要填充n(n&gt;0)个字节才对齐，那么填充n个字节，每个字节都- 是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
-- PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。两者的区别在于PKCS5Padding是限制块大小的PKCS7Padding
-</code></pre><p>  由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密</p>
-<h2 id="前端-crypto-js-AES-加解密"><a href="#前端-crypto-js-AES-加解密" class="headerlink" title="前端 crypto-js AES 加解密"></a>前端 crypto-js AES 加解密</h2><pre><code># vue 使用 npm install crypto-js --save
-# util.js
-import Vue from &apos;vue&apos;;
-import CryptoJS from &apos;crypto-js&apos;;
-// 由于对称解密使用的算法是 AES-128-CBC算法，数据采用 PKCS#7 填充， BASE64输出， 字符集utf8， 因此这里的 key 需要为16位！
-const key = CryptoJS.enc.Utf8.parse(&quot;1234123412ABCDEF&quot;);  //十六位十六进制数作为密钥
-const iv = CryptoJS.enc.Utf8.parse(&apos;ABCDEF1234123412&apos;);   //十六位十六进制数作为密钥偏移量
-/**
-* 加密 AES + BASE64
-* @param {*} word 
-*/
-export function encrypt(word) {
-  var encrypted = CryptoJS.AES.encrypt(word, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
-  return String(encrypted);
-};
+        <h2 id="自定义字体修改"><a href="#自定义字体修改" class="headerlink" title="自定义字体修改"></a>自定义字体修改</h2><h3 id="添加-style"><a href="#添加-style" class="headerlink" title="添加 style"></a>添加 style</h3><pre><code>var Font = Quill.import(&apos;attributors/style/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span style=&quot;font-family: SimSun;&quot;&gt;宋体 测试&lt;/span&gt;&lt;/p&gt;
+</code></pre><h3 id="添加-class"><a href="#添加-class" class="headerlink" title="添加 class"></a>添加 class</h3><pre><code>var Font = Quill.import(&apos;attributors/class/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span class=&quot;ql-font-SimSun&quot;&gt;宋体&lt;/span&gt;&lt;/p&gt;
+</code></pre><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>&lt;!-- 富文本编辑 vue-quill-editor --&gt;
+&lt;template&gt;
+&lt;div class&gt;
+    &lt;quill-editor
+    v-model=&quot;contentHtml&quot;
+    ref=&quot;myQuillEditor&quot;
+    :options=&quot;editorOption&quot;
+    &gt;&lt;/quill-editor&gt;
+&lt;/div&gt;
+&lt;/template&gt;
 
-/**
-* 解密
-* @param {*} word 
-*/
-export function decrypt(word) {
-  var decrypt = CryptoJS.AES.decrypt(word, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
-  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-  return decryptedStr;
-};
-</code></pre><h2 id="后端-java-AES-加解密"><a href="#后端-java-AES-加解密" class="headerlink" title="后端 java AES 加解密"></a>后端 java AES 加解密</h2><pre><code>import org.apache.commons.codec.binary.Base64;
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.math.BigInteger;
+&lt;script&gt;
+import &apos;quill/dist/quill.core.css&apos;;
+import &apos;quill/dist/quill.snow.css&apos;;
+import &apos;quill/dist/quill.bubble.css&apos;;
+import { quillEditor, Quill } from &apos;vue-quill-editor&apos;;
+// 图片拖拽功能 ie 不支持
+// import { ImageDrop } from &apos;quill-image-drop-module&apos;;
+// Quill.register(&apos;modules/imageDrop&apos;, ImageDrop);
 
-public class AES {
-//    密钥
-    private static String keyWord = &quot;1234123412ABCDEF&quot;;
-//    密钥偏移量
-    private static String iv = &quot;ABCDEF1234123412&quot;;
-    /**
-    * 加密
-    * @param src 加密字符串
-    * @param key 密钥
-    * @return 加密后的字符串
-    */
-    public static String Encrypt(String src, String key) throws Exception {
-        // 判断密钥是否为空
-        if (key == null) {
-            key = keyWord;
-//            System.out.print(&quot;密钥不能为空&quot;);
-//            return null;
-        }
-        Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);// 算法/模式/补码方式
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(iv.getBytes()));
-        byte[] encrypted = cipher.doFinal(src.getBytes(&quot;utf-8&quot;));
-        return new Base64().encodeToString(encrypted);//base64
-//        return binary(encrypted, 16); //十六进制
+var fonts = [&apos;STXihei&apos;, &apos;SimSun&apos;, &apos;SimHei&apos;,&apos;Microsoft-YaHei&apos;,&apos;KaiTi&apos;,&apos;FangSong&apos;,&apos;Arial&apos;,&apos;sans-serif&apos;];  
+
+var Font = Quill.import(&apos;attributors/style/font&apos;);
+// var Font = Quill.import(&apos;attributors/class/font&apos;);
+// var Font = Quill.import(&apos;formats/font&apos;);
+Font.whitelist = fonts; //将字体加入到白名单 
+Quill.register(Font, true);
+
+export default {
+props: {
+    content: {
+    type: String,
+    default: &quot;&quot;
     }
-
-    /**
-    * 解密
-    * @param src 解密字符串
-    * @param key 密钥
-    * @return 解密后的字符串
-    */
-    public static String Decrypt(String src, String key) throws Exception {
-        try {
-            // 判断Key是否正确
-            if (key == null) {
-                key = keyWord;
-//            System.out.print(&quot;密钥不能为空&quot;);
-//            return null;
+},
+mounted() {
+},
+components: {
+    &apos;quill-editor&apos;: quillEditor
+},
+data() {
+    return {
+    // contentHtml: this.content,
+    editorOption: {
+        modules: {
+        toolbar: {
+            container: [  // 工具栏
+            [&apos;bold&apos;, &apos;italic&apos;, &apos;underline&apos;, &apos;strike&apos;],
+            [&apos;blockquote&apos;, &apos;code-block&apos;],
+            [{ &apos;header&apos;: 1 }, { &apos;header&apos;: 2 }],
+            [{ &apos;list&apos;: &apos;ordered&apos; }, { &apos;list&apos;: &apos;bullet&apos; }],
+            [{ &apos;script&apos;: &apos;sub&apos; }, { &apos;script&apos;: &apos;super&apos; }],
+            [{ &apos;indent&apos;: &apos;-1&apos; }, { &apos;indent&apos;: &apos;+1&apos; }],
+            [{ &apos;direction&apos;: &apos;rtl&apos; }],
+            [{ &apos;size&apos;: [&apos;small&apos;, false, &apos;large&apos;, &apos;huge&apos;] }],
+            [{ &apos;header&apos;: [1, 2, 3, 4, 5, 6, false] }],
+            [{ &apos;color&apos;: [] }, { &apos;background&apos;: [] }],
+            [{ &apos;font&apos;: fonts }],
+            [{ &apos;align&apos;: [] }],
+            [&apos;clean&apos;],
+            [&apos;link&apos;, &apos;image&apos;, &apos;video&apos;]
+            ],
+            handlers: {
+            // &apos;image&apos;: function (value) {
+            //   console.log(value);
+            //     if (value) {
+            //         alert(&apos;自定义图片&apos;);
+            //     } else {
+            //       this.quill.format(&apos;image&apos;, false);
+            //     }
+            // }
             }
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
-            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv.getBytes()));
-
-            byte[] encrypted1 = new Base64().decode(src);//base64
-//            byte[] encrypted1 = toByteArray(src);//十六进制
-            try {
-                byte[] original = cipher.doFinal(encrypted1);
-                String originalString = new String(original,&quot;utf-8&quot;);
-                return originalString;
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                return null;
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-            return null;
+        },
+        history: {
+            delay: 1000,
+            maxStack: 50,
+            userOnly: false
+        },
+        // imageDrop: true,
         }
     }
-
-    /**
-    * 将byte[]转为各种进制的字符串
-    * @param bytes byte[]
-    * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制
-    * @return 转换后的字符串
-    */
-    public static String binary(byte[] bytes, int radix){
-        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
+    };
+},
+computed: {
+    contentHtml: {
+    get() {
+        return this.content;
+    },
+    // setter
+    set(val) {
+        if (val.replace(/[^\x00-\xff]/g, &apos;01&apos;).length &gt;= 10 * 1024 * 1024)
+        this.$message.error(&apos;富文本内容大小不得大于10M！&apos;);
+        this.$emit(&quot;update:content&quot;, val);
     }
-
-    /**
-    * 16进制的字符串表示转成字节数组
-    *
-    * @param hexString 16进制格式的字符串
-    * @return 转换后的字节数组
-    **/
-    public static byte[] toByteArray(String hexString) {
-        if (hexString.isEmpty())
-            throw new IllegalArgumentException(&quot;this hexString must not be empty&quot;);
-
-        hexString = hexString.toLowerCase();
-        final byte[] byteArray = new byte[hexString.length() / 2];
-        int k = 0;
-        for (int i = 0; i &lt; byteArray.length; i++) {//因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
-            byte high = (byte) (Character.digit(hexString.charAt(k), 16) &amp; 0xff);
-            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) &amp; 0xff);
-            byteArray[i] = (byte) (high &lt;&lt; 4 | low);
-            k += 2;
-        }
-        return byteArray;
-    }
-
-    public static void main(String[] args) throws Exception {
-        // 密钥
-        String key = &quot;1234123412ABCDEF&quot;;
-        // 需要加密的字符串
-        String src = &quot;123456&quot;;
-        System.out.println(src);
-        // 加密
-        String enString = Encrypt(src, key);
-        System.out.println(&quot;加密后的字串是：&quot; + enString);
-        // 解密
-        String DeString = Decrypt(enString, key);
-        System.out.println(&quot;解密后的字串是：&quot; + DeString);
-    }
+    },
+},
+watch: {
+    // &apos;contentHtml&apos;(newVal, oldVal) {
+    //   if (!newVal) {
+    //     return;
+    //   }
+    //   if (newVal == oldVal) {
+    //     return;
+    //   }
+    //   this.$emit(&quot;update:content&quot;, newVal);
+    // }
+},
+};
+&lt;/script&gt;
+&lt;style&gt;
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+content: &quot;14px&quot;;
 }
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;small&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;small&quot;]::before {
+content: &quot;10px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;large&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;large&quot;]::before {
+content: &quot;18px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;huge&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;huge&quot;]::before {
+content: &quot;32px&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+content: &quot;文本&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;1&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;1&quot;]::before {
+content: &quot;标题1&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;2&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;2&quot;]::before {
+content: &quot;标题2&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;3&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;3&quot;]::before {
+content: &quot;标题3&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;4&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;4&quot;]::before {
+content: &quot;标题4&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;5&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;5&quot;]::before {
+content: &quot;标题5&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;6&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;6&quot;]::before {
+content: &quot;标题6&quot;;
+}
+
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STXihei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STXihei]::before {
+    content: &quot;华文细黑&quot;;
+    font-family: &quot;STXihei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
+    content: &quot;宋体&quot;;
+    font-family: &quot;SimSun&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimHei]::before {
+    content: &quot;黑体&quot;;
+    font-family: &quot;SimHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Microsoft-YaHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Microsoft-YaHei]::before {
+    content: &quot;微软雅黑&quot;;
+    font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=KaiTi]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=KaiTi]::before {
+    content: &quot;楷体&quot;;
+    font-family: &quot;KaiTi&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=FangSong]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=FangSong]::before {
+    content: &quot;仿宋&quot;;
+    font-family: &quot;FangSong&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
+    content: &quot;Arial&quot;;
+    font-family: &quot;Arial&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
+    content: &quot;Times New Roman&quot;;
+    font-family: &quot;Times New Roman&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
+    content: &quot;sans-serif&quot;;
+    font-family: &quot;sans-serif&quot;;
+}
+
+.ql-font-STXihei {
+font-family: &quot;STXihei&quot;;
+}
+.ql-font-SimSun {
+font-family: &quot;SimSun&quot;;
+}
+.ql-font-SimHei {
+font-family: &quot;SimHei&quot;;
+}
+.ql-font-Microsoft-YaHei {
+font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-font-KaiTi {
+font-family: &quot;KaiTi&quot;;
+}
+.ql-font-FangSong {
+font-family: &quot;FangSong&quot;;
+}
+.ql-font-Arial {
+font-family: &quot;Arial&quot;;
+}
+.ql-font-Times-New-Roman {
+font-family: &quot;Times New Roman&quot;;
+}
+.ql-font-sans-serif {
+font-family: &quot;sans-serif&quot;;
+}
+&lt;/style&gt;
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -486,7 +574,7 @@ public class AES {
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/17/AES/">
+    <a href="/2019/12/17/vue-Quill-Editor/">
     <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
         2019-12-17
     </time>
@@ -494,7 +582,7 @@ public class AES {
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/AES/">AES</a>
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
   </div>
 
     
@@ -522,7 +610,7 @@ public class AES {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="ck86zca1r003x0kuh564x1jyf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="ck8s5f30g003ytcuh6r9dbqwc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -871,7 +959,7 @@ public class DocConvertHtmlUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="ck86zc9zv000i0kuhiv2mpqkh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="ck8s5f2yk000ltcuhnlc634ih" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -950,7 +1038,7 @@ reboot
 
 
   
-    <article id="post-vue-Quill-Editor" class="post-vue-Quill-Editor post type-post status-publish format-standard hentry">
+    <article id="post-AES" class="post-AES post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -958,258 +1046,170 @@ reboot
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+      <a class="article-title" href="/2019/12/17/AES/">AES 加密、解密</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="ck86zca24004i0kuhqplwtsvu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="ck8s5f2y70005tcuha02zaot1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="自定义字体修改"><a href="#自定义字体修改" class="headerlink" title="自定义字体修改"></a>自定义字体修改</h2><h3 id="添加-style"><a href="#添加-style" class="headerlink" title="添加 style"></a>添加 style</h3><pre><code>var Font = Quill.import(&apos;attributors/style/font&apos;);
-# 结果源码
-&lt;p&gt;&lt;span style=&quot;font-family: SimSun;&quot;&gt;宋体 测试&lt;/span&gt;&lt;/p&gt;
-</code></pre><h3 id="添加-class"><a href="#添加-class" class="headerlink" title="添加 class"></a>添加 class</h3><pre><code>var Font = Quill.import(&apos;attributors/class/font&apos;);
-# 结果源码
-&lt;p&gt;&lt;span class=&quot;ql-font-SimSun&quot;&gt;宋体&lt;/span&gt;&lt;/p&gt;
-</code></pre><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>&lt;!-- 富文本编辑 vue-quill-editor --&gt;
-&lt;template&gt;
-&lt;div class&gt;
-    &lt;quill-editor
-    v-model=&quot;contentHtml&quot;
-    ref=&quot;myQuillEditor&quot;
-    :options=&quot;editorOption&quot;
-    &gt;&lt;/quill-editor&gt;
-&lt;/div&gt;
-&lt;/template&gt;
+        <h2 id="填充模式的区别"><a href="#填充模式的区别" class="headerlink" title="填充模式的区别"></a>填充模式的区别</h2><p>  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding</p>
+<p>  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。</p>
+<pre><code>- ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
+- PKCS7Padding，假设数据长度需要填充n(n&gt;0)个字节才对齐，那么填充n个字节，每个字节都- 是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
+- PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。两者的区别在于PKCS5Padding是限制块大小的PKCS7Padding
+</code></pre><p>  由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密</p>
+<h2 id="前端-crypto-js-AES-加解密"><a href="#前端-crypto-js-AES-加解密" class="headerlink" title="前端 crypto-js AES 加解密"></a>前端 crypto-js AES 加解密</h2><pre><code># vue 使用 npm install crypto-js --save
+# util.js
+import Vue from &apos;vue&apos;;
+import CryptoJS from &apos;crypto-js&apos;;
+// 由于对称解密使用的算法是 AES-128-CBC算法，数据采用 PKCS#7 填充， BASE64输出， 字符集utf8， 因此这里的 key 需要为16位！
+const key = CryptoJS.enc.Utf8.parse(&quot;1234123412ABCDEF&quot;);  //十六位十六进制数作为密钥
+const iv = CryptoJS.enc.Utf8.parse(&apos;ABCDEF1234123412&apos;);   //十六位十六进制数作为密钥偏移量
+/**
+* 加密 AES + BASE64
+* @param {*} word 
+*/
+export function encrypt(word) {
+  var encrypted = CryptoJS.AES.encrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  return String(encrypted);
+};
 
-&lt;script&gt;
-import &apos;quill/dist/quill.core.css&apos;;
-import &apos;quill/dist/quill.snow.css&apos;;
-import &apos;quill/dist/quill.bubble.css&apos;;
-import { quillEditor, Quill } from &apos;vue-quill-editor&apos;;
-// 图片拖拽功能 ie 不支持
-// import { ImageDrop } from &apos;quill-image-drop-module&apos;;
-// Quill.register(&apos;modules/imageDrop&apos;, ImageDrop);
+/**
+* 解密
+* @param {*} word 
+*/
+export function decrypt(word) {
+  var decrypt = CryptoJS.AES.decrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+  return decryptedStr;
+};
+</code></pre><h2 id="后端-java-AES-加解密"><a href="#后端-java-AES-加解密" class="headerlink" title="后端 java AES 加解密"></a>后端 java AES 加解密</h2><pre><code>import org.apache.commons.codec.binary.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.math.BigInteger;
 
-var fonts = [&apos;STXihei&apos;, &apos;SimSun&apos;, &apos;SimHei&apos;,&apos;Microsoft-YaHei&apos;,&apos;KaiTi&apos;,&apos;FangSong&apos;,&apos;Arial&apos;,&apos;sans-serif&apos;];  
-
-var Font = Quill.import(&apos;attributors/style/font&apos;);
-// var Font = Quill.import(&apos;attributors/class/font&apos;);
-// var Font = Quill.import(&apos;formats/font&apos;);
-Font.whitelist = fonts; //将字体加入到白名单 
-Quill.register(Font, true);
-
-export default {
-props: {
-    content: {
-    type: String,
-    default: &quot;&quot;
+public class AES {
+//    密钥
+    private static String keyWord = &quot;1234123412ABCDEF&quot;;
+//    密钥偏移量
+    private static String iv = &quot;ABCDEF1234123412&quot;;
+    /**
+    * 加密
+    * @param src 加密字符串
+    * @param key 密钥
+    * @return 加密后的字符串
+    */
+    public static String Encrypt(String src, String key) throws Exception {
+        // 判断密钥是否为空
+        if (key == null) {
+            key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+        }
+        Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);// 算法/模式/补码方式
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(iv.getBytes()));
+        byte[] encrypted = cipher.doFinal(src.getBytes(&quot;utf-8&quot;));
+        return new Base64().encodeToString(encrypted);//base64
+//        return binary(encrypted, 16); //十六进制
     }
-},
-mounted() {
-},
-components: {
-    &apos;quill-editor&apos;: quillEditor
-},
-data() {
-    return {
-    // contentHtml: this.content,
-    editorOption: {
-        modules: {
-        toolbar: {
-            container: [  // 工具栏
-            [&apos;bold&apos;, &apos;italic&apos;, &apos;underline&apos;, &apos;strike&apos;],
-            [&apos;blockquote&apos;, &apos;code-block&apos;],
-            [{ &apos;header&apos;: 1 }, { &apos;header&apos;: 2 }],
-            [{ &apos;list&apos;: &apos;ordered&apos; }, { &apos;list&apos;: &apos;bullet&apos; }],
-            [{ &apos;script&apos;: &apos;sub&apos; }, { &apos;script&apos;: &apos;super&apos; }],
-            [{ &apos;indent&apos;: &apos;-1&apos; }, { &apos;indent&apos;: &apos;+1&apos; }],
-            [{ &apos;direction&apos;: &apos;rtl&apos; }],
-            [{ &apos;size&apos;: [&apos;small&apos;, false, &apos;large&apos;, &apos;huge&apos;] }],
-            [{ &apos;header&apos;: [1, 2, 3, 4, 5, 6, false] }],
-            [{ &apos;color&apos;: [] }, { &apos;background&apos;: [] }],
-            [{ &apos;font&apos;: fonts }],
-            [{ &apos;align&apos;: [] }],
-            [&apos;clean&apos;],
-            [&apos;link&apos;, &apos;image&apos;, &apos;video&apos;]
-            ],
-            handlers: {
-            // &apos;image&apos;: function (value) {
-            //   console.log(value);
-            //     if (value) {
-            //         alert(&apos;自定义图片&apos;);
-            //     } else {
-            //       this.quill.format(&apos;image&apos;, false);
-            //     }
-            // }
+
+    /**
+    * 解密
+    * @param src 解密字符串
+    * @param key 密钥
+    * @return 解密后的字符串
+    */
+    public static String Decrypt(String src, String key) throws Exception {
+        try {
+            // 判断Key是否正确
+            if (key == null) {
+                key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
             }
-        },
-        history: {
-            delay: 1000,
-            maxStack: 50,
-            userOnly: false
-        },
-        // imageDrop: true,
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv.getBytes()));
+
+            byte[] encrypted1 = new Base64().decode(src);//base64
+//            byte[] encrypted1 = toByteArray(src);//十六进制
+            try {
+                byte[] original = cipher.doFinal(encrypted1);
+                String originalString = new String(original,&quot;utf-8&quot;);
+                return originalString;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return null;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            return null;
         }
     }
-    };
-},
-computed: {
-    contentHtml: {
-    get() {
-        return this.content;
-    },
-    // setter
-    set(val) {
-        if (val.replace(/[^\x00-\xff]/g, &apos;01&apos;).length &gt;= 10 * 1024 * 1024)
-        this.$message.error(&apos;富文本内容大小不得大于10M！&apos;);
-        this.$emit(&quot;update:content&quot;, val);
+
+    /**
+    * 将byte[]转为各种进制的字符串
+    * @param bytes byte[]
+    * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制
+    * @return 转换后的字符串
+    */
+    public static String binary(byte[] bytes, int radix){
+        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
     }
-    },
-},
-watch: {
-    // &apos;contentHtml&apos;(newVal, oldVal) {
-    //   if (!newVal) {
-    //     return;
-    //   }
-    //   if (newVal == oldVal) {
-    //     return;
-    //   }
-    //   this.$emit(&quot;update:content&quot;, newVal);
-    // }
-},
-};
-&lt;/script&gt;
-&lt;style&gt;
-.ql-snow .ql-picker.ql-size .ql-picker-label::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item::before {
-content: &quot;14px&quot;;
-}
 
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;small&quot;]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;small&quot;]::before {
-content: &quot;10px&quot;;
-}
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;large&quot;]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;large&quot;]::before {
-content: &quot;18px&quot;;
-}
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;huge&quot;]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;huge&quot;]::before {
-content: &quot;32px&quot;;
-}
+    /**
+    * 16进制的字符串表示转成字节数组
+    *
+    * @param hexString 16进制格式的字符串
+    * @return 转换后的字节数组
+    **/
+    public static byte[] toByteArray(String hexString) {
+        if (hexString.isEmpty())
+            throw new IllegalArgumentException(&quot;this hexString must not be empty&quot;);
 
-.ql-snow .ql-picker.ql-header .ql-picker-label::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item::before {
-content: &quot;文本&quot;;
-}
+        hexString = hexString.toLowerCase();
+        final byte[] byteArray = new byte[hexString.length() / 2];
+        int k = 0;
+        for (int i = 0; i &lt; byteArray.length; i++) {//因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
+            byte high = (byte) (Character.digit(hexString.charAt(k), 16) &amp; 0xff);
+            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) &amp; 0xff);
+            byteArray[i] = (byte) (high &lt;&lt; 4 | low);
+            k += 2;
+        }
+        return byteArray;
+    }
 
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;1&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;1&quot;]::before {
-content: &quot;标题1&quot;;
+    public static void main(String[] args) throws Exception {
+        // 密钥
+        String key = &quot;1234123412ABCDEF&quot;;
+        // 需要加密的字符串
+        String src = &quot;123456&quot;;
+        System.out.println(src);
+        // 加密
+        String enString = Encrypt(src, key);
+        System.out.println(&quot;加密后的字串是：&quot; + enString);
+        // 解密
+        String DeString = Decrypt(enString, key);
+        System.out.println(&quot;解密后的字串是：&quot; + DeString);
+    }
 }
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;2&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;2&quot;]::before {
-content: &quot;标题2&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;3&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;3&quot;]::before {
-content: &quot;标题3&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;4&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;4&quot;]::before {
-content: &quot;标题4&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;5&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;5&quot;]::before {
-content: &quot;标题5&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;6&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;6&quot;]::before {
-content: &quot;标题6&quot;;
-}
-
-
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STXihei]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STXihei]::before {
-    content: &quot;华文细黑&quot;;
-    font-family: &quot;STXihei&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
-    content: &quot;宋体&quot;;
-    font-family: &quot;SimSun&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimHei]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimHei]::before {
-    content: &quot;黑体&quot;;
-    font-family: &quot;SimHei&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Microsoft-YaHei]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Microsoft-YaHei]::before {
-    content: &quot;微软雅黑&quot;;
-    font-family: &quot;Microsoft YaHei&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=KaiTi]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=KaiTi]::before {
-    content: &quot;楷体&quot;;
-    font-family: &quot;KaiTi&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=FangSong]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=FangSong]::before {
-    content: &quot;仿宋&quot;;
-    font-family: &quot;FangSong&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
-    content: &quot;Arial&quot;;
-    font-family: &quot;Arial&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
-    content: &quot;Times New Roman&quot;;
-    font-family: &quot;Times New Roman&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
-    content: &quot;sans-serif&quot;;
-    font-family: &quot;sans-serif&quot;;
-}
-
-.ql-font-STXihei {
-font-family: &quot;STXihei&quot;;
-}
-.ql-font-SimSun {
-font-family: &quot;SimSun&quot;;
-}
-.ql-font-SimHei {
-font-family: &quot;SimHei&quot;;
-}
-.ql-font-Microsoft-YaHei {
-font-family: &quot;Microsoft YaHei&quot;;
-}
-.ql-font-KaiTi {
-font-family: &quot;KaiTi&quot;;
-}
-.ql-font-FangSong {
-font-family: &quot;FangSong&quot;;
-}
-.ql-font-Arial {
-font-family: &quot;Arial&quot;;
-}
-.ql-font-Times-New-Roman {
-font-family: &quot;Times New Roman&quot;;
-}
-.ql-font-sans-serif {
-font-family: &quot;sans-serif&quot;;
-}
-&lt;/style&gt;
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -1218,7 +1218,7 @@ font-family: &quot;sans-serif&quot;;
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/17/vue-Quill-Editor/">
+    <a href="/2019/12/17/AES/">
     <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
         2019-12-17
     </time>
@@ -1226,7 +1226,7 @@ font-family: &quot;sans-serif&quot;;
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  <a class="article-category-link" href="/categories/AES/">AES</a>
   </div>
 
     
@@ -1254,7 +1254,7 @@ font-family: &quot;sans-serif&quot;;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="ck86zc9zt000g0kuhngck5eo4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="ck8s5f2yj000itcuhna1d3fm1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1327,7 +1327,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ck86zca0900180kuhokkhavbi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ck8s5f2yu0015tcuhsu7qw382" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1382,7 +1382,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="ck86zca00000q0kuhr5rfpo7v" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="ck8s5f2yn000qtcuhb3bp2sws" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1498,7 +1498,7 @@ error_log  logs/error.log  debug;
           </li>
         
           <li>
-            <a href="/2019/12/17/AES/">AES 加密、解密</a>
+            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
           </li>
         
           <li>
