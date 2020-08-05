@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="准备启程一旦安装了Hexo,运行以下命令初始化Hexo在目录123$ hexo init &amp;lt;folder&amp;gt;$ cd &amp;lt;folder&amp;gt;$ cnpm install
+一旦初始化，你的项目文件夹是这个样子：123456789.├── _config.yml├── package.j">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>hexo-create-config | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="准备启程一旦安装了Hexo,运行以下命令初始化Hexo在目录123$ hexo init &amp;lt;folder&amp;gt;$ cd &amp;lt;folder&amp;gt;$ cnpm install 一旦初始化，你的项目文件夹是这个样子：123456789.├── _config.yml├── package.json├── scaffolds├── scripts├── source|   ├── _draf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo-create-config">
+<meta property="og:url" content="http://yoursite.com/2020/08/04/hexo-create-config/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="准备启程一旦安装了Hexo,运行以下命令初始化Hexo在目录123$ hexo init &amp;lt;folder&amp;gt;$ cd &amp;lt;folder&amp;gt;$ cnpm install 一旦初始化，你的项目文件夹是这个样子：123456789.├── _config.yml├── package.json├── scaffolds├── scripts├── source|   ├── _draf">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-05T09:41:02.662Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo-create-config">
+<meta name="twitter:description" content="准备启程一旦安装了Hexo,运行以下命令初始化Hexo在目录123$ hexo init &amp;lt;folder&amp;gt;$ cd &amp;lt;folder&amp;gt;$ cnpm install 一旦初始化，你的项目文件夹是这个样子：123456789.├── _config.yml├── package.json├── scaffolds├── scripts├── source|   ├── _draf">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-hexo-create-config" class="post-hexo-create-config post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      hexo-create-config
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/08/04/hexo-create-config/" data-id="ckdh794g9004kbguhbv2qotm4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="准备启程"><a href="#准备启程" class="headerlink" title="准备启程"></a>准备启程</h1><p>一旦安装了Hexo,运行以下命令初始化Hexo在<code>目录</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ cnpm install</span><br></pre></td></tr></table></figure></p>
+<p>一旦初始化，你的项目文件夹是这个样子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── scripts</span><br><span class="line">├── <span class="built_in">source</span></span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></p>
+<p>下面依次介绍上面各个文件或者目录的用途：</p>
+<ul>
+<li><code>_config.yml</code>站点配置文件，很多全局配置都在这个文件中。</li>
+<li><code>package.json</code> 应用数据。从它可以看出hexo版本信息，以及它所默认或者说依赖的一些组件。</li>
+<li><code>scaffolds</code> 模版文件。当你创建一篇新的文章时，hexo会依据模版文件进行创建，主要用在你想在每篇文章都添加一些共性的内容的情况下。</li>
+<li><code>scripts</code> 放脚本的文件夹， 就是放js文件的地方</li>
+<li><code>source</code> 这个文件夹就是放文章的地方了，除了文章还有一些主要的资源，比如文章里的图片，文件等等东西。这个文件夹最好定期做一个备份，丢了它，整个站点就废了。</li>
+<li><code>themes</code> 主题文件夹。</li>
+</ul>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="config-yml配置文件"><a href="#config-yml配置文件" class="headerlink" title="_config.yml配置文件"></a>_config.yml配置文件</h3><p>站点配置文件，你可以在这里进行大多数配置。</p>
+<h3 id="网站设置"><a href="#网站设置" class="headerlink" title="网站设置"></a>网站设置</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>站点名字，也就是html的title，会显示在浏览器标签上</td>
+</tr>
+<tr>
+<td>subtitle</td>
+<td>站点副标题，会显示在首页上，可以不填</td>
+</tr>
+<tr>
+<td>description</td>
+<td>站点描述，可以不填</td>
+</tr>
+<tr>
+<td>author</td>
+<td>作者名称</td>
+</tr>
+<tr>
+<td>language</td>
+<td>语言</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>站点时区，默认是电脑时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链接设置"><a href="#链接设置" class="headerlink" title="链接设置"></a>链接设置</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>url</td>
+<td>站点网址</td>
+</tr>
+<tr>
+<td>root</td>
+<td>站点根目录</td>
+</tr>
+<tr>
+<td>permalink</td>
+<td>文章的永久网址链接，默认是<code>:year/:month/:day/:title/</code>，指的什么意思？比如我一篇叫『love』的文章是在2012年1月1日写的，那么它对应的链接就是<code>http://yoururl/2012/01/01/love/</code></td>
+</tr>
+<tr>
+<td>permalink_default</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>如果网址是次级目录，比如：<code>http://example.com/blog</code>，那么就要设置url为<code>http://example.com/blog</code>，并且root要设置为<code>/blog/</code>。</p>
+</blockquote>
+<h3 id="目录设置"><a href="#目录设置" class="headerlink" title="目录设置"></a>目录设置</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source_dir</td>
+<td>source目录，默认值为source</td>
+</tr>
+<tr>
+<td>public_dir</td>
+<td>public目录，静态网站生成的地方，默认值为public</td>
+</tr>
+<tr>
+<td>tag_dir</td>
+<td>tag目录</td>
+</tr>
+<tr>
+<td>archive_dir</td>
+<td>Archive目录</td>
+</tr>
+<tr>
+<td>category_dir</td>
+<td>分类目录</td>
+</tr>
+<tr>
+<td>code_dir</td>
+<td>代码目录</td>
+</tr>
+<tr>
+<td>i18n_dir</td>
+<td>i18n目录</td>
+</tr>
+<tr>
+<td>skip_render</td>
+<td>不想被渲染的路径</td>
+</tr>
+</tbody>
+</table>
+<h3 id="写作设置"><a href="#写作设置" class="headerlink" title="写作设置"></a>写作设置</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new_post_name</td>
+<td>新建文章默认文件名，默认值为 :title.md，比如你执行命令hexo new hello，就会默认在_post目录下创建一个hello.md的文件</td>
+</tr>
+<tr>
+<td>default_layout</td>
+<td>默认布局</td>
+</tr>
+<tr>
+<td>titlecase</td>
+<td></td>
+</tr>
+<tr>
+<td>external_link</td>
+<td>在新标签中打开一个外部链接，默认为true</td>
+</tr>
+<tr>
+<td>filename_case</td>
+<td>转换文件名，1代表小写；2代表大写；默认为0，意思就是创建文章的时候，是否自动帮你转换文件名，默认就行，意义不大</td>
+</tr>
+<tr>
+<td>render_drafts</td>
+<td>是否渲染_drafts目录下的文章，默认为false</td>
+</tr>
+<tr>
+<td>post_asset_folder</td>
+<td>是否启用Asset Folder，默认为false，至于什么是Asset Folder，后面有讲解</td>
+</tr>
+<tr>
+<td>relative_link</td>
+<td>使链接相对于根文件夹，默认false</td>
+</tr>
+<tr>
+<td>future</td>
+<td>是否显示未来日期文章，默认为true</td>
+</tr>
+<tr>
+<td>highlight</td>
+<td>代码块设置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="分类-amp-标签"><a href="#分类-amp-标签" class="headerlink" title="分类 &amp; 标签"></a>分类 &amp; 标签</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>default_category</td>
+<td>默认分类，默认为无分类，当然你可以设置一个默认分类。</td>
+</tr>
+<tr>
+<td>category_map</td>
+<td>分类缩略名</td>
+</tr>
+<tr>
+<td>tag_map</td>
+<td>标签缩略名</td>
+</tr>
+</tbody>
+</table>
+<h3 id="日期格式化"><a href="#日期格式化" class="headerlink" title="日期格式化"></a>日期格式化</h3><p>Hexo使用的<a href="http://momentjs.com/" target="_blank" rel="noopener">Moment.js</a>来处理时间的。<br>| 配置         | 描述|<br>| ———– |———————————————|<br>| date_format       |日期格式，默认为MMM D YYYY，一般我们喜欢使用YYYY-MM-DD的格式，其他格式模版可以查看<a href="http://momentjs.com/" target="_blank" rel="noopener">Moment.js</a>|<br>| time_format    |时间格式，默认为H:mm:ss|</p>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>per_page</td>
+<td>一页显示多少篇文章，0 为不分页，默认值为 10</td>
+</tr>
+<tr>
+<td>pagination_dir</td>
+<td>分页目录，默认值为page</td>
+</tr>
+</tbody>
+</table>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><table>
+<thead>
+<tr>
+<th>配置</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>theme</td>
+<td>主题配置，此处填上主题名就OK了，当然在themes目录下一定要有你配置的主题文件夹</td>
+</tr>
+<tr>
+<td>deploy</td>
+<td>部署配置，将本地public目录也就是网站部署到服务器上的配置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="package-json文件"><a href="#package-json文件" class="headerlink" title="package.json文件"></a>package.json文件</h3><p>应用数据，默认安装了 <code>EJS</code>，<code>Stylus</code> 和 <code>Markdown</code> 来渲染。如果你不需要可以卸载它们。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"hexo-site"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.0"</span>,</span><br><span class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"hexo"</span>: &#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">""</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"hexo"</span>: <span class="string">"^3.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-archive"</span>: <span class="string">"^0.1.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-category"</span>: <span class="string">"^0.1.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-index"</span>: <span class="string">"^0.1.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-tag"</span>: <span class="string">"^0.1.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-ejs"</span>: <span class="string">"^0.1.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-stylus"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-marked"</span>: <span class="string">"^0.2.4"</span>,</span><br><span class="line">    <span class="attr">"hexo-server"</span>: <span class="string">"^0.1.2"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h3><p>脚手架文件夹。当你创建一个新文章,Hexo基于<code>scaffolds</code>文件夹里的类型来创建。</p>
+<h3 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h3><p>脚本文件夹。扩展Hexo最简单的方法，它会自动执行这个文件夹下的JavaScript文件。</p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="init"><a href="#init" class="headerlink" title="init"></a>init</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
+<p>初始化一个网站。如果没有提供<code>folder</code>,Hexo会在当前目录设置网站。</p>
+<h3 id="new"><a href="#new" class="headerlink" title="new"></a>new</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>创建一篇文章，如果不指定layout，那么就使用<code>_config.yml</code>中<code>default_layout</code>的值，标题中如果有空格，将整个<code>title</code>放到引号中。<br>比如，<code>hexo new &quot;hello world&quot;</code>创建一篇叫hello world的文章。</p>
+<h3 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>生成静态文件：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code>, <code>--deploy</code></td>
+<td>生成完后直接部署</td>
+</tr>
+<tr>
+<td><code>-w</code>, <code>--watch</code></td>
+<td>监控文件的改变</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+<p>发布为草稿</p>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>启动一个本地服务，默认情况下访问 <code>http://localhost:4000/</code></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code>, <code>--port</code></td>
+<td>指定端口</td>
+</tr>
+<tr>
+<td><code>-s</code>, <code>--static</code></td>
+<td>仅服务静态文件</td>
+</tr>
+<tr>
+<td><code>-l</code>, <code>--log</code></td>
+<td>开启日志</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>部署你的站点</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-g</code>, <code>--generate</code></td>
+<td>表示在部署前先重新生成一下站点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="render"><a href="#render" class="headerlink" title="render"></a>render</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
+<p>渲染文件</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-o</code>, <code>--output</code></td>
+<td>输出到指定文件，我没用过</td>
+</tr>
+</tbody>
+</table>
+<h3 id="migrate"><a href="#migrate" class="headerlink" title="migrate"></a>migrate</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo migrate &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/docs/migration.html" target="_blank" rel="noopener">迁移</a>到其他模块的命令。</p>
+<h3 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<p>删除缓存文件<code>db.json</code>以及生成的public目录，当你修改了某些样式或者配置时，如果发现<code>hexo g</code>后也没有反应，就可以执行一下这个命令。</p>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo list &lt;<span class="built_in">type</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>列出所有路由</p>
+<h3 id="version"><a href="#version" class="headerlink" title="version"></a>version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
+<p>显示hexo的版本信息到控制台</p>
+<h2 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h2><h3 id="Safe-mode"><a href="#Safe-mode" class="headerlink" title="Safe mode"></a>Safe mode</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --safe</span><br></pre></td></tr></table></figure>
+<p>安全模式，使所有插件和脚本不生效</p>
+<h3 id="Debug-mode"><a href="#Debug-mode" class="headerlink" title="Debug mode"></a>Debug mode</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --debug</span><br></pre></td></tr></table></figure>
+<p>日志详细信息输出到终端。</p>
+<h3 id="Silent-mode"><a href="#Silent-mode" class="headerlink" title="Silent mode"></a>Silent mode</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --silent</span><br></pre></td></tr></table></figure>
+<p>静默模式，不在终端上显示任何信息</p>
+<h3 id="Customize-config-file-path"><a href="#Customize-config-file-path" class="headerlink" title="Customize config file path"></a>Customize config file path</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --config custom.yml</span><br></pre></td></tr></table></figure>
+<p>使用一个自定义配置文件替换默认<code>_config.yml</code></p>
+<h3 id="Display-drafts"><a href="#Display-drafts" class="headerlink" title="Display drafts"></a>Display drafts</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --draft</span><br></pre></td></tr></table></figure>
+<p>显示草稿文章（位于<code>source/_drafts</code>目录下）</p>
+<h3 id="Customize-CWD"><a href="#Customize-CWD" class="headerlink" title="Customize CWD"></a>Customize CWD</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd /path/to/cwd</span><br></pre></td></tr></table></figure>
+<p>自定义当前工作目录路径，假如你没在工作目录下，可以使用这个命令指定一下工作目录路径</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2020/08/04/hexo-create-config/">
+    <time datetime="2020-08-04T03:20:09.000Z" class="entry-date">
+        2020-08-04
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/08/04/java-getstarted/" rel="prev"><span class="meta-nav">←</span> 下载、安装、配置和调试 JDK</a></span>
+    
+    
+        <span class="nav-next"><a href="/2020/03/19/Openoffice-install-and-startservice/" rel="next">openoffice <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/05/github-hosts/">GitHub 访问加速方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/vscode-settings-sync/">vscode-settings-sync</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/04/java-getstarted/">下载、安装、配置和调试 JDK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/04/hexo-create-config/">hexo-create-config</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2020 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

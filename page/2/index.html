@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
+    <article id="post-POI-Word-Convert-HTML" class="post-POI-Word-Convert-HTML post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,124 +70,319 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+      <a class="article-title" href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="ck8s5f2zr002ztcuh5i1wa7m8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="ckdh794g3004bbguha02iwaqj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
-<li>CentOS 安装：yum install -y clamav*</li>
-<li>启动 clamAV 服务：service clamd restart</li>
-<li>更新病毒库：freshclam</li>
-<li>扫描方法：<ul>
-<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
-<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
-<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
-</ul>
-</li>
-<li>如果日志有类似内容，表示有木马病毒：<ul>
-<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
-<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
-<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
-</ul>
-</li>
-<li>看下当前有多少登录者：who</li>
-<li>看下最近有哪些登录者：last</li>
-<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
-<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
-</ul>
-</li>
-<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
-<li>看下查看系统资源占用有无异常：top</li>
-<li>看下所有进程：ps aux</li>
-<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
-<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
-<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
-<li>更多详细可以用：cat /etc/passwd</li>
-</ul>
-</li>
-<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
-<li>检查某个端口的具体信息：lsof -i :18954</li>
-<li>检查启动项：chkconfig</li>
-<li>检查定时器（重要）：cat /etc/crontab</li>
-<li>检查定时器（重要）：crontab -l<ul>
-<li>vim /var/spool/cron/crontabs/root</li>
-<li>vim /var/spool/cron/root</li>
-</ul>
-</li>
-<li>检查其他系统重要文件：<ul>
-<li>cat /etc/rc.local</li>
-<li>cd /etc/init.d;ll</li>
-</ul>
-</li>
-<li>检查文件：<ul>
-<li>find / -uid 0 –perm -4000 –print</li>
-<li>find / -size +10000k –print</li>
-<li>find / -name “…” –print</li>
-<li>find / -name “.. “ –print</li>
-<li>find / -name “. “ –print</li>
-<li>find / -name “ “ –print</li>
-</ul>
-</li>
-<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
-<li>安装 iftop<ul>
-<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
-<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
-<li>没有安装第三方源的情况：<ul>
-<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
-<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
-<li>解压：tar zxf iftop-0.17.tar.gz</li>
-<li>进入解压目录：cd iftop-0.17/</li>
-<li>编译：./configure</li>
-<li>安装：make &amp;&amp; make install</li>
-</ul>
-</li>
-<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
-</code></pre></li>
-</ul>
-</li>
-<li>运行：iftop<ul>
-<li>显示端口与 IP 信息：iftop -nP</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
-<ul>
-<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
-<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
-<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
-<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
-<p>实战<br>挖矿程序</p>
-<ul>
-<li>先查看调度任务是否有新增内容<ul>
-<li>vim /var/spool/cron/root</li>
-<li>vim /var/spool/cron/crontabs/root</li>
-</ul>
-</li>
-<li>如果有，先停止定时任务：systemctl stop crond</li>
-<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
-<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
-<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
-</ul>
-</li>
-<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
-<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
-</ul>
-</li>
-<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
-</ul>
+        <h2 id="maven配置"><a href="#maven配置" class="headerlink" title="maven配置"></a>maven配置</h2><pre><code>pom.xml
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/ooxml-schemas --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;ooxml-schemas&lt;/artifactId&gt;
+    &lt;version&gt;1.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-scratchpad&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-ooxml-schemas&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/xdocreport --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;fr.opensagres.xdocreport&lt;/groupId&gt;
+    &lt;artifactId&gt;xdocreport&lt;/artifactId&gt;
+    &lt;version&gt;2.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="异常-找不到org-apache-poi-POIXMLDocumentPart类"><a href="#异常-找不到org-apache-poi-POIXMLDocumentPart类" class="headerlink" title="异常 找不到org/apache/poi/POIXMLDocumentPart类"></a>异常 找不到org/apache/poi/POIXMLDocumentPart类</h2><pre><code>POIXMLDocumentPart已全版本更换放置的位置到org.apache.poi.ooxml包下，更新xdocreport至2.0.2
+&lt;dependency&gt;
+    &lt;groupId&gt;fr.opensagres.xdocreport&lt;/groupId&gt;
+    &lt;artifactId&gt;xdocreport&lt;/artifactId&gt;
+    &lt;version&gt;2.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h2 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h2><pre><code>import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.List;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+
+import fr.opensagres.poi.xwpf.converter.core.*;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.converter.PicturesManager;
+import org.apache.poi.hwpf.converter.WordToHtmlConverter;
+import org.apache.poi.hwpf.usermodel.Picture;
+import org.apache.poi.hwpf.usermodel.PictureType;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.w3c.dom.Document;
+
+/**
+* @ClassName DocConvertHtmlUtil
+* @Description: word 转 html 工具类
+* @Author huapisong
+* @Date 2020/3/24
+* @Version V1.0
+**/
+public class DocConvertHtmlUtil {
+    private final static String tempPath = &quot;E:\\srv\\apps\\data\\&quot;;
+
+    public static void main(String[] args) throws ParserConfigurationException, TransformerException, IOException {
+        String sourceFilePath = &quot;E:\\home\\testPdfObject\\JL20012000000128.docx&quot;;
+        String sourceFilePathDoc = &quot;E:\\home\\testPdfObject\\CG2020032400002782.doc&quot;;
+        String filePath = &quot;E:\\srv\\apps\\data\\doc.html&quot;;
+//        doc2Html(sourceFilePathDoc, filePath);
+//        docConvertHtml(sourceFilePath);
+
+        docxConvertHtml(sourceFilePath);
+    }
+
+    /**
+    * docx 转 html
+    * @param sourceFilePath 
+    */
+    public static void docxConvertHtml(String sourceFilePath) {
+
+        try {
+            String outPutFile = &quot;E:\\srv\\apps\\data\\&quot;;
+            String htmlName = &quot;docx.html&quot;;
+            String fileOutName = outPutFile;
+            long startTime = System.currentTimeMillis();
+            XWPFDocument document = new XWPFDocument(new FileInputStream(sourceFilePath));
+
+            XHTMLOptions options = XHTMLOptions.create();
+//            options.URIResolver(new BasicURIResolver(outPutFile));
+            // 导出图片
+//            File imageFolder = new File(outPutFile);
+//            options.setExtractor(new FileImageExtractor(imageFolder));
+            // URI resolver
+//            options.setIgnoreStylesIfUnused(false);
+//            options.setFragment(true);
+            // Extract image
+            //  File imageFolder = new File( FileTools.getInstance().getRoot() + savePath);
+            IImageExtractor extractor = new IImageExtractor() {
+                private String savePath = &quot;&quot;;
+
+                public IImageExtractor setSavePath(String savePath) {
+                    this.savePath = savePath;
+                    return this;
+                }
+
+                @Override
+                public void extract(String arg0, byte[] arg1) throws IOException {
+                    byte[] bytev = arg1;
+                    String fileName = arg0.substring(arg0.lastIndexOf(&quot;/&quot;) + 1);
+                    FileTools.getInstance().saveFile(savePath, fileName, bytev);
+                }
+            }.setSavePath(outPutFile);
+            options.setExtractor(extractor);
+            options.URIResolver(new IURIResolver() {
+                private String savePath = &quot;&quot;;
+
+                public IURIResolver init(String savePath) {
+                    this.savePath = savePath;
+                    return this;
+                }
+
+                @Override
+                public String resolve(String arg0) {
+                    String fileName = arg0.substring(arg0.lastIndexOf(&quot;/&quot;) + 1);
+                    return savePath + fileName + &quot;.html&quot;;
+                }
+            }.init(outPutFile));
+            // 3) 将 XWPFDocument转换成XHTML
+            OutputStream out = new FileOutputStream(new File(outPutFile + htmlName));
+            XHTMLConverter.getInstance().convert(document, out, options);
+
+            System.out.println(&quot;Generate &quot; + fileOutName + &quot; with &quot; + (System.currentTimeMillis() - startTime) + &quot; ms.&quot;);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+    * doc转换为html
+    *
+    * @param fileName
+    * @param outPutFile
+    * @throws TransformerException
+    * @throws IOException
+    * @throws ParserConfigurationException
+    */
+    public static void doc2Html(String fileName, String outPutFile) throws TransformerException, IOException, ParserConfigurationException {
+        long startTime = System.currentTimeMillis();
+        HWPFDocument wordDocument = new HWPFDocument(new FileInputStream(fileName));
+        WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+        wordToHtmlConverter.setPicturesManager(new PicturesManager() {
+            public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
+                return &quot;test/&quot; + suggestedName;
+            }
+        });
+        wordToHtmlConverter.processDocument(wordDocument);
+        // 保存图片
+        List&lt;Picture&gt; pics = wordDocument.getPicturesTable().getAllPictures();
+        if (pics != null) {
+            for (int i = 0; i &lt; pics.size(); i++) {
+                Picture pic = (Picture) pics.get(i);
+                System.out.println();
+                try {
+                    pic.writeImageContent(new FileOutputStream(tempPath + pic.suggestFullFileName()));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Document htmlDocument = wordToHtmlConverter.getDocument();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        DOMSource domSource = new DOMSource(htmlDocument);
+        StreamResult streamResult = new StreamResult(out);
+
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer serializer = tf.newTransformer();
+        serializer.setOutputProperty(OutputKeys.ENCODING, &quot;utf-8&quot;);
+        serializer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);
+        serializer.setOutputProperty(OutputKeys.METHOD, &quot;html&quot;);
+        serializer.transform(domSource, streamResult);
+        out.close();
+        writeFile(new String(out.toByteArray()), outPutFile);
+        System.out.println(&quot;Generate &quot; + outPutFile + &quot; with &quot; + (System.currentTimeMillis() - startTime) + &quot; ms.&quot;);
+    }
+
+    /**
+    * 写文件
+    *
+    * @param content
+    * @param path
+    */
+    public static void writeFile(String content, String path) {
+        FileOutputStream fos = null;
+        BufferedWriter bw = null;
+        try {
+            File file = new File(path);
+            fos = new FileOutputStream(file);
+            bw = new BufferedWriter(new OutputStreamWriter(fos, &quot;utf-8&quot;));
+            bw.write(content);
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fos != null)
+                    fos.close();
+            } catch (IOException ie) {
+            }
+        }
+    }
+
+    /**
+    * doc 转 html
+    * @param sourceFilePath
+    */
+    public static void docConvertHtml(String sourceFilePath) {
+
+        String filePath = &quot;E:\\srv\\apps\\data\\&quot;;
+        String htmlName = &quot;doc.html&quot;;
+
+        try {
+            FileInputStream input = new FileInputStream(sourceFilePath);
+            HWPFDocument wordDocument = new HWPFDocument(input);
+            WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+            //解析word文档
+            wordToHtmlConverter.processDocument(wordDocument);
+            Document htmlDocument = wordToHtmlConverter.getDocument();
+            File htmlFile = new File(filePath + htmlName);
+            OutputStream outStream = new FileOutputStream(htmlFile);
+            DOMSource domSource = new DOMSource(htmlDocument);
+            StreamResult streamResult = new StreamResult(outStream);
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer serializer = factory.newTransformer();
+            serializer.setOutputProperty(OutputKeys.ENCODING, &quot;utf-8&quot;);
+            serializer.setOutputProperty(OutputKeys.INDENT, &quot;yes&quot;);
+            serializer.setOutputProperty(OutputKeys.METHOD, &quot;html&quot;);
+            serializer.transform(domSource, streamResult);
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    static class LocalFile{
+        /**
+        * 保存文件
+        * @param fileName
+        * @param foldPath
+        * @param bins
+        * @return
+        */
+        public static void saveFile(String foldPath,String fileName,byte[] bins){
+            try {
+                //data格式为：data:image/png;base64,iVBOR
+                //以,分割
+                StringBuilder filePath = new StringBuilder();
+                filePath.append(foldPath).append(File.separatorChar).append(StringUtil.getUUID()).append(fileName);
+
+                File localFile = new File(filePath.toString());
+                FileOutputStream os = new FileOutputStream(localFile);
+                os.write(bins);
+                os.flush();
+                os.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private static class FileTools {
+        public static LocalFile getInstance() {
+            return null;
+        }
+    }
+}
+</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -195,15 +390,15 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/28/黑客入侵检查/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
+    <a href="/2019/12/17/POI-Word-Convert-HTML/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/POI/">POI</a>
   </div>
 
     
@@ -216,7 +411,7 @@
 
 
   
-    <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
+    <article id="post-Nginx-Install-For-Windows" class="post-Nginx-Install-For-Windows post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -224,94 +419,102 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+      <a class="article-title" href="/2019/09/10/Nginx-Install-For-Windows/">nginx for windows</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="ck8s5f2yd000btcuhwicpq2w9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="ckdh794e9000gbguh7ihjbt3l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
-<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
-<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
-<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
-<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
-<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
-<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
-<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
-<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
-    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
-&lt;/span&gt;
-</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
-<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
-本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
-&lt;/span&gt;
-</code></pre><p>3.安装教程</p>
-<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
-<pre><code># visitors count
-counter: true
-</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
-<pre><code>{% if theme.footer.counter %}
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    {% endif %}
-</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
-<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
-<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
-<pre><code># Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-# count values only if the other configs are false
-enable: false
-# custom uv span for the whole site
-site_uv: true
-site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
-site_uv_footer:
-# custom pv span for the whole site
-site_pv: true
-site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
-site_pv_footer:
-# custom pv span for one page only
-page_pv: true
-page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
-page_pv_footer:
-</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
-<pre><code>site_uv表示是否显示整个网站的UV数
-site_pv表示是否显示整个网站的PV数
-page_pv表示是否显示每个页面的PV数
-当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
+        <h3 id="下载-amp-准备"><a href="#下载-amp-准备" class="headerlink" title="下载&amp;准备"></a>下载&amp;准备</h3><p>下载 <a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></p>
+<p>文档 <a href="http://nginx.org/en/docs/windows.html" target="_blank" rel="noopener">http://nginx.org/en/docs/windows.html</a></p>
+<p>解压安装</p>
+<h3 id="配置启动"><a href="#配置启动" class="headerlink" title="配置启动"></a>配置启动</h3><pre><code># 启动
+cd c:\
+unzip nginx-1.17.3.zip
+cd nginx-1.17.3
+start nginx
 
-# Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-# count values only if the other configs are false
-enable: true
-# custom uv span for the whole site
-site_uv: true
-site_uv_header: 访客数
-site_uv_footer: 人
-# custom pv span for the whole site
-site_pv: true
-site_pv_header: 总访问量
-site_pv_footer: 次
-# custom pv span for one page only
-page_pv: true
-page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
-page_pv_footer:
-</code></pre><p>注意事项</p>
-<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
-使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
-网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
-</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
+# 双击nginx.exe 启动
+</code></pre><p>通过访问<a href="http://localhost:80" target="_blank" rel="noopener">http://localhost:80</a>，检查是否启动</p>
+<h3 id="Nginx在Windows环境下查看nginx进程"><a href="#Nginx在Windows环境下查看nginx进程" class="headerlink" title="Nginx在Windows环境下查看nginx进程"></a>Nginx在Windows环境下查看nginx进程</h3><p>cmd命令窗口输入命令检查是否启动</p>
+<pre><code>$ tasklist -fi &quot;imagename eq nginx.exe&quot;
+
+映像名称                       PID 会话名              会话#       内存使用
+========================= ======== ================ =========== ============
+nginx.exe                     3716 Console                    1      7,432 K
+nginx.exe                     3204 Console                    1      7,596 K
+# 强制杀进程
+taskkill /PID 10920 /F
+</code></pre><p>nginx的配置文件是conf目录下的nginx.conf，默认配置的nginx监听的端口为80，如果80端口被占用可以修改为未被占用的端口即可<br>检查80端口是否被占用的命令是：</p>
+<pre><code>netstat -ano | findstr 0.0.0.0:80
+# 或
+netstat -ano | findstr &quot;80&quot;
+</code></pre><p>当我们修改了nginx的配置文件nginx.conf 时，不需要关闭nginx后重新启动nginx，只需要执行命令 nginx -s reload 即可让改动生效</p>
+<p>nginx -s stop 快速退出<br>nginx -s quit 优雅退出<br>nginx -s reload 更换配置，启动新的工作进程，优雅的关闭以往的工作进程<br>nginx -s reopen 重新打开日志文件</p>
+<h3 id="设置debug的日志级别"><a href="#设置debug的日志级别" class="headerlink" title="设置debug的日志级别"></a>设置debug的日志级别</h3><pre><code># 配置文件中设置error_log的级别为：
+error_log  logs/error.log  debug;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/09/10/Nginx-Install-For-Windows/">
+    <time datetime="2019-09-09T16:00:00.000Z" class="entry-date">
+        2019-09-10
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Windows-Change-Temp-And-Clean" class="post-Windows-Change-Temp-And-Clean post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/09/05/Windows-Change-Temp-And-Clean/">Windows temp 的修改和清除</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ckdh794el0018bguh9awgt8ih" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="修改-temp-位置"><a href="#修改-temp-位置" class="headerlink" title="修改 temp 位置"></a>修改 temp 位置</h2><ul>
+<li>1.windows临时文件夹分布在三个地方，1：C:\WINDOWS\Temp，这是系统公用的</li>
+<li>2.还有一个在当前登录账户的配置文件夹下，一般是C:\Users\登录的帐号\AppData\Local\Temp</li>
+</ul>
+<p>它们都在C盘里面，这样对于控制磁盘碎片是很不利的，所以我们首先要做的就是把Temp统一移到C盘之外的分区，这里以D盘为例。</p>
+<p>1.在D盘建立D:\AppData\Local\Temp目录<br>2.右击”我的电脑”,”属性”,”高级”,打开“环境变量”对话框，将用户变量和系统变量”TEMP”和”TMP” 的值 “%USERPROFILE%\AppData\Local\Temp” 改为 “D:\AppData\Local\Temp”。</p>
+<h2 id="清空-temp"><a href="#清空-temp" class="headerlink" title="清空 temp"></a>清空 temp</h2><p>新建一个文本文档 CleanTEMP.bat，在里面写入两行指令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RD %TEMP% /S/Q</span><br><span class="line">MKDIR %TEMP%</span><br></pre></td></tr></table></figure>
+<p>双击CleanTEMP.bat文件就自动清空Temp文件夹了。</p>
+<h2 id="启动、关机-清空temp"><a href="#启动、关机-清空temp" class="headerlink" title="启动、关机 清空temp"></a>启动、关机 清空temp</h2><p>打开组策略(运行gpedit.msc)，依次打开“计算机配置－Windows 设置－脚本(启动/关机)”，然后随便打开“启动”或“关机”，效果一样，一个是登录时清空Temp一个是关机时清空，这里我选择“关机”。点击“添加”把刚才做好的*.bat(CleanTEMP.bat)文件导入，点“确定”后一切就搞定了。</p>
 
       
     </div><!-- .entry-content -->
@@ -320,17 +523,12 @@ page_pv_footer:
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/28/Hexo-busuanzi/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
+    <a href="/2019/09/05/Windows-Change-Temp-And-Clean/">
+    <time datetime="2019-09-04T16:00:00.000Z" class="entry-date">
+        2019-09-05
     </time>
 </a>
     
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
     
     </footer>
 </article>
@@ -356,7 +554,7 @@ page_pv_footer:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="ck8s5f30z004ptcuh6qv5aoh4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="ckdh794gs0054bguh4s4rritj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -694,7 +892,7 @@ page_pv_footer:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="ck8s5f2yu0014tcuhkueflj12" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="ckdh794ej0014bguhp1gpvc86" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -860,6 +1058,368 @@ page_pv_footer:
 
 
   
+    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="ckdh794ed000qbguhjaf39is2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li>CentOS 7.3</li>
+</ul>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
+<li>免密登录的关键点在于理解谁登录谁。</li>
+<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
+</ul>
+<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
+<li>根据提示回车，共有三次交互提示，都回车即可。</li>
+</ul>
+</li>
+<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
+<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+<li>测试：<code>ssh localhost</code></li>
+</ul>
+<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
+<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
+<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
+</ul>
+<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
+</ul>
+<hr>
+<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
+<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
+<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
+<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
+<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
+</ul>
+</li>
+<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/SSH-login-without-password/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="ckdh794fm003bbguh6jmaxwll" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
+<li>CentOS 安装：yum install -y clamav*</li>
+<li>启动 clamAV 服务：service clamd restart</li>
+<li>更新病毒库：freshclam</li>
+<li>扫描方法：<ul>
+<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
+<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
+<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
+</ul>
+</li>
+<li>如果日志有类似内容，表示有木马病毒：<ul>
+<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
+</ul>
+</li>
+<li>看下当前有多少登录者：who</li>
+<li>看下最近有哪些登录者：last</li>
+<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
+<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
+</ul>
+</li>
+<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
+<li>看下查看系统资源占用有无异常：top</li>
+<li>看下所有进程：ps aux</li>
+<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
+<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
+<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
+<li>更多详细可以用：cat /etc/passwd</li>
+</ul>
+</li>
+<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
+<li>检查某个端口的具体信息：lsof -i :18954</li>
+<li>检查启动项：chkconfig</li>
+<li>检查定时器（重要）：cat /etc/crontab</li>
+<li>检查定时器（重要）：crontab -l<ul>
+<li>vim /var/spool/cron/crontabs/root</li>
+<li>vim /var/spool/cron/root</li>
+</ul>
+</li>
+<li>检查其他系统重要文件：<ul>
+<li>cat /etc/rc.local</li>
+<li>cd /etc/init.d;ll</li>
+</ul>
+</li>
+<li>检查文件：<ul>
+<li>find / -uid 0 –perm -4000 –print</li>
+<li>find / -size +10000k –print</li>
+<li>find / -name “…” –print</li>
+<li>find / -name “.. “ –print</li>
+<li>find / -name “. “ –print</li>
+<li>find / -name “ “ –print</li>
+</ul>
+</li>
+<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
+<li>安装 iftop<ul>
+<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
+<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
+<li>没有安装第三方源的情况：<ul>
+<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
+<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
+<li>解压：tar zxf iftop-0.17.tar.gz</li>
+<li>进入解压目录：cd iftop-0.17/</li>
+<li>编译：./configure</li>
+<li>安装：make &amp;&amp; make install</li>
+</ul>
+</li>
+<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
+</code></pre></li>
+</ul>
+</li>
+<li>运行：iftop<ul>
+<li>显示端口与 IP 信息：iftop -nP</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
+<ul>
+<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
+<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
+<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
+<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
+<p>实战<br>挖矿程序</p>
+<ul>
+<li>先查看调度任务是否有新增内容<ul>
+<li>vim /var/spool/cron/root</li>
+<li>vim /var/spool/cron/crontabs/root</li>
+</ul>
+</li>
+<li>如果有，先停止定时任务：systemctl stop crond</li>
+<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
+<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
+<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
+</ul>
+</li>
+<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
+<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
+</ul>
+</li>
+<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/黑客入侵检查/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="ckdh794e5000bbguh1xiqbxjs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
+<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
+<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
+<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
+<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
+<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
+<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
+<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
+    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
+</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
+本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
+&lt;/span&gt;
+</code></pre><p>3.安装教程</p>
+<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
+<pre><code># visitors count
+counter: true
+</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
+<pre><code>{% if theme.footer.counter %}
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    {% endif %}
+</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
+<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
+<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
+<pre><code># Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: false
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
+site_uv_footer:
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
+site_pv_footer:
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
+page_pv_footer:
+</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
+<pre><code>site_uv表示是否显示整个网站的UV数
+site_pv表示是否显示整个网站的PV数
+page_pv表示是否显示每个页面的PV数
+当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
+
+# Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: true
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: 访客数
+site_uv_footer: 人
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: 总访问量
+site_pv_footer: 次
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
+page_pv_footer:
+</code></pre><p>注意事项</p>
+<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
+使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
+网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
+</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Hexo-busuanzi/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
     <!---->
 
@@ -875,7 +1435,7 @@ page_pv_footer:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ck8s5f2zn002rtcuh5chrc3br" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ckdh794fj0036bguh66mqg32o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -935,72 +1495,6 @@ page_pv_footer:
 
 
   
-    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="ck8s5f2yw0018tcuhqotrc00b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
-<hr>
-<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
-<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
-<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
-<p>下载安装 Awesomium 1.6.6 SDK</p>
-<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
-<p>安装完成</p>
-<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
-<p>重启MarkdownPad2</p>
-<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
-<p>可以预览</p>
-<hr>
-<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
-<hr>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1016,7 +1510,7 @@ page_pv_footer:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ck8s5f2zd0026tcuhp7jqjeca" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ckdh794f4002dbguhsy832r4b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1242,239 +1736,6 @@ sort test.txt | uniq -d
 
 
   
-    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="ck8s5f2yy001ctcuhdku2664c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
-
-需要下载：
-http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
-
-下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
-JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
-JRE：将两个jar文件放到%JRE_HOME%\lib\security下
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/java 加密规则变更/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/07/16/vscode vue 用户代码片段/">vscode vue 用户代码片段</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ck8s5f2ze0029tcuhlu3psr1z" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="1-打开vscode-设置-用户代码片段-vue-模板"><a href="#1-打开vscode-设置-用户代码片段-vue-模板" class="headerlink" title="1.打开vscode 设置-用户代码片段-vue 模板"></a>1.打开vscode 设置-用户代码片段-vue 模板</h3><p><img src="\assets\vueImg\vscode_vue_user_code_config.png" alt="image"><br><img src="\assets\vueImg\vscode_vue_user_code_config1.png" alt="image"></p>
-<h3 id="vue-json-配置信息如下"><a href="#vue-json-配置信息如下" class="headerlink" title="vue.json 配置信息如下"></a>vue.json 配置信息如下</h3><pre><code>{    &quot;Print to console&quot;: {
-        &quot;prefix&quot;: &quot;vue&quot;,
-        &quot;body&quot;: [
-            &quot;&lt;!-- $1 --&gt;&quot;,
-            &quot;&lt;template&gt;&quot;,
-            &quot;&lt;div class=&apos;$2&apos;&gt;$5&lt;/div&gt;&quot;,
-            &quot;&lt;/template&gt;&quot;,
-            &quot;&quot;,
-            &quot;&lt;script&gt;&quot;,
-            &quot;//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）&quot;,
-            &quot;//例如：import 《组件名称》 from &apos;《组件路径》&apos;;&quot;,
-            &quot;&quot;,
-            &quot;export default {&quot;,
-            &quot;//import引入的组件需要注入到对象中才能使用&quot;,
-            &quot;components: {},&quot;,
-            &quot;data() {&quot;,
-            &quot;//这里存放数据&quot;,
-            &quot;return {&quot;,
-            &quot;&quot;,
-            &quot;};&quot;,
-            &quot;},&quot;,
-            &quot;//监听属性 类似于data概念&quot;,
-            &quot;computed: {},&quot;,
-            &quot;//监控data中的数据变化&quot;,
-            &quot;watch: {},&quot;,
-            &quot;//方法集合&quot;,
-            &quot;methods: {&quot;,
-            &quot;&quot;,
-            &quot;},&quot;,
-            &quot;//生命周期 - 创建完成（可以访问当前this实例）&quot;,
-            &quot;created() {&quot;,
-            &quot;&quot;,
-            &quot;},&quot;,
-            &quot;//生命周期 - 挂载完成（可以访问DOM元素）&quot;,
-            &quot;mounted() {&quot;,
-            &quot;&quot;,
-            &quot;},&quot;,
-            &quot;beforeCreate() {}, //生命周期 - 创建之前&quot;,
-            &quot;beforeMount() {}, //生命周期 - 挂载之前&quot;,
-            &quot;beforeUpdate() {}, //生命周期 - 更新之前&quot;,
-            &quot;updated() {}, //生命周期 - 更新之后&quot;,
-            &quot;beforeDestroy() {}, //生命周期 - 销毁之前&quot;,
-            &quot;destroyed() {}, //生命周期 - 销毁完成&quot;,
-            &quot;activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发&quot;,
-            &quot;}&quot;,
-            &quot;&lt;/script&gt;&quot;,
-            &quot;&lt;style lang=&apos;scss&apos; scoped&gt;&quot;,
-            &quot;//@import url($3); 引入公共css类&quot;,
-            &quot;$4&quot;,
-            &quot;&lt;/style&gt;&quot;
-        ],
-        &quot;description&quot;: &quot;Log output to console&quot;
-    }
-}
-</code></pre><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre><code>新建test.vue 文件 输入 ‘vue’ 选择配置的vue用户代码片段，如下
-</code></pre><p><img src="\assets\vueImg\vscode_vue_user_code_config2.png" alt="image"><br><img src="\assets\vueImg\vscode_vue_user_code_config3.png" alt="image"></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/07/16/vscode vue 用户代码片段/">
-    <time datetime="2019-07-15T16:00:00.000Z" class="entry-date">
-        2019-07-16
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ck8s5f2zj002jtcuhmess7hlk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
-
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
-
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1499,7 +1760,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1511,23 +1772,23 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
       <ul>
         
           <li>
+            <a href="/2020/08/05/github-hosts/">GitHub 访问加速方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/vscode-settings-sync/">vscode-settings-sync</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/04/java-getstarted/">下载、安装、配置和调试 JDK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/04/hexo-create-config/">hexo-create-config</a>
+          </li>
+        
+          <li>
             <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/16/Git-remote-and-push/">git 开发生产仓库同步代码</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/17/POI-Word-Convert-HTML/">POI word转html</a>
           </li>
         
       </ul>
