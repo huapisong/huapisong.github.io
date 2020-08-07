@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
+    <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,55 +70,50 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
+      <a class="article-title" href="/2019/03/26/vue elemetUl /">vue elementUi</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ckdi3gor3002zikuhk8ifwes8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ckdjkt5ym002tg0uh2ph0osm5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
-</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
-* 组件之间的通信
-* @param Vue
-*/
-const install = (Vue) =&gt;{
-  const Bus = new Vue({
-      methods:{
-          emit(event, ...args){
-              this.$emit(event, ...args)
-          },
-          on (event, callback){
-              this.$on(event, callback)
-          },
-          off(event, callback){
-              this.$off(event, callback)
-          }
-      }
-  })
-  Vue.prototype.$bus = Bus
-}
-export default install
-</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
-Vue.use(VueBus)
-</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
-let num = Math.floor(Math.random() * 100 + 1);
-this.$bus.$emit(&apos;getMenu&apos;, num);
+        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
 
-# 组件 b
-,created() {
-    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
-        // console.log(target);
-        this.getMenus();
-    });
-}
-</code></pre>
+# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
+
+Element UI该组件已经在属性层面提供了解决办法，只要添加
+:modal-append-to-body=&quot;false&quot;
+就可以了。
+</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
+# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
+&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+
+# 方法二：
+# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -126,7 +121,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/03/26/vue组件之间通信/">
+    <a href="/2019/03/26/vue elemetUl /">
     <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
         2019-03-26
     </time>
@@ -162,7 +157,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ckdi3gorr004eikuh7p3ljwiy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ckdjkt5z2003qg0uhwxggfkng" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -364,7 +359,7 @@ RPC的特点
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="ckdi3goq80010ikuhxg1zz1y4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="ckdjkt5xc0010g0uh9tbpbfzs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -519,7 +514,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ckdi3gopw000dikuhzb2hu0si" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ckdjkt5wx000bg0uha6g0kbgt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -601,7 +596,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ckdi3gopx000gikuh13x9fwij" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ckdjkt5x4000lg0uhd28fckvs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -665,7 +660,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="ckdi3goq90011ikuhyvy5v0rn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="ckdjkt5xz001gg0uhtvjf2eyx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -820,7 +815,7 @@ public class Reverse {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="ckdi3goqo0021ikuh3japi4j0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="ckdjkt5yc0026g0uh44wq9g1y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -927,7 +922,7 @@ project
 
 
   
-    <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
+    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -935,209 +930,22 @@ project
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/curl/">curl(选项)(参数)</a>
+      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ckdi3goru004iikuh063l34x0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="ckdjkt5yv0039g0uh9n2ejzcw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <pre><code>举个栗子
-
-curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;{&quot;serviceType&quot;:&quot;3&quot;}&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
-curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceType=3&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
-</code></pre><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>curl(选项)(参数)
-</code></pre><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><pre><code>-a/--append  上传文件时，附加到目标文件
--A/--user-agent &lt;string&gt;  设置用户代理发送给服务器
--anyauth  可以使用“任何”身份验证方法
--b/--cookie &lt;name=string/file&gt;  cookie字符串或文件读取位置
-   --basic  使用HTTP基本验证
--B/--use-ascii  使用ASCII /文本传输
--c/--cookie-jar &lt;file&gt;  操作结束后把cookie写入到这个文件中
--C/--continue-at &lt;offset&gt;  断点续转
--d/--data &lt;data&gt;  HTTP POST方式传送数据
-   --data-ascii &lt;data&gt;  以ascii的方式post数据
-   --data-binary &lt;data&gt;  以二进制的方式post数据
-   --negotiate  使用HTTP身份验证
-   --digest  使用数字身份验证
-   --disable-eprt  禁止使用EPRT或LPRT
-   --disable-epsv  禁止使用EPSV
--D/--dump-header &lt;file&gt;  把header信息写入到该文件中
-   --egd-file &lt;file&gt;  为随机数据(SSL)设置EGD socket路径
-   --tcp-nodelay  使用TCP_NODELAY选项
--e/--referer  来源网址
--E/--cert &lt;cert[:passwd]&gt;  客户端证书文件和密码 (SSL)
-   --cert-type &lt;type&gt;  证书文件类型 (DER/PEM/ENG) (SSL)
-   --key &lt;key&gt;  私钥文件名 (SSL)
-   --key-type &lt;type&gt;  私钥文件类型 (DER/PEM/ENG) (SSL)
-   --pass &lt;pass&gt;  私钥密码 (SSL)
-   --engine &lt;eng&gt;  加密引擎使用 (SSL). &quot;--engine list&quot; for list
-   --cacert &lt;file&gt;  CA证书 (SSL)
-   --capath &lt;directory&gt;  CA目录 (made using c_rehash) to verify peer against (SSL)
-   --ciphers &lt;list&gt;  SSL密码
-   --compressed  要求返回是压缩的形势 (using deflate or gzip)
-   --connect-timeout &lt;seconds&gt;  设置最大请求时间
-   --create-dirs  建立本地目录的目录层次结构
-   --crlf  上传是把LF转变成CRLF
--f/--fail  连接失败时不显示http错误
-   --ftp-create-dirs  如果远程目录不存在，创建远程目录
-   --ftp-method [multicwd/nocwd/singlecwd]  控制CWD的使用
-   --ftp-pasv  使用 PASV/EPSV 代替端口
-   --ftp-skip-pasv-ip  使用PASV的时候,忽略该IP地址
-   --ftp-ssl  尝试用 SSL/TLS 来进行ftp数据传输
-   --ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输
--F/--form &lt;name=content&gt;  模拟http表单提交数据
-   --form-string &lt;name=string&gt;  模拟http表单提交数据
--g/--globoff  禁用网址序列和范围使用{}和[]
--G/--get  以get的方式来发送数据
--H/--header &lt;line&gt;  自定义头信息传递给服务器
-   --ignore-content-length  忽略的HTTP头信息的长度
--i/--include  输出时包括protocol头信息
--I/--head  只显示请求头信息
--j/--junk-session-cookies  读取文件进忽略session cookie
-   --interface &lt;interface&gt;  使用指定网络接口/地址
-   --krb4 &lt;level&gt;  使用指定安全级别的krb4
--k/--insecure  允许不使用证书到SSL站点
--K/--config  指定的配置文件读取
--l/--list-only  列出ftp目录下的文件名称
-   --limit-rate &lt;rate&gt;  设置传输速度
-   --local-port&lt;NUM&gt;  强制使用本地端口号
--m/--max-time &lt;seconds&gt;  设置最大传输时间
-   --max-redirs &lt;num&gt;  设置最大读取的目录数
-   --max-filesize &lt;bytes&gt;  设置最大下载的文件总量
--M/--manual  显示全手动
--n/--netrc  从netrc文件中读取用户名和密码
-   --netrc-optional  使用 .netrc 或者 URL来覆盖-n
-   --ntlm  使用 HTTP NTLM 身份验证
--N/--no-buffer  禁用缓冲输出
--o/--output  把输出写到该文件中
--O/--remote-name  把输出写到该文件中，保留远程文件的文件名
--p/--proxytunnel  使用HTTP代理
-   --proxy-anyauth  选择任一代理身份验证方法
-   --proxy-basic  在代理上使用基本身份验证
-   --proxy-digest  在代理上使用数字身份验证
-   --proxy-ntlm  在代理上使用ntlm身份验证
--P/--ftp-port &lt;address&gt;  使用端口地址，而不是使用PASV
--q  作为第一个参数，关闭 .curlrc
--Q/--quote &lt;cmd&gt;  文件传输前，发送命令到服务器
--r/--range &lt;range&gt;  检索来自HTTP/1.1或FTP服务器字节范围
---range-file  读取（SSL）的随机文件
--R/--remote-time  在本地生成文件时，保留远程文件时间
-   --retry &lt;num&gt;  传输出现问题时，重试的次数
-   --retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间
-   --retry-max-time &lt;seconds&gt;  传输出现问题时，设置最大重试时间
--s/--silent  静默模式。不输出任何东西
--S/--show-error  显示错误
-   --socks4 &lt;host[:port]&gt;  用socks4代理给定主机和端口
-   --socks5 &lt;host[:port]&gt;  用socks5代理给定主机和端口
-   --stderr &lt;file&gt;   
--t/--telnet-option &lt;OPT=val&gt;  Telnet选项设置
-   --trace &lt;file&gt;  对指定文件进行debug
-   --trace-ascii &lt;file&gt;  Like --跟踪但没有hex输出
-   --trace-time  跟踪/详细输出时，添加时间戳
--T/--upload-file &lt;file&gt;  上传文件
-   --url &lt;URL&gt;  Spet URL to work with
--u/--user &lt;user[:password]&gt;  设置服务器的用户和密码
--U/--proxy-user &lt;user[:password]&gt;  设置代理用户名和密码
--w/--write-out [format]  什么输出完成后
--x/--proxy &lt;host[:port]&gt;  在给定的端口上使用HTTP代理
--X/--request &lt;command&gt;  指定什么命令
--y/--speed-time  放弃限速所要的时间，默认为30
--Y/--speed-limit  停止传输速度的限制，速度时间
-</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>文件下载
-
-  curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout，将进度信息输出到stderr，不显示进度信息使用--silent选项。
-
-  curl URL --silent
-
-  这条命令是将下载文件输出到终端，所有下载的数据都被写入到stdout。
-
-  使用选项-O将下载的数据写入到文件，必须使用文件的绝对地址：
-
-  curl http://man.linuxde.net/text.iso --silent -O
-
-  选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：
-
-  curl http://man.linuxde.net/test.iso -o filename.iso --progress
-  ######################################### 100.0%
-
- 断点续传
-
-  curl能够从特定的文件偏移处继续下载，它可以通过指定一个便宜量来下载部分文件：
-
-  curl URL/File -C 偏移量
-
-  #偏移量是以字节为单位的整数，如果让curl自动推断出正确的续传位置使用-C -：
-  curl -C -URL
-
-使用curl设置参照页字符串
-
-  参照页是位于HTTP头部中的一个字符串，用来表示用户是从哪个页面到达当前页面的，如果用户点击网页A中的某个连接，那么用户就会跳转到B网页，网页B头部的参照页字符串就包含网页A的URL。
-
-  使用--referer选项指定参照页字符串：
-
-  curl --referer http://www.google.com http://man.linuxde.net
-
-用curl设置cookies
-
-  使用--cookie &quot;COKKIES&quot;选项来指定cookie，多个cookie使用分号分隔：
-
-  curl http://man.linuxde.net --cookie &quot;user=root;pass=123456&quot;
-
-  将cookie另存为一个文件，使用--cookie-jar选项：
-
-  curl URL --cookie-jar cookie_file
-
-用curl设置用户代理字符串
-
-  有些网站访问会提示只能使用IE浏览器来访问，这是因为这些网站设置了检查用户代理，可以使用curl把用户代理设置为IE，这样就可以访问了。使用--user-agent或者-A选项：
-
-  curl URL --user-agent &quot;Mozilla/5.0&quot;
-  curl URL -A &quot;Mozilla/5.0&quot;
-
-  其他HTTP头部信息也可以使用curl来发送，使用-H&quot;头部信息&quot; 传递多个头部信息，例如：
-
-  curl -H &quot;Host:man.linuxde.net&quot; -H &quot;accept-language:zh-cn&quot; URL
-
- curl的带宽控制和下载配额
-
-  使用--limit-rate限制curl的下载速度：
-
-  curl URL --limit-rate 50k
-
-  命令中用k（千字节）和m（兆字节）指定下载速度限制。
-
-  使用--max-filesize指定可下载的最大文件大小：
-
-  curl URL --max-filesize bytes
-
-  如果文件大小超出限制，命令则返回一个非0退出码，如果命令正常则返回0。
-
-用curl进行认证
-
-  使用curl选项 -u 可以完成HTTP或者FTP的认证，可以指定密码，也可以不指定密码在后续操作中输入密码：
-
-  curl -u user:pwd http://man.linuxde.net
-  curl -u user http://man.linuxde.net
-
-只打印响应头部信息
-
-    通过-I或者-head可以只打印出HTTP头部信息：
-
-    [root@localhost text]# curl -I http://man.linuxde.net
-      HTTP/1.1 200 OK
-      Server: nginx/1.2.5
-      date: Mon, 10 Dec 2012 09:24:34 GMT
-      Content-Type: text/html; charset=UTF-8
-      Connection: keep-alive
-      Vary: Accept-Encoding
-      X-Pingback: http://man.linuxde.net/xmlrpc.php
+        <p>刷新 DNS 解析缓存</p>
+<pre><code># cmd 执行 
+ipconfig /flushdns
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -1146,7 +954,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/curl/">
+    <a href="/2018/01/01/刷新 DNS 解析缓存/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -1155,99 +963,6 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ckdi3goqi001mikuhsthokslp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
-        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
-        &lt;version&gt;1.60.0&lt;/version&gt;
-    &lt;/dependency&gt;
-
-# Configuration.java
-
-import net.bull.javamelody.MonitoringFilter;
-import net.bull.javamelody.SessionListener;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- *
- * @author zqs
- * @since
- */
-@Configuration
-public class JavamelodyConfiguration {
-    @Bean
-    public FilterRegistrationBean monitorFilter(){
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
-        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
-        return filterRegistrationBean;
-    }
-
-    @Bean
-    public ServletListenerRegistrationBean sessionListener(){
-        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
-        servletListenerRegistrationBean.setListener(new SessionListener());
-        return servletListenerRegistrationBean;
-    }
-}   
-</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
-javamelody.jar
-jrobin-1.5.14.jar
-启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
-
-访问：http://主机地址：端口号/项目名/monitoring
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/javamelody/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
 
     
@@ -1275,7 +990,7 @@ jrobin-1.5.14.jar
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="ckdi3goqd0019ikuhlw0v7pbt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="ckdjkt5y0001hg0uhwbdyhz5t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1309,6 +1024,57 @@ jrobin-1.5.14.jar
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/console/">console</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ckdjkt5yx003eg0uh01uvaidl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/右键添加Notepad2/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
   </div>
 
     

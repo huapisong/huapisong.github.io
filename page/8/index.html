@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
+    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,279 +70,153 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
+      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ckdi3gopn0003ikuhg1jwuv6i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ckdjkt5yb0024g0uhai15hotf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>2.1 安装依赖</p>
-<pre><code>yum -y install gcc gcc-c++ autoconf automake
-yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
-</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
-<pre><code># 解压缩
-tar -zxvf nginx-1.10.2.tar.gz
+        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
+<p>一、安装环境</p>
+<pre><code>● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+</code></pre><p>二、安装步骤</p>
+<p>第一步：下载安装包</p>
+<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
 
-# 进入压缩目录
-cd nginx-1.10.2
+由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
+</code></pre><p>第二步： 上传jdk1.8 安装包</p>
+<pre><code># 上传jdk1.8 安装包
+scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
+# 进入jdk目录
+cd /hupisong/java/
+# 解压JDK1.8安装包
+tar -zxvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>第三步、修改环境变量</p>
+<pre><code># 编辑文件
+vi /etc/profile
+# 按 &apos;i&apos; 键编辑
+# 编辑,在最后一行添加
+# 添加内容如下 
+export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
+export PATH=$JAVA_HOME/bin:$PATH
+# 退出编辑并保存：
+# 按&apos;esc&apos;键退出编辑 
+# 输入&apos;:wq&apos; 保存编辑内容
+:wq 
+# 加载设置的变量，使其生效
+ source /etc/profile
+</code></pre><p>第四步、测试是否安装成功</p>
+<pre><code># 输入命令
+java -version
+#成功结果如下：
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>至此，安装结束</p>
+<p><a href="https://github.com/xpbob/CrashAnalysis" target="_blank" rel="noopener">https://github.com/xpbob/CrashAnalysis</a></p>
 
-# 进行模块配置
-./configure \
-  --prefix=/usr \
-  --sbin-path=/usr/sbin/nginx \
-  --conf-path=/etc/nginx/nginx.conf \
-  --error-log-path=/var/log/nginx/error.log \
-  --http-log-path=/var/log/nginx/access.log \
-  --pid-path=/var/run/nginx/nginx.pid  \
-  --lock-path=/var/lock/nginx.lock \
-  --user=nginx \
-  --group=nginx \
-  --with-http_ssl_module \
-  --with-http_flv_module \
-  --with-http_stub_status_module \
-  --with-http_gzip_static_module \
-  --http-client-body-temp-path=/var/tmp/nginx/client/ \
-  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
-  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
-  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
-  --http-scgi-temp-path=/var/tmp/nginx/scgi \
-  --with-pcre
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
 
-# 编译安装
-make &amp;&amp; make install
-</code></pre><p>2.5 安装路径</p>
-<pre><code># 名称路径日志目录
-/var/log/nginx
-# 配置目录
-/etc/nginx
-# PID文件
-/var/run/nginx/nginx.pid
-# 启动文件
-/usr/sbin/nginx
-</code></pre><p>2.6 centos6服务脚本</p>
-<pre><code>#创建文件
-touch /etc/rc.d/init.d/nginx
-chmod +x /etc/rc.d/init.d/nginx
-在其中添加如下：
-</code></pre><p>启动脚本</p>
-<pre><code>#!/bin/sh  
-#  
-# nginx - this script starts and stops the nginx daemon  
-#  
-# chkconfig:   - 85 15  
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
-#               proxy and IMAP/POP3 proxy server  
-# processname: nginx  
+    <footer class="entry-meta">
+    <a href="/2017/01/06/linux安装JDK/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
 
-# Source function library.  
-. /etc/rc.d/init.d/functions  
+    
+    </footer>
+</article>
 
-# Source networking configuration.  
-. /etc/sysconfig/network  
 
-# Check that networking is up.  
-[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
 
-nginx=&quot;/usr/sbin/nginx&quot;  
-prog=$(basename $nginx)  
 
-sysconfig=&quot;/etc/sysconfig/$prog&quot;  
-lockfile=&quot;/var/lock/nginx.lock&quot;  
-pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
 
-NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
 
-[ -f $sysconfig ] &amp;&amp; . $sysconfig  
+  
+    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
+    <!---->
 
-start() {  
-    [ -x $nginx ] || exit 5  
-    [ -f $NGINX_CONF_FILE ] || exit 6  
-    echo -n $&quot;Starting $prog: &quot;  
-    daemon $nginx -c $NGINX_CONF_FILE  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
-    return $retval  
-}  
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
+    </h1>
+  
 
-stop() {  
-    echo -n $&quot;Stopping $prog: &quot;  
-    killproc -p $pidfile $prog  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
-    return $retval  
-}  
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="ckdjkt5wl0001g0uhvec8twb0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
 
-restart() {  
-    configtest_q || return 6  
-    stop  
-    start  
-}  
+    <div class="entry-content">
+      
+        <p>4.1.使用背景</p>
+<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+</code></pre><p>4.2.下载安装脚本</p>
+<pre><code>下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
 
-reload() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reloading $prog: &quot;  
-    killproc -p $pidfile $prog -HUP  
-    echo  
-}  
+# 赋予执行权限
+chmod +x letsencrypt.sh
+</code></pre><p>4.3.配置相关信息</p>
+<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
+# only modify the values, key files will be generated automaticly.
+ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
+DOMAIN_KEY=&quot;tiger.com.key&quot;
+DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
+DOMAINS=&quot;DNS:test.tiger.com&quot;
+#ECC=TRUE
+#LIGHTTPD=TRUE
+</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
+<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
+<p>4.4.执行证书生成</p>
+<pre><code>./letsencrypt.sh ./letsencrypt.conf
+</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
+<pre><code>letsencrypt-account.key
+tiger.crt
+tiger.csr
+tiger.chained.crt
+tiger.com.key
+</code></pre><p>4.5.配置证书安装</p>
+<p>这里使用nginx进行证书安装的服务器</p>
+<pre><code>server {
+        listen       443;
+        server_name  test.tiger.com;
 
-configtest() {  
-    $nginx -t -c $NGINX_CONF_FILE  
-}  
+    ssl on;
+    ssl_certificate tiger.chained.crt;
+    ssl_certificate_key tiger.com.key;
+    ssl_session_timeout 5m;
 
-configtest_q() {  
-    $nginx -t -q -c $NGINX_CONF_FILE  
-}  
-
-rh_status() {  
-    status $prog  
-}  
-
-rh_status_q() {  
-    rh_status &gt;/dev/null 2&gt;&amp;1  
-}  
-
-# Upgrade the binary with no downtime.  
-upgrade() {  
-    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
-
-    configtest_q || return 6  
-    echo -n $&quot;Upgrading $prog: &quot;  
-    killproc -p $pidfile $prog -USR2  
-    retval=$?  
-    sleep 1  
-    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
-        killproc -p $oldbin_pidfile $prog -QUIT  
-        success $&quot;$prog online upgrade&quot;  
-        echo   
-        return 0  
-    else  
-        failure $&quot;$prog online upgrade&quot;  
-        echo  
-        return 1  
-    fi  
-}  
-
-# Tell nginx to reopen logs  
-reopen_logs() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reopening $prog logs: &quot;  
-    killproc -p $pidfile $prog -USR1  
-    retval=$?  
-    echo  
-    return $retval  
+    location / {
+        root html;
+        index  index.html index.htm;
+    }
 }
-
-case &quot;$1&quot; in
-    start)
-        rh_status_q &amp;&amp; exit 0
-        $1
-        ;;
-    stop)
-        rh_status_q || exit 0
-        $1
-        ;;
-    restart|configtest|reopen_logs)
-        $1
-        ;;
-    force-reload|upgrade)
-        rh_status_q || exit 7
-        upgrade
-        ;;
-    reload)
-        rh_status_q || exit 7
-        $1
-        ;;
-    status|status_q)
-        rh_$1
-        ;;
-    condrestart|try-restart)
-        rh_status_q || exit 7
-        restart
-        ;;
-    *)
-        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
-        exit 2
-esac
-
-添加nginx服务为系统服务
-开机启动方式
-
-    # 开机启动
-    chkconfig --add nginx
-    chkconfig --level 345 nginx on
-    chkconfig --list nginx
-
-    # 开机不启动
-    chkconfig nginx off
-    chkconfig --list nginx
-添加成功后就可以执行service nginx start、stop、restart、status等操作了。
-</code></pre><p>2.7 centos7服务脚本</p>
-<pre><code># 创建文件
-touch /usr/lib/systemd/system/nginx.service
-# 启动脚本
-[Unit]
-Description=nginx
-After=network.target remote-fs.target nss-lookup.target
-
-[Service]
-Type=forking
-ExecStart=/usr/sbin/nginx
-ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s stop
-PrivateTmp=true
-
-[Install]
-WantedBy=multi-user.target
-
-# 开机启动方式
-
-# 开机启动
-systemctl enable nginx.service
-
-# 开机不启动
-systemctl disable nginx.service
-
-# 其他操作
-systemctl ( status | start | stop | reload | restart ) nginx.service
-
-------------------------------------------------------------------------------------------------
-</code></pre><h2 id="CentOS7中使用yum安装Nginx的方法"><a href="#CentOS7中使用yum安装Nginx的方法" class="headerlink" title="CentOS7中使用yum安装Nginx的方法"></a>CentOS7中使用yum安装Nginx的方法</h2><pre><code>最近无意间发现Nginx官方提供了Yum源。因此写个文章记录下。
-
-1、添加源
-</code></pre><p>　　默认情况Centos7中无Nginx的源，最近发现Nginx官网提供了Centos的源地址。因此可以如下执行命令添加源：</p>
-<pre><code>sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
-
-2、安装Nginx
-
-　　通过yum search nginx看看是否已经添加源成功。如果成功则执行下列命令安装Nginx。
-
-sudo yum install -y nginx
-
-3、启动Nginx并设置开机自动运行
-
-sudo systemctl start nginx.service
-sudo systemctl enable nginx.service
-
-4、浏览查看效果
-
-在浏览器中输入您的服务器地址：http://10.42.1.50//
-</code></pre><h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><pre><code># yum 安装 卸载 
-yum remove nginx
-
-如果已经不记得安装方式了，那么可以使用以下步骤进行全删除：
-# 删除关联文件以及文件夹
-rm -rf /etc/nginx/
-rm -rf /usr/sbin/nginx
-rm /usr/share/man/man1/nginx.1.gz
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -351,9 +225,9 @@ rm /usr/share/man/man1/nginx.1.gz
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
+    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
     </time>
 </a>
     
@@ -387,7 +261,7 @@ rm /usr/share/man/man1/nginx.1.gz
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="ckdi3gopk0001ikuhsgu1zcrd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="ckdjkt5wr0005g0uhdie7mpuf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -472,100 +346,6 @@ iptables -D OUTPUT 13
 
 
   
-    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="ckdi3gopo0004ikuhvbczc3up" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>4.1.使用背景</p>
-<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
-</code></pre><p>4.2.下载安装脚本</p>
-<pre><code>下载Github上贡献者做好的安装脚本，如下：
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
-
-# 赋予执行权限
-chmod +x letsencrypt.sh
-</code></pre><p>4.3.配置相关信息</p>
-<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
-# only modify the values, key files will be generated automaticly.
-ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
-DOMAIN_KEY=&quot;tiger.com.key&quot;
-DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
-DOMAINS=&quot;DNS:test.tiger.com&quot;
-#ECC=TRUE
-#LIGHTTPD=TRUE
-</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
-<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
-<p>4.4.执行证书生成</p>
-<pre><code>./letsencrypt.sh ./letsencrypt.conf
-</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
-<pre><code>letsencrypt-account.key
-tiger.crt
-tiger.csr
-tiger.chained.crt
-tiger.com.key
-</code></pre><p>4.5.配置证书安装</p>
-<p>这里使用nginx进行证书安装的服务器</p>
-<pre><code>server {
-        listen       443;
-        server_name  test.tiger.com;
-
-    ssl on;
-    ssl_certificate tiger.chained.crt;
-    ssl_certificate_key tiger.com.key;
-    ssl_session_timeout 5m;
-
-    location / {
-        root html;
-        index  index.html index.htm;
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -581,7 +361,7 @@ tiger.com.key
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="ckdi3goqg001iikuhr7fzyj2d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="ckdjkt5y4001og0uh2ijkau0u" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -757,7 +537,7 @@ public class AccountValidatorUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="ckdi3gorx004mikuhs9s6qeio" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="ckdjkt5zi004ig0uhwwaajyc4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1016,6 +796,94 @@ public class ListSort {
 
 
   
+    <article id="post-http协议介绍" class="post-http协议介绍 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/01/01/http协议介绍/">http协议介绍</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="ckdjkt5y2001kg0uh7yc7zbu1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。</p>
+<p>HTTP协议的主要特点</p>
+<pre><code>1.支持客户/服务器模式
+2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。 请求方法常用的有GET、HEAD、POST。 每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单， 使得HTTP服务器的程序规模小，因而通信速度很快。
+3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
+4.无连接： 无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求， 并收到客户的应答后， 即断开连接。 采用这种方式可以节省传输时间。
+5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。
+</code></pre><p>HTTP协议之请求</p>
+<pre><code>http请求由三部分组成，分别是：请求行、消息报头、请求正文
+请求方法有多种， 各个方法的解释如下：
+GET请求获取Request-URI所标识的资源
+POST在Request-URI所标识的资源后附加新的数据
+HEAD请求获取由Request-URI所标识的资源的响应消息报头
+PUT请求服务器存储一个资源， 并用Request-URI作为其标识
+DELETE请求服务器删除Request-URI所标识的资源
+TRACE请求服务器回送收到的请求信息，主要用于测试或诊断
+CONNECT保留将来使用
+OPTIONS请求查询服务器的性能，或者查询与资源相关的选项和需求
+</code></pre><p>应用举例：</p>
+<pre><code>GET方法在浏览器的地址栏中输入网址的方式访问网页时， 浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)
+POST方法要求被请求服务器接受附在请求后面的数据， 常用于提交表单。
+</code></pre><p>HTTP协议之响应</p>
+<pre><code>在接收和解释请求消息后，服务器返回一个HTTP响应消息。
+HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文
+状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：
+1xx：指示信息--表示请求已接收，继续处理
+2xx：成功--表示请求已被成功接收、理解、接受
+3xx：重定向--要完成请求必须进行更进一步的操作
+4xx：客户端错误--请求有语法错误或请求无法实现
+5xx：服务器端错误--服务器未能实现合法的请求
+</code></pre><p>常见状态代码、状态描述、说明：</p>
+<pre><code>200 OK //客户端请求成功
+400 Bad Request //客户端请求有语法错误， 不能被服务器所理解
+401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用
+403 Forbidden //服务器收到请求，但是拒绝提供服务
+404 Not Found //请求资源不存在，eg： 输入了错误的URL
+500 Internal Server Error //服务器发生不可预期的错误
+503 Server Unavailable //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2014/01/01/http协议介绍/">
+    <time datetime="2013-12-31T16:00:00.000Z" class="entry-date">
+        2014-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-初识git" class="post-初识git post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1031,7 +899,7 @@ public class ListSort {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="ckdi3gose0056ikuh9lmnnqa5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="ckdjkt5zw0051g0uhm0x2pc5l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1376,94 +1244,6 @@ git commit --amend
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Git/">Git</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-http协议介绍" class="post-http协议介绍 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/01/01/http协议介绍/">http协议介绍</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="ckdi3goqf001eikuhfvoekzgt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。</p>
-<p>HTTP协议的主要特点</p>
-<pre><code>1.支持客户/服务器模式
-2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。 请求方法常用的有GET、HEAD、POST。 每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单， 使得HTTP服务器的程序规模小，因而通信速度很快。
-3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
-4.无连接： 无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求， 并收到客户的应答后， 即断开连接。 采用这种方式可以节省传输时间。
-5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。
-</code></pre><p>HTTP协议之请求</p>
-<pre><code>http请求由三部分组成，分别是：请求行、消息报头、请求正文
-请求方法有多种， 各个方法的解释如下：
-GET请求获取Request-URI所标识的资源
-POST在Request-URI所标识的资源后附加新的数据
-HEAD请求获取由Request-URI所标识的资源的响应消息报头
-PUT请求服务器存储一个资源， 并用Request-URI作为其标识
-DELETE请求服务器删除Request-URI所标识的资源
-TRACE请求服务器回送收到的请求信息，主要用于测试或诊断
-CONNECT保留将来使用
-OPTIONS请求查询服务器的性能，或者查询与资源相关的选项和需求
-</code></pre><p>应用举例：</p>
-<pre><code>GET方法在浏览器的地址栏中输入网址的方式访问网页时， 浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)
-POST方法要求被请求服务器接受附在请求后面的数据， 常用于提交表单。
-</code></pre><p>HTTP协议之响应</p>
-<pre><code>在接收和解释请求消息后，服务器返回一个HTTP响应消息。
-HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文
-状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：
-1xx：指示信息--表示请求已接收，继续处理
-2xx：成功--表示请求已被成功接收、理解、接受
-3xx：重定向--要完成请求必须进行更进一步的操作
-4xx：客户端错误--请求有语法错误或请求无法实现
-5xx：服务器端错误--服务器未能实现合法的请求
-</code></pre><p>常见状态代码、状态描述、说明：</p>
-<pre><code>200 OK //客户端请求成功
-400 Bad Request //客户端请求有语法错误， 不能被服务器所理解
-401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用
-403 Forbidden //服务器收到请求，但是拒绝提供服务
-404 Not Found //请求资源不存在，eg： 输入了错误的URL
-500 Internal Server Error //服务器发生不可预期的错误
-503 Server Unavailable //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2014/01/01/http协议介绍/">
-    <time datetime="2013-12-31T16:00:00.000Z" class="entry-date">
-        2014-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
   </div>
 
     

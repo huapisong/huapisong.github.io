@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,21 +70,63 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ckdi3gor70039ikuho4pz6k93" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ckdjkt5y5001pg0uhgh1xi1ai" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
+        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
 
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
+javamelody.jar
+jrobin-1.5.14.jar
+启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
+
+访问：http://主机地址：端口号/项目名/monitoring
+</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -92,7 +134,7 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/右键添加Notepad2/">
+    <a href="/2018/01/01/javamelody/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -100,7 +142,7 @@
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
 
     
@@ -113,7 +155,7 @@
 
 
   
-    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
+    <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -121,22 +163,209 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
+      <a class="article-title" href="/2018/01/01/curl/">curl(选项)(参数)</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="ckdi3gor50035ikuhff7zxdan" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ckdjkt5zh004hg0uhu0wd3ul2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>刷新 DNS 解析缓存</p>
-<pre><code># cmd 执行 
-ipconfig /flushdns
+        <pre><code>举个栗子
+
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;{&quot;serviceType&quot;:&quot;3&quot;}&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceType=3&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+</code></pre><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>curl(选项)(参数)
+</code></pre><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><pre><code>-a/--append  上传文件时，附加到目标文件
+-A/--user-agent &lt;string&gt;  设置用户代理发送给服务器
+-anyauth  可以使用“任何”身份验证方法
+-b/--cookie &lt;name=string/file&gt;  cookie字符串或文件读取位置
+   --basic  使用HTTP基本验证
+-B/--use-ascii  使用ASCII /文本传输
+-c/--cookie-jar &lt;file&gt;  操作结束后把cookie写入到这个文件中
+-C/--continue-at &lt;offset&gt;  断点续转
+-d/--data &lt;data&gt;  HTTP POST方式传送数据
+   --data-ascii &lt;data&gt;  以ascii的方式post数据
+   --data-binary &lt;data&gt;  以二进制的方式post数据
+   --negotiate  使用HTTP身份验证
+   --digest  使用数字身份验证
+   --disable-eprt  禁止使用EPRT或LPRT
+   --disable-epsv  禁止使用EPSV
+-D/--dump-header &lt;file&gt;  把header信息写入到该文件中
+   --egd-file &lt;file&gt;  为随机数据(SSL)设置EGD socket路径
+   --tcp-nodelay  使用TCP_NODELAY选项
+-e/--referer  来源网址
+-E/--cert &lt;cert[:passwd]&gt;  客户端证书文件和密码 (SSL)
+   --cert-type &lt;type&gt;  证书文件类型 (DER/PEM/ENG) (SSL)
+   --key &lt;key&gt;  私钥文件名 (SSL)
+   --key-type &lt;type&gt;  私钥文件类型 (DER/PEM/ENG) (SSL)
+   --pass &lt;pass&gt;  私钥密码 (SSL)
+   --engine &lt;eng&gt;  加密引擎使用 (SSL). &quot;--engine list&quot; for list
+   --cacert &lt;file&gt;  CA证书 (SSL)
+   --capath &lt;directory&gt;  CA目录 (made using c_rehash) to verify peer against (SSL)
+   --ciphers &lt;list&gt;  SSL密码
+   --compressed  要求返回是压缩的形势 (using deflate or gzip)
+   --connect-timeout &lt;seconds&gt;  设置最大请求时间
+   --create-dirs  建立本地目录的目录层次结构
+   --crlf  上传是把LF转变成CRLF
+-f/--fail  连接失败时不显示http错误
+   --ftp-create-dirs  如果远程目录不存在，创建远程目录
+   --ftp-method [multicwd/nocwd/singlecwd]  控制CWD的使用
+   --ftp-pasv  使用 PASV/EPSV 代替端口
+   --ftp-skip-pasv-ip  使用PASV的时候,忽略该IP地址
+   --ftp-ssl  尝试用 SSL/TLS 来进行ftp数据传输
+   --ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输
+-F/--form &lt;name=content&gt;  模拟http表单提交数据
+   --form-string &lt;name=string&gt;  模拟http表单提交数据
+-g/--globoff  禁用网址序列和范围使用{}和[]
+-G/--get  以get的方式来发送数据
+-H/--header &lt;line&gt;  自定义头信息传递给服务器
+   --ignore-content-length  忽略的HTTP头信息的长度
+-i/--include  输出时包括protocol头信息
+-I/--head  只显示请求头信息
+-j/--junk-session-cookies  读取文件进忽略session cookie
+   --interface &lt;interface&gt;  使用指定网络接口/地址
+   --krb4 &lt;level&gt;  使用指定安全级别的krb4
+-k/--insecure  允许不使用证书到SSL站点
+-K/--config  指定的配置文件读取
+-l/--list-only  列出ftp目录下的文件名称
+   --limit-rate &lt;rate&gt;  设置传输速度
+   --local-port&lt;NUM&gt;  强制使用本地端口号
+-m/--max-time &lt;seconds&gt;  设置最大传输时间
+   --max-redirs &lt;num&gt;  设置最大读取的目录数
+   --max-filesize &lt;bytes&gt;  设置最大下载的文件总量
+-M/--manual  显示全手动
+-n/--netrc  从netrc文件中读取用户名和密码
+   --netrc-optional  使用 .netrc 或者 URL来覆盖-n
+   --ntlm  使用 HTTP NTLM 身份验证
+-N/--no-buffer  禁用缓冲输出
+-o/--output  把输出写到该文件中
+-O/--remote-name  把输出写到该文件中，保留远程文件的文件名
+-p/--proxytunnel  使用HTTP代理
+   --proxy-anyauth  选择任一代理身份验证方法
+   --proxy-basic  在代理上使用基本身份验证
+   --proxy-digest  在代理上使用数字身份验证
+   --proxy-ntlm  在代理上使用ntlm身份验证
+-P/--ftp-port &lt;address&gt;  使用端口地址，而不是使用PASV
+-q  作为第一个参数，关闭 .curlrc
+-Q/--quote &lt;cmd&gt;  文件传输前，发送命令到服务器
+-r/--range &lt;range&gt;  检索来自HTTP/1.1或FTP服务器字节范围
+--range-file  读取（SSL）的随机文件
+-R/--remote-time  在本地生成文件时，保留远程文件时间
+   --retry &lt;num&gt;  传输出现问题时，重试的次数
+   --retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间
+   --retry-max-time &lt;seconds&gt;  传输出现问题时，设置最大重试时间
+-s/--silent  静默模式。不输出任何东西
+-S/--show-error  显示错误
+   --socks4 &lt;host[:port]&gt;  用socks4代理给定主机和端口
+   --socks5 &lt;host[:port]&gt;  用socks5代理给定主机和端口
+   --stderr &lt;file&gt;   
+-t/--telnet-option &lt;OPT=val&gt;  Telnet选项设置
+   --trace &lt;file&gt;  对指定文件进行debug
+   --trace-ascii &lt;file&gt;  Like --跟踪但没有hex输出
+   --trace-time  跟踪/详细输出时，添加时间戳
+-T/--upload-file &lt;file&gt;  上传文件
+   --url &lt;URL&gt;  Spet URL to work with
+-u/--user &lt;user[:password]&gt;  设置服务器的用户和密码
+-U/--proxy-user &lt;user[:password]&gt;  设置代理用户名和密码
+-w/--write-out [format]  什么输出完成后
+-x/--proxy &lt;host[:port]&gt;  在给定的端口上使用HTTP代理
+-X/--request &lt;command&gt;  指定什么命令
+-y/--speed-time  放弃限速所要的时间，默认为30
+-Y/--speed-limit  停止传输速度的限制，速度时间
+</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>文件下载
+
+  curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout，将进度信息输出到stderr，不显示进度信息使用--silent选项。
+
+  curl URL --silent
+
+  这条命令是将下载文件输出到终端，所有下载的数据都被写入到stdout。
+
+  使用选项-O将下载的数据写入到文件，必须使用文件的绝对地址：
+
+  curl http://man.linuxde.net/text.iso --silent -O
+
+  选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：
+
+  curl http://man.linuxde.net/test.iso -o filename.iso --progress
+  ######################################### 100.0%
+
+ 断点续传
+
+  curl能够从特定的文件偏移处继续下载，它可以通过指定一个便宜量来下载部分文件：
+
+  curl URL/File -C 偏移量
+
+  #偏移量是以字节为单位的整数，如果让curl自动推断出正确的续传位置使用-C -：
+  curl -C -URL
+
+使用curl设置参照页字符串
+
+  参照页是位于HTTP头部中的一个字符串，用来表示用户是从哪个页面到达当前页面的，如果用户点击网页A中的某个连接，那么用户就会跳转到B网页，网页B头部的参照页字符串就包含网页A的URL。
+
+  使用--referer选项指定参照页字符串：
+
+  curl --referer http://www.google.com http://man.linuxde.net
+
+用curl设置cookies
+
+  使用--cookie &quot;COKKIES&quot;选项来指定cookie，多个cookie使用分号分隔：
+
+  curl http://man.linuxde.net --cookie &quot;user=root;pass=123456&quot;
+
+  将cookie另存为一个文件，使用--cookie-jar选项：
+
+  curl URL --cookie-jar cookie_file
+
+用curl设置用户代理字符串
+
+  有些网站访问会提示只能使用IE浏览器来访问，这是因为这些网站设置了检查用户代理，可以使用curl把用户代理设置为IE，这样就可以访问了。使用--user-agent或者-A选项：
+
+  curl URL --user-agent &quot;Mozilla/5.0&quot;
+  curl URL -A &quot;Mozilla/5.0&quot;
+
+  其他HTTP头部信息也可以使用curl来发送，使用-H&quot;头部信息&quot; 传递多个头部信息，例如：
+
+  curl -H &quot;Host:man.linuxde.net&quot; -H &quot;accept-language:zh-cn&quot; URL
+
+ curl的带宽控制和下载配额
+
+  使用--limit-rate限制curl的下载速度：
+
+  curl URL --limit-rate 50k
+
+  命令中用k（千字节）和m（兆字节）指定下载速度限制。
+
+  使用--max-filesize指定可下载的最大文件大小：
+
+  curl URL --max-filesize bytes
+
+  如果文件大小超出限制，命令则返回一个非0退出码，如果命令正常则返回0。
+
+用curl进行认证
+
+  使用curl选项 -u 可以完成HTTP或者FTP的认证，可以指定密码，也可以不指定密码在后续操作中输入密码：
+
+  curl -u user:pwd http://man.linuxde.net
+  curl -u user http://man.linuxde.net
+
+只打印响应头部信息
+
+    通过-I或者-head可以只打印出HTTP头部信息：
+
+    [root@localhost text]# curl -I http://man.linuxde.net
+      HTTP/1.1 200 OK
+      Server: nginx/1.2.5
+      date: Mon, 10 Dec 2012 09:24:34 GMT
+      Content-Type: text/html; charset=UTF-8
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Pingback: http://man.linuxde.net/xmlrpc.php
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -145,7 +374,7 @@ ipconfig /flushdns
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/刷新 DNS 解析缓存/">
+    <a href="/2018/01/01/curl/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -181,7 +410,7 @@ ipconfig /flushdns
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ckdi3goq5000tikuhu8dgj1nj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ckdjkt5x8000ug0uhl2j43p6h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -236,7 +465,7 @@ proxy settings
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ckdi3goqq0026ikuh5bj28li8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ckdjkt5ye002bg0uhlmcqxug5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -405,7 +634,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ckdi3goqs002bikuhxhad69y8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ckdjkt5yg002eg0uh7nm51dvy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -525,7 +754,7 @@ $lsnrctl start
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ckdi3gopg0000ikuhgb802pl6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ckdjkt5wg0000g0uhc5uwrja7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -596,6 +825,88 @@ service sshd restart
 
 
   
+    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="ckdjkt5y8001xg0uh7s7erss8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>内存使用情况</p>
+<pre><code>free -m
+</code></pre><p>释放缓存前同步</p>
+<pre><code>sync
+</code></pre><p>释放所有缓存</p>
+<pre><code># 删除内存缓存
+echo 3 &gt; /proc/sys/vm/drop_caches
+#  查看文件内容
+cat /proc/sys/vm/drop_caches
+</code></pre><p>释放缓存数字参数说明</p>
+<pre><code>0 – 不释放
+1 – 释放页缓存
+2 – 释放dentries和inodes
+3 – 释放所有缓存
+</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
+<pre><code>total——总物理内存
+used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
+free——完全未被使用的内存
+shared——应用程序共享内存
+buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
+cached——缓存，用于已打开的文件
+note:
+    total=used+free
+    used=buffers+cached (maybe add shared also)
+</code></pre><p>第二行：描述应用程序的内存使用</p>
+<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
+<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
+<pre><code>-buffers/cache=used-buffers-cached
++buffers/cache=free+buffers+cached
+</code></pre><p>第三行：表示swap的使用</p>
+<pre><code>used——已使用
+free——未使用
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/02/06/linux 内存清理释放命令/">
+    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
+        2017-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-File-Extract-Compress" class="post-File-Extract-Compress post type-post status-publish format-standard hentry">
     <!---->
 
@@ -611,7 +922,7 @@ service sshd restart
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ckdi3gopp0005ikuh3mj582p8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ckdjkt5wu0007g0uhzchi4it4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -757,178 +1068,6 @@ service sshd restart
 
 
   
-    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="ckdi3goql001uikuhpigr9ldy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>内存使用情况</p>
-<pre><code>free -m
-</code></pre><p>释放缓存前同步</p>
-<pre><code>sync
-</code></pre><p>释放所有缓存</p>
-<pre><code># 删除内存缓存
-echo 3 &gt; /proc/sys/vm/drop_caches
-#  查看文件内容
-cat /proc/sys/vm/drop_caches
-</code></pre><p>释放缓存数字参数说明</p>
-<pre><code>0 – 不释放
-1 – 释放页缓存
-2 – 释放dentries和inodes
-3 – 释放所有缓存
-</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
-<pre><code>total——总物理内存
-used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
-free——完全未被使用的内存
-shared——应用程序共享内存
-buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
-cached——缓存，用于已打开的文件
-note:
-    total=used+free
-    used=buffers+cached (maybe add shared also)
-</code></pre><p>第二行：描述应用程序的内存使用</p>
-<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
-<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
-<pre><code>-buffers/cache=used-buffers-cached
-+buffers/cache=free+buffers+cached
-</code></pre><p>第三行：表示swap的使用</p>
-<pre><code>used——已使用
-free——未使用
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/02/06/linux 内存清理释放命令/">
-    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
-        2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ckdi3goqm001wikuhr8wipy7x" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
-<p>一、安装环境</p>
-<pre><code>● Centos6.5系统
-● JDK版本：1.8
-● 工具： FlashFXP V5.2.0, MobaXterm V10.5
-</code></pre><p>二、安装步骤</p>
-<p>第一步：下载安装包</p>
-<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
-
-由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
-</code></pre><p>第二步： 上传jdk1.8 安装包</p>
-<pre><code># 上传jdk1.8 安装包
-scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
-# 进入jdk目录
-cd /hupisong/java/
-# 解压JDK1.8安装包
-tar -zxvf jdk-8u131-linux-x64.tar.gz
-</code></pre><p>第三步、修改环境变量</p>
-<pre><code># 编辑文件
-vi /etc/profile
-# 按 &apos;i&apos; 键编辑
-# 编辑,在最后一行添加
-# 添加内容如下 
-export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
-export PATH=$JAVA_HOME/bin:$PATH
-# 退出编辑并保存：
-# 按&apos;esc&apos;键退出编辑 
-# 输入&apos;:wq&apos; 保存编辑内容
-:wq 
-# 加载设置的变量，使其生效
- source /etc/profile
-</code></pre><p>第四步、测试是否安装成功</p>
-<pre><code># 输入命令
-java -version
-#成功结果如下：
-java version &quot;1.8.0_131&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
-</code></pre><p>至此，安装结束</p>
-<p><a href="https://github.com/xpbob/CrashAnalysis" target="_blank" rel="noopener">https://github.com/xpbob/CrashAnalysis</a></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/linux安装JDK/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
     <!---->
 
@@ -944,7 +1083,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ckdi3goq2000mikuhqn396605" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ckdjkt5x2000ig0uhgc9wr86g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -975,6 +1114,316 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 
     <footer class="entry-meta">
     <a href="/2017/01/06/Off-line-Yum-Install/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ckdjkt5wo0003g0uhgz547w6g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>2.1 安装依赖</p>
+<pre><code>yum -y install gcc gcc-c++ autoconf automake
+yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
+</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
+<pre><code># 解压缩
+tar -zxvf nginx-1.10.2.tar.gz
+
+# 进入压缩目录
+cd nginx-1.10.2
+
+# 进行模块配置
+./configure \
+  --prefix=/usr \
+  --sbin-path=/usr/sbin/nginx \
+  --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/var/log/nginx/error.log \
+  --http-log-path=/var/log/nginx/access.log \
+  --pid-path=/var/run/nginx/nginx.pid  \
+  --lock-path=/var/lock/nginx.lock \
+  --user=nginx \
+  --group=nginx \
+  --with-http_ssl_module \
+  --with-http_flv_module \
+  --with-http_stub_status_module \
+  --with-http_gzip_static_module \
+  --http-client-body-temp-path=/var/tmp/nginx/client/ \
+  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
+  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
+  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
+  --http-scgi-temp-path=/var/tmp/nginx/scgi \
+  --with-pcre
+
+# 编译安装
+make &amp;&amp; make install
+</code></pre><p>2.5 安装路径</p>
+<pre><code># 名称路径日志目录
+/var/log/nginx
+# 配置目录
+/etc/nginx
+# PID文件
+/var/run/nginx/nginx.pid
+# 启动文件
+/usr/sbin/nginx
+</code></pre><p>2.6 centos6服务脚本</p>
+<pre><code>#创建文件
+touch /etc/rc.d/init.d/nginx
+chmod +x /etc/rc.d/init.d/nginx
+在其中添加如下：
+</code></pre><p>启动脚本</p>
+<pre><code>#!/bin/sh  
+#  
+# nginx - this script starts and stops the nginx daemon  
+#  
+# chkconfig:   - 85 15  
+# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
+#               proxy and IMAP/POP3 proxy server  
+# processname: nginx  
+
+# Source function library.  
+. /etc/rc.d/init.d/functions  
+
+# Source networking configuration.  
+. /etc/sysconfig/network  
+
+# Check that networking is up.  
+[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
+
+nginx=&quot;/usr/sbin/nginx&quot;  
+prog=$(basename $nginx)  
+
+sysconfig=&quot;/etc/sysconfig/$prog&quot;  
+lockfile=&quot;/var/lock/nginx.lock&quot;  
+pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
+
+NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
+
+[ -f $sysconfig ] &amp;&amp; . $sysconfig  
+
+start() {  
+    [ -x $nginx ] || exit 5  
+    [ -f $NGINX_CONF_FILE ] || exit 6  
+    echo -n $&quot;Starting $prog: &quot;  
+    daemon $nginx -c $NGINX_CONF_FILE  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
+    return $retval  
+}  
+
+stop() {  
+    echo -n $&quot;Stopping $prog: &quot;  
+    killproc -p $pidfile $prog  
+    retval=$?  
+    echo  
+    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
+    return $retval  
+}  
+
+restart() {  
+    configtest_q || return 6  
+    stop  
+    start  
+}  
+
+reload() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reloading $prog: &quot;  
+    killproc -p $pidfile $prog -HUP  
+    echo  
+}  
+
+configtest() {  
+    $nginx -t -c $NGINX_CONF_FILE  
+}  
+
+configtest_q() {  
+    $nginx -t -q -c $NGINX_CONF_FILE  
+}  
+
+rh_status() {  
+    status $prog  
+}  
+
+rh_status_q() {  
+    rh_status &gt;/dev/null 2&gt;&amp;1  
+}  
+
+# Upgrade the binary with no downtime.  
+upgrade() {  
+    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
+
+    configtest_q || return 6  
+    echo -n $&quot;Upgrading $prog: &quot;  
+    killproc -p $pidfile $prog -USR2  
+    retval=$?  
+    sleep 1  
+    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
+        killproc -p $oldbin_pidfile $prog -QUIT  
+        success $&quot;$prog online upgrade&quot;  
+        echo   
+        return 0  
+    else  
+        failure $&quot;$prog online upgrade&quot;  
+        echo  
+        return 1  
+    fi  
+}  
+
+# Tell nginx to reopen logs  
+reopen_logs() {  
+    configtest_q || return 6  
+    echo -n $&quot;Reopening $prog logs: &quot;  
+    killproc -p $pidfile $prog -USR1  
+    retval=$?  
+    echo  
+    return $retval  
+}
+
+case &quot;$1&quot; in
+    start)
+        rh_status_q &amp;&amp; exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest|reopen_logs)
+        $1
+        ;;
+    force-reload|upgrade)
+        rh_status_q || exit 7
+        upgrade
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    status|status_q)
+        rh_$1
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 7
+        restart
+        ;;
+    *)
+        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
+        exit 2
+esac
+
+添加nginx服务为系统服务
+开机启动方式
+
+    # 开机启动
+    chkconfig --add nginx
+    chkconfig --level 345 nginx on
+    chkconfig --list nginx
+
+    # 开机不启动
+    chkconfig nginx off
+    chkconfig --list nginx
+添加成功后就可以执行service nginx start、stop、restart、status等操作了。
+</code></pre><p>2.7 centos7服务脚本</p>
+<pre><code># 创建文件
+touch /usr/lib/systemd/system/nginx.service
+# 启动脚本
+[Unit]
+Description=nginx
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+# 开机启动方式
+
+# 开机启动
+systemctl enable nginx.service
+
+# 开机不启动
+systemctl disable nginx.service
+
+# 其他操作
+systemctl ( status | start | stop | reload | restart ) nginx.service
+
+------------------------------------------------------------------------------------------------
+</code></pre><h2 id="CentOS7中使用yum安装Nginx的方法"><a href="#CentOS7中使用yum安装Nginx的方法" class="headerlink" title="CentOS7中使用yum安装Nginx的方法"></a>CentOS7中使用yum安装Nginx的方法</h2><pre><code>最近无意间发现Nginx官方提供了Yum源。因此写个文章记录下。
+
+1、添加源
+</code></pre><p>　　默认情况Centos7中无Nginx的源，最近发现Nginx官网提供了Centos的源地址。因此可以如下执行命令添加源：</p>
+<pre><code>sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+2、安装Nginx
+
+　　通过yum search nginx看看是否已经添加源成功。如果成功则执行下列命令安装Nginx。
+
+sudo yum install -y nginx
+
+3、启动Nginx并设置开机自动运行
+
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+
+4、浏览查看效果
+
+在浏览器中输入您的服务器地址：http://10.42.1.50//
+</code></pre><h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><pre><code># yum 安装 卸载 
+yum remove nginx
+
+如果已经不记得安装方式了，那么可以使用以下步骤进行全删除：
+# 删除关联文件以及文件夹
+rm -rf /etc/nginx/
+rm -rf /usr/sbin/nginx
+rm /usr/share/man/man1/nginx.1.gz
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
     <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
         2017-01-06
     </time>
