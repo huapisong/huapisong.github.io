@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <article id="post-console" class="post-console post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,63 +70,31 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+      <a class="article-title" href="/2018/01/01/console/">(Javascript %s or %d represents string?)</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ckdjkt5y5001pg0uhgh1xi1ai" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="ckdjku9l70019zsuhcjc88awl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
-        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
-        &lt;version&gt;1.60.0&lt;/version&gt;
-    &lt;/dependency&gt;
+        <p>What you are seeing there is the string substitution patterns that are built into console.log() or console.debug().</p>
+<p>The pattern goes as I have presented below:</p>
+<p>%s for a String</p>
+<p>%d or %i for Number</p>
+<p>%f for Floating points</p>
+<p>%o for an Object</p>
+<p>%j for an JSON</p>
+<p>So essentially you are replacing the specifier with the values supplied as so:</p>
+<p>var name = ‘Chris’;<br>console.log(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
+<p>console.debug(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
+<p><a href="https://nodejs.org/api/util.html#util_util_format_format_args" target="_blank" rel="noopener">https://nodejs.org/api/util.html#util_util_format_format_args</a></p>
 
-# Configuration.java
-
-import net.bull.javamelody.MonitoringFilter;
-import net.bull.javamelody.SessionListener;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- *
- * @author zqs
- * @since
- */
-@Configuration
-public class JavamelodyConfiguration {
-    @Bean
-    public FilterRegistrationBean monitorFilter(){
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
-        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
-        return filterRegistrationBean;
-    }
-
-    @Bean
-    public ServletListenerRegistrationBean sessionListener(){
-        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
-        servletListenerRegistrationBean.setListener(new SessionListener());
-        return servletListenerRegistrationBean;
-    }
-}   
-</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
-javamelody.jar
-jrobin-1.5.14.jar
-启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
-
-访问：http://主机地址：端口号/项目名/monitoring
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -134,7 +102,7 @@ jrobin-1.5.14.jar
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/javamelody/">
+    <a href="/2018/01/01/console/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -142,7 +110,7 @@ jrobin-1.5.14.jar
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
+  <a class="article-category-link" href="/categories/console/">console</a>
   </div>
 
     
@@ -170,7 +138,7 @@ jrobin-1.5.14.jar
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ckdjkt5zh004hg0uhu0wd3ul2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ckdjku9mw004hzsuhifl2r7n1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -410,7 +378,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ckdjkt5x8000ug0uhl2j43p6h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ckdjku9kz000tzsuhkxp0lkmk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -465,7 +433,7 @@ proxy settings
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ckdjkt5ye002bg0uhlmcqxug5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ckdjku9ln0028zsuheeorkb7m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -634,7 +602,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ckdjkt5yg002eg0uh7nm51dvy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ckdjku9lo002bzsuh0sfcutzi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -754,7 +722,7 @@ $lsnrctl start
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ckdjkt5wg0000g0uhc5uwrja7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="ckdjku9k90000zsuhoc04z66d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -825,88 +793,6 @@ service sshd restart
 
 
   
-    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="ckdjkt5y8001xg0uh7s7erss8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>内存使用情况</p>
-<pre><code>free -m
-</code></pre><p>释放缓存前同步</p>
-<pre><code>sync
-</code></pre><p>释放所有缓存</p>
-<pre><code># 删除内存缓存
-echo 3 &gt; /proc/sys/vm/drop_caches
-#  查看文件内容
-cat /proc/sys/vm/drop_caches
-</code></pre><p>释放缓存数字参数说明</p>
-<pre><code>0 – 不释放
-1 – 释放页缓存
-2 – 释放dentries和inodes
-3 – 释放所有缓存
-</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
-<pre><code>total——总物理内存
-used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
-free——完全未被使用的内存
-shared——应用程序共享内存
-buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
-cached——缓存，用于已打开的文件
-note:
-    total=used+free
-    used=buffers+cached (maybe add shared also)
-</code></pre><p>第二行：描述应用程序的内存使用</p>
-<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
-<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
-<pre><code>-buffers/cache=used-buffers-cached
-+buffers/cache=free+buffers+cached
-</code></pre><p>第三行：表示swap的使用</p>
-<pre><code>used——已使用
-free——未使用
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/02/06/linux 内存清理释放命令/">
-    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
-        2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-File-Extract-Compress" class="post-File-Extract-Compress post type-post status-publish format-standard hentry">
     <!---->
 
@@ -922,7 +808,7 @@ free——未使用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ckdjkt5wu0007g0uhzchi4it4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ckdjku9kp000bzsuhtzb10boj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1068,6 +954,88 @@ free——未使用
 
 
   
+    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="ckdjku9li001uzsuhyl1v4dsp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>内存使用情况</p>
+<pre><code>free -m
+</code></pre><p>释放缓存前同步</p>
+<pre><code>sync
+</code></pre><p>释放所有缓存</p>
+<pre><code># 删除内存缓存
+echo 3 &gt; /proc/sys/vm/drop_caches
+#  查看文件内容
+cat /proc/sys/vm/drop_caches
+</code></pre><p>释放缓存数字参数说明</p>
+<pre><code>0 – 不释放
+1 – 释放页缓存
+2 – 释放dentries和inodes
+3 – 释放所有缓存
+</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
+<pre><code>total——总物理内存
+used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
+free——完全未被使用的内存
+shared——应用程序共享内存
+buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
+cached——缓存，用于已打开的文件
+note:
+    total=used+free
+    used=buffers+cached (maybe add shared also)
+</code></pre><p>第二行：描述应用程序的内存使用</p>
+<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
+<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
+<pre><code>-buffers/cache=used-buffers-cached
++buffers/cache=free+buffers+cached
+</code></pre><p>第三行：表示swap的使用</p>
+<pre><code>used——已使用
+free——未使用
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/02/06/linux 内存清理释放命令/">
+    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
+        2017-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1083,7 +1051,7 @@ free——未使用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ckdjkt5x2000ig0uhgc9wr86g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="ckdjku9kx000pzsuhg0r1j819" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1134,7 +1102,7 @@ free——未使用
 
 
   
-    <article id="post-2.在Centos7下的nginx编译安装" class="post-2.在Centos7下的nginx编译安装 post type-post status-publish format-standard hentry">
+    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1142,280 +1110,60 @@ free——未使用
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
+      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="ckdjkt5wo0003g0uhgz547w6g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="ckdjku9li001wzsuhhezsah9a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>2.1 安装依赖</p>
-<pre><code>yum -y install gcc gcc-c++ autoconf automake
-yum -y install zlib zlib-devel openssl openssl-devel pcre-devel
-</code></pre><p>2.2 创建用户和组<br>    groupadd -r nginx<br>    useradd -s /sbin/nologin -g nginx -r nginx<br>2.3 下载安装包<br>    wget <a href="http://nginx.org/download/nginx-1.10.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.10.2.tar.gz</a><br>2.4 编译配置与安装</p>
-<pre><code># 解压缩
-tar -zxvf nginx-1.10.2.tar.gz
+        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
+<p>一、安装环境</p>
+<pre><code>● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+</code></pre><p>二、安装步骤</p>
+<p>第一步：下载安装包</p>
+<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
 
-# 进入压缩目录
-cd nginx-1.10.2
+由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
+</code></pre><p>第二步： 上传jdk1.8 安装包</p>
+<pre><code># 上传jdk1.8 安装包
+scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
+# 进入jdk目录
+cd /hupisong/java/
+# 解压JDK1.8安装包
+tar -zxvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>第三步、修改环境变量</p>
+<pre><code># 编辑文件
+vi /etc/profile
+# 按 &apos;i&apos; 键编辑
+# 编辑,在最后一行添加
+# 添加内容如下 
+export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
+export PATH=$JAVA_HOME/bin:$PATH
+# 退出编辑并保存：
+# 按&apos;esc&apos;键退出编辑 
+# 输入&apos;:wq&apos; 保存编辑内容
+:wq 
+# 加载设置的变量，使其生效
+ source /etc/profile
+</code></pre><p>第四步、测试是否安装成功</p>
+<pre><code># 输入命令
+java -version
+#成功结果如下：
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>至此，安装结束</p>
+<p><a href="https://github.com/xpbob/CrashAnalysis" target="_blank" rel="noopener">https://github.com/xpbob/CrashAnalysis</a></p>
 
-# 进行模块配置
-./configure \
-  --prefix=/usr \
-  --sbin-path=/usr/sbin/nginx \
-  --conf-path=/etc/nginx/nginx.conf \
-  --error-log-path=/var/log/nginx/error.log \
-  --http-log-path=/var/log/nginx/access.log \
-  --pid-path=/var/run/nginx/nginx.pid  \
-  --lock-path=/var/lock/nginx.lock \
-  --user=nginx \
-  --group=nginx \
-  --with-http_ssl_module \
-  --with-http_flv_module \
-  --with-http_stub_status_module \
-  --with-http_gzip_static_module \
-  --http-client-body-temp-path=/var/tmp/nginx/client/ \
-  --http-proxy-temp-path=/var/tmp/nginx/proxy/ \
-  --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ \
-  --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
-  --http-scgi-temp-path=/var/tmp/nginx/scgi \
-  --with-pcre
-
-# 编译安装
-make &amp;&amp; make install
-</code></pre><p>2.5 安装路径</p>
-<pre><code># 名称路径日志目录
-/var/log/nginx
-# 配置目录
-/etc/nginx
-# PID文件
-/var/run/nginx/nginx.pid
-# 启动文件
-/usr/sbin/nginx
-</code></pre><p>2.6 centos6服务脚本</p>
-<pre><code>#创建文件
-touch /etc/rc.d/init.d/nginx
-chmod +x /etc/rc.d/init.d/nginx
-在其中添加如下：
-</code></pre><p>启动脚本</p>
-<pre><code>#!/bin/sh  
-#  
-# nginx - this script starts and stops the nginx daemon  
-#  
-# chkconfig:   - 85 15  
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \  
-#               proxy and IMAP/POP3 proxy server  
-# processname: nginx  
-
-# Source function library.  
-. /etc/rc.d/init.d/functions  
-
-# Source networking configuration.  
-. /etc/sysconfig/network  
-
-# Check that networking is up.  
-[ &quot;$NETWORKING&quot; = &quot;no&quot; ] &amp;&amp; exit 0  
-
-nginx=&quot;/usr/sbin/nginx&quot;  
-prog=$(basename $nginx)  
-
-sysconfig=&quot;/etc/sysconfig/$prog&quot;  
-lockfile=&quot;/var/lock/nginx.lock&quot;  
-pidfile=&quot;/var/run/nginx/${prog}.pid&quot;  
-
-NGINX_CONF_FILE=&quot;/etc/nginx/nginx.conf&quot;  
-
-[ -f $sysconfig ] &amp;&amp; . $sysconfig  
-
-start() {  
-    [ -x $nginx ] || exit 5  
-    [ -f $NGINX_CONF_FILE ] || exit 6  
-    echo -n $&quot;Starting $prog: &quot;  
-    daemon $nginx -c $NGINX_CONF_FILE  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; touch $lockfile  
-    return $retval  
-}  
-
-stop() {  
-    echo -n $&quot;Stopping $prog: &quot;  
-    killproc -p $pidfile $prog  
-    retval=$?  
-    echo  
-    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile  
-    return $retval  
-}  
-
-restart() {  
-    configtest_q || return 6  
-    stop  
-    start  
-}  
-
-reload() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reloading $prog: &quot;  
-    killproc -p $pidfile $prog -HUP  
-    echo  
-}  
-
-configtest() {  
-    $nginx -t -c $NGINX_CONF_FILE  
-}  
-
-configtest_q() {  
-    $nginx -t -q -c $NGINX_CONF_FILE  
-}  
-
-rh_status() {  
-    status $prog  
-}  
-
-rh_status_q() {  
-    rh_status &gt;/dev/null 2&gt;&amp;1  
-}  
-
-# Upgrade the binary with no downtime.  
-upgrade() {  
-    local oldbin_pidfile=&quot;${pidfile}.oldbin&quot;  
-
-    configtest_q || return 6  
-    echo -n $&quot;Upgrading $prog: &quot;  
-    killproc -p $pidfile $prog -USR2  
-    retval=$?  
-    sleep 1  
-    if [[ -f ${oldbin_pidfile} &amp;&amp; -f ${pidfile} ]];  then  
-        killproc -p $oldbin_pidfile $prog -QUIT  
-        success $&quot;$prog online upgrade&quot;  
-        echo   
-        return 0  
-    else  
-        failure $&quot;$prog online upgrade&quot;  
-        echo  
-        return 1  
-    fi  
-}  
-
-# Tell nginx to reopen logs  
-reopen_logs() {  
-    configtest_q || return 6  
-    echo -n $&quot;Reopening $prog logs: &quot;  
-    killproc -p $pidfile $prog -USR1  
-    retval=$?  
-    echo  
-    return $retval  
-}
-
-case &quot;$1&quot; in
-    start)
-        rh_status_q &amp;&amp; exit 0
-        $1
-        ;;
-    stop)
-        rh_status_q || exit 0
-        $1
-        ;;
-    restart|configtest|reopen_logs)
-        $1
-        ;;
-    force-reload|upgrade)
-        rh_status_q || exit 7
-        upgrade
-        ;;
-    reload)
-        rh_status_q || exit 7
-        $1
-        ;;
-    status|status_q)
-        rh_$1
-        ;;
-    condrestart|try-restart)
-        rh_status_q || exit 7
-        restart
-        ;;
-    *)
-        echo $&quot;Usage: $0 {start|stop|reload|configtest|status|force-reload|upgrade|restart|reopen_logs}&quot;
-        exit 2
-esac
-
-添加nginx服务为系统服务
-开机启动方式
-
-    # 开机启动
-    chkconfig --add nginx
-    chkconfig --level 345 nginx on
-    chkconfig --list nginx
-
-    # 开机不启动
-    chkconfig nginx off
-    chkconfig --list nginx
-添加成功后就可以执行service nginx start、stop、restart、status等操作了。
-</code></pre><p>2.7 centos7服务脚本</p>
-<pre><code># 创建文件
-touch /usr/lib/systemd/system/nginx.service
-# 启动脚本
-[Unit]
-Description=nginx
-After=network.target remote-fs.target nss-lookup.target
-
-[Service]
-Type=forking
-ExecStart=/usr/sbin/nginx
-ExecReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s stop
-PrivateTmp=true
-
-[Install]
-WantedBy=multi-user.target
-
-# 开机启动方式
-
-# 开机启动
-systemctl enable nginx.service
-
-# 开机不启动
-systemctl disable nginx.service
-
-# 其他操作
-systemctl ( status | start | stop | reload | restart ) nginx.service
-
-------------------------------------------------------------------------------------------------
-</code></pre><h2 id="CentOS7中使用yum安装Nginx的方法"><a href="#CentOS7中使用yum安装Nginx的方法" class="headerlink" title="CentOS7中使用yum安装Nginx的方法"></a>CentOS7中使用yum安装Nginx的方法</h2><pre><code>最近无意间发现Nginx官方提供了Yum源。因此写个文章记录下。
-
-1、添加源
-</code></pre><p>　　默认情况Centos7中无Nginx的源，最近发现Nginx官网提供了Centos的源地址。因此可以如下执行命令添加源：</p>
-<pre><code>sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
-
-2、安装Nginx
-
-　　通过yum search nginx看看是否已经添加源成功。如果成功则执行下列命令安装Nginx。
-
-sudo yum install -y nginx
-
-3、启动Nginx并设置开机自动运行
-
-sudo systemctl start nginx.service
-sudo systemctl enable nginx.service
-
-4、浏览查看效果
-
-在浏览器中输入您的服务器地址：http://10.42.1.50//
-</code></pre><h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><pre><code># yum 安装 卸载 
-yum remove nginx
-
-如果已经不记得安装方式了，那么可以使用以下步骤进行全删除：
-# 删除关联文件以及文件夹
-rm -rf /etc/nginx/
-rm -rf /usr/sbin/nginx
-rm /usr/share/man/man1/nginx.1.gz
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -1423,7 +1171,7 @@ rm /usr/share/man/man1/nginx.1.gz
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
+    <a href="/2017/01/06/linux安装JDK/">
     <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
         2017-01-06
     </time>

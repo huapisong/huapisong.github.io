@@ -77,7 +77,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ckdjkt5zv0050g0uhtc5vw39e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="ckdjku9nb0054zsuhmt5s0thg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -448,7 +448,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ckdjkt5zm004qg0uhd86tif9w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="ckdjku9n2004vzsuh3ratu0ay" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -531,7 +531,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ckdjkt5xa000xg0uh38aob4eq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="ckdjku9l1000wzsuh0wa5m9pw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -638,6 +638,84 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 
 
   
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="ckdjku9l0000uzsuh3pgcob55" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -653,7 +731,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ckdjkt5z3003tg0uhh1pxrsp1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="ckdjku9mu004ezsuh2135zsi9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -797,84 +875,6 @@ public class ComputeClientHystrix implements ComputeClient {
 
 
   
-    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="ckdjkt5x9000vg0uhqjde1w9b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
-##开启限流
-zuul:
-    # 定义的路由规则
-    routes:
-    export-service:
-        path:  /main/api/
-        url: exportPdf
-        serviceId: export-service
-    ratelimit:
-    enabled: true
-#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
-#      ##针对某个 url 进行限流，不影响其他 
-    policy-list:
-        - export-service:
-        - limit: 1 #3秒内只能刷新一次
-            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
-            type:
-#              - origin
-            - url
-#      policies:
-#        export-service:
-#          - limit: 1
-#            refresh-interval: 10
-#            type:
-#  #            - user
-#              - origin
-#  #            - url
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/15/Spring Cloud限流/">
-    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
-        2019-04-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -890,7 +890,7 @@ zuul:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ckdjkt5z5003vg0uhcgrv0gmr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="ckdjku9mv004fzsuh7ui4r6km" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1120,7 +1120,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ckdjkt5z1003og0uh14fve2tl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="ckdjku9mu004dzsuh0qeb0xq7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1323,7 +1323,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ckdjkt5yd0029g0uh0nc4kzr0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="ckdjku9lm0026zsuh9nwpe1is" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1553,7 +1553,7 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ckdjkt5yu0036g0uhcvni7ogf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="ckdjku9m30032zsuhzcqcx4kr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1602,7 +1602,7 @@ https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
 
 
   
-    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
+    <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1610,55 +1610,50 @@ https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
+      <a class="article-title" href="/2019/03/26/vue elemetUl /">vue elementUi</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ckdjkt5yr0031g0uhvx0zgi1q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ckdjku9lw002pzsuhjxod6ree" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
-</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
-* 组件之间的通信
-* @param Vue
-*/
-const install = (Vue) =&gt;{
-  const Bus = new Vue({
-      methods:{
-          emit(event, ...args){
-              this.$emit(event, ...args)
-          },
-          on (event, callback){
-              this.$on(event, callback)
-          },
-          off(event, callback){
-              this.$off(event, callback)
-          }
-      }
-  })
-  Vue.prototype.$bus = Bus
-}
-export default install
-</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
-Vue.use(VueBus)
-</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
-let num = Math.floor(Math.random() * 100 + 1);
-this.$bus.$emit(&apos;getMenu&apos;, num);
+        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
 
-# 组件 b
-,created() {
-    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
-        // console.log(target);
-        this.getMenus();
-    });
-}
-</code></pre>
+# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
+
+Element UI该组件已经在属性层面提供了解决办法，只要添加
+:modal-append-to-body=&quot;false&quot;
+就可以了。
+</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
+# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
+&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+
+# 方法二：
+# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -1666,7 +1661,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/03/26/vue组件之间通信/">
+    <a href="/2019/03/26/vue elemetUl /">
     <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
         2019-03-26
     </time>

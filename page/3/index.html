@@ -62,64 +62,6 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="ckdjkt5y3001lg0uhnqg0itci" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
-
-需要下载：
-http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
-
-下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
-JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
-JRE：将两个jar文件放到%JRE_HOME%\lib\security下
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/java 加密规则变更/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
     <!---->
 
@@ -135,7 +77,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ckdjkt5yw003bg0uh8l74xzzh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ckdjku9m80039zsuhmgql2j3p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -195,6 +137,247 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
 
 
   
+    <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/shell/">Shell</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ckdjku9lp002dzsuhpliaa2lj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="搭建运行环境"><a href="#搭建运行环境" class="headerlink" title="搭建运行环境"></a>搭建运行环境</h2><h3 id="Shell-初体验"><a href="#Shell-初体验" class="headerlink" title="Shell 初体验"></a>Shell 初体验</h3><pre><code># 创建文件
+$ touch test.sh
+# chmod 修改 test.sh 权限
+$ chmod 771 ./test.sh
+$ ll  # 查看权限
+# -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh
+ # 没有修改成功
+$ vi test.sh 
+# 添加 头 #!/bin/bash 或 #!/bin/sh
+$ chmod 771 ./test.sh
+$ ll
+# 修改成功
+# -rwxr-xr-x 1 huapisong 197121 10 8月  13 15:56 test.sh*
+</code></pre><h3 id="关机操作"><a href="#关机操作" class="headerlink" title="关机操作"></a>关机操作</h3><pre><code># 会立即关闭机器
+shutdown -h now
+
+# 60秒后关机
+shutdown -s -t 60
+</code></pre><h3 id="重启操作"><a href="#重启操作" class="headerlink" title="重启操作"></a>重启操作</h3><p>shutdown -r now<br>sudo reboot<br>这两个命令功能一样，其中shutdown -r now的-r应当就是restart的意思。</p>
+<h2 id="Shell-写入文件"><a href="#Shell-写入文件" class="headerlink" title="Shell 写入文件"></a>Shell 写入文件</h2><h3 id="cat-多行写入"><a href="#cat-多行写入" class="headerlink" title="cat 多行写入"></a>cat 多行写入</h3><h4 id="1-cat-覆盖写入"><a href="#1-cat-覆盖写入" class="headerlink" title="1.cat 覆盖写入"></a>1.cat 覆盖写入</h4><pre><code># 语法： cat &gt; 文件名 &lt;&lt;EOF， 然后把多行文字放在下面，并以EOF结束
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="2-cat-追加写入"><a href="#2-cat-追加写入" class="headerlink" title="2.cat 追加写入"></a>2.cat 追加写入</h4><pre><code># 如果需要追加文本，那就变成cat&gt;&gt;：
+# 语法： cat &gt;&gt; 文件名 &lt;&lt;EOF
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="3-查看写入"><a href="#3-查看写入" class="headerlink" title="3.查看写入"></a>3.查看写入</h4><pre><code># 执行
+$ bash start.sh
+# 输出
+    ___________脚本开始____________
+    hello test.sh
+    21312
+    ___________脚本结束____________
+
+# 查看生成的文件
+$ cat ./test.sh
+# 输出
+
+    #!/bin/bash
+    echo &quot;hello test.sh&quot;
+    echo 21312
+</code></pre><h3 id="echo-输出重定向写入"><a href="#echo-输出重定向写入" class="headerlink" title="echo 输出重定向写入"></a>echo 输出重定向写入</h3><h4 id="1-echo-gt-覆盖写入"><a href="#1-echo-gt-覆盖写入" class="headerlink" title="1.echo &gt; 覆盖写入"></a>1.echo &gt; 覆盖写入</h4><pre><code># 输出重定向
+echo echo &quot;输出重定向&quot;&gt; test1.sh
+</code></pre><h4 id="2-echo-gt-gt-追加写入"><a href="#2-echo-gt-gt-追加写入" class="headerlink" title="2.echo &gt;&gt; 追加写入"></a>2.echo &gt;&gt; 追加写入</h4><pre><code># 输出追加重定向
+echo echo &quot;输出追加重定向&quot; &gt;&gt; test1.sh
+</code></pre><h2 id="Sort-命令常用相关选项"><a href="#Sort-命令常用相关选项" class="headerlink" title="Sort 命令常用相关选项"></a>Sort 命令常用相关选项</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>会检查文件顺序是否已排好序，如果乱序，则输出第一个乱序的行的相关信息，然后返回1</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>指定排序的列数</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>忽略每一行前面所有的空白行，从第一个可见的字符开始比较</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>将小写字母都转换成大写字母进行排序</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>反转降序</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>去除重复行</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>输出命名，重定向</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>按字符来排序</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-M</td>
+<td>以月份排序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="uniq命令的作用"><a href="#uniq命令的作用" class="headerlink" title="uniq命令的作用"></a>uniq命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c/–count</td>
+<td>在每列旁边显示除改行重复出现的次数</td>
+</tr>
+<tr>
+<td>-d/–repeated</td>
+<td>仅显示重复出现的行列</td>
+</tr>
+<tr>
+<td>-s&lt;字符位置&gt;</td>
+<td>忽略比较指定的字符</td>
+</tr>
+<tr>
+<td>-u/–unique</td>
+<td>仅显示只有一次，不重复的行列</td>
+</tr>
+<tr>
+<td>-w&lt;字符位置&gt;</td>
+<td>指定要比较的字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="join命令的作用"><a href="#join命令的作用" class="headerlink" title="join命令的作用"></a>join命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a FILENAME</td>
+<td>FILENAME表示第几个文件，-a1表示第一个文件，-a2表示第二个文件</td>
+</tr>
+<tr>
+<td>-e EMPTY</td>
+<td>若在FILE1与FILE2找不到指定的栏位，则在输出中填入-e选定的字符串</td>
+</tr>
+<tr>
+<td>-i,–ignore-case</td>
+<td>比较时忽略大小写差异</td>
+</tr>
+<tr>
+<td>-o FORMAT</td>
+<td>按照指定的格式显示结果</td>
+</tr>
+<tr>
+<td>-v FILENUM</td>
+<td>-v 1表示只显示FILE1中与FILE2中没有相同栏位的行；</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>2表示只显示FILE2中与FILE1中没有相同栏位的行：</td>
+</tr>
+<tr>
+<td>-t CHAR</td>
+<td>使用栏位的分隔符</td>
+</tr>
+<tr>
+<td>-1 FIELD</td>
+<td>链接FILE1指定的栏位</td>
+</tr>
+<tr>
+<td>-j  FIELD</td>
+<td>等价与-1 FIELD -2 FIELD</td>
+</tr>
+</tbody>
+</table>
+<pre><code># 重复输出
+sort test.txt | uniq -d 
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/shell/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Shell/">Shell</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -210,7 +393,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ckdjkt5yk002og0uhm4jwpyat" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ckdjku9lr002gzsuhywzp5xsh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -302,7 +485,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
 
 
   
-    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
+    <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -310,42 +493,72 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
+      <a class="article-title" href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="ckdjkt5yo002vg0uhgqbugdt4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="ckdjku9m30031zsuhgcmbw1q1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
-<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
-<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
-<p><img src="/assets/vueImg/API.png" alt="image"></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><pre><code>[v-text](https://cn.vuejs.org/v2/api/ ##v-text)
-[v-html](https://cn.vuejs.org/v2/api/ ##v-html)
-[v-show](https://cn.vuejs.org/v2/api/ ##v-show)
-[v-if](https://cn.vuejs.org/v2/api/ ##v-if)
-[v-else](https://cn.vuejs.org/v2/api/ ##v-else)
-[v-else-if](https://cn.vuejs.org/v2/api/ ##v-else-if)
-[v-for](https://cn.vuejs.org/v2/api/ ##v-for)
-[v-on](https://cn.vuejs.org/v2/api/ ##v-on)
-[v-bind](https://cn.vuejs.org/v2/api/ ##v-bind)
-[v-model](https://cn.vuejs.org/v2/api/ ##v-model)
-[v-slot](https://cn.vuejs.org/v2/api/ ##v-slot)
-[v-pre](https://cn.vuejs.org/v2/api/ ##v-pre)
-[v-cloak](https://cn.vuejs.org/v2/api/ ##v-cloak)
-[v-once](https://cn.vuejs.org/v2/api/ ##v-once)
-</code></pre><h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
-<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
-<p>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev<br>$ npm run build<br>$ npm run unit<br>$ npm run e2e</p>
-<p>$ vue init webpack#develop my-project<br>$ vue init username/repo my-project</p>
-<p>Documentation can be found at <a href="https://vuejs-templates.github.io/webpack" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack</a></p>
+        <p>直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。<br>1.开启 Chrome 远程调试端口</p>
+<p>首先我们需要在远程调试打开的状态下启动 Chrome, 这样 VS Code 才能 attach 到 Chrome 上。<br>Windows</p>
+<pre><code>右键点击 Chrome 的快捷方式图标，选择属性
+在目标一栏，最后加上 --remote-debugging-port=9222，注意要用空格隔开
+</code></pre><p>macOS</p>
+<pre><code>打开控制台
+
+执行命令 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+</code></pre><p>Linux</p>
+<pre><code>打开控制台
+执行命令 google-chrome --remote-debugging-port=9222
+</code></pre><p>2.安装 Chrome Debug 插件</p>
+<p>点击 Visual Studio Code 左侧边栏的扩展按钮， 然后在搜索框输入Debugger for Chrome 并安装插件，再输入，安装完成后点击 reload 重启。</p>
+<p>3.创建 Debug 配置文件</p>
+<p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
+<p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
+<p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
+<pre><code>{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;chrome&quot;,
+      &quot;request&quot;: &quot;attach&quot;,
+      &quot;name&quot;: &quot;Attach to Chrome&quot;,
+      &quot;port&quot;: 9222,
+      &quot;webRoot&quot;: &quot;${workspaceRoot}/src&quot;,
+      &quot;url&quot;: &quot;http://localhost:8080/#/&quot;,
+      &quot;sourceMaps&quot;: true,
+      &quot;sourceMapPathOverrides&quot;: {
+        &quot;webpack:///src/*&quot;: &quot;${webRoot}/*&quot;
+      }
+    }
+  ]
+}
+</code></pre><p>4.修改 webpack 配置</p>
+<p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
+<p>1.打开根目录下的 config 目录下的 index.js 文件</p>
+<p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
+<p>3.将dev节点下的 cacheBusting 值改为 false</p>
+<p>5.开启调试</p>
+<p>上述配置完成之后：</p>
+<ol>
+<li><p>通过第一步的方式以远程调试打开的方式打开 Chrome</p>
+</li>
+<li><p>在 vue 项目中执行 npm run dev 以调试方式启动项目</p>
+</li>
+<li><p>点击 VS Code 左侧边栏的调试按钮，选择 Attach to Chrome 并点击绿色开始按钮，正常情况下就会出现调试控制条。</p>
+</li>
+</ol>
+<p>现在就可以在 vue 文件的 js 代码中打断点进行调试了。</p>
 
       
     </div><!-- .entry-content -->
@@ -354,7 +567,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/vue 一点点/">
+    <a href="/2019/06/03/使用 VS Code 断点调试/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -390,7 +603,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="ckdjkt5ym002sg0uhrv0rq3k4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="ckdjku9lv002ozsuhnjahin3a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -533,7 +746,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ckdjkt5yp002xg0uhmcoucsya" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ckdjku9ly002szsuhb1ur36n2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -601,7 +814,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="ckdjkt5zl004og0uhdjkebbd5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="ckdjku9n0004rzsuhom6eeh6g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -801,6 +1014,141 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 
 
   
+    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="ckdjku9lz002tzsuhvtdql05k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
+<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
+<p><img src="/assets/vueImg/API.png" alt="image"></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><pre><code>[v-text](https://cn.vuejs.org/v2/api/ ##v-text)
+[v-html](https://cn.vuejs.org/v2/api/ ##v-html)
+[v-show](https://cn.vuejs.org/v2/api/ ##v-show)
+[v-if](https://cn.vuejs.org/v2/api/ ##v-if)
+[v-else](https://cn.vuejs.org/v2/api/ ##v-else)
+[v-else-if](https://cn.vuejs.org/v2/api/ ##v-else-if)
+[v-for](https://cn.vuejs.org/v2/api/ ##v-for)
+[v-on](https://cn.vuejs.org/v2/api/ ##v-on)
+[v-bind](https://cn.vuejs.org/v2/api/ ##v-bind)
+[v-model](https://cn.vuejs.org/v2/api/ ##v-model)
+[v-slot](https://cn.vuejs.org/v2/api/ ##v-slot)
+[v-pre](https://cn.vuejs.org/v2/api/ ##v-pre)
+[v-cloak](https://cn.vuejs.org/v2/api/ ##v-cloak)
+[v-once](https://cn.vuejs.org/v2/api/ ##v-once)
+</code></pre><h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
+<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
+<p>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev<br>$ npm run build<br>$ npm run unit<br>$ npm run e2e</p>
+<p>$ vue init webpack#develop my-project<br>$ vue init username/repo my-project</p>
+<p>Documentation can be found at <a href="https://vuejs-templates.github.io/webpack" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 一点点/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="ckdjku9lj001zzsuhua3moafu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
+<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
+<pre><code>npm install doctoc -g
+</code></pre><p>执行</p>
+<pre><code>doctoc demo.md
+</code></pre><p>文件，即可在文档中自动生成目录</p>
+<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
+<p>优点是：简单快捷，</p>
+<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
+<p>2.npm doctoc生成目录</p>
+<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
+<p>缺点：依赖npm</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/markdown生成目录/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
     <!---->
 
@@ -816,7 +1164,7 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="ckdjkt5y6001sg0uhht4ly1oo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="ckdjku9lf001nzsuh5p7able0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -871,119 +1219,6 @@ toExcel.saveExcel();
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="ckdjkt5y7001ug0uheo3mwh42" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="ckdjkt5y9001zg0uhvcxgt7bq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
-<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
-<pre><code>npm install doctoc -g
-</code></pre><p>执行</p>
-<pre><code>doctoc demo.md
-</code></pre><p>文件，即可在文档中自动生成目录</p>
-<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
-<p>优点是：简单快捷，</p>
-<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
-<p>2.npm doctoc生成目录</p>
-<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
-<p>缺点：依赖npm</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/markdown生成目录/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
   </div>
 
     

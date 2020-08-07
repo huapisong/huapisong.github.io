@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
+    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,50 +70,55 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue elemetUl /">vue elementUi</a>
+      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="ckdjkt5ym002tg0uh2ph0osm5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="ckdjku9m2002zzsuhucmyoozs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
+        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
+</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
+* 组件之间的通信
+* @param Vue
+*/
+const install = (Vue) =&gt;{
+  const Bus = new Vue({
+      methods:{
+          emit(event, ...args){
+              this.$emit(event, ...args)
+          },
+          on (event, callback){
+              this.$on(event, callback)
+          },
+          off(event, callback){
+              this.$off(event, callback)
+          }
+      }
+  })
+  Vue.prototype.$bus = Bus
+}
+export default install
+</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
+Vue.use(VueBus)
+</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
+let num = Math.floor(Math.random() * 100 + 1);
+this.$bus.$emit(&apos;getMenu&apos;, num);
 
-# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
-
-Element UI该组件已经在属性层面提供了解决办法，只要添加
-:modal-append-to-body=&quot;false&quot;
-就可以了。
-</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
-&lt;el-form :model=&quot;form&quot;&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
-# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
-&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-
-# 方法二：
-# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
-&lt;el-form :model=&quot;form&quot;&gt;
-  &lt;el-form-item prop=&quot;username&quot;&gt;
-    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
-    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
-  &lt;/el-form-item&gt;
-&lt;/el-form&gt;
-</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
-
+# 组件 b
+,created() {
+    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
+        // console.log(target);
+        this.getMenus();
+    });
+}
+</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -121,7 +126,7 @@ Element UI该组件已经在属性层面提供了解决办法，只要添加
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/03/26/vue elemetUl /">
+    <a href="/2019/03/26/vue组件之间通信/">
     <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
         2019-03-26
     </time>
@@ -157,7 +162,7 @@ Element UI该组件已经在属性层面提供了解决办法，只要添加
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ckdjkt5z2003qg0uhwxggfkng" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="ckdjku9mt004bzsuhzykrwlzy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -359,7 +364,7 @@ RPC的特点
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="ckdjkt5xc0010g0uh9tbpbfzs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="ckdjku9l2000zzsuhb4v19odz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -514,7 +519,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ckdjkt5wx000bg0uha6g0kbgt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="ckdjku9ks000gzsuh0rmcu79i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -596,7 +601,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ckdjkt5x4000lg0uhd28fckvs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="ckdjku9kv000kzsuhwff2rxm7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -660,7 +665,7 @@ public class TestController extends BaseController{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="ckdjkt5xz001gg0uhtvjf2eyx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="ckdjku9l30011zsuhpw6prq2a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -815,7 +820,7 @@ public class Reverse {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="ckdjkt5yc0026g0uh44wq9g1y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="ckdjku9lk0021zsuhvsjtm2ho" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -937,7 +942,7 @@ project
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="ckdjkt5yv0039g0uh9n2ejzcw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="ckdjku9m60035zsuhprlfsz34" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -975,7 +980,7 @@ ipconfig /flushdns
 
 
   
-    <article id="post-console" class="post-console post type-post status-publish format-standard hentry">
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -983,31 +988,63 @@ ipconfig /flushdns
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/console/">(Javascript %s or %d represents string?)</a>
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="ckdjkt5y0001hg0uhwbdyhz5t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ckdjku9le001mzsuherv9jf9c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>What you are seeing there is the string substitution patterns that are built into console.log() or console.debug().</p>
-<p>The pattern goes as I have presented below:</p>
-<p>%s for a String</p>
-<p>%d or %i for Number</p>
-<p>%f for Floating points</p>
-<p>%o for an Object</p>
-<p>%j for an JSON</p>
-<p>So essentially you are replacing the specifier with the values supplied as so:</p>
-<p>var name = ‘Chris’;<br>console.log(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
-<p>console.debug(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
-<p><a href="https://nodejs.org/api/util.html#util_util_format_format_args" target="_blank" rel="noopener">https://nodejs.org/api/util.html#util_util_format_format_args</a></p>
+        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
 
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
+javamelody.jar
+jrobin-1.5.14.jar
+启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
+
+访问：http://主机地址：端口号/项目名/monitoring
+</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -1015,7 +1052,7 @@ ipconfig /flushdns
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/console/">
+    <a href="/2018/01/01/javamelody/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -1023,7 +1060,7 @@ ipconfig /flushdns
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/console/">console</a>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
 
     
@@ -1051,7 +1088,7 @@ ipconfig /flushdns
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ckdjkt5yx003eg0uh01uvaidl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ckdjku9m70036zsuh8hrxw303" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
