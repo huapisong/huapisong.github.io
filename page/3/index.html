@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
+    <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,51 +70,122 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+      <a class="article-title" href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cko0u822b000q00uh8nztyqey" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cko0umuz3003ixcuhoifvlxrf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
-<li>CentOS 7.3</li>
-</ul>
-<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
-<li>免密登录的关键点在于理解谁登录谁。</li>
-<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
-</ul>
-<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
-<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
-<li>根据提示回车，共有三次交互提示，都回车即可。</li>
-</ul>
-</li>
-<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
-<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
-<li>测试：<code>ssh localhost</code></li>
-</ul>
-<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
-<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
-<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
-</ul>
-<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
-<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
-</ul>
-<hr>
-<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
-<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
-<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
-<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
-<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
+        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
+<li>CentOS 安装：yum install -y clamav*</li>
+<li>启动 clamAV 服务：service clamd restart</li>
+<li>更新病毒库：freshclam</li>
+<li>扫描方法：<ul>
+<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
+<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
+<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
 </ul>
 </li>
-<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
+<li>如果日志有类似内容，表示有木马病毒：<ul>
+<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
+</ul>
+</li>
+<li>看下当前有多少登录者：who</li>
+<li>看下最近有哪些登录者：last</li>
+<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
+<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
+</ul>
+</li>
+<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
+<li>看下查看系统资源占用有无异常：top</li>
+<li>看下所有进程：ps aux</li>
+<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
+<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
+<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
+<li>更多详细可以用：cat /etc/passwd</li>
+</ul>
+</li>
+<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
+<li>检查某个端口的具体信息：lsof -i :18954</li>
+<li>检查启动项：chkconfig</li>
+<li>检查定时器（重要）：cat /etc/crontab</li>
+<li>检查定时器（重要）：crontab -l<ul>
+<li>vim /var/spool/cron/crontabs/root</li>
+<li>vim /var/spool/cron/root</li>
+</ul>
+</li>
+<li>检查其他系统重要文件：<ul>
+<li>cat /etc/rc.local</li>
+<li>cd /etc/init.d;ll</li>
+</ul>
+</li>
+<li>检查文件：<ul>
+<li>find / -uid 0 –perm -4000 –print</li>
+<li>find / -size +10000k –print</li>
+<li>find / -name “…” –print</li>
+<li>find / -name “.. “ –print</li>
+<li>find / -name “. “ –print</li>
+<li>find / -name “ “ –print</li>
+</ul>
+</li>
+<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
+<li>安装 iftop<ul>
+<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
+<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
+<li>没有安装第三方源的情况：<ul>
+<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
+<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
+<li>解压：tar zxf iftop-0.17.tar.gz</li>
+<li>进入解压目录：cd iftop-0.17/</li>
+<li>编译：./configure</li>
+<li>安装：make &amp;&amp; make install</li>
+</ul>
+</li>
+<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
+</code></pre></li>
+</ul>
+</li>
+<li>运行：iftop<ul>
+<li>显示端口与 IP 信息：iftop -nP</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
+<ul>
+<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
+<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
+<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
+<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
+<p>实战<br>挖矿程序</p>
+<ul>
+<li>先查看调度任务是否有新增内容<ul>
+<li>vim /var/spool/cron/root</li>
+<li>vim /var/spool/cron/crontabs/root</li>
+</ul>
+</li>
+<li>如果有，先停止定时任务：systemctl stop crond</li>
+<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
+<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
+<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
+</ul>
+</li>
+<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
+<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
+</ul>
+</li>
+<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
 </ul>
 
       
@@ -124,7 +195,7 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/28/SSH-login-without-password/">
+    <a href="/2019/08/28/黑客入侵检查/">
     <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
         2019-08-28
     </time>
@@ -133,147 +204,6 @@
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0u822k001800uhv93zosdj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
-<hr>
-<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
-<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
-<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
-<p>下载安装 Awesomium 1.6.6 SDK</p>
-<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
-<p>安装完成</p>
-<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
-<p>重启MarkdownPad2</p>
-<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
-<p>可以预览</p>
-<hr>
-<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
-<hr>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0u823q003e00uhxymlvyd1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
-
-&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
-</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
-<p>缺点：“DES”：安全性低</p>
-<p>DES算法缺点：</p>
-<pre><code>1、分组比较短。
-
-2、密钥太短。
-
-3、密码生命周期短。
-
-4、安全性低。
-</code></pre><p>AES算法优点：</p>
-<pre><code>1、运算速度快。
-
-2、 对内存的需求非常低，适合于受限环境。
-
-3、分组长度和密钥长度设计灵活。
-
-4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
-
-5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
-
-6、很好的抵抗差分密码分析及线性密码分析的能力。
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/加密算法DES AES/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
   </div>
 
     
@@ -301,7 +231,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0u822p001e00uhgeuqpr9f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0umuy2001gxcuh4gyzdptl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -359,7 +289,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0u8239002h00uh302j143i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0umuyi002ixcuh1tp9oti4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -585,6 +515,147 @@ sort test.txt | uniq -d
 
 
   
+    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0umuxx0018xcuhpr8n602s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
+<hr>
+<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
+<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
+<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
+<p>下载安装 Awesomium 1.6.6 SDK</p>
+<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
+<p>安装完成</p>
+<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
+<p>重启MarkdownPad2</p>
+<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
+<p>可以预览</p>
+<hr>
+<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
+<hr>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0umuz4003kxcuh33sdf1aj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+
+&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
+</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
+<p>缺点：“DES”：安全性低</p>
+<p>DES算法缺点：</p>
+<pre><code>1、分组比较短。
+
+2、密钥太短。
+
+3、密码生命周期短。
+
+4、安全性低。
+</code></pre><p>AES算法优点：</p>
+<pre><code>1、运算速度快。
+
+2、 对内存的需求非常低，适合于受限环境。
+
+3、分组长度和密钥长度设计灵活。
+
+4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
+
+5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
+
+6、很好的抵抗差分密码分析及线性密码分析的能力。
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/加密算法DES AES/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -600,7 +671,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0u823a002i00uhsekfxwef" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0umuyk002lxcuhwp5116ar" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -692,6 +763,293 @@ sort test.txt | uniq -d
 
 
   
+    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0umuyn002rxcuhcln4f8s4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
+<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
+<pre><code>async function test (){
+  return &apos;hello async&apos;;
+}
+let result = test();
+console.log(result);
+// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
+</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
+<pre><code>test().then(v =&gt; {
+  console.log(v); // hello async
+});
+</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
+<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
+<pre><code>async function f() {
+  return await 123;
+}
+
+f().then(v =&gt; console.log(v))
+// 123
+</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
+<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+.catch(e =&gt; console.log(e))
+// 出错了
+</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
+<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+  await Promise.resolve(&apos;hello world&apos;); // 不会执行
+}
+</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
+<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
+<pre><code>async function f() {
+  try {
+    await Promise.reject(&apos;出错了&apos;);
+  } catch(e) {
+  }
+  return await Promise.resolve(&apos;hello world&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+// hello world
+</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
+async submit() {
+    try {
+        this.$refs[formName].validate(valid =&gt; {
+            let res = await submit(...this.submitForm)
+            this.$message.success(res.resultMessage）
+        })
+    } catch (err){
+        console.log(err)
+        this.$message.success(err.resultMessage）
+    }
+}
+</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
+<pre><code>#修改后例：
+   submit() {
+       try {
+           this.$refs[formName].validate(async valid =&gt; {
+               let res = await submit(...this.params)
+               this.$message.success(res.resultMessage）
+           })
+       } catch (err){
+           console.log(err)
+           this.$message.success(err.resultMessage）
+       }
+   }
+</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
+<pre><code>async main() {
+  try {
+    const val1 = await firstStep();
+    const val2 = await secondStep(val1);
+    const val3 = await thirdStep(val1, val2);
+    console.log(&apos;Final: &apos;, val3);
+  }
+  catch (err) {
+    console.error(err);
+  }
+}
+
+await in for 循环
+
+let arr = [1, 2, 3, 4, 5];
+arr.forEach(async item =&gt; {
+  await console.log(item)
+});
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue async await/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cko0umuya001yxcuhme5yf64j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
+<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
+<pre><code>npm install doctoc -g
+</code></pre><p>执行</p>
+<pre><code>doctoc demo.md
+</code></pre><p>文件，即可在文档中自动生成目录</p>
+<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
+<p>优点是：简单快捷，</p>
+<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
+<p>2.npm doctoc生成目录</p>
+<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
+<p>缺点：依赖npm</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/markdown生成目录/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/js-export-excel/">js 导出 excel</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0umuy6001oxcuhiezv5q18" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="使用-js-export-excel-导出"><a href="#使用-js-export-excel-导出" class="headerlink" title="使用 js-export-excel 导出"></a>使用 js-export-excel 导出</h2><p>  <a href="https://github.com/cuikangjie/js-export-excel" target="_blank" rel="noopener">github</a></p>
+<h2 id="扩展使用（添加二级标题，-合并单元格）"><a href="#扩展使用（添加二级标题，-合并单元格）" class="headerlink" title="扩展使用（添加二级标题， 合并单元格）"></a>扩展使用（添加二级标题， 合并单元格）</h2><h3 id="修改-js-export-excel-js"><a href="#修改-js-export-excel-js" class="headerlink" title="修改 js-export-excel.js"></a>修改 js-export-excel.js</h3><pre><code>// # 添加二级标题 
+workbook: {
+    SheetNames: [],
+    Sheets: {},
+    merges: [],
+    sheetHeaderSecond: [],
+}, 
+// # 在标题下一行添加
+let sheetHeaderSecond= _options.sheetHeaderSecond || data.sheetHeaderSecond;
+if (sheetHeaderSecond &amp;&amp; sheetHeaderSecond.length &gt; 0) {
+    sheetData.unshift(sheetHeaderSecond);
+}
+// 添加合并规则
+if (!ws[&apos;!merges&apos;]) ws[&apos;!merges&apos;] = [];
+let merge = (_options.merges || data.merges) || [];
+// ws[&apos;!merges&apos;].push(merge);
+ws[&apos;!merges&apos;] = merge;
+</code></pre><h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><pre><code>import ExportJsonExcel from&quot;@/common/js-export-excel&quot;;
+//  sheetHeaderSecond: [&apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;,&apos;二级标题&apos; ],
+itemContent= {
+  sheetData: sheetData,
+  sheetName: sheetName,
+  merges: [{ s: {r:1, c:1}, e: {r:1, c:6} }], // 合并
+  sheetHeaderSecond:sheetHeaderSecond, // 二级标题
+  sheetFilter:filterData,
+  sheetHeader:headerData // 一级标题
+};
+
+option.datas.push(itemContent);
+let toExcel = new ExportJsonExcel(option);
+toExcel.saveExcel();
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/js-export-excel/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/JS/">JS</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -707,7 +1065,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cko0u824v004x00uhjlnct2p6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cko0umv02004vxcuh2x5w5qbl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -895,293 +1253,6 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0u823e002q00uhvgitpexi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
-<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
-<pre><code>async function test (){
-  return &apos;hello async&apos;;
-}
-let result = test();
-console.log(result);
-// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
-</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
-<pre><code>test().then(v =&gt; {
-  console.log(v); // hello async
-});
-</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
-<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
-<pre><code>async function f() {
-  return await 123;
-}
-
-f().then(v =&gt; console.log(v))
-// 123
-</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
-<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-.catch(e =&gt; console.log(e))
-// 出错了
-</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
-<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-  await Promise.resolve(&apos;hello world&apos;); // 不会执行
-}
-</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
-<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
-<pre><code>async function f() {
-  try {
-    await Promise.reject(&apos;出错了&apos;);
-  } catch(e) {
-  }
-  return await Promise.resolve(&apos;hello world&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-// hello world
-</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
-async submit() {
-    try {
-        this.$refs[formName].validate(valid =&gt; {
-            let res = await submit(...this.submitForm)
-            this.$message.success(res.resultMessage）
-        })
-    } catch (err){
-        console.log(err)
-        this.$message.success(err.resultMessage）
-    }
-}
-</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
-<pre><code>#修改后例：
-   submit() {
-       try {
-           this.$refs[formName].validate(async valid =&gt; {
-               let res = await submit(...this.params)
-               this.$message.success(res.resultMessage）
-           })
-       } catch (err){
-           console.log(err)
-           this.$message.success(err.resultMessage）
-       }
-   }
-</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
-<pre><code>async main() {
-  try {
-    const val1 = await firstStep();
-    const val2 = await secondStep(val1);
-    const val3 = await thirdStep(val1, val2);
-    console.log(&apos;Final: &apos;, val3);
-  }
-  catch (err) {
-    console.error(err);
-  }
-}
-
-await in for 循环
-
-let arr = [1, 2, 3, 4, 5];
-arr.forEach(async item =&gt; {
-  await console.log(item)
-});
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue async await/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js-export-excel/">js 导出 excel</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0u822u001n00uhojiyt05g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="使用-js-export-excel-导出"><a href="#使用-js-export-excel-导出" class="headerlink" title="使用 js-export-excel 导出"></a>使用 js-export-excel 导出</h2><p>  <a href="https://github.com/cuikangjie/js-export-excel" target="_blank" rel="noopener">github</a></p>
-<h2 id="扩展使用（添加二级标题，-合并单元格）"><a href="#扩展使用（添加二级标题，-合并单元格）" class="headerlink" title="扩展使用（添加二级标题， 合并单元格）"></a>扩展使用（添加二级标题， 合并单元格）</h2><h3 id="修改-js-export-excel-js"><a href="#修改-js-export-excel-js" class="headerlink" title="修改 js-export-excel.js"></a>修改 js-export-excel.js</h3><pre><code>// # 添加二级标题 
-workbook: {
-    SheetNames: [],
-    Sheets: {},
-    merges: [],
-    sheetHeaderSecond: [],
-}, 
-// # 在标题下一行添加
-let sheetHeaderSecond= _options.sheetHeaderSecond || data.sheetHeaderSecond;
-if (sheetHeaderSecond &amp;&amp; sheetHeaderSecond.length &gt; 0) {
-    sheetData.unshift(sheetHeaderSecond);
-}
-// 添加合并规则
-if (!ws[&apos;!merges&apos;]) ws[&apos;!merges&apos;] = [];
-let merge = (_options.merges || data.merges) || [];
-// ws[&apos;!merges&apos;].push(merge);
-ws[&apos;!merges&apos;] = merge;
-</code></pre><h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><pre><code>import ExportJsonExcel from&quot;@/common/js-export-excel&quot;;
-//  sheetHeaderSecond: [&apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;,&apos;二级标题&apos; ],
-itemContent= {
-  sheetData: sheetData,
-  sheetName: sheetName,
-  merges: [{ s: {r:1, c:1}, e: {r:1, c:6} }], // 合并
-  sheetHeaderSecond:sheetHeaderSecond, // 二级标题
-  sheetFilter:filterData,
-  sheetHeader:headerData // 一级标题
-};
-
-option.datas.push(itemContent);
-let toExcel = new ExportJsonExcel(option);
-toExcel.saveExcel();
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js-export-excel/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cko0u822v001q00uhh0sxij55" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-<h2 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h2><p>函数防抖(debounce)：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间。</p>
-<ul>
-<li>实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法</li>
-<li>缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer !== <span class="literal">null</span>)&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(fn,wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>,debounce(handle,<span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
-<h2 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h2><p>函数节流(throttle)：高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率。</p>
-<ul>
-<li>实现方式：每次触发事件时，如果当前有等待执行的延时函数，则直接return</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节流throttle代码：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> canRun = <span class="literal">true</span>; <span class="comment">// 通过闭包保存一个标记</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 在函数开头判断标记是否为true，不为true则return</span></span><br><span class="line">        <span class="keyword">if</span> (!canRun) <span class="keyword">return</span>;</span><br><span class="line">          <span class="comment">// 立即设置为false</span></span><br><span class="line">        canRun = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 将外部传入的函数的执行放在setTimeout中</span></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; </span><br><span class="line">        <span class="comment">// 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。</span></span><br><span class="line">        <span class="comment">// 当定时器没有执行的时候标记永远是false，在开头被return掉</span></span><br><span class="line">            fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            canRun = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'节流：'</span>, e.target.innerWidth, e.target.innerHeight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, throttle(sayHi,<span class="number">500</span>));</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     
