@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,45 +70,151 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="ckdjku9m80039zsuhmgql2j3p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cko0tt8p700108suhyv8259fo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
+<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
+</ul>
+<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
+<li>CentOS：<code>sudo yum install -y vim</code></li>
+<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
+<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
+</ul>
+<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
+<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
+</ul>
+<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
+<li>注意<ul>
+<li>严格区分字母大小写</li>
+<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
+<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
+<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
+</ul>
+</li>
+<li>移动<ul>
+<li><code>j</code>，下</li>
+<li><code>k</code>，上</li>
+<li><code>h</code>，左</li>
+<li><code>l</code>，右</li>
+<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
+<li><code>gg</code>，跳到第 1 行</li>
+<li><code>G</code>，跳到最后一行</li>
+<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
+<li><code>$</code>，到本行 <strong>行尾</strong></li>
+<li><code>0</code>，到本行 <strong>行头</strong></li>
+<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
+<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
+<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
+<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
+<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
+<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
+<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
+<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
+<li><code>^</code>，到本行第一个单词头</li>
+<li><code>g_</code>，到本行最后一个单词尾巴</li>
+<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
+</ul>
+</li>
+<li>插入<ul>
+<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
+<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
+<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
+<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
+<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
+<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
+</ul>
+</li>
+<li>编辑<ul>
+<li>删除</li>
+<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
+<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
+<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
+<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
+<li><code>dd</code>，删除当前行</li>
+<li><code>cc</code>，删除当前行后进入 insert 模式</li>
+<li><code>dw</code>，删除当前光标下的单词/空格</li>
+<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
+<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
+<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
+<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
+<li>复制</li>
+<li><code>y</code>，复制光标所选字符</li>
+<li><code>yw</code>，复制光标后单词</li>
+<li><code>yy</code>，复制当前行</li>
+<li><code>4yy</code>，复制当前行及下面 4 行</li>
+<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
+<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
+<li>粘贴</li>
+<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
+<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
+<li>其他<ul>
+<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
+<li><code>u</code>，撤销</li>
+<li><code>:wq</code>，退出并 <strong>保存</strong></li>
+<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
+<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
+<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
+<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
+<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
+<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜索<ul>
+<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+</ul>
+</li>
+<li>替换<ul>
+<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
+<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
+<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
+<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
+<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
+<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
+<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
+<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
+</ul>
+</li>
+<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
+<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
+</ul>
+<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
+<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
+<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
+<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
+<li>效果如下：<ul>
+<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
+<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
+<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
+</ul>
 
-&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
-</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
-<p>缺点：“DES”：安全性低</p>
-<p>DES算法缺点：</p>
-<pre><code>1、分组比较短。
-
-2、密钥太短。
-
-3、密码生命周期短。
-
-4、安全性低。
-</code></pre><p>AES算法优点：</p>
-<pre><code>1、运算速度快。
-
-2、 对内存的需求非常低，适合于受限环境。
-
-3、分组长度和密钥长度设计灵活。
-
-4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
-
-5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
-
-6、很好的抵抗差分密码分析及线性密码分析的能力。
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -116,7 +222,73 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/13/加密算法DES AES/">
+    <a href="/2019/08/28/Vim-Install-And-Setting/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0tt8p800138suhhwo4vf4j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
+<hr>
+<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
+<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
+<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
+<p>下载安装 Awesomium 1.6.6 SDK</p>
+<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
+<p>安装完成</p>
+<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
+<p>重启MarkdownPad2</p>
+<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
+<p>可以预览</p>
+<hr>
+<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
+<hr>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
     <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
         2019-08-13
     </time>
@@ -124,7 +296,7 @@
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
   </div>
 
     
@@ -152,7 +324,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="ckdjku9lp002dzsuhpliaa2lj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0tt8qk00388suh720n5201" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -378,6 +550,139 @@ sort test.txt | uniq -d
 
 
   
+    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0tt8pc001c8suh8bxydgw4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
+
+需要下载：
+http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
+
+下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
+JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
+JRE：将两个jar文件放到%JRE_HOME%\lib\security下
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/java 加密规则变更/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0tt8r1004b8suhetraoqzj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+
+&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
+</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
+<p>缺点：“DES”：安全性低</p>
+<p>DES算法缺点：</p>
+<pre><code>1、分组比较短。
+
+2、密钥太短。
+
+3、密码生命周期短。
+
+4、安全性低。
+</code></pre><p>AES算法优点：</p>
+<pre><code>1、运算速度快。
+
+2、 对内存的需求非常低，适合于受限环境。
+
+3、分组长度和密钥长度设计灵活。
+
+4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
+
+5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
+
+6、很好的抵抗差分密码分析及线性密码分析的能力。
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/加密算法DES AES/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -393,7 +698,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="ckdjku9lr002gzsuhywzp5xsh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0tt8ql003c8suhhezu85mw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -485,320 +790,6 @@ sort test.txt | uniq -d
 
 
   
-    <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="ckdjku9m30031zsuhgcmbw1q1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。<br>1.开启 Chrome 远程调试端口</p>
-<p>首先我们需要在远程调试打开的状态下启动 Chrome, 这样 VS Code 才能 attach 到 Chrome 上。<br>Windows</p>
-<pre><code>右键点击 Chrome 的快捷方式图标，选择属性
-在目标一栏，最后加上 --remote-debugging-port=9222，注意要用空格隔开
-</code></pre><p>macOS</p>
-<pre><code>打开控制台
-
-执行命令 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
-</code></pre><p>Linux</p>
-<pre><code>打开控制台
-执行命令 google-chrome --remote-debugging-port=9222
-</code></pre><p>2.安装 Chrome Debug 插件</p>
-<p>点击 Visual Studio Code 左侧边栏的扩展按钮， 然后在搜索框输入Debugger for Chrome 并安装插件，再输入，安装完成后点击 reload 重启。</p>
-<p>3.创建 Debug 配置文件</p>
-<p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
-<p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
-<p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
-<pre><code>{
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  &quot;version&quot;: &quot;0.2.0&quot;,
-  &quot;configurations&quot;: [
-    {
-      &quot;type&quot;: &quot;chrome&quot;,
-      &quot;request&quot;: &quot;attach&quot;,
-      &quot;name&quot;: &quot;Attach to Chrome&quot;,
-      &quot;port&quot;: 9222,
-      &quot;webRoot&quot;: &quot;${workspaceRoot}/src&quot;,
-      &quot;url&quot;: &quot;http://localhost:8080/#/&quot;,
-      &quot;sourceMaps&quot;: true,
-      &quot;sourceMapPathOverrides&quot;: {
-        &quot;webpack:///src/*&quot;: &quot;${webRoot}/*&quot;
-      }
-    }
-  ]
-}
-</code></pre><p>4.修改 webpack 配置</p>
-<p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
-<p>1.打开根目录下的 config 目录下的 index.js 文件</p>
-<p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
-<p>3.将dev节点下的 cacheBusting 值改为 false</p>
-<p>5.开启调试</p>
-<p>上述配置完成之后：</p>
-<ol>
-<li><p>通过第一步的方式以远程调试打开的方式打开 Chrome</p>
-</li>
-<li><p>在 vue 项目中执行 npm run dev 以调试方式启动项目</p>
-</li>
-<li><p>点击 VS Code 左侧边栏的调试按钮，选择 Attach to Chrome 并点击绿色开始按钮，正常情况下就会出现调试控制条。</p>
-</li>
-</ol>
-<p>现在就可以在 vue 文件的 js 代码中打断点进行调试了。</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/使用 VS Code 断点调试/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="ckdjku9lv002ozsuhnjahin3a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
-<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
-<pre><code>async function test (){
-  return &apos;hello async&apos;;
-}
-let result = test();
-console.log(result);
-// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
-</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
-<pre><code>test().then(v =&gt; {
-  console.log(v); // hello async
-});
-</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
-<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
-<pre><code>async function f() {
-  return await 123;
-}
-
-f().then(v =&gt; console.log(v))
-// 123
-</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
-<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-.catch(e =&gt; console.log(e))
-// 出错了
-</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
-<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-  await Promise.resolve(&apos;hello world&apos;); // 不会执行
-}
-</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
-<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
-<pre><code>async function f() {
-  try {
-    await Promise.reject(&apos;出错了&apos;);
-  } catch(e) {
-  }
-  return await Promise.resolve(&apos;hello world&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-// hello world
-</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
-async submit() {
-    try {
-        this.$refs[formName].validate(valid =&gt; {
-            let res = await submit(...this.submitForm)
-            this.$message.success(res.resultMessage）
-        })
-    } catch (err){
-        console.log(err)
-        this.$message.success(err.resultMessage）
-    }
-}
-</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
-<pre><code>#修改后例：
-   submit() {
-       try {
-           this.$refs[formName].validate(async valid =&gt; {
-               let res = await submit(...this.params)
-               this.$message.success(res.resultMessage）
-           })
-       } catch (err){
-           console.log(err)
-           this.$message.success(err.resultMessage）
-       }
-   }
-</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
-<pre><code>async main() {
-  try {
-    const val1 = await firstStep();
-    const val2 = await secondStep(val1);
-    const val3 = await thirdStep(val1, val2);
-    console.log(&apos;Final: &apos;, val3);
-  }
-  catch (err) {
-    console.error(err);
-  }
-}
-
-await in for 循环
-
-let arr = [1, 2, 3, 4, 5];
-arr.forEach(async item =&gt; {
-  await console.log(item)
-});
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue async await/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="ckdjku9ly002szsuhb1ur36n2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
-
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
-
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -814,7 +805,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="ckdjku9n0004rzsuhom6eeh6g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cko0tt8ro004w8suh3xh4zu9y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1014,7 +1005,7 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 
 
   
-    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
+    <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1022,42 +1013,72 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
+      <a class="article-title" href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="ckdjku9lz002tzsuhvtdql05k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cko0tt8r5004i8suh20wxnbpy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
-<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
-<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
-<p><img src="/assets/vueImg/API.png" alt="image"></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><pre><code>[v-text](https://cn.vuejs.org/v2/api/ ##v-text)
-[v-html](https://cn.vuejs.org/v2/api/ ##v-html)
-[v-show](https://cn.vuejs.org/v2/api/ ##v-show)
-[v-if](https://cn.vuejs.org/v2/api/ ##v-if)
-[v-else](https://cn.vuejs.org/v2/api/ ##v-else)
-[v-else-if](https://cn.vuejs.org/v2/api/ ##v-else-if)
-[v-for](https://cn.vuejs.org/v2/api/ ##v-for)
-[v-on](https://cn.vuejs.org/v2/api/ ##v-on)
-[v-bind](https://cn.vuejs.org/v2/api/ ##v-bind)
-[v-model](https://cn.vuejs.org/v2/api/ ##v-model)
-[v-slot](https://cn.vuejs.org/v2/api/ ##v-slot)
-[v-pre](https://cn.vuejs.org/v2/api/ ##v-pre)
-[v-cloak](https://cn.vuejs.org/v2/api/ ##v-cloak)
-[v-once](https://cn.vuejs.org/v2/api/ ##v-once)
-</code></pre><h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
-<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
-<p>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev<br>$ npm run build<br>$ npm run unit<br>$ npm run e2e</p>
-<p>$ vue init webpack#develop my-project<br>$ vue init username/repo my-project</p>
-<p>Documentation can be found at <a href="https://vuejs-templates.github.io/webpack" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack</a></p>
+        <p>直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。<br>1.开启 Chrome 远程调试端口</p>
+<p>首先我们需要在远程调试打开的状态下启动 Chrome, 这样 VS Code 才能 attach 到 Chrome 上。<br>Windows</p>
+<pre><code>右键点击 Chrome 的快捷方式图标，选择属性
+在目标一栏，最后加上 --remote-debugging-port=9222，注意要用空格隔开
+</code></pre><p>macOS</p>
+<pre><code>打开控制台
+
+执行命令 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+</code></pre><p>Linux</p>
+<pre><code>打开控制台
+执行命令 google-chrome --remote-debugging-port=9222
+</code></pre><p>2.安装 Chrome Debug 插件</p>
+<p>点击 Visual Studio Code 左侧边栏的扩展按钮， 然后在搜索框输入Debugger for Chrome 并安装插件，再输入，安装完成后点击 reload 重启。</p>
+<p>3.创建 Debug 配置文件</p>
+<p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
+<p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
+<p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
+<pre><code>{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;chrome&quot;,
+      &quot;request&quot;: &quot;attach&quot;,
+      &quot;name&quot;: &quot;Attach to Chrome&quot;,
+      &quot;port&quot;: 9222,
+      &quot;webRoot&quot;: &quot;${workspaceRoot}/src&quot;,
+      &quot;url&quot;: &quot;http://localhost:8080/#/&quot;,
+      &quot;sourceMaps&quot;: true,
+      &quot;sourceMapPathOverrides&quot;: {
+        &quot;webpack:///src/*&quot;: &quot;${webRoot}/*&quot;
+      }
+    }
+  ]
+}
+</code></pre><p>4.修改 webpack 配置</p>
+<p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
+<p>1.打开根目录下的 config 目录下的 index.js 文件</p>
+<p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
+<p>3.将dev节点下的 cacheBusting 值改为 false</p>
+<p>5.开启调试</p>
+<p>上述配置完成之后：</p>
+<ol>
+<li><p>通过第一步的方式以远程调试打开的方式打开 Chrome</p>
+</li>
+<li><p>在 vue 项目中执行 npm run dev 以调试方式启动项目</p>
+</li>
+<li><p>点击 VS Code 左侧边栏的调试按钮，选择 Attach to Chrome 并点击绿色开始按钮，正常情况下就会出现调试控制条。</p>
+</li>
+</ol>
+<p>现在就可以在 vue 文件的 js 代码中打断点进行调试了。</p>
 
       
     </div><!-- .entry-content -->
@@ -1066,7 +1087,150 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/vue 一点点/">
+    <a href="/2019/06/03/使用 VS Code 断点调试/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0tt8qp003k8suhus86v3gk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
+<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
+<pre><code>async function test (){
+  return &apos;hello async&apos;;
+}
+let result = test();
+console.log(result);
+// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
+</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
+<pre><code>test().then(v =&gt; {
+  console.log(v); // hello async
+});
+</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
+<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
+<pre><code>async function f() {
+  return await 123;
+}
+
+f().then(v =&gt; console.log(v))
+// 123
+</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
+<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+.catch(e =&gt; console.log(e))
+// 出错了
+</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
+<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
+<pre><code>async function f() {
+  await Promise.reject(&apos;出错了&apos;);
+  await Promise.resolve(&apos;hello world&apos;); // 不会执行
+}
+</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
+<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
+<pre><code>async function f() {
+  try {
+    await Promise.reject(&apos;出错了&apos;);
+  } catch(e) {
+  }
+  return await Promise.resolve(&apos;hello world&apos;);
+}
+
+f()
+.then(v =&gt; console.log(v))
+// hello world
+</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
+async submit() {
+    try {
+        this.$refs[formName].validate(valid =&gt; {
+            let res = await submit(...this.submitForm)
+            this.$message.success(res.resultMessage）
+        })
+    } catch (err){
+        console.log(err)
+        this.$message.success(err.resultMessage）
+    }
+}
+</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
+<pre><code>#修改后例：
+   submit() {
+       try {
+           this.$refs[formName].validate(async valid =&gt; {
+               let res = await submit(...this.params)
+               this.$message.success(res.resultMessage）
+           })
+       } catch (err){
+           console.log(err)
+           this.$message.success(err.resultMessage）
+       }
+   }
+</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
+<pre><code>async main() {
+  try {
+    const val1 = await firstStep();
+    const val2 = await secondStep(val1);
+    const val3 = await thirdStep(val1, val2);
+    console.log(&apos;Final: &apos;, val3);
+  }
+  catch (err) {
+    console.error(err);
+  }
+}
+
+await in for 循环
+
+let arr = [1, 2, 3, 4, 5];
+arr.forEach(async item =&gt; {
+  await console.log(item)
+});
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue async await/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -1102,7 +1266,7 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="ckdjku9lj001zzsuhua3moafu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cko0tt8qc002t8suhh8kh8y83" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1149,88 +1313,6 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 
 
   
-    <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js-export-excel/">js 导出 excel</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="ckdjku9lf001nzsuh5p7able0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="使用-js-export-excel-导出"><a href="#使用-js-export-excel-导出" class="headerlink" title="使用 js-export-excel 导出"></a>使用 js-export-excel 导出</h2><p>  <a href="https://github.com/cuikangjie/js-export-excel" target="_blank" rel="noopener">github</a></p>
-<h2 id="扩展使用（添加二级标题，-合并单元格）"><a href="#扩展使用（添加二级标题，-合并单元格）" class="headerlink" title="扩展使用（添加二级标题， 合并单元格）"></a>扩展使用（添加二级标题， 合并单元格）</h2><h3 id="修改-js-export-excel-js"><a href="#修改-js-export-excel-js" class="headerlink" title="修改 js-export-excel.js"></a>修改 js-export-excel.js</h3><pre><code>// # 添加二级标题 
-workbook: {
-    SheetNames: [],
-    Sheets: {},
-    merges: [],
-    sheetHeaderSecond: [],
-}, 
-// # 在标题下一行添加
-let sheetHeaderSecond= _options.sheetHeaderSecond || data.sheetHeaderSecond;
-if (sheetHeaderSecond &amp;&amp; sheetHeaderSecond.length &gt; 0) {
-    sheetData.unshift(sheetHeaderSecond);
-}
-// 添加合并规则
-if (!ws[&apos;!merges&apos;]) ws[&apos;!merges&apos;] = [];
-let merge = (_options.merges || data.merges) || [];
-// ws[&apos;!merges&apos;].push(merge);
-ws[&apos;!merges&apos;] = merge;
-</code></pre><h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><pre><code>import ExportJsonExcel from&quot;@/common/js-export-excel&quot;;
-//  sheetHeaderSecond: [&apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;,&apos;二级标题&apos; ],
-itemContent= {
-  sheetData: sheetData,
-  sheetName: sheetName,
-  merges: [{ s: {r:1, c:1}, e: {r:1, c:6} }], // 合并
-  sheetHeaderSecond:sheetHeaderSecond, // 二级标题
-  sheetFilter:filterData,
-  sheetHeader:headerData // 一级标题
-};
-
-option.datas.push(itemContent);
-let toExcel = new ExportJsonExcel(option);
-toExcel.saveExcel();
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js-export-excel/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1255,7 +1337,7 @@ toExcel.saveExcel();
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1267,23 +1349,23 @@ toExcel.saveExcel();
       <ul>
         
           <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/11/node-process-argv/">node.js获取命令参数</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/05/github-hosts/">GitHub 访问加速方法</a>
           </li>
         
           <li>
             <a href="/2020/08/05/vscode-settings-sync/">vscode-settings-sync</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/04/java-getstarted/">下载、安装、配置和调试 JDK</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/04/hexo-create-config/">hexo-create-config</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
           </li>
         
       </ul>
@@ -1298,7 +1380,7 @@ toExcel.saveExcel();
 </div>
       </div>
       <footer id="colophon" role="contentinfo">
-    <p>&copy; 2020 花皮松
+    <p>&copy; 2021 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
     <!-- busuanzi start -->

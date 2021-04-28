@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="背景为其他公司开发一个小程序，这个小程序要只能在企业微信里面访问，不能通过普通微信访问。
+企业微信里只有授权的用户可以使用该小程序
+问题分析首先，这里面需要解决几个问题：
+1、只在企业微信里使用，不能在普通小程序使用
+判断当前运行环境
+2、只有授权的用户可以使用该小程序
+权限校验
+
+1：普通微信，使">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>企业微信小程序开发流程 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景为其他公司开发一个小程序，这个小程序要只能在企业微信里面访问，不能通过普通微信访问。 企业微信里只有授权的用户可以使用该小程序 问题分析首先，这里面需要解决几个问题： 1、只在企业微信里使用，不能在普通小程序使用 判断当前运行环境 2、只有授权的用户可以使用该小程序 权限校验  1：普通微信，使用账号+密码登陆，审核专用，可限制账号权限  2：企业微信，校验企业id，校验用户id，有权限的才允">
+<meta property="og:type" content="article">
+<meta property="og:title" content="企业微信小程序开发流程">
+<meta property="og:url" content="http://yoursite.com/2020/08/13/work-wechat-start/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="背景为其他公司开发一个小程序，这个小程序要只能在企业微信里面访问，不能通过普通微信访问。 企业微信里只有授权的用户可以使用该小程序 问题分析首先，这里面需要解决几个问题： 1、只在企业微信里使用，不能在普通小程序使用 判断当前运行环境 2、只有授权的用户可以使用该小程序 权限校验  1：普通微信，使用账号+密码登陆，审核专用，可限制账号权限  2：企业微信，校验企业id，校验用户id，有权限的才允">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-13T02:25:30.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="企业微信小程序开发流程">
+<meta name="twitter:description" content="背景为其他公司开发一个小程序，这个小程序要只能在企业微信里面访问，不能通过普通微信访问。 企业微信里只有授权的用户可以使用该小程序 问题分析首先，这里面需要解决几个问题： 1、只在企业微信里使用，不能在普通小程序使用 判断当前运行环境 2、只有授权的用户可以使用该小程序 权限校验  1：普通微信，使用账号+密码登陆，审核专用，可限制账号权限  2：企业微信，校验企业id，校验用户id，有权限的才允">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-work-wechat-start" class="post-work-wechat-start post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      企业微信小程序开发流程
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/08/13/work-wechat-start/" data-id="cko0tt8qx00448suhcixvmfwd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>为其他公司开发一个小程序，这个小程序要只能在企业微信里面访问，不能通过普通微信访问。</p>
+<p>企业微信里只有授权的用户可以使用该小程序</p>
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>首先，这里面需要解决几个问题：</p>
+<p>1、只在企业微信里使用，不能在普通小程序使用</p>
+<pre><code>判断当前运行环境
+</code></pre><p>2、只有授权的用户可以使用该小程序</p>
+<pre><code>权限校验
+
+1：普通微信，使用账号+密码登陆，审核专用，可限制账号权限
+
+2：企业微信，校验企业id，校验用户id，有权限的才允许使用
+</code></pre><p>3、控制搜索</p>
+<pre><code>在小程序管理后台设置「不允许被搜索」
+</code></pre><p>4、控制分享</p>
+<pre><code>小程序里面关闭分享
+</code></pre><p>OK，做到以上几点，就实现了只有企业微信里授权的用户，才能够在企业微信的 工作台 看到该小程序。</p>
+<h2 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h2><h3 id="1、小程序基础功能开发，提交审核"><a href="#1、小程序基础功能开发，提交审核" class="headerlink" title="1、小程序基础功能开发，提交审核"></a>1、小程序基础功能开发，提交审核</h3><p>对，没看错，先提交审核，因为只有审核通过的小程序才能被企业微信绑定。所以，先把小程序的基础功能做出来，可以限制一部分功能，总之，就是先让这个小程序上架。同时，在小程序的管理后台设置「不允许被搜索」，避免不必要的麻烦。</p>
+<h3 id="2、企业微信关联小程序"><a href="#2、企业微信关联小程序" class="headerlink" title="2、企业微信关联小程序"></a>2、企业微信关联小程序</h3><p>进入企业微信后台 -&gt; 应用管理 -&gt; 小程序 -&gt; 关联小程序，然后使用小程序管理员的微信扫码，按照指引操作即可。</p>
+<h3 id="3、获取关联小程序的-Secret，设置可见范围"><a href="#3、获取关联小程序的-Secret，设置可见范围" class="headerlink" title="3、获取关联小程序的 Secret，设置可见范围"></a>3、获取关联小程序的 Secret，设置可见范围</h3><p>上一步的小程序页面会出现刚才关联的小程序，点击进入，然后就看到 secret 及可见范围。</p>
+<p>这个 secret 相当于该小程序访问该企业微信数据的令牌，请妥善保存。</p>
+<p>可见范围就是授权，哪些用户能看到这个小程序，被设置可见的人将会在自己企业微信的工作台看到该小程序。</p>
+<h3 id="4、修改小程序"><a href="#4、修改小程序" class="headerlink" title="4、修改小程序"></a>4、修改小程序</h3><h4 id="4-1、判断运行环境"><a href="#4-1、判断运行环境" class="headerlink" title="4.1、判断运行环境"></a>4.1、判断运行环境</h4><p>小程序需要判断当前的运行环境（普通微信 or 企业微信），需要判断使用当前小程序的用户是否有权限使用。</p>
+<pre><code>var isWxWork = false;
+wx.getSystemInfo({
+  success(res) {
+    console.log(res.environment);
+
+    isWxWork = res.environment == &apos;wxwork&apos;;
+    if (!isWxWork) {
+        // 当前环境不是企业微信，怎么处理你随便
+        return;
+    }
+
+    // 当前环境是企业微信，执行登陆，获取用户 code，用于后面的权限校验
+    wx.qy.login({
+      success: function (res) {
+        if (res.code) {
+            console.log(res.code);
+
+            // 这里可以将 res.code 通过请求发送给后台，让后台做权限校验
+        } else {
+            console.log(&apos;登录失败！&apos; + res.errMsg);
+        }
+      }
+    });
+  }
+})
+</code></pre><h4 id="4-2、权限校验"><a href="#4-2、权限校验" class="headerlink" title="4.2、权限校验"></a>4.2、权限校验</h4><p>后台需要调用以下几个接口来进行权限校验。</p>
+<p>1、获取 access_token</p>
+<pre><code>https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=xxxx&amp;corpsecret=xxxx
+
+请求方式：GET
+</code></pre><p>这个接口和普通微信获取 token 的方法类似。</p>
+<p>其中，corpid 在企业微信管理后台-&gt;我的企业-&gt;企业信息-&gt;企业ID；corpsecret 就是我们上一步关联小程序后获取的 secret。</p>
+<p>返回内容如下：</p>
+<pre><code>{
+    &quot;errcode&quot;: 0,
+    &quot;errmsg&quot;: &quot;ok&quot;,
+    &quot;access_token&quot;: &quot;xxxxxx&quot;,
+    &quot;expires_in&quot;: 7200
+}
+</code></pre><p>2、获取 userid</p>
+<pre><code>https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session?access_token=xxx&amp;js_code=xxx&amp;grant_type=authorization_code
+
+请求方式：GET
+</code></pre><p>其中，access_token 是我们前一步 gettoken 获取到的；js_code 是前面判断运行环境时获取到的 res.code；grant_type 固定传 authorization_code</p>
+<p>返回内容如下：</p>
+<pre><code>{
+    &quot;userid&quot;: &quot;bottle&quot;,
+    &quot;session_key&quot;: &quot;xxxxx&quot;,
+    &quot;corpid&quot;: &quot;xxxxxx&quot;,
+    &quot;deviceid&quot;: &quot;xxxxxx&quot;,
+    &quot;errcode&quot;: 0,
+    &quot;errmsg&quot;: &quot;ok&quot;
+}
+</code></pre><p>这里的 corpid 可以用来初步校验当前用户是否有权限，因为无论哪个公司的人，只要他用企业微信，使用这个小程序，都会返回这样的结果，你需要根据 corpid 是否是你授权的企业的ID来校验，如果不是，直接返回无权限就可以，不用进行下一步。</p>
+<p>当然 corpid 也可以用于处理一个小程序关联多家公司的情况，不过这是另一个问题了。这里简单提一嘴，因为是给其他公司开发的小程序，所以我们这个小程序也关联了两个企业，一个我们公司，一个对方公司，这样也方便我们测试，只需要给我们自己的测试人员授权就可以让他们使用完全相同的环境进行测试了。</p>
+<p>3、获取用户信息（判断权限）</p>
+<pre><code>https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=xxx&amp;userid=xxx
+
+请求方式：GET
+</code></pre><p>其中，access_token 是我们前一步 gettoken 获取到的；userid 就是我们上一步获取到的 userid。</p>
+<p>返回内容如下：</p>
+<ul>
+<li>有权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;errcode&quot;: 0,</span><br><span class="line">    &quot;errmsg&quot;: &quot;ok&quot;,</span><br><span class="line">    &quot;userid&quot;: &quot;xxx&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;xxx&quot;,</span><br><span class="line">    &quot;department&quot;: [],</span><br><span class="line">    &quot;position&quot;: &quot;&quot;,</span><br><span class="line">    &quot;mobile&quot;: &quot;xxx&quot;,</span><br><span class="line">    &quot;gender&quot;: &quot;2&quot;,</span><br><span class="line">    &quot;email&quot;: &quot;&quot;,</span><br><span class="line">    &quot;avatar&quot;: &quot;http://p.qlogo.cn/bizmail/xxx/0&quot;,</span><br><span class="line">    &quot;status&quot;: 1,</span><br><span class="line">    &quot;isleader&quot;: 0,</span><br><span class="line">    &quot;extattr&quot;: &#123;</span><br><span class="line">        &quot;attrs&quot;: []</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;telephone&quot;: &quot;&quot;,</span><br><span class="line">    &quot;enable&quot;: 1,</span><br><span class="line">    &quot;hide_mobile&quot;: 0,</span><br><span class="line">    &quot;order&quot;: [],</span><br><span class="line">    &quot;qr_code&quot;: &quot;https://open.work.weixin.qq.com/wwopen/userQRCode?vcode=xxx&quot;,</span><br><span class="line">    &quot;alias&quot;: &quot;&quot;,</span><br><span class="line">    &quot;is_leader_in_dept&quot;: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;errcode&quot;: 60011,</span><br><span class="line">    &quot;errmsg&quot;: &quot;no privilege to access/modify contact/party/agent , hint: [1564556097_7_8d45297bd21be3702ff430560e1f0652], from ip: 118.113.1.217, more info at https://open.work.weixin.qq.com/devtool/query?e=60011&quot;,</span><br><span class="line">    &quot;department&quot;: [],</span><br><span class="line">    &quot;order&quot;: [],</span><br><span class="line">    &quot;is_leader_in_dept&quot;: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OK，后面根据有权限还是无权限，执行不同的操作就可以了，这里不再赘述。</p>
+<p>参考资料</p>
+<p>企业微信API（小程序）：<a href="https://work.weixin.qq.com/api/doc#90000/90136/90289" target="_blank" rel="noopener">https://work.weixin.qq.com/api/doc#90000/90136/90289</a></p>
+<p>企业微信接口调试工具：<a href="https://work.weixin.qq.com/api/devtools/devtool.php" target="_blank" rel="noopener">https://work.weixin.qq.com/api/devtools/devtool.php</a></p>
+<p>错误码查询工具：<a href="https://open.work.weixin.qq.com/devtool/query" target="_blank" rel="noopener">https://open.work.weixin.qq.com/devtool/query</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2020/08/13/work-wechat-start/">
+    <time datetime="2020-08-13T02:15:41.000Z" class="entry-date">
+        2020-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/WeCaht/">WeCaht</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/09/03/webpack-spritesmith/" rel="prev"><span class="meta-nav">←</span> webpack中如何使用雪碧图</a></span>
+    
+    
+        <span class="nav-next"><a href="/2020/08/11/node-process-argv/" rel="next">node.js获取命令参数 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/11/node-process-argv/">node.js获取命令参数</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/github-hosts/">GitHub 访问加速方法</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/vscode-settings-sync/">vscode-settings-sync</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2021 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

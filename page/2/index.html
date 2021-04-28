@@ -62,6 +62,100 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-Nginx.service failed" class="post-Nginx.service failed post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/17/Nginx.service failed/">启动报错</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="cko0tt8or000c8suhla32n0hj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下"><a href="#启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下" class="headerlink" title="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下"></a>启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下</h2><h3 id="1-nginx配置文件有错误"><a href="#1-nginx配置文件有错误" class="headerlink" title="1.nginx配置文件有错误"></a>1.nginx配置文件有错误</h3><pre><code>运行下面命令查看修改
+nginx -t
+</code></pre><h3 id="2-已经启动nginx或者配置文件中的端口号被占用"><a href="#2-已经启动nginx或者配置文件中的端口号被占用" class="headerlink" title="2.已经启动nginx或者配置文件中的端口号被占用"></a>2.已经启动nginx或者配置文件中的端口号被占用</h3><pre><code>检查端口是否被占用
+netstat -tnlp
+
+如果端口已经被占用，自己权衡一下是换个端口还是把占用端口的进程杀掉
+检查nginx是否已经启动
+ps -aux | grep nginx
+
+如果已经启动使用下面命令干掉即可
+
+pkill -9 nginx
+</code></pre><h2 id="解决Nginx出现403-forbidden-13-Permission-denied-报错"><a href="#解决Nginx出现403-forbidden-13-Permission-denied-报错" class="headerlink" title="解决Nginx出现403 forbidden (13: Permission denied)报错"></a>解决Nginx出现403 forbidden (13: Permission denied)报错</h2><p>查看nginx日志，路径为/var/log/nginx/error.log。打开日志发现报错Permission denied，详细报错如下</p>
+<pre><code>&quot;/app/index.html&quot; is forbidden (13: Permission denied), client: 10.43.25.6, server: localhost, request: &quot;GET / HTTP/1.1&quot;, host: &quot;10.42.1.50&quot;
+</code></pre><h3 id="由于启动用户和nginx工作用户不一致所致"><a href="#由于启动用户和nginx工作用户不一致所致" class="headerlink" title="由于启动用户和nginx工作用户不一致所致"></a>由于启动用户和nginx工作用户不一致所致</h3><pre><code># 查看nginx的启动用户，发现是nginx，而为是用root启动的
+ps aux | grep nginx
+
+# 显示如下：
+nginx      1180  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+nginx      1181  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+
+# 将nginx.config的user改为和启动用户一致
+vi conf/nginx.conf
+
+# 修改如下：
+# user  nginx;
+user  root;
+</code></pre><h3 id="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"><a href="#权限问题，如果nginx没有web目录的操作权限，也会出现403错误" class="headerlink" title="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"></a>权限问题，如果nginx没有web目录的操作权限，也会出现403错误</h3><pre><code># 修改权限
+chmod -R 777 /app
+</code></pre><h3 id="SELinux设置为开启状态（enabled）的原因"><a href="#SELinux设置为开启状态（enabled）的原因" class="headerlink" title="SELinux设置为开启状态（enabled）的原因"></a>SELinux设置为开启状态（enabled）的原因</h3><pre><code># 查看当前selinux的状态
+/usr/sbin/sestatus
+
+# 显示如下：
+SELinux status:                 enabled
+
+# 将SELINUX=enforcing 修改为 SELINUX=disabled 状态
+vi /etc/selinux/config
+
+# 修改如下：
+#SELINUX=enforcing
+SELINUX=disabled
+
+# 重启生效
+reboot
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/Nginx.service failed/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Nginx/">Nginx</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-POI-Word-Convert-HTML" class="post-POI-Word-Convert-HTML post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +171,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="ckdjku9ms004azsuhbnyimlcf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="cko0tt8q100288suhjp5kbk9c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -411,6 +505,496 @@ public class DocConvertHtmlUtil {
 
 
   
+    <article id="post-vue-Quill-Editor" class="post-vue-Quill-Editor post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="cko0tt8rr00518suhu7py8b3p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="自定义字体修改"><a href="#自定义字体修改" class="headerlink" title="自定义字体修改"></a>自定义字体修改</h2><h3 id="添加-style"><a href="#添加-style" class="headerlink" title="添加 style"></a>添加 style</h3><pre><code>var Font = Quill.import(&apos;attributors/style/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span style=&quot;font-family: SimSun;&quot;&gt;宋体 测试&lt;/span&gt;&lt;/p&gt;
+</code></pre><h3 id="添加-class"><a href="#添加-class" class="headerlink" title="添加 class"></a>添加 class</h3><pre><code>var Font = Quill.import(&apos;attributors/class/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span class=&quot;ql-font-SimSun&quot;&gt;宋体&lt;/span&gt;&lt;/p&gt;
+</code></pre><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>&lt;!-- 富文本编辑 vue-quill-editor --&gt;
+&lt;template&gt;
+&lt;div class&gt;
+    &lt;quill-editor
+    v-model=&quot;contentHtml&quot;
+    ref=&quot;myQuillEditor&quot;
+    :options=&quot;editorOption&quot;
+    &gt;&lt;/quill-editor&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import &apos;quill/dist/quill.core.css&apos;;
+import &apos;quill/dist/quill.snow.css&apos;;
+import &apos;quill/dist/quill.bubble.css&apos;;
+import { quillEditor, Quill } from &apos;vue-quill-editor&apos;;
+// 图片拖拽功能 ie 不支持
+// import { ImageDrop } from &apos;quill-image-drop-module&apos;;
+// Quill.register(&apos;modules/imageDrop&apos;, ImageDrop);
+
+var fonts = [&apos;STXihei&apos;, &apos;SimSun&apos;, &apos;SimHei&apos;,&apos;Microsoft-YaHei&apos;,&apos;KaiTi&apos;,&apos;FangSong&apos;,&apos;Arial&apos;,&apos;sans-serif&apos;];  
+
+var Font = Quill.import(&apos;attributors/style/font&apos;);
+// var Font = Quill.import(&apos;attributors/class/font&apos;);
+// var Font = Quill.import(&apos;formats/font&apos;);
+Font.whitelist = fonts; //将字体加入到白名单 
+Quill.register(Font, true);
+
+export default {
+props: {
+    content: {
+    type: String,
+    default: &quot;&quot;
+    }
+},
+mounted() {
+},
+components: {
+    &apos;quill-editor&apos;: quillEditor
+},
+data() {
+    return {
+    // contentHtml: this.content,
+    editorOption: {
+        modules: {
+        toolbar: {
+            container: [  // 工具栏
+            [&apos;bold&apos;, &apos;italic&apos;, &apos;underline&apos;, &apos;strike&apos;],
+            [&apos;blockquote&apos;, &apos;code-block&apos;],
+            [{ &apos;header&apos;: 1 }, { &apos;header&apos;: 2 }],
+            [{ &apos;list&apos;: &apos;ordered&apos; }, { &apos;list&apos;: &apos;bullet&apos; }],
+            [{ &apos;script&apos;: &apos;sub&apos; }, { &apos;script&apos;: &apos;super&apos; }],
+            [{ &apos;indent&apos;: &apos;-1&apos; }, { &apos;indent&apos;: &apos;+1&apos; }],
+            [{ &apos;direction&apos;: &apos;rtl&apos; }],
+            [{ &apos;size&apos;: [&apos;small&apos;, false, &apos;large&apos;, &apos;huge&apos;] }],
+            [{ &apos;header&apos;: [1, 2, 3, 4, 5, 6, false] }],
+            [{ &apos;color&apos;: [] }, { &apos;background&apos;: [] }],
+            [{ &apos;font&apos;: fonts }],
+            [{ &apos;align&apos;: [] }],
+            [&apos;clean&apos;],
+            [&apos;link&apos;, &apos;image&apos;, &apos;video&apos;]
+            ],
+            handlers: {
+            // &apos;image&apos;: function (value) {
+            //   console.log(value);
+            //     if (value) {
+            //         alert(&apos;自定义图片&apos;);
+            //     } else {
+            //       this.quill.format(&apos;image&apos;, false);
+            //     }
+            // }
+            }
+        },
+        history: {
+            delay: 1000,
+            maxStack: 50,
+            userOnly: false
+        },
+        // imageDrop: true,
+        }
+    }
+    };
+},
+computed: {
+    contentHtml: {
+    get() {
+        return this.content;
+    },
+    // setter
+    set(val) {
+        if (val.replace(/[^\x00-\xff]/g, &apos;01&apos;).length &gt;= 10 * 1024 * 1024)
+        this.$message.error(&apos;富文本内容大小不得大于10M！&apos;);
+        this.$emit(&quot;update:content&quot;, val);
+    }
+    },
+},
+watch: {
+    // &apos;contentHtml&apos;(newVal, oldVal) {
+    //   if (!newVal) {
+    //     return;
+    //   }
+    //   if (newVal == oldVal) {
+    //     return;
+    //   }
+    //   this.$emit(&quot;update:content&quot;, newVal);
+    // }
+},
+};
+&lt;/script&gt;
+&lt;style&gt;
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+content: &quot;14px&quot;;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;small&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;small&quot;]::before {
+content: &quot;10px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;large&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;large&quot;]::before {
+content: &quot;18px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;huge&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;huge&quot;]::before {
+content: &quot;32px&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+content: &quot;文本&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;1&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;1&quot;]::before {
+content: &quot;标题1&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;2&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;2&quot;]::before {
+content: &quot;标题2&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;3&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;3&quot;]::before {
+content: &quot;标题3&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;4&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;4&quot;]::before {
+content: &quot;标题4&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;5&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;5&quot;]::before {
+content: &quot;标题5&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;6&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;6&quot;]::before {
+content: &quot;标题6&quot;;
+}
+
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STXihei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STXihei]::before {
+    content: &quot;华文细黑&quot;;
+    font-family: &quot;STXihei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
+    content: &quot;宋体&quot;;
+    font-family: &quot;SimSun&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimHei]::before {
+    content: &quot;黑体&quot;;
+    font-family: &quot;SimHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Microsoft-YaHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Microsoft-YaHei]::before {
+    content: &quot;微软雅黑&quot;;
+    font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=KaiTi]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=KaiTi]::before {
+    content: &quot;楷体&quot;;
+    font-family: &quot;KaiTi&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=FangSong]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=FangSong]::before {
+    content: &quot;仿宋&quot;;
+    font-family: &quot;FangSong&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
+    content: &quot;Arial&quot;;
+    font-family: &quot;Arial&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
+    content: &quot;Times New Roman&quot;;
+    font-family: &quot;Times New Roman&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
+    content: &quot;sans-serif&quot;;
+    font-family: &quot;sans-serif&quot;;
+}
+
+.ql-font-STXihei {
+font-family: &quot;STXihei&quot;;
+}
+.ql-font-SimSun {
+font-family: &quot;SimSun&quot;;
+}
+.ql-font-SimHei {
+font-family: &quot;SimHei&quot;;
+}
+.ql-font-Microsoft-YaHei {
+font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-font-KaiTi {
+font-family: &quot;KaiTi&quot;;
+}
+.ql-font-FangSong {
+font-family: &quot;FangSong&quot;;
+}
+.ql-font-Arial {
+font-family: &quot;Arial&quot;;
+}
+.ql-font-Times-New-Roman {
+font-family: &quot;Times New Roman&quot;;
+}
+.ql-font-sans-serif {
+font-family: &quot;sans-serif&quot;;
+}
+&lt;/style&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/vue-Quill-Editor/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-AES" class="post-AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/17/AES/">AES 加密、解密</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="cko0tt8od00058suhthqnu3ot" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="填充模式的区别"><a href="#填充模式的区别" class="headerlink" title="填充模式的区别"></a>填充模式的区别</h2><p>  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding</p>
+<p>  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。</p>
+<pre><code>- ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
+- PKCS7Padding，假设数据长度需要填充n(n&gt;0)个字节才对齐，那么填充n个字节，每个字节都- 是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
+- PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。两者的区别在于PKCS5Padding是限制块大小的PKCS7Padding
+</code></pre><p>  由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密</p>
+<h2 id="前端-crypto-js-AES-加解密"><a href="#前端-crypto-js-AES-加解密" class="headerlink" title="前端 crypto-js AES 加解密"></a>前端 crypto-js AES 加解密</h2><pre><code># vue 使用 npm install crypto-js --save
+# util.js
+import Vue from &apos;vue&apos;;
+import CryptoJS from &apos;crypto-js&apos;;
+// 由于对称解密使用的算法是 AES-128-CBC算法，数据采用 PKCS#7 填充， BASE64输出， 字符集utf8， 因此这里的 key 需要为16位！
+const key = CryptoJS.enc.Utf8.parse(&quot;1234123412ABCDEF&quot;);  //十六位十六进制数作为密钥
+const iv = CryptoJS.enc.Utf8.parse(&apos;ABCDEF1234123412&apos;);   //十六位十六进制数作为密钥偏移量
+/**
+* 加密 AES + BASE64
+* @param {*} word 
+*/
+export function encrypt(word) {
+  var encrypted = CryptoJS.AES.encrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  return String(encrypted);
+};
+
+/**
+* 解密
+* @param {*} word 
+*/
+export function decrypt(word) {
+  var decrypt = CryptoJS.AES.decrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+  return decryptedStr;
+};
+</code></pre><h2 id="后端-java-AES-加解密"><a href="#后端-java-AES-加解密" class="headerlink" title="后端 java AES 加解密"></a>后端 java AES 加解密</h2><pre><code>import org.apache.commons.codec.binary.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.math.BigInteger;
+
+public class AES {
+//    密钥
+    private static String keyWord = &quot;1234123412ABCDEF&quot;;
+//    密钥偏移量
+    private static String iv = &quot;ABCDEF1234123412&quot;;
+    /**
+    * 加密
+    * @param src 加密字符串
+    * @param key 密钥
+    * @return 加密后的字符串
+    */
+    public static String Encrypt(String src, String key) throws Exception {
+        // 判断密钥是否为空
+        if (key == null) {
+            key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+        }
+        Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);// 算法/模式/补码方式
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(iv.getBytes()));
+        byte[] encrypted = cipher.doFinal(src.getBytes(&quot;utf-8&quot;));
+        return new Base64().encodeToString(encrypted);//base64
+//        return binary(encrypted, 16); //十六进制
+    }
+
+    /**
+    * 解密
+    * @param src 解密字符串
+    * @param key 密钥
+    * @return 解密后的字符串
+    */
+    public static String Decrypt(String src, String key) throws Exception {
+        try {
+            // 判断Key是否正确
+            if (key == null) {
+                key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+            }
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv.getBytes()));
+
+            byte[] encrypted1 = new Base64().decode(src);//base64
+//            byte[] encrypted1 = toByteArray(src);//十六进制
+            try {
+                byte[] original = cipher.doFinal(encrypted1);
+                String originalString = new String(original,&quot;utf-8&quot;);
+                return originalString;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return null;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+    }
+
+    /**
+    * 将byte[]转为各种进制的字符串
+    * @param bytes byte[]
+    * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制
+    * @return 转换后的字符串
+    */
+    public static String binary(byte[] bytes, int radix){
+        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
+    }
+
+    /**
+    * 16进制的字符串表示转成字节数组
+    *
+    * @param hexString 16进制格式的字符串
+    * @return 转换后的字节数组
+    **/
+    public static byte[] toByteArray(String hexString) {
+        if (hexString.isEmpty())
+            throw new IllegalArgumentException(&quot;this hexString must not be empty&quot;);
+
+        hexString = hexString.toLowerCase();
+        final byte[] byteArray = new byte[hexString.length() / 2];
+        int k = 0;
+        for (int i = 0; i &lt; byteArray.length; i++) {//因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
+            byte high = (byte) (Character.digit(hexString.charAt(k), 16) &amp; 0xff);
+            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) &amp; 0xff);
+            byteArray[i] = (byte) (high &lt;&lt; 4 | low);
+            k += 2;
+        }
+        return byteArray;
+    }
+
+    public static void main(String[] args) throws Exception {
+        // 密钥
+        String key = &quot;1234123412ABCDEF&quot;;
+        // 需要加密的字符串
+        String src = &quot;123456&quot;;
+        System.out.println(src);
+        // 加密
+        String enString = Encrypt(src, key);
+        System.out.println(&quot;加密后的字串是：&quot; + enString);
+        // 解密
+        String DeString = Decrypt(enString, key);
+        System.out.println(&quot;解密后的字串是：&quot; + DeString);
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/AES/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/AES/">AES</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Nginx-Install-For-Windows" class="post-Nginx-Install-For-Windows post type-post status-publish format-standard hentry">
     <!---->
 
@@ -426,7 +1010,7 @@ public class DocConvertHtmlUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="ckdjku9kr000dzsuhi7gwqimn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="cko0tt8ot000f8suh3y7ekjg0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -499,7 +1083,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="ckdjku9l60018zsuhkodka2e0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="cko0tt8pe001g8suhrena89vm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -539,6 +1123,214 @@ error_log  logs/error.log  debug;
 
 
   
+    <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="cko0tt8om00088suhitsiv7z0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
+<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
+<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
+<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
+<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
+<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
+<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
+<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
+    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
+</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
+本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
+&lt;/span&gt;
+</code></pre><p>3.安装教程</p>
+<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
+<pre><code># visitors count
+counter: true
+</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
+<pre><code>{% if theme.footer.counter %}
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    {% endif %}
+</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
+<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
+<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
+<pre><code># Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: false
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
+site_uv_footer:
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
+site_pv_footer:
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
+page_pv_footer:
+</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
+<pre><code>site_uv表示是否显示整个网站的UV数
+site_pv表示是否显示整个网站的PV数
+page_pv表示是否显示每个页面的PV数
+当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
+
+# Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: true
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: 访客数
+site_uv_footer: 人
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: 总访问量
+site_pv_footer: 次
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
+page_pv_footer:
+</code></pre><p>注意事项</p>
+<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
+使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
+网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
+</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Hexo-busuanzi/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cko0tt8oy000o8suh68iu8t2j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li>CentOS 7.3</li>
+</ul>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
+<li>免密登录的关键点在于理解谁登录谁。</li>
+<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
+</ul>
+<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
+<li>根据提示回车，共有三次交互提示，都回车即可。</li>
+</ul>
+</li>
+<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
+<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+<li>测试：<code>ssh localhost</code></li>
+</ul>
+<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
+<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
+<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
+</ul>
+<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
+</ul>
+<hr>
+<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
+<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
+<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
+<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
+<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
+</ul>
+</li>
+<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/SSH-login-without-password/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-bash" class="post-bash post type-post status-publish format-standard hentry">
     <!---->
 
@@ -554,7 +1346,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="ckdjku9nb0053zsuhor3c4euo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="cko0tt8rn004u8suh8ru1etnt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -877,270 +1669,6 @@ error_log  logs/error.log  debug;
 
 
   
-    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="ckdjku9ky000qzsuh3dxbl4j6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
-<li>CentOS 7.3</li>
-</ul>
-<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
-<li>免密登录的关键点在于理解谁登录谁。</li>
-<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
-</ul>
-<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
-<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
-<li>根据提示回车，共有三次交互提示，都回车即可。</li>
-</ul>
-</li>
-<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
-<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
-<li>测试：<code>ssh localhost</code></li>
-</ul>
-<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
-<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
-<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
-</ul>
-<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
-<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
-</ul>
-<hr>
-<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
-<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
-<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
-<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
-<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
-</ul>
-</li>
-<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/SSH-login-without-password/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="ckdjku9l40014zsuhewgu7m22" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
-<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
-</ul>
-<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
-<li>CentOS：<code>sudo yum install -y vim</code></li>
-<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
-<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
-</ul>
-<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
-<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
-</ul>
-<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
-<li>注意<ul>
-<li>严格区分字母大小写</li>
-<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
-<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
-<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
-</ul>
-</li>
-<li>移动<ul>
-<li><code>j</code>，下</li>
-<li><code>k</code>，上</li>
-<li><code>h</code>，左</li>
-<li><code>l</code>，右</li>
-<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
-<li><code>gg</code>，跳到第 1 行</li>
-<li><code>G</code>，跳到最后一行</li>
-<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
-<li><code>$</code>，到本行 <strong>行尾</strong></li>
-<li><code>0</code>，到本行 <strong>行头</strong></li>
-<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
-<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
-<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
-<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
-<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
-<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
-<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
-<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
-<li><code>^</code>，到本行第一个单词头</li>
-<li><code>g_</code>，到本行最后一个单词尾巴</li>
-<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
-</ul>
-</li>
-<li>插入<ul>
-<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
-<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
-<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
-<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
-<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
-<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
-</ul>
-</li>
-<li>编辑<ul>
-<li>删除</li>
-<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
-<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
-<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
-<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
-<li><code>dd</code>，删除当前行</li>
-<li><code>cc</code>，删除当前行后进入 insert 模式</li>
-<li><code>dw</code>，删除当前光标下的单词/空格</li>
-<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
-<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
-<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
-<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
-<li>复制</li>
-<li><code>y</code>，复制光标所选字符</li>
-<li><code>yw</code>，复制光标后单词</li>
-<li><code>yy</code>，复制当前行</li>
-<li><code>4yy</code>，复制当前行及下面 4 行</li>
-<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
-<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
-<li>粘贴</li>
-<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
-<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
-<li>其他<ul>
-<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
-<li><code>u</code>，撤销</li>
-<li><code>:wq</code>，退出并 <strong>保存</strong></li>
-<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
-<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
-<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
-<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
-<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
-<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搜索<ul>
-<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-</ul>
-</li>
-<li>替换<ul>
-<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
-<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
-<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
-<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
-<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
-<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
-</ul>
-</li>
-</ul>
-<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
-<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
-<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
-</ul>
-</li>
-<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
-<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
-</ul>
-<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
-<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
-<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
-<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
-<li>效果如下：<ul>
-<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
-<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
-<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
-<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/Vim-Install-And-Setting/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1156,7 +1684,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="ckdjku9ma003bzsuhawktgcug" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cko0tt8r4004g8suhint4zelf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1295,255 +1823,6 @@ error_log  logs/error.log  debug;
 
 
   
-    <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Hexo-busuanzi/">hexo页脚添加访客人数和总访问量</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="ckdjku9kn0008zsuhzgzqjtfw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
-<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
-<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
-<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
-<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
-<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
-</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
-<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
-<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
-<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
-    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
-&lt;/span&gt;
-</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
-<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
-本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
-&lt;/span&gt;
-</code></pre><p>3.安装教程</p>
-<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
-<pre><code># visitors count
-counter: true
-</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
-<pre><code>{% if theme.footer.counter %}
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    {% endif %}
-</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
-<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
-<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
-<pre><code># Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-# count values only if the other configs are false
-enable: false
-# custom uv span for the whole site
-site_uv: true
-site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
-site_uv_footer:
-# custom pv span for the whole site
-site_pv: true
-site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
-site_pv_footer:
-# custom pv span for one page only
-page_pv: true
-page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
-page_pv_footer:
-</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
-<pre><code>site_uv表示是否显示整个网站的UV数
-site_pv表示是否显示整个网站的PV数
-page_pv表示是否显示每个页面的PV数
-当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
-
-# Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-# count values only if the other configs are false
-enable: true
-# custom uv span for the whole site
-site_uv: true
-site_uv_header: 访客数
-site_uv_footer: 人
-# custom pv span for the whole site
-site_pv: true
-site_pv_header: 总访问量
-site_pv_footer: 次
-# custom pv span for one page only
-page_pv: true
-page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
-page_pv_footer:
-</code></pre><p>注意事项</p>
-<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
-使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
-网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
-</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/Hexo-busuanzi/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="ckdjku9l50015zsuh3sbxknn6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
-<hr>
-<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
-<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
-<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
-<p>下载安装 Awesomium 1.6.6 SDK</p>
-<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
-<p>安装完成</p>
-<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
-<p>重启MarkdownPad2</p>
-<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
-<p>可以预览</p>
-<hr>
-<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
-<hr>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="ckdjku9lc001hzsuhda6qqikf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
-
-需要下载：
-http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
-
-下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
-JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
-JRE：将两个jar文件放到%JRE_HOME%\lib\security下
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/java 加密规则变更/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1568,7 +1847,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1580,23 +1859,23 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
       <ul>
         
           <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/11/node-process-argv/">node.js获取命令参数</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/05/github-hosts/">GitHub 访问加速方法</a>
           </li>
         
           <li>
             <a href="/2020/08/05/vscode-settings-sync/">vscode-settings-sync</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/04/java-getstarted/">下载、安装、配置和调试 JDK</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/04/hexo-create-config/">hexo-create-config</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/19/Openoffice-install-and-startservice/">openoffice</a>
           </li>
         
       </ul>
@@ -1611,7 +1890,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
 </div>
       </div>
       <footer id="colophon" role="contentinfo">
-    <p>&copy; 2020 花皮松
+    <p>&copy; 2021 花皮松
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
     <!-- busuanzi start -->
