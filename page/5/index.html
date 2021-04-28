@@ -77,7 +77,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="cko0umv00004rxcuh5i7ru7no" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="cko0uxcgo004whcuhtrf7bgbw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -304,7 +304,7 @@ public class Test4 {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="cko0umv01004txcuh34m639mg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="cko0uxcgl004uhcuh27pxgy8f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -541,7 +541,7 @@ public CopyOnWriteArraySet() {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cko0umv03004xxcuhzd8t8yd9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cko0uxcgo004yhcuhzcahj4sf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -808,7 +808,7 @@ server {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cko0umv0a0058xcuh97myvz8z" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cko0uxcgz005bhcuhh3ridole" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1179,7 +1179,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cko0umv04004zxcuhkc6aiavj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cko0uxcgq0052hcuhbg1588kr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1262,7 +1262,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cko0umuxt0010xcuhr5bn0ao9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cko0uxcer000xhcuhmt136zoa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1369,6 +1369,84 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 
 
   
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="cko0uxceq000vhcuhsb8kruvo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1384,7 +1462,7 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="cko0umuzv004hxcuh0c4un850" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="cko0uxcge004khcuhrhi14iuq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1528,84 +1606,6 @@ public class ComputeClientHystrix implements ComputeClient {
 
 
   
-    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="cko0umuxr000vxcuh5xyzkdq9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
-##开启限流
-zuul:
-    # 定义的路由规则
-    routes:
-    export-service:
-        path:  /main/api/
-        url: exportPdf
-        serviceId: export-service
-    ratelimit:
-    enabled: true
-#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
-#      ##针对某个 url 进行限流，不影响其他 
-    policy-list:
-        - export-service:
-        - limit: 1 #3秒内只能刷新一次
-            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
-            type:
-#              - origin
-            - url
-#      policies:
-#        export-service:
-#          - limit: 1
-#            refresh-interval: 10
-#            type:
-#  #            - user
-#              - origin
-#  #            - url
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/15/Spring Cloud限流/">
-    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
-        2019-04-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1621,7 +1621,7 @@ zuul:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="cko0umuzv004ixcuhov4aglht" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="cko0uxcgg004mhcuh4odk21r4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1851,7 +1851,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cko0umuzw004jxcuh80ocie18" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cko0uxcgg004lhcuhcpxloefv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
+    <article id="post-File-Extract-Compress" class="post-File-Extract-Compress post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,52 +70,131 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
+      <a class="article-title" href="/2017/02/06/File-Extract-Compress/">Linux 下常用压缩文件的解压、压缩</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="cko0umuy8001txcuhjjh5bstu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="cko0uxced0008hcuhb3mwihu5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>内存使用情况</p>
-<pre><code>free -m
-</code></pre><p>释放缓存前同步</p>
-<pre><code>sync
-</code></pre><p>释放所有缓存</p>
-<pre><code># 删除内存缓存
-echo 3 &gt; /proc/sys/vm/drop_caches
-#  查看文件内容
-cat /proc/sys/vm/drop_caches
-</code></pre><p>释放缓存数字参数说明</p>
-<pre><code>0 – 不释放
-1 – 释放页缓存
-2 – 释放dentries和inodes
-3 – 释放所有缓存
-</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
-<pre><code>total——总物理内存
-used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
-free——完全未被使用的内存
-shared——应用程序共享内存
-buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
-cached——缓存，用于已打开的文件
-note:
-    total=used+free
-    used=buffers+cached (maybe add shared also)
-</code></pre><p>第二行：描述应用程序的内存使用</p>
-<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
-<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
-<pre><code>-buffers/cache=used-buffers-cached
-+buffers/cache=free+buffers+cached
-</code></pre><p>第三行：表示swap的使用</p>
-<pre><code>used——已使用
-free——未使用
-</code></pre>
+        <h2 id="常用压缩包解压令整理"><a href="#常用压缩包解压令整理" class="headerlink" title="常用压缩包解压令整理"></a>常用压缩包<strong>解压</strong>令整理</h2><ul>
+<li>Linux 后缀为 <code>.war</code> 格式的文件（一般用在部署 Tomcat 项目的时候）</li>
+<li><p>命令：<code>unzip -oq XXXXXX.war -d ROOT</code></p>
+<ul>
+<li>如果没有 ROOT 目录会自动创建 ROOT 目录。</li>
+</ul>
+</li>
+<li><p>Linux 后缀为 <code>.tar.gz</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar zxvf XXXXXX.tar.gz</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.bz2</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>bzip2 -d XXXXXX.bz2</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar.bz2</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar jxvf XXXXXX.tar.bz2</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar zxvf XXXXXX.tar</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.gz</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>gunzip XXXXXX.gz</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.zip</code> 格式的文件-解压</p>
+</li>
+<li>命令：<code>unzip XXXXXX.zip</code></li>
+<li><p>命令：<code>unzip XXXXXX.zip -d /opt/</code>，解压到指定目录</p>
+</li>
+<li><p>Linux 后缀为 <code>.7z</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>7za x XXXXXX.7z</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar.xz</code> 格式的文件-解压，解压出来是tar，再对tar进行解压</p>
+</li>
+<li>命令：<code>tar xf XXXXXX.tar.xz</code></li>
+</ul>
+<hr>
+<h2 id="常用文件进行压缩命令整理"><a href="#常用文件进行压缩命令整理" class="headerlink" title="常用文件进行压缩命令整理"></a>常用文件进行<strong>压缩</strong>命令整理</h2><ul>
+<li>Linux 压缩文件夹为后缀 <code>.war</code> 格式的文件（最好不要对根目录进行压缩，不然会多出一级目录）</li>
+<li>命令：<code>jar -cvfM0 cas.war /opt/cas/META-INF /opt/cas/WEB-INF /opt/cas/index.jsp</code></li>
+<li><p>或者命令：<code>cd 项目根目录 ; jar -cvfM0 cas.war ./*</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -zcvf test11.tar test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar.gz</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -zcvf test11.tar.gz test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.bz2</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>bzip2 -v test.txt</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar.bz2</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -jcvf test11.tar.gz test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.zip</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>zip -r test1.zip /opt/test1/</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.7z</code> 格式的文件</p>
+</li>
+<li>命令：<code>7za a test1.7z /opt/test1/</code></li>
+</ul>
+<h2 id="分卷压缩"><a href="#分卷压缩" class="headerlink" title="分卷压缩"></a>分卷压缩</h2><ul>
+<li>分卷压缩：<code>zip -s 100M myFile.zip --out newFile.zip</code></li>
+<li>最终效果：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">newFile.z01</span><br><span class="line">newFile.z02</span><br><span class="line">newFile.z03</span><br><span class="line">newFile.z04</span><br><span class="line">newFile.zip</span><br></pre></td></tr></table></figure>
+<h2 id="特殊格式"><a href="#特殊格式" class="headerlink" title="特殊格式"></a>特殊格式</h2><ul>
+<li>7z<ul>
+<li>7z 的安装：<ul>
+<li>访问官网下载解压包：<a href="http://sourceforge.net/projects/p7zip/files/p7zip/" target="_blank" rel="noopener">http://sourceforge.net/projects/p7zip/files/p7zip/</a></li>
+<li>解压压缩包：<code>tar jxvf p7zip_15.14_src_all.tar.bz2</code></li>
+<li>进入目录：<code>cd p7zip_15.14</code></li>
+<li>执行安装：<code>sh install.sh</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>rar<ul>
+<li>rar 的安装：<ul>
+<li>下载：<code>wget http://www.rarlab.com/rar/rarlinux-3.8.0.tar.gz</code></li>
+<li>解压下载下来的压缩包：<code>tar zxvf rarlinux-3.8.0.tar.gz</code></li>
+<li>进入解压后目录：<code>cd rar</code></li>
+<li>编译：<code>make</code></li>
+<li>安装：<code>make install</code></li>
+</ul>
+</li>
+<li>rar 解压：<code>rar x 文件名.rar</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="jar-包操作"><a href="#jar-包操作" class="headerlink" title="jar 包操作"></a>jar 包操作</h2><h3 id="修改-jar-包配置文件"><a href="#修改-jar-包配置文件" class="headerlink" title="修改 jar 包配置文件"></a>修改 jar 包配置文件</h3><ul>
+<li>命令：<code>vim mytest.jar</code>，这时候会展示 jar 中所有层级目录下的所有文件</li>
+<li>输入：<code>/log4j2.xml</code> 回车，光标定位到该文件，然后再回车，进入编辑该文件状态</li>
+<li>此时可以修改配置文件了，修改后 <code>:wq</code> 保存退出，接着 <code>：q</code> 退出 jar 编辑状态</li>
+</ul>
+<h3 id="更新-Jar-包中的文件"><a href="#更新-Jar-包中的文件" class="headerlink" title="更新 Jar 包中的文件"></a>更新 Jar 包中的文件</h3><ul>
+<li>替换（新增）jar 根目录下的文件：<code>jar uvf mytest.jar ClassToAdd.class</code>  </li>
+<li>一般 class 文件都是在多层目录里面的，需要这样做：<code>jar uvf mytest.jar com/youmeek/ClassToAdd.class</code><ul>
+<li>需要在 jar 所在的文件夹下创建：<code>mkdir -p ./com/youmeek</code>，该目录必须和原 jar 里面的层级目录结构一致</li>
+</ul>
+</li>
+</ul>
+
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -123,101 +202,9 @@ free——未使用
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/02/06/linux 内存清理释放命令/">
+    <a href="/2017/02/06/File-Extract-Compress/">
     <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
         2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cko0umuy9001vxcuhubylo8mr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
-<p>一、安装环境</p>
-<pre><code>● Centos6.5系统
-● JDK版本：1.8
-● 工具： FlashFXP V5.2.0, MobaXterm V10.5
-</code></pre><p>二、安装步骤</p>
-<p>第一步：下载安装包</p>
-<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
-
-由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
-</code></pre><p>第二步： 上传jdk1.8 安装包</p>
-<pre><code># 上传jdk1.8 安装包
-scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
-# 进入jdk目录
-cd /hupisong/java/
-# 解压JDK1.8安装包
-tar -zxvf jdk-8u131-linux-x64.tar.gz
-</code></pre><p>第三步、修改环境变量</p>
-<pre><code># 编辑文件
-vi /etc/profile
-# 按 &apos;i&apos; 键编辑
-# 编辑,在最后一行添加
-# 添加内容如下 
-export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
-export PATH=$JAVA_HOME/bin:$PATH
-# 退出编辑并保存：
-# 按&apos;esc&apos;键退出编辑 
-# 输入&apos;:wq&apos; 保存编辑内容
-:wq 
-# 加载设置的变量，使其生效
- source /etc/profile
-</code></pre><p>第四步、测试是否安装成功</p>
-<pre><code># 输入命令
-java -version
-#成功结果如下：
-java version &quot;1.8.0_131&quot;
-Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
-</code></pre><p>至此，安装结束</p>
-<p><a href="https://github.com/xpbob/CrashAnalysis" target="_blank" rel="noopener">https://github.com/xpbob/CrashAnalysis</a></p>
-<h2 id="CentOS7中使用yum安装jdk的方法"><a href="#CentOS7中使用yum安装jdk的方法" class="headerlink" title="CentOS7中使用yum安装jdk的方法"></a>CentOS7中使用yum安装jdk的方法</h2><p>yum install openjdk-1.8.0<br>yum install java-1.8.0-openjdk -y</p>
-<p>java -version</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/linux安装JDK/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
     </time>
 </a>
     
@@ -251,7 +238,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="cko0umux90003xcuhnpp4x07n" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="cko0uxce80003hcuhrctos88a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -546,6 +533,98 @@ rm /usr/share/man/man1/nginx.1.gz
 
 
   
+    <article id="post-linux安装JDK" class="post-linux安装JDK post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cko0uxcf7001xhcuhkcl04kkb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本文主要介绍的是如何是Linux环境下安装JDK的，因为Linux环境下，很多时候也离不开Java的，下面就和大家一起分享如何jdk1.8的过程吧。</p>
+<p>一、安装环境</p>
+<pre><code>● Centos6.5系统
+● JDK版本：1.8
+● 工具： FlashFXP V5.2.0, MobaXterm V10.5
+</code></pre><p>二、安装步骤</p>
+<p>第一步：下载安装包</p>
+<pre><code>下载Linux环境下的jdk1.8，请去（官网）中下载jdk的安装文件；
+
+由于我的Linux是64位的，因此我下载jdk-8u131-linux-x64.tar.gz。
+</code></pre><p>第二步： 上传jdk1.8 安装包</p>
+<pre><code># 上传jdk1.8 安装包
+scp jdk-8u131-linux-x64.tar.gz root@10.10.201.102:/haupisong/java
+# 进入jdk目录
+cd /hupisong/java/
+# 解压JDK1.8安装包
+tar -zxvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>第三步、修改环境变量</p>
+<pre><code># 编辑文件
+vi /etc/profile
+# 按 &apos;i&apos; 键编辑
+# 编辑,在最后一行添加
+# 添加内容如下 
+export JAVA_HOME=/huapisong/java/jdk1.6.0_65 
+export PATH=$JAVA_HOME/bin:$PATH
+# 退出编辑并保存：
+# 按&apos;esc&apos;键退出编辑 
+# 输入&apos;:wq&apos; 保存编辑内容
+:wq 
+# 加载设置的变量，使其生效
+ source /etc/profile
+</code></pre><p>第四步、测试是否安装成功</p>
+<pre><code># 输入命令
+java -version
+#成功结果如下：
+java version &quot;1.8.0_131&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+</code></pre><p>至此，安装结束</p>
+<p><a href="https://github.com/xpbob/CrashAnalysis" target="_blank" rel="noopener">https://github.com/xpbob/CrashAnalysis</a></p>
+<h2 id="CentOS7中使用yum安装jdk的方法"><a href="#CentOS7中使用yum安装jdk的方法" class="headerlink" title="CentOS7中使用yum安装jdk的方法"></a>CentOS7中使用yum安装jdk的方法</h2><p>yum install openjdk-1.8.0<br>yum install java-1.8.0-openjdk -y</p>
+<p>java -version</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/06/linux安装JDK/">
+    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
+        2017-01-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
     <!---->
 
@@ -561,7 +640,7 @@ rm /usr/share/man/man1/nginx.1.gz
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="cko0umuxo000pxcuh0nprni26" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="cko0uxcem000lhcuh5fo2hgvk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -612,6 +691,100 @@ rm /usr/share/man/man1/nginx.1.gz
 
 
   
+    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="cko0uxce90004hcuh0d5ltav8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>4.1.使用背景</p>
+<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
+</code></pre><p>4.2.下载安装脚本</p>
+<pre><code>下载Github上贡献者做好的安装脚本，如下：
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
+wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
+
+# 赋予执行权限
+chmod +x letsencrypt.sh
+</code></pre><p>4.3.配置相关信息</p>
+<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
+# only modify the values, key files will be generated automaticly.
+ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
+DOMAIN_KEY=&quot;tiger.com.key&quot;
+DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
+DOMAINS=&quot;DNS:test.tiger.com&quot;
+#ECC=TRUE
+#LIGHTTPD=TRUE
+</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
+<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
+<p>4.4.执行证书生成</p>
+<pre><code>./letsencrypt.sh ./letsencrypt.conf
+</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
+<pre><code>letsencrypt-account.key
+tiger.crt
+tiger.csr
+tiger.chained.crt
+tiger.com.key
+</code></pre><p>4.5.配置证书安装</p>
+<p>这里使用nginx进行证书安装的服务器</p>
+<pre><code>server {
+        listen       443;
+        server_name  test.tiger.com;
+
+    ssl on;
+    ssl_certificate tiger.chained.crt;
+    ssl_certificate_key tiger.com.key;
+    ssl_session_timeout 5m;
+
+    location / {
+        root html;
+        index  index.html index.htm;
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
+    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
+        2017-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="post-3.服务器上的iptables防火墙应该如何配置才能更安全 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -627,7 +800,7 @@ rm /usr/share/man/man1/nginx.1.gz
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="cko0umuxb0005xcuhalf509cy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="cko0uxce50001hcuhh9ddep2f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -713,100 +886,6 @@ iptables -D OUTPUT 13
 
 
   
-    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="cko0umuxa0004xcuh54q1uizu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>4.1.使用背景</p>
-<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
-</code></pre><p>4.2.下载安装脚本</p>
-<pre><code>下载Github上贡献者做好的安装脚本，如下：
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
-
-# 赋予执行权限
-chmod +x letsencrypt.sh
-</code></pre><p>4.3.配置相关信息</p>
-<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
-# only modify the values, key files will be generated automaticly.
-ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
-DOMAIN_KEY=&quot;tiger.com.key&quot;
-DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
-DOMAINS=&quot;DNS:test.tiger.com&quot;
-#ECC=TRUE
-#LIGHTTPD=TRUE
-</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
-<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
-<p>4.4.执行证书生成</p>
-<pre><code>./letsencrypt.sh ./letsencrypt.conf
-</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
-<pre><code>letsencrypt-account.key
-tiger.crt
-tiger.csr
-tiger.chained.crt
-tiger.com.key
-</code></pre><p>4.5.配置证书安装</p>
-<p>这里使用nginx进行证书安装的服务器</p>
-<pre><code>server {
-        listen       443;
-        server_name  test.tiger.com;
-
-    ssl on;
-    ssl_certificate tiger.chained.crt;
-    ssl_certificate_key tiger.com.key;
-    ssl_session_timeout 5m;
-
-    location / {
-        root html;
-        index  index.html index.htm;
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -822,7 +901,7 @@ tiger.com.key
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="cko0umuy3001jxcuhgq86zxt8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="cko0uxcf1001ihcuhijcnhaig" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -998,7 +1077,7 @@ public class AccountValidatorUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="cko0umuzz004pxcuhr5v3smi9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="cko0uxcgk004shcuhvlo4sju0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1257,94 +1336,6 @@ public class ListSort {
 
 
   
-    <article id="post-http协议介绍" class="post-http协议介绍 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/01/01/http协议介绍/">http协议介绍</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="cko0umuy1001fxcuh5x3a57vs" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。</p>
-<p>HTTP协议的主要特点</p>
-<pre><code>1.支持客户/服务器模式
-2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。 请求方法常用的有GET、HEAD、POST。 每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单， 使得HTTP服务器的程序规模小，因而通信速度很快。
-3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
-4.无连接： 无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求， 并收到客户的应答后， 即断开连接。 采用这种方式可以节省传输时间。
-5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。
-</code></pre><p>HTTP协议之请求</p>
-<pre><code>http请求由三部分组成，分别是：请求行、消息报头、请求正文
-请求方法有多种， 各个方法的解释如下：
-GET请求获取Request-URI所标识的资源
-POST在Request-URI所标识的资源后附加新的数据
-HEAD请求获取由Request-URI所标识的资源的响应消息报头
-PUT请求服务器存储一个资源， 并用Request-URI作为其标识
-DELETE请求服务器删除Request-URI所标识的资源
-TRACE请求服务器回送收到的请求信息，主要用于测试或诊断
-CONNECT保留将来使用
-OPTIONS请求查询服务器的性能，或者查询与资源相关的选项和需求
-</code></pre><p>应用举例：</p>
-<pre><code>GET方法在浏览器的地址栏中输入网址的方式访问网页时， 浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)
-POST方法要求被请求服务器接受附在请求后面的数据， 常用于提交表单。
-</code></pre><p>HTTP协议之响应</p>
-<pre><code>在接收和解释请求消息后，服务器返回一个HTTP响应消息。
-HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文
-状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：
-1xx：指示信息--表示请求已接收，继续处理
-2xx：成功--表示请求已被成功接收、理解、接受
-3xx：重定向--要完成请求必须进行更进一步的操作
-4xx：客户端错误--请求有语法错误或请求无法实现
-5xx：服务器端错误--服务器未能实现合法的请求
-</code></pre><p>常见状态代码、状态描述、说明：</p>
-<pre><code>200 OK //客户端请求成功
-400 Bad Request //客户端请求有语法错误， 不能被服务器所理解
-401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用
-403 Forbidden //服务器收到请求，但是拒绝提供服务
-404 Not Found //请求资源不存在，eg： 输入了错误的URL
-500 Internal Server Error //服务器发生不可预期的错误
-503 Server Unavailable //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2014/01/01/http协议介绍/">
-    <time datetime="2013-12-31T16:00:00.000Z" class="entry-date">
-        2014-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-初识git" class="post-初识git post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1360,7 +1351,7 @@ HTTP响应也是由三个部分组成，分别是：状态行、消息报头、�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cko0umv0b0059xcuhc9g32vig" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/初识git/" data-id="cko0uxch0005chcuhn7qtdb20" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1705,6 +1696,94 @@ git commit --amend
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-http协议介绍" class="post-http协议介绍 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/01/01/http协议介绍/">http协议介绍</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/01/http协议介绍/" data-id="cko0uxcf0001hhcuhnu5ngnr9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。</p>
+<p>HTTP协议的主要特点</p>
+<pre><code>1.支持客户/服务器模式
+2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。 请求方法常用的有GET、HEAD、POST。 每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单， 使得HTTP服务器的程序规模小，因而通信速度很快。
+3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
+4.无连接： 无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求， 并收到客户的应答后， 即断开连接。 采用这种方式可以节省传输时间。
+5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。
+</code></pre><p>HTTP协议之请求</p>
+<pre><code>http请求由三部分组成，分别是：请求行、消息报头、请求正文
+请求方法有多种， 各个方法的解释如下：
+GET请求获取Request-URI所标识的资源
+POST在Request-URI所标识的资源后附加新的数据
+HEAD请求获取由Request-URI所标识的资源的响应消息报头
+PUT请求服务器存储一个资源， 并用Request-URI作为其标识
+DELETE请求服务器删除Request-URI所标识的资源
+TRACE请求服务器回送收到的请求信息，主要用于测试或诊断
+CONNECT保留将来使用
+OPTIONS请求查询服务器的性能，或者查询与资源相关的选项和需求
+</code></pre><p>应用举例：</p>
+<pre><code>GET方法在浏览器的地址栏中输入网址的方式访问网页时， 浏览器采用GET方法向服务器获取资源，eg:GET /form.html HTTP/1.1 (CRLF)
+POST方法要求被请求服务器接受附在请求后面的数据， 常用于提交表单。
+</code></pre><p>HTTP协议之响应</p>
+<pre><code>在接收和解释请求消息后，服务器返回一个HTTP响应消息。
+HTTP响应也是由三个部分组成，分别是：状态行、消息报头、响应正文
+状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：
+1xx：指示信息--表示请求已接收，继续处理
+2xx：成功--表示请求已被成功接收、理解、接受
+3xx：重定向--要完成请求必须进行更进一步的操作
+4xx：客户端错误--请求有语法错误或请求无法实现
+5xx：服务器端错误--服务器未能实现合法的请求
+</code></pre><p>常见状态代码、状态描述、说明：</p>
+<pre><code>200 OK //客户端请求成功
+400 Bad Request //客户端请求有语法错误， 不能被服务器所理解
+401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用
+403 Forbidden //服务器收到请求，但是拒绝提供服务
+404 Not Found //请求资源不存在，eg： 输入了错误的URL
+500 Internal Server Error //服务器发生不可预期的错误
+503 Server Unavailable //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2014/01/01/http协议介绍/">
+    <time datetime="2013-12-31T16:00:00.000Z" class="entry-date">
+        2014-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
   </div>
 
     

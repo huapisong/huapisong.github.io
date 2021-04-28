@@ -77,7 +77,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cko0umuz3003ixcuhoifvlxrf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cko0uxcfw003ihcuh6kyyr99h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -231,7 +231,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0umuy2001gxcuh4gyzdptl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0uxcez001ehcuh2yfqfwfl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -289,7 +289,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0umuyi002ixcuh1tp9oti4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0uxcff002hhcuh06kk62ct" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -530,7 +530,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0umuxx0018xcuhpr8n602s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0uxceu0014hcuh19p07oyg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -596,7 +596,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0umuz4003kxcuh33sdf1aj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0uxcfu003ehcuhveeych89" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -671,7 +671,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0umuyk002lxcuhwp5116ar" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0uxcfh002mhcuhd39w13pp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -763,6 +763,74 @@ sort test.txt | uniq -d
 
 
   
+    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="cko0uxcfl002whcuh9yf8j39t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
+主要是给自定义的组件添加原生事件。
+# * 给普通的标签加事件，然后加native是无效的
+
+ &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
+     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
+     &lt;/el-button&gt;
+         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
+             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
+         &lt;/el-dropdown-menu&gt;
+ &lt;/el-dropdown&gt;
+</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
+ 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
+
+&lt;template&gt;
+  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
+  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 事件中的 .native/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
     <!---->
 
@@ -778,7 +846,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0umuyn002rxcuhcln4f8s4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0uxcfj002qhcuhhw2zs280" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -906,68 +974,6 @@ arr.forEach(async item =&gt; {
 
 
   
-    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cko0umuya001yxcuhme5yf64j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
-<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
-<pre><code>npm install doctoc -g
-</code></pre><p>执行</p>
-<pre><code>doctoc demo.md
-</code></pre><p>文件，即可在文档中自动生成目录</p>
-<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
-<p>优点是：简单快捷，</p>
-<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
-<p>2.npm doctoc生成目录</p>
-<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
-<p>缺点：依赖npm</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/markdown生成目录/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
     <!---->
 
@@ -983,7 +989,7 @@ arr.forEach(async item =&gt; {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0umuy6001oxcuhiezv5q18" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0uxcf3001nhcuhezkkpix6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1050,7 +1056,7 @@ toExcel.saveExcel();
 
 
   
-    <article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
+    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1058,185 +1064,32 @@ toExcel.saveExcel();
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
+      <a class="article-title" href="/2019/06/03/js/">js</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cko0umv02004vxcuh2x5w5qbl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cko0uxcf4001qhcuholj76inw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="netstat-命令详解"><a href="#netstat-命令详解" class="headerlink" title="netstat 命令详解"></a>netstat 命令详解</h2><pre><code>netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。
-</code></pre><h3 id="该命令的一般格式为"><a href="#该命令的一般格式为" class="headerlink" title="该命令的一般格式为"></a>该命令的一般格式为</h3><pre><code>NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval]
-</code></pre><h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><pre><code># 命令中各选项的含义如下：
-  -a            显示所有连接和侦听端口。
-  -b            显示在创建每个连接或侦听端口时涉及的可执行程序。
-                在某些情况下，已知可执行程序承载多个独立的
-                组件，这些情况下，显示创建连接或侦听端口时涉
-                及的组件序列。此情况下，可执行程序的名称
-                位于底部[]中，它调用的组件位于顶部，直至达
-                到 TCP/IP。注意，此选项可能很耗时，并且在您没有
-                足够权限时可能失败。
-  -e            显示以太网统计。此选项可以与 -s 选项结合使用。
-  -f            显示外部地址的完全限定域名(FQDN)。
-  -n            以数字形式显示地址和端口号。
-  -o            显示拥有的与每个连接关联的进程 ID。
-  -p proto      显示 proto 指定的协议的连接；proto 可以是下列任
-                何一个: TCP、UDP、TCPv6 或 UDPv6。如果与 -s 选
-                项一起用来显示每个协议的统计，proto 可以是下列任
-                何一个: IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP
-                或 UDPv6。
-  -r            显示路由表。
-  -s            显示每个协议的统计。默认情况下，显示
-                IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP 和 UDPv6
-                的统计；-p 选项可用于指定默认的子网。
-  -t            显示当前连接卸载状态。
-  interval      重新显示选定的统计，各个显示间暂停的间隔秒数。
-                按 CTRL+C 停止重新显示统计。如果省略，则 netstat
-                将打印当前的配置信息一次。
-</code></pre><h3 id="列标题"><a href="#列标题" class="headerlink" title="列标题"></a>列标题</h3><pre><code>Name            接口的名字
-Mtu             接口的最大传输单位
-Net/Dest        接口所在的网络
-Address         接口的IP地址
-Ipkts           接收到的数据包数目
-Ierrs           接收到时已损坏的数据包数目
-Opkts           发送的数据包数目
-Oeers           发送时已损坏的数据包数目
-Collisions      由这个接口所记录的网络冲突数目
-</code></pre><h3 id="常见状态"><a href="#常见状态" class="headerlink" title="常见状态"></a>常见状态</h3><pre><code># 即连接状态。在原模式中没有状态，在用户数据报协议中也经常没有状态，于是状态列可以空出来。若有状态，通常取值为：
-LISTEN          侦听来自远方的TCP端口的连接请求
-SYN-SENT        在发送连接请求后等待匹配的连接请求
-SYN-RECEIVED    在收到和发送一个连接请求后等待对方对连接请求的确认
-ESTABLISHED     代表一个打开的连接
-FIN-WAIT-1      等待远程TCP连接中断请求，或先前的连接中断请求的确认
-FIN-WAIT-2      从远程TCP等待连接中断请求
-CLOSE-WAIT      等待从本地用户发来的连接中断请求
-CLOSING         等待远程TCP对连接中断的确认
-LAST-ACK        等待原来的发向远程TCP的连接中断请求的确认
-TIME-WAIT       等待足够的时间以确保远程TCP接收到连接中断请求的确认
-CLOSED          没有任何连接状态
-</code></pre><h3 id="命令示例"><a href="#命令示例" class="headerlink" title="命令示例"></a>命令示例</h3><pre><code># window
-netstat
+        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
+<h2 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h2><p>函数防抖(debounce)：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间。</p>
+<ul>
+<li>实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法</li>
+<li>缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer !== <span class="literal">null</span>)&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(fn,wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>,debounce(handle,<span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h2><p>函数节流(throttle)：高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率。</p>
+<ul>
+<li>实现方式：每次触发事件时，如果当前有等待执行的延时函数，则直接return</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节流throttle代码：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> canRun = <span class="literal">true</span>; <span class="comment">// 通过闭包保存一个标记</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 在函数开头判断标记是否为true，不为true则return</span></span><br><span class="line">        <span class="keyword">if</span> (!canRun) <span class="keyword">return</span>;</span><br><span class="line">          <span class="comment">// 立即设置为false</span></span><br><span class="line">        canRun = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 将外部传入的函数的执行放在setTimeout中</span></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; </span><br><span class="line">        <span class="comment">// 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。</span></span><br><span class="line">        <span class="comment">// 当定时器没有执行的时候标记永远是false，在开头被return掉</span></span><br><span class="line">            fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            canRun = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'节流：'</span>, e.target.innerWidth, e.target.innerHeight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, throttle(sayHi,<span class="number">500</span>));</span><br></pre></td></tr></table></figure>
 
-活动连接
-
-协议    本地地址               外部地址                状态
-TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:52946  ESTABLISHED
-TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:55759  ESTABLISHED
-TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:58502  ESTABLISHED
-TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:65469  ESTABLISHED
-TCP    10.43.22.175:49244     115.239.210.27:https   ESTABLISHED
-TCP    10.43.22.175:49280     ec2-52-26-166-58:https  ESTABLISHED
-TCP    10.43.22.175:49286     ec2-52-26-166-58:https  ESTABLISHED
-TCP    10.43.22.175:49309     115.239.210.27:https   ESTABLISHED
-TCP    10.43.22.175:49317     115.239.210.27:https   ESTABLISHED
-
-# linux
-nestat -ano
-
-Active Internet connections (servers and established)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
-tcp        0      0 0.0.0.0:9400            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9401            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9091            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9092            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9093            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9094            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9096            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9097            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9098            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9100            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9300            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:8661            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9301            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:9302            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:8662            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 10.42.0.172:7926        10.42.0.171:3306        ESTABLISHED keepalive (1249.51/0/0)
-tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        1      0 10.42.0.172:41354       140.207.127.79:443      CLOSE_WAIT  off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
-tcp        1      0 10.42.0.172:15065       10.42.0.172:9092        CLOSE_WAIT  off (0.00/0/0)
-tcp        0      0 10.42.0.172:40634       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:40590       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:13171       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:38967       10.42.0.171:3306        TIME_WAIT   timewait (11.86/0/0)
-...
-...
-Active UNIX domain sockets (servers and established)
-Proto RefCnt Flags       Type       State         I-Node   Path
-unix  3      [ ]         DGRAM                    6159     /run/systemd/notify
-unix  2      [ ]         DGRAM                    6161     /run/systemd/cgroups-agent
-unix  2      [ ACC ]     STREAM     LISTENING     6169     /run/systemd/journal/stdout
-unix  5      [ ]         DGRAM                    6172     /run/systemd/journal/socket
-unix  11     [ ]         DGRAM                    6174     /dev/log
-unix  2      [ ACC ]     STREAM     LISTENING     15465    /run/dbus/system_bus_socket
-unix  2      [ ACC ]     STREAM     LISTENING     9897     /run/systemd/private
-unix  2      [ ]         DGRAM                    16559    /var/run/chrony/chronyd.sock
-unix  2      [ ]         DGRAM                    9913     /run/systemd/shutdownd
-unix  2      [ ACC ]     SEQPACKET  LISTENING     9922     /run/udev/control
-unix  2      [ ACC ]     STREAM     LISTENING     9943     /run/lvm/lvmetad.socket
-unix  2      [ ACC ]     STREAM     LISTENING     15080    /var/run/vmware/guestServicePipe
-unix  2      [ ACC ]     STREAM     LISTENING     9978     /run/lvm/lvmpolld.socket
-unix  3      [ ]         STREAM     CONNECTED     10197
-unix  2      [ ]         STREAM     CONNECTED     34959351
-</code></pre><p>查看端口为8080的情况</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">netstat -ano |grep 8080</span><br></pre></td></tr></table></figure>
-
-TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       59932
-TCP    10.43.22.175:53227     183.3.235.67:8080      ESTABLISHED     5280
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">netstat -ano |grep 8660</span><br></pre></td></tr></table></figure>
-</code></pre><p>输出</p>
-<pre><code>tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
-tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29345       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29407       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29595       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        1      0 10.42.0.172:25839       10.42.0.172:8660        CLOSE_WAIT  off (0.00/0/0)
-tcp        0      0 10.42.0.172:29523       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29583       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.182:16848       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29565       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29395       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29345       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29467       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29595       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29339       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29467       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29581       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29407       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29571       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29571       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29523       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.182:16844       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29325       TIME_WAIT   timewait (8.36/0/0)
-tcp        0      0 10.42.0.172:29583       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29581       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29565       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29339       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29395       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29393       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29499       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29499       ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29393       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:29569       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
-tcp        0      0 10.42.0.172:8660        10.42.0.172:29541       ESTABLISHED off (0.00/0/0)
-</code></pre><p>被占用端口对应的PID 对应的进程</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">tasklist|grep 8080</span><br></pre></td></tr></table></figure>
-
-node.exe                      8080 Console                    1     11,144 K
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">ps -ef|grep 8660</span><br></pre></td></tr></table></figure>
-
-root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -1244,7 +1097,7 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/netstat查看端口占用情况/">
+    <a href="/2019/06/03/js/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -1252,7 +1105,7 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     

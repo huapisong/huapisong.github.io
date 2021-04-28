@@ -77,7 +77,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="cko0umuxm000lxcuhfmup3chk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="cko0uxceh000dhcuh0q1m7i2e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -156,207 +156,6 @@ reboot
 
 
   
-    <article id="post-AES" class="post-AES post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/17/AES/">AES 加密、解密</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="cko0umux50001xcuhqaekj41y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="填充模式的区别"><a href="#填充模式的区别" class="headerlink" title="填充模式的区别"></a>填充模式的区别</h2><p>  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding</p>
-<p>  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。</p>
-<pre><code>- ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
-- PKCS7Padding，假设数据长度需要填充n(n&gt;0)个字节才对齐，那么填充n个字节，每个字节都- 是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
-- PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。两者的区别在于PKCS5Padding是限制块大小的PKCS7Padding
-</code></pre><p>  由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密</p>
-<h2 id="前端-crypto-js-AES-加解密"><a href="#前端-crypto-js-AES-加解密" class="headerlink" title="前端 crypto-js AES 加解密"></a>前端 crypto-js AES 加解密</h2><pre><code># vue 使用 npm install crypto-js --save
-# util.js
-import Vue from &apos;vue&apos;;
-import CryptoJS from &apos;crypto-js&apos;;
-// 由于对称解密使用的算法是 AES-128-CBC算法，数据采用 PKCS#7 填充， BASE64输出， 字符集utf8， 因此这里的 key 需要为16位！
-const key = CryptoJS.enc.Utf8.parse(&quot;1234123412ABCDEF&quot;);  //十六位十六进制数作为密钥
-const iv = CryptoJS.enc.Utf8.parse(&apos;ABCDEF1234123412&apos;);   //十六位十六进制数作为密钥偏移量
-/**
-* 加密 AES + BASE64
-* @param {*} word 
-*/
-export function encrypt(word) {
-  var encrypted = CryptoJS.AES.encrypt(word, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
-  return String(encrypted);
-};
-
-/**
-* 解密
-* @param {*} word 
-*/
-export function decrypt(word) {
-  var decrypt = CryptoJS.AES.decrypt(word, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
-  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-  return decryptedStr;
-};
-</code></pre><h2 id="后端-java-AES-加解密"><a href="#后端-java-AES-加解密" class="headerlink" title="后端 java AES 加解密"></a>后端 java AES 加解密</h2><pre><code>import org.apache.commons.codec.binary.Base64;
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.math.BigInteger;
-
-public class AES {
-//    密钥
-    private static String keyWord = &quot;1234123412ABCDEF&quot;;
-//    密钥偏移量
-    private static String iv = &quot;ABCDEF1234123412&quot;;
-    /**
-    * 加密
-    * @param src 加密字符串
-    * @param key 密钥
-    * @return 加密后的字符串
-    */
-    public static String Encrypt(String src, String key) throws Exception {
-        // 判断密钥是否为空
-        if (key == null) {
-            key = keyWord;
-//            System.out.print(&quot;密钥不能为空&quot;);
-//            return null;
-        }
-        Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);// 算法/模式/补码方式
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(iv.getBytes()));
-        byte[] encrypted = cipher.doFinal(src.getBytes(&quot;utf-8&quot;));
-        return new Base64().encodeToString(encrypted);//base64
-//        return binary(encrypted, 16); //十六进制
-    }
-
-    /**
-    * 解密
-    * @param src 解密字符串
-    * @param key 密钥
-    * @return 解密后的字符串
-    */
-    public static String Decrypt(String src, String key) throws Exception {
-        try {
-            // 判断Key是否正确
-            if (key == null) {
-                key = keyWord;
-//            System.out.print(&quot;密钥不能为空&quot;);
-//            return null;
-            }
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
-            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv.getBytes()));
-
-            byte[] encrypted1 = new Base64().decode(src);//base64
-//            byte[] encrypted1 = toByteArray(src);//十六进制
-            try {
-                byte[] original = cipher.doFinal(encrypted1);
-                String originalString = new String(original,&quot;utf-8&quot;);
-                return originalString;
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                return null;
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-            return null;
-        }
-    }
-
-    /**
-    * 将byte[]转为各种进制的字符串
-    * @param bytes byte[]
-    * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制
-    * @return 转换后的字符串
-    */
-    public static String binary(byte[] bytes, int radix){
-        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
-    }
-
-    /**
-    * 16进制的字符串表示转成字节数组
-    *
-    * @param hexString 16进制格式的字符串
-    * @return 转换后的字节数组
-    **/
-    public static byte[] toByteArray(String hexString) {
-        if (hexString.isEmpty())
-            throw new IllegalArgumentException(&quot;this hexString must not be empty&quot;);
-
-        hexString = hexString.toLowerCase();
-        final byte[] byteArray = new byte[hexString.length() / 2];
-        int k = 0;
-        for (int i = 0; i &lt; byteArray.length; i++) {//因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
-            byte high = (byte) (Character.digit(hexString.charAt(k), 16) &amp; 0xff);
-            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) &amp; 0xff);
-            byteArray[i] = (byte) (high &lt;&lt; 4 | low);
-            k += 2;
-        }
-        return byteArray;
-    }
-
-    public static void main(String[] args) throws Exception {
-        // 密钥
-        String key = &quot;1234123412ABCDEF&quot;;
-        // 需要加密的字符串
-        String src = &quot;123456&quot;;
-        System.out.println(src);
-        // 加密
-        String enString = Encrypt(src, key);
-        System.out.println(&quot;加密后的字串是：&quot; + enString);
-        // 解密
-        String DeString = Decrypt(enString, key);
-        System.out.println(&quot;解密后的字串是：&quot; + DeString);
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/12/17/AES/">
-    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
-        2019-12-17
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/AES/">AES</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-POI-Word-Convert-HTML" class="post-POI-Word-Convert-HTML post type-post status-publish format-standard hentry">
     <!---->
 
@@ -372,7 +171,7 @@ public class AES {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="cko0umuzt004excuh00yclhnz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="cko0uxcgc004hhcuhujcv8wbk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -721,7 +520,7 @@ public class DocConvertHtmlUtil {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="cko0umv050051xcuhte7ynbpp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="cko0uxcgr0054hcuhqvvwuzs6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -995,6 +794,207 @@ font-family: &quot;sans-serif&quot;;
 
 
   
+    <article id="post-AES" class="post-AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/17/AES/">AES 加密、解密</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="cko0uxcea0005hcuhm7iyqyr7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="填充模式的区别"><a href="#填充模式的区别" class="headerlink" title="填充模式的区别"></a>填充模式的区别</h2><p>  填充模式: PKCS7Padding/PKCS5Padding/ZeroPadding/NoPadding</p>
+<p>  某些加密算法要求明文需要按一定长度对齐，叫做块大小(BlockSize)，比如16字节，那么对于一段任意的数据，加密前需要对最后一个块填充到16 字节，解密后需要删除掉填充的数据。</p>
+<pre><code>- ZeroPadding，数据长度不对齐时使用0填充，否则不填充。
+- PKCS7Padding，假设数据长度需要填充n(n&gt;0)个字节才对齐，那么填充n个字节，每个字节都- 是n;如果数据本身就已经对齐了，则填充一块长度为块大小的数据，每个字节都是块大小。
+- PKCS5Padding，PKCS7Padding的子集，块大小固定为8字节。两者的区别在于PKCS5Padding是限制块大小的PKCS7Padding
+</code></pre><p>  由于使用PKCS7Padding/PKCS5Padding填充时，最后一个字节肯定为填充数据的长度，所以在解密后可以准确删除填充的数据，而使用ZeroPadding填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密</p>
+<h2 id="前端-crypto-js-AES-加解密"><a href="#前端-crypto-js-AES-加解密" class="headerlink" title="前端 crypto-js AES 加解密"></a>前端 crypto-js AES 加解密</h2><pre><code># vue 使用 npm install crypto-js --save
+# util.js
+import Vue from &apos;vue&apos;;
+import CryptoJS from &apos;crypto-js&apos;;
+// 由于对称解密使用的算法是 AES-128-CBC算法，数据采用 PKCS#7 填充， BASE64输出， 字符集utf8， 因此这里的 key 需要为16位！
+const key = CryptoJS.enc.Utf8.parse(&quot;1234123412ABCDEF&quot;);  //十六位十六进制数作为密钥
+const iv = CryptoJS.enc.Utf8.parse(&apos;ABCDEF1234123412&apos;);   //十六位十六进制数作为密钥偏移量
+/**
+* 加密 AES + BASE64
+* @param {*} word 
+*/
+export function encrypt(word) {
+  var encrypted = CryptoJS.AES.encrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  return String(encrypted);
+};
+
+/**
+* 解密
+* @param {*} word 
+*/
+export function decrypt(word) {
+  var decrypt = CryptoJS.AES.decrypt(word, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+  return decryptedStr;
+};
+</code></pre><h2 id="后端-java-AES-加解密"><a href="#后端-java-AES-加解密" class="headerlink" title="后端 java AES 加解密"></a>后端 java AES 加解密</h2><pre><code>import org.apache.commons.codec.binary.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.math.BigInteger;
+
+public class AES {
+//    密钥
+    private static String keyWord = &quot;1234123412ABCDEF&quot;;
+//    密钥偏移量
+    private static String iv = &quot;ABCDEF1234123412&quot;;
+    /**
+    * 加密
+    * @param src 加密字符串
+    * @param key 密钥
+    * @return 加密后的字符串
+    */
+    public static String Encrypt(String src, String key) throws Exception {
+        // 判断密钥是否为空
+        if (key == null) {
+            key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+        }
+        Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);// 算法/模式/补码方式
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(iv.getBytes()));
+        byte[] encrypted = cipher.doFinal(src.getBytes(&quot;utf-8&quot;));
+        return new Base64().encodeToString(encrypted);//base64
+//        return binary(encrypted, 16); //十六进制
+    }
+
+    /**
+    * 解密
+    * @param src 解密字符串
+    * @param key 密钥
+    * @return 解密后的字符串
+    */
+    public static String Decrypt(String src, String key) throws Exception {
+        try {
+            // 判断Key是否正确
+            if (key == null) {
+                key = keyWord;
+//            System.out.print(&quot;密钥不能为空&quot;);
+//            return null;
+            }
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), &quot;AES&quot;);
+            Cipher cipher = Cipher.getInstance(&quot;AES/CBC/PKCS5Padding&quot;);
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv.getBytes()));
+
+            byte[] encrypted1 = new Base64().decode(src);//base64
+//            byte[] encrypted1 = toByteArray(src);//十六进制
+            try {
+                byte[] original = cipher.doFinal(encrypted1);
+                String originalString = new String(original,&quot;utf-8&quot;);
+                return originalString;
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return null;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            return null;
+        }
+    }
+
+    /**
+    * 将byte[]转为各种进制的字符串
+    * @param bytes byte[]
+    * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制
+    * @return 转换后的字符串
+    */
+    public static String binary(byte[] bytes, int radix){
+        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
+    }
+
+    /**
+    * 16进制的字符串表示转成字节数组
+    *
+    * @param hexString 16进制格式的字符串
+    * @return 转换后的字节数组
+    **/
+    public static byte[] toByteArray(String hexString) {
+        if (hexString.isEmpty())
+            throw new IllegalArgumentException(&quot;this hexString must not be empty&quot;);
+
+        hexString = hexString.toLowerCase();
+        final byte[] byteArray = new byte[hexString.length() / 2];
+        int k = 0;
+        for (int i = 0; i &lt; byteArray.length; i++) {//因为是16进制，最多只会占用4位，转换成字节需要两个16进制的字符，高位在先
+            byte high = (byte) (Character.digit(hexString.charAt(k), 16) &amp; 0xff);
+            byte low = (byte) (Character.digit(hexString.charAt(k + 1), 16) &amp; 0xff);
+            byteArray[i] = (byte) (high &lt;&lt; 4 | low);
+            k += 2;
+        }
+        return byteArray;
+    }
+
+    public static void main(String[] args) throws Exception {
+        // 密钥
+        String key = &quot;1234123412ABCDEF&quot;;
+        // 需要加密的字符串
+        String src = &quot;123456&quot;;
+        System.out.println(src);
+        // 加密
+        String enString = Encrypt(src, key);
+        System.out.println(&quot;加密后的字串是：&quot; + enString);
+        // 解密
+        String DeString = Decrypt(enString, key);
+        System.out.println(&quot;解密后的字串是：&quot; + DeString);
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/AES/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/AES/">AES</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Nginx-Install-For-Windows" class="post-Nginx-Install-For-Windows post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1010,7 +1010,7 @@ font-family: &quot;sans-serif&quot;;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="cko0umuxf000bxcuhnrhh94sv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="cko0uxceo000phcuhwxsp5o9g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1083,7 +1083,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="cko0umuxw0016xcuhtmzgtzuz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="cko0uxcex0019hcuhybjmebfb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1138,7 +1138,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cko0umuxp000rxcuhu9wu9wg7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cko0uxceo000qhcuhuc1u202i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1206,6 +1206,187 @@ error_log  logs/error.log  debug;
 
 
   
+    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cko0uxcev0015hcuh8lctoagd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
+<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
+</ul>
+<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
+<li>CentOS：<code>sudo yum install -y vim</code></li>
+<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
+<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
+</ul>
+<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
+<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
+</ul>
+<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
+<li>注意<ul>
+<li>严格区分字母大小写</li>
+<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
+<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
+<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
+</ul>
+</li>
+<li>移动<ul>
+<li><code>j</code>，下</li>
+<li><code>k</code>，上</li>
+<li><code>h</code>，左</li>
+<li><code>l</code>，右</li>
+<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
+<li><code>gg</code>，跳到第 1 行</li>
+<li><code>G</code>，跳到最后一行</li>
+<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
+<li><code>$</code>，到本行 <strong>行尾</strong></li>
+<li><code>0</code>，到本行 <strong>行头</strong></li>
+<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
+<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
+<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
+<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
+<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
+<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
+<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
+<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
+<li><code>^</code>，到本行第一个单词头</li>
+<li><code>g_</code>，到本行最后一个单词尾巴</li>
+<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
+</ul>
+</li>
+<li>插入<ul>
+<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
+<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
+<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
+<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
+<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
+<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
+</ul>
+</li>
+<li>编辑<ul>
+<li>删除</li>
+<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
+<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
+<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
+<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
+<li><code>dd</code>，删除当前行</li>
+<li><code>cc</code>，删除当前行后进入 insert 模式</li>
+<li><code>dw</code>，删除当前光标下的单词/空格</li>
+<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
+<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
+<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
+<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
+<li>复制</li>
+<li><code>y</code>，复制光标所选字符</li>
+<li><code>yw</code>，复制光标后单词</li>
+<li><code>yy</code>，复制当前行</li>
+<li><code>4yy</code>，复制当前行及下面 4 行</li>
+<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
+<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
+<li>粘贴</li>
+<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
+<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
+<li>其他<ul>
+<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
+<li><code>u</code>，撤销</li>
+<li><code>:wq</code>，退出并 <strong>保存</strong></li>
+<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
+<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
+<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
+<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
+<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
+<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜索<ul>
+<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+</ul>
+</li>
+<li>替换<ul>
+<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
+<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
+<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
+<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
+<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
+<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
+<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
+<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
+</ul>
+</li>
+<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
+<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
+</ul>
+<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
+<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
+<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
+<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
+<li>效果如下：<ul>
+<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
+<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
+<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Vim-Install-And-Setting/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-bash" class="post-bash post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1221,7 +1402,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="cko0umv0a0057xcuhjj2khy4s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="cko0uxcgz005ahcuhwv1nrezy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1559,7 +1740,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="cko0umuxj000gxcuhfj00qkji" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="cko0uxcek000ihcuha6x3dpc7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1657,187 +1838,6 @@ page_pv_footer:
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cko0umuxv0015xcuh44xpehkf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
-<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
-</ul>
-<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
-<li>CentOS：<code>sudo yum install -y vim</code></li>
-<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
-<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
-</ul>
-<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
-<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
-</ul>
-<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
-<li>注意<ul>
-<li>严格区分字母大小写</li>
-<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
-<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
-<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
-</ul>
-</li>
-<li>移动<ul>
-<li><code>j</code>，下</li>
-<li><code>k</code>，上</li>
-<li><code>h</code>，左</li>
-<li><code>l</code>，右</li>
-<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
-<li><code>gg</code>，跳到第 1 行</li>
-<li><code>G</code>，跳到最后一行</li>
-<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
-<li><code>$</code>，到本行 <strong>行尾</strong></li>
-<li><code>0</code>，到本行 <strong>行头</strong></li>
-<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
-<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
-<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
-<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
-<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
-<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
-<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
-<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
-<li><code>^</code>，到本行第一个单词头</li>
-<li><code>g_</code>，到本行最后一个单词尾巴</li>
-<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
-</ul>
-</li>
-<li>插入<ul>
-<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
-<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
-<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
-<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
-<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
-<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
-</ul>
-</li>
-<li>编辑<ul>
-<li>删除</li>
-<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
-<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
-<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
-<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
-<li><code>dd</code>，删除当前行</li>
-<li><code>cc</code>，删除当前行后进入 insert 模式</li>
-<li><code>dw</code>，删除当前光标下的单词/空格</li>
-<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
-<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
-<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
-<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
-<li>复制</li>
-<li><code>y</code>，复制光标所选字符</li>
-<li><code>yw</code>，复制光标后单词</li>
-<li><code>yy</code>，复制当前行</li>
-<li><code>4yy</code>，复制当前行及下面 4 行</li>
-<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
-<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
-<li>粘贴</li>
-<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
-<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
-<li>其他<ul>
-<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
-<li><code>u</code>，撤销</li>
-<li><code>:wq</code>，退出并 <strong>保存</strong></li>
-<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
-<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
-<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
-<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
-<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
-<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搜索<ul>
-<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-</ul>
-</li>
-<li>替换<ul>
-<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
-<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
-<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
-<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
-<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
-<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
-</ul>
-</li>
-</ul>
-<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
-<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
-<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
-</ul>
-</li>
-<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
-<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
-</ul>
-<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
-<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
-<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
-<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
-<li>效果如下：<ul>
-<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
-<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
-<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
-<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/Vim-Install-And-Setting/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
   </div>
 
     
