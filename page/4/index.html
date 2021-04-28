@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
+    <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,52 +70,73 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js-export-excel/">js 导出 excel</a>
+      <a class="article-title" href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0tt8q7002k8suhc0ismj2b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cko0u823m003700uhb4jl0duy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="使用-js-export-excel-导出"><a href="#使用-js-export-excel-导出" class="headerlink" title="使用 js-export-excel 导出"></a>使用 js-export-excel 导出</h2><p>  <a href="https://github.com/cuikangjie/js-export-excel" target="_blank" rel="noopener">github</a></p>
-<h2 id="扩展使用（添加二级标题，-合并单元格）"><a href="#扩展使用（添加二级标题，-合并单元格）" class="headerlink" title="扩展使用（添加二级标题， 合并单元格）"></a>扩展使用（添加二级标题， 合并单元格）</h2><h3 id="修改-js-export-excel-js"><a href="#修改-js-export-excel-js" class="headerlink" title="修改 js-export-excel.js"></a>修改 js-export-excel.js</h3><pre><code>// # 添加二级标题 
-workbook: {
-    SheetNames: [],
-    Sheets: {},
-    merges: [],
-    sheetHeaderSecond: [],
-}, 
-// # 在标题下一行添加
-let sheetHeaderSecond= _options.sheetHeaderSecond || data.sheetHeaderSecond;
-if (sheetHeaderSecond &amp;&amp; sheetHeaderSecond.length &gt; 0) {
-    sheetData.unshift(sheetHeaderSecond);
+        <p>直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。<br>1.开启 Chrome 远程调试端口</p>
+<p>首先我们需要在远程调试打开的状态下启动 Chrome, 这样 VS Code 才能 attach 到 Chrome 上。<br>Windows</p>
+<pre><code>右键点击 Chrome 的快捷方式图标，选择属性
+在目标一栏，最后加上 --remote-debugging-port=9222，注意要用空格隔开
+</code></pre><p>macOS</p>
+<pre><code>打开控制台
+
+执行命令 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+</code></pre><p>Linux</p>
+<pre><code>打开控制台
+执行命令 google-chrome --remote-debugging-port=9222
+</code></pre><p>2.安装 Chrome Debug 插件</p>
+<p>点击 Visual Studio Code 左侧边栏的扩展按钮， 然后在搜索框输入Debugger for Chrome 并安装插件，再输入，安装完成后点击 reload 重启。</p>
+<p>3.创建 Debug 配置文件</p>
+<p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
+<p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
+<p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
+<pre><code>{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;chrome&quot;,
+      &quot;request&quot;: &quot;attach&quot;,
+      &quot;name&quot;: &quot;Attach to Chrome&quot;,
+      &quot;port&quot;: 9222,
+      &quot;webRoot&quot;: &quot;${workspaceRoot}/src&quot;,
+      &quot;url&quot;: &quot;http://localhost:8080/#/&quot;,
+      &quot;sourceMaps&quot;: true,
+      &quot;sourceMapPathOverrides&quot;: {
+        &quot;webpack:///src/*&quot;: &quot;${webRoot}/*&quot;
+      }
+    }
+  ]
 }
-// 添加合并规则
-if (!ws[&apos;!merges&apos;]) ws[&apos;!merges&apos;] = [];
-let merge = (_options.merges || data.merges) || [];
-// ws[&apos;!merges&apos;].push(merge);
-ws[&apos;!merges&apos;] = merge;
-</code></pre><h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><pre><code>import ExportJsonExcel from&quot;@/common/js-export-excel&quot;;
-//  sheetHeaderSecond: [&apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;,&apos;二级标题&apos; ],
-itemContent= {
-  sheetData: sheetData,
-  sheetName: sheetName,
-  merges: [{ s: {r:1, c:1}, e: {r:1, c:6} }], // 合并
-  sheetHeaderSecond:sheetHeaderSecond, // 二级标题
-  sheetFilter:filterData,
-  sheetHeader:headerData // 一级标题
-};
+</code></pre><p>4.修改 webpack 配置</p>
+<p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
+<p>1.打开根目录下的 config 目录下的 index.js 文件</p>
+<p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
+<p>3.将dev节点下的 cacheBusting 值改为 false</p>
+<p>5.开启调试</p>
+<p>上述配置完成之后：</p>
+<ol>
+<li><p>通过第一步的方式以远程调试打开的方式打开 Chrome</p>
+</li>
+<li><p>在 vue 项目中执行 npm run dev 以调试方式启动项目</p>
+</li>
+<li><p>点击 VS Code 左侧边栏的调试按钮，选择 Attach to Chrome 并点击绿色开始按钮，正常情况下就会出现调试控制条。</p>
+</li>
+</ol>
+<p>现在就可以在 vue 文件的 js 代码中打断点进行调试了。</p>
 
-option.datas.push(itemContent);
-let toExcel = new ExportJsonExcel(option);
-toExcel.saveExcel();
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -123,75 +144,7 @@ toExcel.saveExcel();
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/js-export-excel/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="cko0tt8qr003p8suhi2waksnt" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
-
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
-
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
+    <a href="/2019/06/03/使用 VS Code 断点调试/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -200,68 +153,6 @@ toExcel.saveExcel();
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cko0tt8q6002i8suhj9virtj1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-<h2 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h2><p>函数防抖(debounce)：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间。</p>
-<ul>
-<li>实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法</li>
-<li>缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer !== <span class="literal">null</span>)&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(fn,wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>,debounce(handle,<span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
-<h2 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h2><p>函数节流(throttle)：高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率。</p>
-<ul>
-<li>实现方式：每次触发事件时，如果当前有等待执行的延时函数，则直接return</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节流throttle代码：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> canRun = <span class="literal">true</span>; <span class="comment">// 通过闭包保存一个标记</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 在函数开头判断标记是否为true，不为true则return</span></span><br><span class="line">        <span class="keyword">if</span> (!canRun) <span class="keyword">return</span>;</span><br><span class="line">          <span class="comment">// 立即设置为false</span></span><br><span class="line">        canRun = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 将外部传入的函数的执行放在setTimeout中</span></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; </span><br><span class="line">        <span class="comment">// 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。</span></span><br><span class="line">        <span class="comment">// 当定时器没有执行的时候标记永远是false，在开头被return掉</span></span><br><span class="line">            fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            canRun = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'节流：'</span>, e.target.innerWidth, e.target.innerHeight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, throttle(sayHi,<span class="number">500</span>));</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     
@@ -289,7 +180,7 @@ toExcel.saveExcel();
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="cko0tt8qq003n8suhd8izx8pj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="cko0u823g002u00uhtzkdp70u" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -347,6 +238,136 @@ toExcel.saveExcel();
 
 
   
+    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cko0u8230002000uh1mdzr3iv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
+<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
+<pre><code>npm install doctoc -g
+</code></pre><p>执行</p>
+<pre><code>doctoc demo.md
+</code></pre><p>文件，即可在文档中自动生成目录</p>
+<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
+<p>优点是：简单快捷，</p>
+<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
+<p>2.npm doctoc生成目录</p>
+<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
+<p>缺点：依赖npm</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/markdown生成目录/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="cko0u823i002y00uhc38x24wd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
+主要是给自定义的组件添加原生事件。
+# * 给普通的标签加事件，然后加native是无效的
+
+ &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
+     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
+     &lt;/el-button&gt;
+         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
+             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
+         &lt;/el-dropdown-menu&gt;
+ &lt;/el-dropdown&gt;
+</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
+ 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
+
+&lt;template&gt;
+  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
+  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 事件中的 .native/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-node-vue-webpack构建项目" class="post-node-vue-webpack构建项目 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -362,7 +383,7 @@ toExcel.saveExcel();
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="cko0tt8qg00328suhxjd2u607" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/14/node-vue-webpack构建项目/" data-id="cko0u8235002900uhr31jzwph" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -505,7 +526,7 @@ or
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/07/关于Java 23种设计模式/" data-id="cko0tt8s400588suhe3wk85n4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/07/关于Java 23种设计模式/" data-id="cko0u8259005f00uhq2d3tyws" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1010,7 +1031,7 @@ class Proxy implements Source{
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack-build-params-init/" data-id="cko0tt8qn003g8suhm79uq8h0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack-build-params-init/" data-id="cko0u823d002p00uh85jer187" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1096,7 +1117,7 @@ fs.writeFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="cko0tt8qm003f8suh30nu2dye" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="cko0u823c002m00uhbpv3yq1s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1208,6 +1229,100 @@ gulp.task(&apos;server&apos;, function(){
 
 
   
+    <article id="post-vue 重新渲染组件（重置或者更新) " class="post-vue 重新渲染组件（重置或者更新)  post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">vue 重新渲染组件（重置或者更新）</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 重新渲染组件（重置或者更新) /" data-id="cko0u823i002z00uhtywuwysk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="动态组件-amp-异步组件"><a href="#动态组件-amp-异步组件" class="headerlink" title="动态组件 &amp; 异步组件"></a>动态组件 &amp; 异步组件</h2><p>  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新<br>  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。<br>  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。</p>
+<h2 id="方案一：v-if（可以重置生命周期）"><a href="#方案一：v-if（可以重置生命周期）" class="headerlink" title="方案一：v-if（可以重置生命周期）"></a>方案一：v-if（可以重置生命周期）</h2><pre><code>当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲染。使用 v-if 可以解决这个问题
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; v-if=&quot;reFresh&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        reFresh:true,
+      }
+    },
+    watch:{
+      $route(to, form) {
+        this.reFresh= false
+        this.$nextTick(()=&gt;{
+            this.reFresh = true
+        })
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre><p>  这种方式虽然可以实现，但太不优雅  </p>
+<h2 id="方案二-key-’’（此处可触发watch和update）"><a href="#方案二-key-’’（此处可触发watch和update）" class="headerlink" title="方案二 :key=’’（此处可触发watch和update）"></a>方案二 :key=’’（此处可触发watch和update）</h2><pre><code>通过vue key 实现，原理请查看官方文档。所以当key 值变更时，会自动的重新渲染。
+
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; :key=&quot;key&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        key: 1
+      }
+    },
+    watch:{
+      $route(to, form) {
+        ++this.key
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1223,7 +1338,7 @@ gulp.task(&apos;server&apos;, function(){
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="cko0tt8qt003u8suhzj3iw32r" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="cko0u823h002w00uhhh9pseko" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1295,100 +1410,6 @@ gulp.task(&apos;server&apos;, function(){
 
     <footer class="entry-meta">
     <a href="/2019/05/05/vue 修改子组件样式/">
-    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
-        2019-05-05
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue 重新渲染组件（重置或者更新) " class="post-vue 重新渲染组件（重置或者更新)  post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">vue 重新渲染组件（重置或者更新）</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 重新渲染组件（重置或者更新) /" data-id="cko0tt8qu003w8suh0rl9k0r0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="动态组件-amp-异步组件"><a href="#动态组件-amp-异步组件" class="headerlink" title="动态组件 &amp; 异步组件"></a>动态组件 &amp; 异步组件</h2><p>  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新<br>  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。<br>  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。</p>
-<h2 id="方案一：v-if（可以重置生命周期）"><a href="#方案一：v-if（可以重置生命周期）" class="headerlink" title="方案一：v-if（可以重置生命周期）"></a>方案一：v-if（可以重置生命周期）</h2><pre><code>当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲染。使用 v-if 可以解决这个问题
-&lt;template&gt;
-  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; v-if=&quot;reFresh&quot;&gt;&lt;/form-component&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-  export default{
-    data(){
-      return {
-        reFresh:true,
-      }
-    },
-    watch:{
-      $route(to, form) {
-        this.reFresh= false
-        this.$nextTick(()=&gt;{
-            this.reFresh = true
-        })
-      }
-    }
-}
-&lt;/script&gt;
-</code></pre><p>  这种方式虽然可以实现，但太不优雅  </p>
-<h2 id="方案二-key-’’（此处可触发watch和update）"><a href="#方案二-key-’’（此处可触发watch和update）" class="headerlink" title="方案二 :key=’’（此处可触发watch和update）"></a>方案二 :key=’’（此处可触发watch和update）</h2><pre><code>通过vue key 实现，原理请查看官方文档。所以当key 值变更时，会自动的重新渲染。
-
-&lt;template&gt;
-  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; :key=&quot;key&quot;&gt;&lt;/form-component&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-  export default{
-    data(){
-      return {
-        key: 1
-      }
-    },
-    watch:{
-      $route(to, form) {
-        ++this.key
-      }
-    }
-}
-&lt;/script&gt;
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">
     <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
         2019-05-05
     </time>

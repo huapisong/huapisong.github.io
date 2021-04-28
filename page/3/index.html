@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
+    <article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,149 +70,51 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+      <a class="article-title" href="/2019/08/28/SSH-login-without-password/">SSH 免密登录</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cko0tt8p700108suhyv8259fo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cko0u822b000q00uh8nztyqey" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
-<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
+        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li>CentOS 7.3</li>
 </ul>
-<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
-<li>CentOS：<code>sudo yum install -y vim</code></li>
-<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
-<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
+<li>免密登录的关键点在于理解谁登录谁。</li>
+<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
 </ul>
-<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
-<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
-</ul>
-<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
-<li>注意<ul>
-<li>严格区分字母大小写</li>
-<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
-<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
-<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
+<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
+<li>根据提示回车，共有三次交互提示，都回车即可。</li>
 </ul>
 </li>
-<li>移动<ul>
-<li><code>j</code>，下</li>
-<li><code>k</code>，上</li>
-<li><code>h</code>，左</li>
-<li><code>l</code>，右</li>
-<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
-<li><code>gg</code>，跳到第 1 行</li>
-<li><code>G</code>，跳到最后一行</li>
-<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
-<li><code>$</code>，到本行 <strong>行尾</strong></li>
-<li><code>0</code>，到本行 <strong>行头</strong></li>
-<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
-<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
-<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
-<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
-<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
-<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
-<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
-<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
-<li><code>^</code>，到本行第一个单词头</li>
-<li><code>g_</code>，到本行最后一个单词尾巴</li>
-<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
+<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
+<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+<li>测试：<code>ssh localhost</code></li>
+</ul>
+<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
+<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
+<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
+</ul>
+<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
+</ul>
+<hr>
+<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
+<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
+<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
+<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
+<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
 </ul>
 </li>
-<li>插入<ul>
-<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
-<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
-<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
-<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
-<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
-<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
-</ul>
-</li>
-<li>编辑<ul>
-<li>删除</li>
-<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
-<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
-<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
-<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
-<li><code>dd</code>，删除当前行</li>
-<li><code>cc</code>，删除当前行后进入 insert 模式</li>
-<li><code>dw</code>，删除当前光标下的单词/空格</li>
-<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
-<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
-<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
-<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
-<li>复制</li>
-<li><code>y</code>，复制光标所选字符</li>
-<li><code>yw</code>，复制光标后单词</li>
-<li><code>yy</code>，复制当前行</li>
-<li><code>4yy</code>，复制当前行及下面 4 行</li>
-<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
-<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
-<li>粘贴</li>
-<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
-<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
-<li>其他<ul>
-<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
-<li><code>u</code>，撤销</li>
-<li><code>:wq</code>，退出并 <strong>保存</strong></li>
-<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
-<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
-<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
-<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
-<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
-<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搜索<ul>
-<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-</ul>
-</li>
-<li>替换<ul>
-<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
-<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
-<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
-<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
-<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
-<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
-</ul>
-</li>
-</ul>
-<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
-<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
-<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
-</ul>
-</li>
-<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
-<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
-</ul>
-<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
-<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
-<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
-<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
-<li>效果如下：<ul>
-<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
-<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
-<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
-<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
+<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
 </ul>
 
       
@@ -222,7 +124,7 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/28/Vim-Install-And-Setting/">
+    <a href="/2019/08/28/SSH-login-without-password/">
     <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
         2019-08-28
     </time>
@@ -258,7 +160,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0tt8p800138suhhwo4vf4j" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0u822k001800uhv93zosdj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -309,6 +211,139 @@
 
 
   
+    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0u823q003e00uhxymlvyd1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
+
+&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
+</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
+<p>缺点：“DES”：安全性低</p>
+<p>DES算法缺点：</p>
+<pre><code>1、分组比较短。
+
+2、密钥太短。
+
+3、密码生命周期短。
+
+4、安全性低。
+</code></pre><p>AES算法优点：</p>
+<pre><code>1、运算速度快。
+
+2、 对内存的需求非常低，适合于受限环境。
+
+3、分组长度和密钥长度设计灵活。
+
+4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
+
+5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
+
+6、很好的抵抗差分密码分析及线性密码分析的能力。
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/加密算法DES AES/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0u822p001e00uhgeuqpr9f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
+
+需要下载：
+http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
+
+下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
+JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
+JRE：将两个jar文件放到%JRE_HOME%\lib\security下
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/java 加密规则变更/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
     <!---->
 
@@ -324,7 +359,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0tt8qk00388suh720n5201" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0u8239002h00uh302j143i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -550,139 +585,6 @@ sort test.txt | uniq -d
 
 
   
-    <article id="post-java 加密规则变更" class="post-java 加密规则变更 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/java 加密规则变更/">java 加密规则变更</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0tt8pc001c8suh8bxydgw4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>java.lang.IllegalArgumentException: Unable to initialize due to invalid secret key
-
-需要下载：
-http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html 
-
-下载解压后，把里面的jar文件上传到需要安装jce机器上的JDK或JRE的security目录下，覆盖源文件即可。
-JDK：将两个jar文件也放到%JDK_HOME%\jre\lib\security下
-JRE：将两个jar文件放到%JRE_HOME%\lib\security下
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/java 加密规则变更/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/加密算法DES AES/">加密算法</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0tt8r1004b8suhetraoqzj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><pre><code>&quot;DES&quot;:   数据加密算法（Data Encryption Algorithm，DEA）是一种对称加密算法，很可能是使用最广泛的密钥系统，特别是在保护金融数据的安全中，最初开发的DEA是嵌入硬件中的。通常，自动取款机（Automated Teller Machine，ATM）都使用DEA。它出自IBM的研究工作，IBM也曾对它拥有几年的专利权，但是在1983年已到期后，处于公有范围中，允许在特定条件下可以免除专利使用费而使用。1977年被美国政府正式采纳。
-
-&quot;AES&quot;:   高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。
-</code></pre><p>优点：“DES”：运算速度快，资源消耗较少；“AES”：运算速度快，安全性高，资源消耗少</p>
-<p>缺点：“DES”：安全性低</p>
-<p>DES算法缺点：</p>
-<pre><code>1、分组比较短。
-
-2、密钥太短。
-
-3、密码生命周期短。
-
-4、安全性低。
-</code></pre><p>AES算法优点：</p>
-<pre><code>1、运算速度快。
-
-2、 对内存的需求非常低，适合于受限环境。
-
-3、分组长度和密钥长度设计灵活。
-
-4、 AES标准支持可变分组长度，分组长度可设定为32比特的任意倍数，最小值为128比特，最大值为256比特。
-
-5、 AES的密钥长度比DES大，它也可设定为32比特的任意倍数，最小值为128比特，最大值为256比特，所以用穷举法是不可能破解的。
-
-6、很好的抵抗差分密码分析及线性密码分析的能力。
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/加密算法DES AES/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/加密算法/">加密算法</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-vscode vue 用户代码片段" class="post-vscode vue 用户代码片段 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -698,7 +600,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0tt8ql003c8suhhezu85mw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0u823a002i00uhsekfxwef" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -805,7 +707,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cko0tt8ro004w8suh3xh4zu9y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cko0u824v004x00uhjlnct2p6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1005,109 +907,6 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 
 
   
-    <article id="post-使用 VS Code 断点调试" class="post-使用 VS Code 断点调试 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/使用 VS Code 断点调试/">vue 使用 VS Code 断点调试</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/使用 VS Code 断点调试/" data-id="cko0tt8r5004i8suh20wxnbpy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>直接在 Chrome 的调试窗口中调试 Vue 代码有诸多不便， 好在 Visual Studio Code 中提供了 Debugger for Chrome 插件，能够通过配置直接在 VS Code 断点调试代码, 并且在 VS Code 的调试窗口看到 Chrome 中 console 相同的值，这篇文章就来介绍一下这个配置过程。<br>1.开启 Chrome 远程调试端口</p>
-<p>首先我们需要在远程调试打开的状态下启动 Chrome, 这样 VS Code 才能 attach 到 Chrome 上。<br>Windows</p>
-<pre><code>右键点击 Chrome 的快捷方式图标，选择属性
-在目标一栏，最后加上 --remote-debugging-port=9222，注意要用空格隔开
-</code></pre><p>macOS</p>
-<pre><code>打开控制台
-
-执行命令 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
-</code></pre><p>Linux</p>
-<pre><code>打开控制台
-执行命令 google-chrome --remote-debugging-port=9222
-</code></pre><p>2.安装 Chrome Debug 插件</p>
-<p>点击 Visual Studio Code 左侧边栏的扩展按钮， 然后在搜索框输入Debugger for Chrome 并安装插件，再输入，安装完成后点击 reload 重启。</p>
-<p>3.创建 Debug 配置文件</p>
-<p>点击 Visual Studio Code 左侧边栏的 调试 按钮， 在弹出的调试配置窗口中点击 设置 小齿轮， 然后选择 chrome, VS Code 将会在工作区根目录生成.vscode 目录，里面会有一个 lanch.json 文件并会自动打开</p>
-<p>用下面的配置文件覆盖自动生成的 lanch.json 文件内容。</p>
-<p>注意：URL中的端口号要跟WEBPACK配置的启动端口号一致。</p>
-<pre><code>{
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  &quot;version&quot;: &quot;0.2.0&quot;,
-  &quot;configurations&quot;: [
-    {
-      &quot;type&quot;: &quot;chrome&quot;,
-      &quot;request&quot;: &quot;attach&quot;,
-      &quot;name&quot;: &quot;Attach to Chrome&quot;,
-      &quot;port&quot;: 9222,
-      &quot;webRoot&quot;: &quot;${workspaceRoot}/src&quot;,
-      &quot;url&quot;: &quot;http://localhost:8080/#/&quot;,
-      &quot;sourceMaps&quot;: true,
-      &quot;sourceMapPathOverrides&quot;: {
-        &quot;webpack:///src/*&quot;: &quot;${webRoot}/*&quot;
-      }
-    }
-  ]
-}
-</code></pre><p>4.修改 webpack 配置</p>
-<p>如果是基于 webpack 打包的 vue 项目， 可能会存在断点不匹配的问题, 还需要做些修改：</p>
-<p>1.打开根目录下的 config 目录下的 index.js 文件</p>
-<p>2.将dev 节点下的 devtool 值改为 ‘eval-source-map’</p>
-<p>3.将dev节点下的 cacheBusting 值改为 false</p>
-<p>5.开启调试</p>
-<p>上述配置完成之后：</p>
-<ol>
-<li><p>通过第一步的方式以远程调试打开的方式打开 Chrome</p>
-</li>
-<li><p>在 vue 项目中执行 npm run dev 以调试方式启动项目</p>
-</li>
-<li><p>点击 VS Code 左侧边栏的调试按钮，选择 Attach to Chrome 并点击绿色开始按钮，正常情况下就会出现调试控制条。</p>
-</li>
-</ol>
-<p>现在就可以在 vue 文件的 js 代码中打断点进行调试了。</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/使用 VS Code 断点调试/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1123,7 +922,7 @@ root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0tt8qp003k8suhus86v3gk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0u823e002q00uhvgitpexi" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1251,7 +1050,7 @@ arr.forEach(async item =&gt; {
 
 
   
-    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
+    <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -1259,31 +1058,113 @@ arr.forEach(async item =&gt; {
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
+      <a class="article-title" href="/2019/06/03/js-export-excel/">js 导出 excel</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cko0tt8qc002t8suhh8kh8y83" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0u822u001n00uhojiyt05g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
-<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
-<pre><code>npm install doctoc -g
-</code></pre><p>执行</p>
-<pre><code>doctoc demo.md
-</code></pre><p>文件，即可在文档中自动生成目录</p>
-<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
-<p>优点是：简单快捷，</p>
-<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
-<p>2.npm doctoc生成目录</p>
-<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
-<p>缺点：依赖npm</p>
+        <h2 id="使用-js-export-excel-导出"><a href="#使用-js-export-excel-导出" class="headerlink" title="使用 js-export-excel 导出"></a>使用 js-export-excel 导出</h2><p>  <a href="https://github.com/cuikangjie/js-export-excel" target="_blank" rel="noopener">github</a></p>
+<h2 id="扩展使用（添加二级标题，-合并单元格）"><a href="#扩展使用（添加二级标题，-合并单元格）" class="headerlink" title="扩展使用（添加二级标题， 合并单元格）"></a>扩展使用（添加二级标题， 合并单元格）</h2><h3 id="修改-js-export-excel-js"><a href="#修改-js-export-excel-js" class="headerlink" title="修改 js-export-excel.js"></a>修改 js-export-excel.js</h3><pre><code>// # 添加二级标题 
+workbook: {
+    SheetNames: [],
+    Sheets: {},
+    merges: [],
+    sheetHeaderSecond: [],
+}, 
+// # 在标题下一行添加
+let sheetHeaderSecond= _options.sheetHeaderSecond || data.sheetHeaderSecond;
+if (sheetHeaderSecond &amp;&amp; sheetHeaderSecond.length &gt; 0) {
+    sheetData.unshift(sheetHeaderSecond);
+}
+// 添加合并规则
+if (!ws[&apos;!merges&apos;]) ws[&apos;!merges&apos;] = [];
+let merge = (_options.merges || data.merges) || [];
+// ws[&apos;!merges&apos;].push(merge);
+ws[&apos;!merges&apos;] = merge;
+</code></pre><h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><pre><code>import ExportJsonExcel from&quot;@/common/js-export-excel&quot;;
+//  sheetHeaderSecond: [&apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;,&apos;二级标题&apos; ],
+itemContent= {
+  sheetData: sheetData,
+  sheetName: sheetName,
+  merges: [{ s: {r:1, c:1}, e: {r:1, c:6} }], // 合并
+  sheetHeaderSecond:sheetHeaderSecond, // 二级标题
+  sheetFilter:filterData,
+  sheetHeader:headerData // 一级标题
+};
+
+option.datas.push(itemContent);
+let toExcel = new ExportJsonExcel(option);
+toExcel.saveExcel();
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/js-export-excel/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/JS/">JS</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/js/">js</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cko0u822v001q00uhh0sxij55" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
+<h2 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h2><p>函数防抖(debounce)：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间。</p>
+<ul>
+<li>实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法</li>
+<li>缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer !== <span class="literal">null</span>)&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(fn,wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>,debounce(handle,<span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h2><p>函数节流(throttle)：高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率。</p>
+<ul>
+<li>实现方式：每次触发事件时，如果当前有等待执行的延时函数，则直接return</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节流throttle代码：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> canRun = <span class="literal">true</span>; <span class="comment">// 通过闭包保存一个标记</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 在函数开头判断标记是否为true，不为true则return</span></span><br><span class="line">        <span class="keyword">if</span> (!canRun) <span class="keyword">return</span>;</span><br><span class="line">          <span class="comment">// 立即设置为false</span></span><br><span class="line">        canRun = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 将外部传入的函数的执行放在setTimeout中</span></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; </span><br><span class="line">        <span class="comment">// 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。</span></span><br><span class="line">        <span class="comment">// 当定时器没有执行的时候标记永远是false，在开头被return掉</span></span><br><span class="line">            fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            canRun = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'节流：'</span>, e.target.innerWidth, e.target.innerHeight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, throttle(sayHi,<span class="number">500</span>));</span><br></pre></td></tr></table></figure>
 
       
     </div><!-- .entry-content -->
@@ -1292,7 +1173,7 @@ arr.forEach(async item =&gt; {
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/markdown生成目录/">
+    <a href="/2019/06/03/js/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -1300,7 +1181,7 @@ arr.forEach(async item =&gt; {
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     
