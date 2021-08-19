@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   
   
+  <meta name="description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } ">
+  
 
   
   
@@ -11,15 +13,19 @@
   
   
   
-  <title>Category: Linux | 随记</title>
+  <title>git 如何统计代码行数 | 随记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="随记">
-<meta property="og:url" content="http://yoursite.com/categories/Linux/page/2/index.html">
+  <meta name="description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 如何统计代码行数">
+<meta property="og:url" content="http://yoursite.com/2020/01/16/Git-如何统计代码行数/index.html">
 <meta property="og:site_name" content="随记">
+<meta property="og:description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s,">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-08-19T06:31:28.675Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随记">
+<meta name="twitter:title" content="git 如何统计代码行数">
+<meta name="twitter:description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s,">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -60,132 +66,74 @@
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Git-如何统计代码行数" class="post-Git-如何统计代码行数 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2017/01/06/2.在Centos7下的nginx编译安装/">在Centos7下的nginx编译安装</a>
+    <h1 class="entry-title article-title">
+      git 如何统计代码行数
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2017/01/06/2.在Centos7下的nginx编译安装/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/01/16/Git-如何统计代码行数/" data-id="cksik2tzk000bowifhs90glx5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-根据用户名时间段统计"><a href="#1-根据用户名时间段统计" class="headerlink" title="1.根据用户名时间段统计"></a>1.根据用户名时间段统计</h2><p>git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s\n”, add, subs, loc }’ -</p>
+<h2 id="2-查看提交者排名前-N-位"><a href="#2-查看提交者排名前-N-位" class="headerlink" title="2.查看提交者排名前 N 位"></a>2.查看提交者排名前 N 位</h2><p>git log –pretty=’%aN’ | sort | uniq -c | sort -k1 -n -r | head -n 5</p>
+<h2 id="3-提交数统计"><a href="#3-提交数统计" class="headerlink" title="3.提交数统计"></a>3.提交数统计</h2><p>git log –oneline | wc -l</p>
+<h2 id="4-根据用户名统计"><a href="#4-根据用户名统计" class="headerlink" title="4.根据用户名统计"></a>4.根据用户名统计</h2><p>git log –author=”username” –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s\n”, add, subs, loc }’ -</p>
+<h2 id="5-根据时间段统计"><a href="#5-根据时间段统计" class="headerlink" title="5.根据时间段统计"></a>5.根据时间段统计</h2><p>git log –since=2021-01-01 –until=2021-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s\n”, add, subs, loc }’</p>
+<h2 id="6-统计每个人的增删行数"><a href="#6-统计每个人的增删行数" class="headerlink" title="6.统计每个人的增删行数"></a>6.统计每个人的增删行数</h2><p>git log –format=’%aN’ | sort -u | while read name; do echo -en “$name\t”; git log –author=”$name” –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s “, add, subs, loc }’ -; done</p>
+<h2 id="7-贡献者统计"><a href="#7-贡献者统计" class="headerlink" title="7.贡献者统计"></a>7.贡献者统计</h2><p>git log –pretty=’%aN’ | sort -u | wc -l</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2020/01/16/Git-如何统计代码行数/">
+    <time datetime="2020-01-15T16:00:00.000Z" class="entry-date">
+        2020-01-16
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/Git/">Git</a>
   </div>
 
     
     </footer>
 </article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2017/01/06/linux安装JDK/">Linux 下安装JDK1.8</a>
-    </h1>
-  
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2017/01/06/linux安装JDK/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
 
     
-    </footer>
-</article>
-  
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/01/16/Git-remote-and-push/" rel="prev"><span class="meta-nav">←</span> git 开发生产仓库同步代码</a></span>
     
     
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">服务器上的iptables防火墙应该如何配置才能更安全</a>
-    </h1>
-  
+        <span class="nav-next"><a href="/2019/12/26/jvm crash分析工具/" rel="next">一次操作系统报错OutOfMemory Error的处理记录 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
 
-    
-    </footer>
-</article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
 
-    
-    </footer>
-</article>
-  
-  
-    </div></section>
-  
+
+
 
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">

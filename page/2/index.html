@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-Nginx.service failed" class="post-Nginx.service failed post type-post status-publish format-standard hentry">
+    <article id="post-jvm crash分析工具" class="post-jvm crash分析工具 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,63 +70,60 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/17/Nginx.service failed/">启动报错</a>
+      <a class="article-title" href="/2019/12/26/jvm crash分析工具/">一次操作系统报错OutOfMemory Error的处理记录</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="cko0uxceh000dhcuh0q1m7i2e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/26/jvm crash分析工具/" data-id="cksik2u0v002bowifeqdks5d6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下"><a href="#启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下" class="headerlink" title="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下"></a>启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下</h2><h3 id="1-nginx配置文件有错误"><a href="#1-nginx配置文件有错误" class="headerlink" title="1.nginx配置文件有错误"></a>1.nginx配置文件有错误</h3><pre><code>运行下面命令查看修改
-nginx -t
-</code></pre><h3 id="2-已经启动nginx或者配置文件中的端口号被占用"><a href="#2-已经启动nginx或者配置文件中的端口号被占用" class="headerlink" title="2.已经启动nginx或者配置文件中的端口号被占用"></a>2.已经启动nginx或者配置文件中的端口号被占用</h3><pre><code>检查端口是否被占用
-netstat -tnlp
+        <p>查看 hs_err_pidxxxx.log内容:</p>
+<pre><code>#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 30408704 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2651), pid=30569, tid=0x00007f3f8f8f8700
+</code></pre><p>可能的原因</p>
+<pre><code>系统物理内存或虚拟内存不足
+程序在压缩指针模式下运行, Java堆会阻塞本地堆的增长
 
-如果端口已经被占用，自己权衡一下是换个端口还是把占用端口的进程杀掉
-检查nginx是否已经启动
-ps -aux | grep nginx
 
-如果已经启动使用下面命令干掉即可
+第一步：找到应用的java进程的PID
 
-pkill -9 nginx
-</code></pre><h2 id="解决Nginx出现403-forbidden-13-Permission-denied-报错"><a href="#解决Nginx出现403-forbidden-13-Permission-denied-报错" class="headerlink" title="解决Nginx出现403 forbidden (13: Permission denied)报错"></a>解决Nginx出现403 forbidden (13: Permission denied)报错</h2><p>查看nginx日志，路径为/var/log/nginx/error.log。打开日志发现报错Permission denied，详细报错如下</p>
-<pre><code>&quot;/app/index.html&quot; is forbidden (13: Permission denied), client: 10.43.25.6, server: localhost, request: &quot;GET / HTTP/1.1&quot;, host: &quot;10.42.1.50&quot;
-</code></pre><h3 id="由于启动用户和nginx工作用户不一致所致"><a href="#由于启动用户和nginx工作用户不一致所致" class="headerlink" title="由于启动用户和nginx工作用户不一致所致"></a>由于启动用户和nginx工作用户不一致所致</h3><pre><code># 查看nginx的启动用户，发现是nginx，而为是用root启动的
-ps aux | grep nginx
+ps -ef | grep java
 
-# 显示如下：
-nginx      1180  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
-nginx      1181  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+找到进程ID为227771。
 
-# 将nginx.config的user改为和启动用户一致
-vi conf/nginx.conf
+第二步：显示各进程资源占用情况。
 
-# 修改如下：
-# user  nginx;
-user  root;
-</code></pre><h3 id="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"><a href="#权限问题，如果nginx没有web目录的操作权限，也会出现403错误" class="headerlink" title="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"></a>权限问题，如果nginx没有web目录的操作权限，也会出现403错误</h3><pre><code># 修改权限
-chmod -R 777 /app
-</code></pre><h3 id="SELinux设置为开启状态（enabled）的原因"><a href="#SELinux设置为开启状态（enabled）的原因" class="headerlink" title="SELinux设置为开启状态（enabled）的原因"></a>SELinux设置为开启状态（enabled）的原因</h3><pre><code># 查看当前selinux的状态
-/usr/sbin/sestatus
+top -p 227771 -H　
 
-# 显示如下：
-SELinux status:                 enabled
 
-# 将SELINUX=enforcing 修改为 SELINUX=disabled 状态
-vi /etc/selinux/config
+# 转换成十六进制
+printf &quot;%x&quot; 251435
 
-# 修改如下：
-#SELINUX=enforcing
-SELINUX=disabled
+在整点找到PID 251435，转换成十六进制3d62b，再使用jstack打印出线程堆栈：
 
-# 重启生效
-reboot
+jstack 227771|grep -A 13 0x3d62b、
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -135,7 +132,296 @@ reboot
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/17/Nginx.service failed/">
+    <a href="/2019/12/26/jvm crash分析工具/">
+    <time datetime="2019-12-25T16:00:00.000Z" class="entry-date">
+        2019-12-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue-Quill-Editor" class="post-vue-Quill-Editor post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="cksik2u2d0050owif2b1wj7mo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="自定义字体修改"><a href="#自定义字体修改" class="headerlink" title="自定义字体修改"></a>自定义字体修改</h2><h3 id="添加-style"><a href="#添加-style" class="headerlink" title="添加 style"></a>添加 style</h3><pre><code>var Font = Quill.import(&apos;attributors/style/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span style=&quot;font-family: SimSun;&quot;&gt;宋体 测试&lt;/span&gt;&lt;/p&gt;
+</code></pre><h3 id="添加-class"><a href="#添加-class" class="headerlink" title="添加 class"></a>添加 class</h3><pre><code>var Font = Quill.import(&apos;attributors/class/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span class=&quot;ql-font-SimSun&quot;&gt;宋体&lt;/span&gt;&lt;/p&gt;
+</code></pre><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>&lt;!-- 富文本编辑 vue-quill-editor --&gt;
+&lt;template&gt;
+&lt;div class&gt;
+    &lt;quill-editor
+    v-model=&quot;contentHtml&quot;
+    ref=&quot;myQuillEditor&quot;
+    :options=&quot;editorOption&quot;
+    &gt;&lt;/quill-editor&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import &apos;quill/dist/quill.core.css&apos;;
+import &apos;quill/dist/quill.snow.css&apos;;
+import &apos;quill/dist/quill.bubble.css&apos;;
+import { quillEditor, Quill } from &apos;vue-quill-editor&apos;;
+// 图片拖拽功能 ie 不支持
+// import { ImageDrop } from &apos;quill-image-drop-module&apos;;
+// Quill.register(&apos;modules/imageDrop&apos;, ImageDrop);
+
+var fonts = [&apos;STXihei&apos;, &apos;SimSun&apos;, &apos;SimHei&apos;,&apos;Microsoft-YaHei&apos;,&apos;KaiTi&apos;,&apos;FangSong&apos;,&apos;Arial&apos;,&apos;sans-serif&apos;];  
+
+var Font = Quill.import(&apos;attributors/style/font&apos;);
+// var Font = Quill.import(&apos;attributors/class/font&apos;);
+// var Font = Quill.import(&apos;formats/font&apos;);
+Font.whitelist = fonts; //将字体加入到白名单 
+Quill.register(Font, true);
+
+export default {
+props: {
+    content: {
+    type: String,
+    default: &quot;&quot;
+    }
+},
+mounted() {
+},
+components: {
+    &apos;quill-editor&apos;: quillEditor
+},
+data() {
+    return {
+    // contentHtml: this.content,
+    editorOption: {
+        modules: {
+        toolbar: {
+            container: [  // 工具栏
+            [&apos;bold&apos;, &apos;italic&apos;, &apos;underline&apos;, &apos;strike&apos;],
+            [&apos;blockquote&apos;, &apos;code-block&apos;],
+            [{ &apos;header&apos;: 1 }, { &apos;header&apos;: 2 }],
+            [{ &apos;list&apos;: &apos;ordered&apos; }, { &apos;list&apos;: &apos;bullet&apos; }],
+            [{ &apos;script&apos;: &apos;sub&apos; }, { &apos;script&apos;: &apos;super&apos; }],
+            [{ &apos;indent&apos;: &apos;-1&apos; }, { &apos;indent&apos;: &apos;+1&apos; }],
+            [{ &apos;direction&apos;: &apos;rtl&apos; }],
+            [{ &apos;size&apos;: [&apos;small&apos;, false, &apos;large&apos;, &apos;huge&apos;] }],
+            [{ &apos;header&apos;: [1, 2, 3, 4, 5, 6, false] }],
+            [{ &apos;color&apos;: [] }, { &apos;background&apos;: [] }],
+            [{ &apos;font&apos;: fonts }],
+            [{ &apos;align&apos;: [] }],
+            [&apos;clean&apos;],
+            [&apos;link&apos;, &apos;image&apos;, &apos;video&apos;]
+            ],
+            handlers: {
+            // &apos;image&apos;: function (value) {
+            //   console.log(value);
+            //     if (value) {
+            //         alert(&apos;自定义图片&apos;);
+            //     } else {
+            //       this.quill.format(&apos;image&apos;, false);
+            //     }
+            // }
+            }
+        },
+        history: {
+            delay: 1000,
+            maxStack: 50,
+            userOnly: false
+        },
+        // imageDrop: true,
+        }
+    }
+    };
+},
+computed: {
+    contentHtml: {
+    get() {
+        return this.content;
+    },
+    // setter
+    set(val) {
+        if (val.replace(/[^\x00-\xff]/g, &apos;01&apos;).length &gt;= 10 * 1024 * 1024)
+        this.$message.error(&apos;富文本内容大小不得大于10M！&apos;);
+        this.$emit(&quot;update:content&quot;, val);
+    }
+    },
+},
+watch: {
+    // &apos;contentHtml&apos;(newVal, oldVal) {
+    //   if (!newVal) {
+    //     return;
+    //   }
+    //   if (newVal == oldVal) {
+    //     return;
+    //   }
+    //   this.$emit(&quot;update:content&quot;, newVal);
+    // }
+},
+};
+&lt;/script&gt;
+&lt;style&gt;
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+content: &quot;14px&quot;;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;small&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;small&quot;]::before {
+content: &quot;10px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;large&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;large&quot;]::before {
+content: &quot;18px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;huge&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;huge&quot;]::before {
+content: &quot;32px&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+content: &quot;文本&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;1&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;1&quot;]::before {
+content: &quot;标题1&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;2&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;2&quot;]::before {
+content: &quot;标题2&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;3&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;3&quot;]::before {
+content: &quot;标题3&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;4&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;4&quot;]::before {
+content: &quot;标题4&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;5&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;5&quot;]::before {
+content: &quot;标题5&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;6&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;6&quot;]::before {
+content: &quot;标题6&quot;;
+}
+
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STXihei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STXihei]::before {
+    content: &quot;华文细黑&quot;;
+    font-family: &quot;STXihei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
+    content: &quot;宋体&quot;;
+    font-family: &quot;SimSun&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimHei]::before {
+    content: &quot;黑体&quot;;
+    font-family: &quot;SimHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Microsoft-YaHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Microsoft-YaHei]::before {
+    content: &quot;微软雅黑&quot;;
+    font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=KaiTi]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=KaiTi]::before {
+    content: &quot;楷体&quot;;
+    font-family: &quot;KaiTi&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=FangSong]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=FangSong]::before {
+    content: &quot;仿宋&quot;;
+    font-family: &quot;FangSong&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
+    content: &quot;Arial&quot;;
+    font-family: &quot;Arial&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
+    content: &quot;Times New Roman&quot;;
+    font-family: &quot;Times New Roman&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
+    content: &quot;sans-serif&quot;;
+    font-family: &quot;sans-serif&quot;;
+}
+
+.ql-font-STXihei {
+font-family: &quot;STXihei&quot;;
+}
+.ql-font-SimSun {
+font-family: &quot;SimSun&quot;;
+}
+.ql-font-SimHei {
+font-family: &quot;SimHei&quot;;
+}
+.ql-font-Microsoft-YaHei {
+font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-font-KaiTi {
+font-family: &quot;KaiTi&quot;;
+}
+.ql-font-FangSong {
+font-family: &quot;FangSong&quot;;
+}
+.ql-font-Arial {
+font-family: &quot;Arial&quot;;
+}
+.ql-font-Times-New-Roman {
+font-family: &quot;Times New Roman&quot;;
+}
+.ql-font-sans-serif {
+font-family: &quot;sans-serif&quot;;
+}
+&lt;/style&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/vue-Quill-Editor/">
     <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
         2019-12-17
     </time>
@@ -143,7 +429,7 @@ reboot
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Nginx/">Nginx</a>
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
   </div>
 
     
@@ -171,7 +457,7 @@ reboot
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="cko0uxcgc004hhcuhujcv8wbk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/POI-Word-Convert-HTML/" data-id="cksik2u1s0044owifcp7cfbrp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -505,7 +791,7 @@ public class DocConvertHtmlUtil {
 
 
   
-    <article id="post-vue-Quill-Editor" class="post-vue-Quill-Editor post type-post status-publish format-standard hentry">
+    <article id="post-Nginx.service failed" class="post-Nginx.service failed post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -513,258 +799,63 @@ public class DocConvertHtmlUtil {
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/17/vue-Quill-Editor/">vue中Quill富文本编辑器的使用</a>
+      <a class="article-title" href="/2019/12/17/Nginx.service failed/">启动报错</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="cko0uxcgr0054hcuhqvvwuzs6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="cksik2tzq000lowifsb3wc872" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="自定义字体修改"><a href="#自定义字体修改" class="headerlink" title="自定义字体修改"></a>自定义字体修改</h2><h3 id="添加-style"><a href="#添加-style" class="headerlink" title="添加 style"></a>添加 style</h3><pre><code>var Font = Quill.import(&apos;attributors/style/font&apos;);
-# 结果源码
-&lt;p&gt;&lt;span style=&quot;font-family: SimSun;&quot;&gt;宋体 测试&lt;/span&gt;&lt;/p&gt;
-</code></pre><h3 id="添加-class"><a href="#添加-class" class="headerlink" title="添加 class"></a>添加 class</h3><pre><code>var Font = Quill.import(&apos;attributors/class/font&apos;);
-# 结果源码
-&lt;p&gt;&lt;span class=&quot;ql-font-SimSun&quot;&gt;宋体&lt;/span&gt;&lt;/p&gt;
-</code></pre><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>&lt;!-- 富文本编辑 vue-quill-editor --&gt;
-&lt;template&gt;
-&lt;div class&gt;
-    &lt;quill-editor
-    v-model=&quot;contentHtml&quot;
-    ref=&quot;myQuillEditor&quot;
-    :options=&quot;editorOption&quot;
-    &gt;&lt;/quill-editor&gt;
-&lt;/div&gt;
-&lt;/template&gt;
+        <h2 id="启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下"><a href="#启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下" class="headerlink" title="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下"></a>启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下</h2><h3 id="1-nginx配置文件有错误"><a href="#1-nginx配置文件有错误" class="headerlink" title="1.nginx配置文件有错误"></a>1.nginx配置文件有错误</h3><pre><code>运行下面命令查看修改
+nginx -t
+</code></pre><h3 id="2-已经启动nginx或者配置文件中的端口号被占用"><a href="#2-已经启动nginx或者配置文件中的端口号被占用" class="headerlink" title="2.已经启动nginx或者配置文件中的端口号被占用"></a>2.已经启动nginx或者配置文件中的端口号被占用</h3><pre><code>检查端口是否被占用
+netstat -tnlp
 
-&lt;script&gt;
-import &apos;quill/dist/quill.core.css&apos;;
-import &apos;quill/dist/quill.snow.css&apos;;
-import &apos;quill/dist/quill.bubble.css&apos;;
-import { quillEditor, Quill } from &apos;vue-quill-editor&apos;;
-// 图片拖拽功能 ie 不支持
-// import { ImageDrop } from &apos;quill-image-drop-module&apos;;
-// Quill.register(&apos;modules/imageDrop&apos;, ImageDrop);
+如果端口已经被占用，自己权衡一下是换个端口还是把占用端口的进程杀掉
+检查nginx是否已经启动
+ps -aux | grep nginx
 
-var fonts = [&apos;STXihei&apos;, &apos;SimSun&apos;, &apos;SimHei&apos;,&apos;Microsoft-YaHei&apos;,&apos;KaiTi&apos;,&apos;FangSong&apos;,&apos;Arial&apos;,&apos;sans-serif&apos;];  
+如果已经启动使用下面命令干掉即可
 
-var Font = Quill.import(&apos;attributors/style/font&apos;);
-// var Font = Quill.import(&apos;attributors/class/font&apos;);
-// var Font = Quill.import(&apos;formats/font&apos;);
-Font.whitelist = fonts; //将字体加入到白名单 
-Quill.register(Font, true);
+pkill -9 nginx
+</code></pre><h2 id="解决Nginx出现403-forbidden-13-Permission-denied-报错"><a href="#解决Nginx出现403-forbidden-13-Permission-denied-报错" class="headerlink" title="解决Nginx出现403 forbidden (13: Permission denied)报错"></a>解决Nginx出现403 forbidden (13: Permission denied)报错</h2><p>查看nginx日志，路径为/var/log/nginx/error.log。打开日志发现报错Permission denied，详细报错如下</p>
+<pre><code>&quot;/app/index.html&quot; is forbidden (13: Permission denied), client: 10.43.25.6, server: localhost, request: &quot;GET / HTTP/1.1&quot;, host: &quot;10.42.1.50&quot;
+</code></pre><h3 id="由于启动用户和nginx工作用户不一致所致"><a href="#由于启动用户和nginx工作用户不一致所致" class="headerlink" title="由于启动用户和nginx工作用户不一致所致"></a>由于启动用户和nginx工作用户不一致所致</h3><pre><code># 查看nginx的启动用户，发现是nginx，而为是用root启动的
+ps aux | grep nginx
 
-export default {
-props: {
-    content: {
-    type: String,
-    default: &quot;&quot;
-    }
-},
-mounted() {
-},
-components: {
-    &apos;quill-editor&apos;: quillEditor
-},
-data() {
-    return {
-    // contentHtml: this.content,
-    editorOption: {
-        modules: {
-        toolbar: {
-            container: [  // 工具栏
-            [&apos;bold&apos;, &apos;italic&apos;, &apos;underline&apos;, &apos;strike&apos;],
-            [&apos;blockquote&apos;, &apos;code-block&apos;],
-            [{ &apos;header&apos;: 1 }, { &apos;header&apos;: 2 }],
-            [{ &apos;list&apos;: &apos;ordered&apos; }, { &apos;list&apos;: &apos;bullet&apos; }],
-            [{ &apos;script&apos;: &apos;sub&apos; }, { &apos;script&apos;: &apos;super&apos; }],
-            [{ &apos;indent&apos;: &apos;-1&apos; }, { &apos;indent&apos;: &apos;+1&apos; }],
-            [{ &apos;direction&apos;: &apos;rtl&apos; }],
-            [{ &apos;size&apos;: [&apos;small&apos;, false, &apos;large&apos;, &apos;huge&apos;] }],
-            [{ &apos;header&apos;: [1, 2, 3, 4, 5, 6, false] }],
-            [{ &apos;color&apos;: [] }, { &apos;background&apos;: [] }],
-            [{ &apos;font&apos;: fonts }],
-            [{ &apos;align&apos;: [] }],
-            [&apos;clean&apos;],
-            [&apos;link&apos;, &apos;image&apos;, &apos;video&apos;]
-            ],
-            handlers: {
-            // &apos;image&apos;: function (value) {
-            //   console.log(value);
-            //     if (value) {
-            //         alert(&apos;自定义图片&apos;);
-            //     } else {
-            //       this.quill.format(&apos;image&apos;, false);
-            //     }
-            // }
-            }
-        },
-        history: {
-            delay: 1000,
-            maxStack: 50,
-            userOnly: false
-        },
-        // imageDrop: true,
-        }
-    }
-    };
-},
-computed: {
-    contentHtml: {
-    get() {
-        return this.content;
-    },
-    // setter
-    set(val) {
-        if (val.replace(/[^\x00-\xff]/g, &apos;01&apos;).length &gt;= 10 * 1024 * 1024)
-        this.$message.error(&apos;富文本内容大小不得大于10M！&apos;);
-        this.$emit(&quot;update:content&quot;, val);
-    }
-    },
-},
-watch: {
-    // &apos;contentHtml&apos;(newVal, oldVal) {
-    //   if (!newVal) {
-    //     return;
-    //   }
-    //   if (newVal == oldVal) {
-    //     return;
-    //   }
-    //   this.$emit(&quot;update:content&quot;, newVal);
-    // }
-},
-};
-&lt;/script&gt;
-&lt;style&gt;
-.ql-snow .ql-picker.ql-size .ql-picker-label::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item::before {
-content: &quot;14px&quot;;
-}
+# 显示如下：
+nginx      1180  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+nginx      1181  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
 
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;small&quot;]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;small&quot;]::before {
-content: &quot;10px&quot;;
-}
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;large&quot;]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;large&quot;]::before {
-content: &quot;18px&quot;;
-}
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;huge&quot;]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;huge&quot;]::before {
-content: &quot;32px&quot;;
-}
+# 将nginx.config的user改为和启动用户一致
+vi conf/nginx.conf
 
-.ql-snow .ql-picker.ql-header .ql-picker-label::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item::before {
-content: &quot;文本&quot;;
-}
+# 修改如下：
+# user  nginx;
+user  root;
+</code></pre><h3 id="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"><a href="#权限问题，如果nginx没有web目录的操作权限，也会出现403错误" class="headerlink" title="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"></a>权限问题，如果nginx没有web目录的操作权限，也会出现403错误</h3><pre><code># 修改权限
+chmod -R 777 /app
+</code></pre><h3 id="SELinux设置为开启状态（enabled）的原因"><a href="#SELinux设置为开启状态（enabled）的原因" class="headerlink" title="SELinux设置为开启状态（enabled）的原因"></a>SELinux设置为开启状态（enabled）的原因</h3><pre><code># 查看当前selinux的状态
+/usr/sbin/sestatus
 
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;1&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;1&quot;]::before {
-content: &quot;标题1&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;2&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;2&quot;]::before {
-content: &quot;标题2&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;3&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;3&quot;]::before {
-content: &quot;标题3&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;4&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;4&quot;]::before {
-content: &quot;标题4&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;5&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;5&quot;]::before {
-content: &quot;标题5&quot;;
-}
-.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;6&quot;]::before,
-.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;6&quot;]::before {
-content: &quot;标题6&quot;;
-}
+# 显示如下：
+SELinux status:                 enabled
 
+# 将SELINUX=enforcing 修改为 SELINUX=disabled 状态
+vi /etc/selinux/config
 
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STXihei]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STXihei]::before {
-    content: &quot;华文细黑&quot;;
-    font-family: &quot;STXihei&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
-    content: &quot;宋体&quot;;
-    font-family: &quot;SimSun&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimHei]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimHei]::before {
-    content: &quot;黑体&quot;;
-    font-family: &quot;SimHei&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Microsoft-YaHei]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Microsoft-YaHei]::before {
-    content: &quot;微软雅黑&quot;;
-    font-family: &quot;Microsoft YaHei&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=KaiTi]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=KaiTi]::before {
-    content: &quot;楷体&quot;;
-    font-family: &quot;KaiTi&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=FangSong]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=FangSong]::before {
-    content: &quot;仿宋&quot;;
-    font-family: &quot;FangSong&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
-    content: &quot;Arial&quot;;
-    font-family: &quot;Arial&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
-    content: &quot;Times New Roman&quot;;
-    font-family: &quot;Times New Roman&quot;;
-}
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
-    content: &quot;sans-serif&quot;;
-    font-family: &quot;sans-serif&quot;;
-}
+# 修改如下：
+#SELINUX=enforcing
+SELINUX=disabled
 
-.ql-font-STXihei {
-font-family: &quot;STXihei&quot;;
-}
-.ql-font-SimSun {
-font-family: &quot;SimSun&quot;;
-}
-.ql-font-SimHei {
-font-family: &quot;SimHei&quot;;
-}
-.ql-font-Microsoft-YaHei {
-font-family: &quot;Microsoft YaHei&quot;;
-}
-.ql-font-KaiTi {
-font-family: &quot;KaiTi&quot;;
-}
-.ql-font-FangSong {
-font-family: &quot;FangSong&quot;;
-}
-.ql-font-Arial {
-font-family: &quot;Arial&quot;;
-}
-.ql-font-Times-New-Roman {
-font-family: &quot;Times New Roman&quot;;
-}
-.ql-font-sans-serif {
-font-family: &quot;sans-serif&quot;;
-}
-&lt;/style&gt;
+# 重启生效
+reboot
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -773,7 +864,7 @@ font-family: &quot;sans-serif&quot;;
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/17/vue-Quill-Editor/">
+    <a href="/2019/12/17/Nginx.service failed/">
     <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
         2019-12-17
     </time>
@@ -781,7 +872,7 @@ font-family: &quot;sans-serif&quot;;
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  <a class="article-category-link" href="/categories/Nginx/">Nginx</a>
   </div>
 
     
@@ -809,7 +900,7 @@ font-family: &quot;sans-serif&quot;;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="cko0uxcea0005hcuhm7iyqyr7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/AES/" data-id="cksik2tzf0005owifda879hae" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1010,7 +1101,7 @@ public class AES {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="cko0uxceo000phcuhwxsp5o9g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/10/Nginx-Install-For-Windows/" data-id="cksik2tzp000iowifqpefoiwz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1083,7 +1174,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="cko0uxcex0019hcuhybjmebfb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/09/05/Windows-Change-Temp-And-Clean/" data-id="cksik2u030019owif6kl6ef9g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1138,7 +1229,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cko0uxceo000qhcuhuc1u202i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="cksik2tzu000towifzy7r8gc5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1206,525 +1297,6 @@ error_log  logs/error.log  debug;
 
 
   
-    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cko0uxcev0015hcuh8lctoagd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
-<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
-</ul>
-<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
-<li>CentOS：<code>sudo yum install -y vim</code></li>
-<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
-<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
-</ul>
-<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
-<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
-</ul>
-<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
-<li>注意<ul>
-<li>严格区分字母大小写</li>
-<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
-<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
-<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
-</ul>
-</li>
-<li>移动<ul>
-<li><code>j</code>，下</li>
-<li><code>k</code>，上</li>
-<li><code>h</code>，左</li>
-<li><code>l</code>，右</li>
-<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
-<li><code>gg</code>，跳到第 1 行</li>
-<li><code>G</code>，跳到最后一行</li>
-<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
-<li><code>$</code>，到本行 <strong>行尾</strong></li>
-<li><code>0</code>，到本行 <strong>行头</strong></li>
-<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
-<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
-<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
-<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
-<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
-<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
-<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
-<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
-<li><code>^</code>，到本行第一个单词头</li>
-<li><code>g_</code>，到本行最后一个单词尾巴</li>
-<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
-</ul>
-</li>
-<li>插入<ul>
-<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
-<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
-<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
-<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
-<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
-<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
-</ul>
-</li>
-<li>编辑<ul>
-<li>删除</li>
-<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
-<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
-<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
-<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
-<li><code>dd</code>，删除当前行</li>
-<li><code>cc</code>，删除当前行后进入 insert 模式</li>
-<li><code>dw</code>，删除当前光标下的单词/空格</li>
-<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
-<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
-<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
-<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
-<li>复制</li>
-<li><code>y</code>，复制光标所选字符</li>
-<li><code>yw</code>，复制光标后单词</li>
-<li><code>yy</code>，复制当前行</li>
-<li><code>4yy</code>，复制当前行及下面 4 行</li>
-<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
-<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
-<li>粘贴</li>
-<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
-<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
-<li>其他<ul>
-<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
-<li><code>u</code>，撤销</li>
-<li><code>:wq</code>，退出并 <strong>保存</strong></li>
-<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
-<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
-<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
-<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
-<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
-<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搜索<ul>
-<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
-</ul>
-</li>
-<li>替换<ul>
-<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
-<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
-<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
-<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
-<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
-<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
-</ul>
-</li>
-</ul>
-<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
-<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
-<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
-</ul>
-</li>
-<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
-<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
-</ul>
-<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
-<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
-<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
-<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
-<li>效果如下：<ul>
-<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
-<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
-<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
-<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/Vim-Install-And-Setting/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-bash" class="post-bash post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/bash/">Bash 常用命令</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="cko0uxcgz005ahcuhwv1nrezy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="基础常用命令"><a href="#基础常用命令" class="headerlink" title="基础常用命令"></a>基础常用命令</h2><ul>
-<li><code>某个命令 --h</code>，对这个命令进行解释</li>
-<li><code>某个命令 --help</code>，解释这个命令(更详细)</li>
-<li><code>man某个命令</code>，文档式解释这个命令(更更详细)(执行该命令后,还可以按/+关键字进行查询结果的搜索)</li>
-<li><code>Ctrl + c</code>，结束命令</li>
-<li><code>TAB键</code>，自动补全命令（按一次自动补全，连续按两次，提示所有以输入开头字母的所有命令）</li>
-<li><code>键盘上下键</code>，输入临近的历史命令</li>
-<li><code>history</code>，查看所有的历史命令</li>
-<li><code>Ctrl + r</code>，进入历史命令的搜索功能模式</li>
-<li><code>clear</code>，清除屏幕里面的所有命令</li>
-<li><code>pwd</code>，显示当前目录路径（常用）</li>
-<li><code>firefox&amp;</code>，最后后面的 <strong>&amp;</strong> 符号，表示使用后台方式打开 Firefox，然后显示该进程的 PID 值</li>
-<li><code>jobs</code>，查看后台运行的程序列表</li>
-<li><code>ifconfig</code>，查看内网 IP 等信息（常用）</li>
-<li><code>curl ifconfig.me</code>，查看外网 IP 信息</li>
-<li><code>curl ip.cn</code>，查看外网 IP 信息</li>
-<li><code>locate 搜索关键字</code>，快速搜索系统文件/文件夹（类似 Windows 上的 everything 索引式搜索）（常用）<ul>
-<li><code>updatedb</code>，配合上面的 locate，给 locate 的索引更新（locate 默认是一天更新一次索引）（常用）</li>
-</ul>
-</li>
-<li><code>date</code>，查看系统时间（常用）<ul>
-<li><code>date -s20080103</code>，设置日期（常用）</li>
-<li><code>date -s18:24</code>，设置时间，如果要同时更改 BIOS 时间，再执行 <code>hwclock --systohc</code>（常用）</li>
-</ul>
-</li>
-<li><code>cal</code>，在终端中查看日历，肯定没有农历显示的</li>
-<li><code>uptime</code>，查看系统已经运行了多久，当前有几个用户等信息（常用）</li>
-<li><code>cat 文件路名</code>，显示文件内容（属于打印语句）</li>
-<li><code>cat -n 文件名</code>，显示文件，并每一行内容都编号</li>
-<li><code>more 文件名</code>，用分页的方式查看文件内容（按 space 翻下一页，按 <em>Ctrl + B</em> 返回上页）</li>
-<li><code>less</code>文件名，用分页的方式查看文件内容（带上下翻页）<ul>
-<li>按 <strong>j</strong> 向下移动，按 <strong>k</strong> 向上移动</li>
-<li>按 <strong>/</strong> 后，输入要查找的字符串内容，可以对文件进行向下查询，如果存在多个结果可以按 <strong>n</strong> 调到下一个结果出</li>
-<li>按 <strong>？</strong> 后，输入要查找的字符串内容，可以对文件进行向上查询，如果存在多个结果可以按 <strong>n</strong> 调到下一个结果出</li>
-</ul>
-</li>
-<li><code>shutdown</code><ul>
-<li><code>shutdown -hnow</code>，立即关机</li>
-<li><code>shutdown -h+10</code>，10 分钟后关机</li>
-<li><code>shutdown -h23:30</code>，23:30 关机</li>
-<li><code>shutdown -rnew</code>，立即重启</li>
-</ul>
-</li>
-<li><code>poweroff</code>，立即关机（常用）</li>
-<li><code>reboot</code>，立即重启（常用）</li>
-<li><code>zip mytest.zip /opt/test/</code>，把 /opt 目录下的 test/ 目录进行压缩，压缩成一个名叫 mytest 的 zip 文件<ul>
-<li><code>unzip mytest.zip</code>，对 mytest.zip 这个文件进行解压，解压到当前所在目录</li>
-<li><code>unzip mytest.zip -d /opt/setups/</code>，对 mytest.zip 这个文件进行解压，解压到 /opt/setups/ 目录下</li>
-</ul>
-</li>
-<li><code>tar -cvf mytest.tar mytest/</code>，对 mytest/ 目录进行归档处理（归档和压缩不一样）</li>
-<li><code>tar -xvf mytest.tar</code>，释放 mytest.tar 这个归档文件，释放到当前目录<ul>
-<li><code>tar -xvf mytest.tar -C /opt/setups/</code>，释放 mytest.tar 这个归档文件，释放到 /opt/setups/ 目录下</li>
-</ul>
-</li>
-<li><code>last</code>，显示最近登录的帐户及时间</li>
-<li><code>lastlog</code>，显示系统所有用户各自在最近登录的记录，如果没有登录过的用户会显示 <strong>从未登陆过</strong></li>
-<li><code>ls</code>，列出当前目录下的所有没有隐藏的文件 / 文件夹。<ul>
-<li><code>ls -a</code>，列出包括以.号开头的隐藏文件 / 文件夹（也就是所有文件）</li>
-<li><code>ls -R</code>，显示出目录下以及其所有子目录的文件 / 文件夹（递归地方式，不显示隐藏的文件）</li>
-<li><code>ls -a -R</code>，显示出目录下以及其所有子目录的文件 / 文件夹（递归地方式，显示隐藏的文件）</li>
-<li><code>ls -al</code>，列出目录下所有文件（包含隐藏）的权限、所有者、文件大小、修改时间及名称（也就是显示详细信息）</li>
-<li><code>ls -ld 目录名</code>，显示该目录的基本信息</li>
-<li><code>ls -t</code>，依照文件最后修改时间的顺序列出文件名。</li>
-<li><code>ls -F</code>，列出当前目录下的文件名及其类型。以 <strong>/</strong> 结尾表示为目录名，以 <strong>*</strong> 结尾表示为可执行文件，以 <strong>@</strong> 结尾表示为符号连接</li>
-<li><code>ls -lg</code>，同上，并显示出文件的所有者工作组名。</li>
-<li><code>ls -lh</code>，查看文件夹类文件详细信息，文件大小，文件修改时间</li>
-<li><code>ls /opt | head -5</code>，显示 opt 目录下前 5 条记录</li>
-<li><code>ls -l | grep &#39;.jar&#39;</code>，查找当前目录下所有 jar 文件</li>
-<li><code>ls -l /opt |grep &quot;^-&quot;|wc -l</code>，统计 opt 目录下文件的个数，不会递归统计</li>
-<li><code>ls -lR /opt |grep &quot;^-&quot;|wc -l</code>，统计 opt 目录下文件的个数，会递归统计</li>
-<li><code>ls -l /opt |grep &quot;^d&quot;|wc -l</code>，统计 opt 目录下目录的个数，不会递归统计</li>
-<li><code>ls -lR /opt |grep &quot;^d&quot;|wc -l</code>，统计 opt 目录下目录的个数，会递归统计</li>
-<li><code>ls -lR /opt |grep &quot;js&quot;|wc -l</code>，统计 opt 目录下 js 文件的个数，会递归统计</li>
-<li><code>ls -l</code>，列出目录下所有文件的权限、所有者、文件大小、修改时间及名称（也就是显示详细信息，不显示隐藏文件）。显示出来的效果如下：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x. 1 root root 4096 3月 26 10:57，其中最前面的 - 表示这是一个普通文件</span><br><span class="line">lrwxrwxrwx. 1 root root 4096 3月 26 10:57，其中最前面的 l 表示这是一个链接文件，类似 Windows 的快捷方式</span><br><span class="line">drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是一个目录</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>cd</code>，目录切换<ul>
-<li><code>cd ..</code>，改变目录位置至当前目录的父目录(上级目录)。</li>
-<li><code>cd ~</code>，改变目录位置至用户登录时的工作目录。</li>
-<li><code>cd 回车</code>，回到家目录</li>
-<li><code>cd -</code>，上一个工作目录</li>
-<li><code>cd dir1/</code>，改变目录位置至 dir1 目录下。</li>
-<li><code>cd ~user</code>，改变目录位置至用户的工作目录。</li>
-<li><code>cd ../user</code>，改变目录位置至相对路径user的目录下。</li>
-<li><code>cd /../..</code>，改变目录位置至绝对路径的目录位置下。</li>
-</ul>
-</li>
-<li><code>cp 源文件 目标文件</code>，复制文件<ul>
-<li><code>cp -r 源文件夹 目标文件夹</code>，复制文件夹</li>
-<li><code>cp -r -v 源文件夹 目标文件夹</code>，复制文件夹(显示详细信息，一般用于文件夹很大，需要查看复制进度的时候)</li>
-<li><code>cp /usr/share/easy-rsa/2.0/keys/{ca.crt,server.{crt,key},dh2048.pem,ta.key} /etc/openvpn/keys/</code>，复制同目录下花括号中的文件</li>
-</ul>
-</li>
-<li><code>tar cpf - . | tar xpf - -C /opt</code>，复制当前所有文件到 /opt 目录下，一般如果文件夹文件多的情况下用这个更好，用 cp 比较容易出问题</li>
-<li><code>mv 文件 目标文件夹</code>，移动文件到目标文件夹<ul>
-<li><code>mv 文件</code>，不指定目录重命名后的名字，用来重命名文件</li>
-</ul>
-</li>
-<li><code>touch 文件名</code>，创建一个空白文件/更新已有文件的时间(后者少用)</li>
-<li><code>mkdir 文件夹名</code>，创建文件夹</li>
-<li><code>mkdir -p /opt/setups/nginx/conf/</code>，创建一个名为 conf 文件夹，如果它的上级目录 nginx 没有也会跟着一起生成，如果有则跳过</li>
-<li><code>rmdir 文件夹名</code>，删除文件夹(只能删除文件夹里面是没有东西的文件夹)</li>
-<li><code>rm 文件</code>，删除文件<ul>
-<li><code>rm -r 文件夹</code>，删除文件夹</li>
-<li><code>rm -r -i 文件夹</code>，在删除文件夹里的文件会提示(要的话,在提示后面输入yes)</li>
-<li><code>rm -r -f 文件夹</code>，强制删除</li>
-<li><code>rm -r -f 文件夹1/ 文件夹2/ 文件夹3/</code>删除多个</li>
-</ul>
-</li>
-<li><code>find</code>，高级查找<ul>
-<li><code>find . -name *lin*</code>，其中 . 代表在当前目录找，-name 表示匹配文件名 / 文件夹名，*lin* 用通配符搜索含有lin的文件或是文件夹</li>
-<li><code>find . -iname *lin*</code>，其中 . 代表在当前目录找，-iname 表示匹配文件名 / 文件夹名（忽略大小写差异），*lin* 用通配符搜索含有lin的文件或是文件夹</li>
-<li><code>find / -name *.conf</code>，其中 / 代表根目录查找，*.conf代表搜索后缀会.conf的文件</li>
-<li><code>find /opt -name .oh-my-zsh</code>，其中 /opt 代表目录名，.oh-my-zsh 代表搜索的是隐藏文件 / 文件夹名字为 oh-my-zsh 的</li>
-<li><code>find /opt -type f -iname .oh-my-zsh</code>，其中 /opt 代表目录名，-type f 代表只找文件，.oh-my-zsh 代表搜索的是隐藏文件名字为 oh-my-zsh 的</li>
-<li><code>find /opt -type d -iname .oh-my-zsh</code>，其中 /opt 代表目录名，-type d 代表只找目录，.oh-my-zsh 代表搜索的是隐藏文件夹名字为 oh-my-zsh 的</li>
-<li><code>find . -name &quot;lin*&quot; -exec ls -l {} \;</code>，当前目录搜索lin开头的文件，然后用其搜索后的结果集，再执行ls -l的命令（这个命令可变，其他命令也可以），其中 -exec 和 {} \; 都是固定格式</li>
-<li><code>find /opt -type f -size +800M  -print0 | xargs -0 du -h | sort -nr</code>，找出 /opt 目录下大于 800 M 的文件</li>
-<li><code>find / -name &quot;*tower*&quot; -exec rm {} \;</code>，找到文件并删除</li>
-<li><code>find / -name &quot;*tower*&quot; -exec mv {} /opt \;</code>，找到文件并移到 opt 目录</li>
-<li><code>find . -name &quot;*&quot; |xargs grep &quot;youmeek&quot;</code>，递归查找当前文件夹下所有文件内容中包含 youmeek 的文件</li>
-<li><code>find . -size 0 | xargs rm -f &amp;</code>，删除当前目录下文件大小为0的文件</li>
-<li><code>du -hm --max-depth=2 | sort -nr | head -12</code>，找出系统中占用容量最大的前 12 个目录</li>
-</ul>
-</li>
-<li><code>cat /etc/resolv.conf</code>，查看 DNS 设置</li>
-<li><code>netstat -tlunp</code>，查看当前运行的服务，同时可以查看到：运行的程序已使用端口情况</li>
-<li><code>env</code>，查看所有系统变量</li>
-<li><code>export</code>，查看所有系统变量</li>
-<li><code>echo</code><ul>
-<li><code>echo $JAVA_HOME</code>，查看指定系统变量的值，这里查看的是自己配置的 JAVA_HOME。</li>
-<li><code>echo &quot;字符串内容&quot;</code>，输出 “字符串内容”</li>
-<li><code>echo &gt; aa.txt</code>，清空 aa.txt 文件内容（类似的还有：<code>: &gt; aa.txt</code>，其中 : 是一个占位符, 不产生任何输出）</li>
-</ul>
-</li>
-<li><code>unset $JAVA_HOME</code>，删除指定的环境变量</li>
-<li><code>ln -s /opt/data /opt/logs/data</code>，表示给 /opt/logs 目录下创建一个名为 data 的软链接，该软链接指向到 /opt/data</li>
-<li><code>grep</code><ul>
-<li><code>shell grep -H &#39;安装&#39; *.sh</code>，查找当前目录下所有 sh 类型文件中，文件内容包含 <code>安装</code> 的当前行内容</li>
-<li><code>grep &#39;test&#39; java*</code>，显示当前目录下所有以 java 开头的文件中包含 test 的行</li>
-<li><code>grep &#39;test&#39; spring.ini docker.sh</code>，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行</li>
-</ul>
-</li>
-<li><code>ps</code><ul>
-<li><code>ps –ef|grep java</code>，查看当前系统中有关 java 的所有进程</li>
-<li><code>ps -ef|grep --color java</code>，高亮显示当前系统中有关 java 的所有进程</li>
-</ul>
-</li>
-<li><code>kill</code><ul>
-<li><code>kill 1234</code>，结束 pid 为 1234 的进程</li>
-<li><code>kill -9 1234</code>，强制结束 pid 为 1234 的进程（慎重）</li>
-<li><code>killall java</code>，结束同一进程组内的所有为 java 进程</li>
-<li><code>ps -ef|grep hadoop|grep -v grep|cut -c 9-15|xargs kill -9</code>，结束包含关键字 hadoop 的所有进程</li>
-</ul>
-</li>
-<li><code>head</code><ul>
-<li><code>head -n 10 spring.ini</code>，查看当前文件的前 10 行内容</li>
-</ul>
-</li>
-<li><code>tail</code><ul>
-<li><code>tail -n 10 spring.ini</code>，查看当前文件的后 10 行内容</li>
-<li><code>tail -200f 文件名</code>，查看文件被更新的新内容尾 200 行，如果文件还有在新增可以动态查看到（一般用于查看日记文件）</li>
-</ul>
-</li>
-</ul>
-<h2 id="用户、权限-相关命令"><a href="#用户、权限-相关命令" class="headerlink" title="用户、权限-相关命令"></a>用户、权限-相关命令</h2><ul>
-<li>使用 pem 证书登录：<code>ssh -i /opt/mykey.pem root@192.168.0.70</code><ul>
-<li>证书权限不能太大，不然无法使用：<code>chmod 600 mykey.pem</code></li>
-</ul>
-</li>
-<li><code>hostname</code>，查看当前登陆用户全名</li>
-<li><code>cat /etc/group</code>，查看所有组</li>
-<li><code>cat /etc/passwd</code>，查看所有用户</li>
-<li><code>groups youmeek</code>，查看 youmeek 用户属于哪个组</li>
-<li><code>useradd youmeek -g judasn</code>，添加用户并绑定到 judasn 组下</li>
-<li><code>userdel -r youmeek</code>，删除名字为 youmeek 的用户<ul>
-<li>参数：<code>-r</code>，表示删除用户的时候连同用户的家目录一起删除</li>
-</ul>
-</li>
-<li><p>修改普通用户 youmeek 的权限跟 root 权限一样：</p>
-<ul>
-<li>常用方法（原理是把该用户加到可以直接使用 sudo 的一个权限状态而已）：</li>
-<li>编辑配置文件：<code>vim /etc/sudoers</code></li>
-<li>找到 98 行（预估），有一个：<code>root  ALL=(ALL)   ALL</code>，在这一行下面再增加一行，效果如下：</li>
-</ul>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">root</span>  ALL=(ALL)   ALL</span><br><span class="line">youmeek  ALL=(ALL)   ALL</span><br></pre></td></tr></table></figure>
-<ul>
-<li>另一种方法：</li>
-<li>编辑系统用户的配置文件：<code>vim /etc/passwd</code>，找到 <strong>root</strong> 和 <strong>youmeek</strong> 各自开头的那一行，比如 root 是：<code>root:x:0:0:root:/root:/bin/zsh</code>，这个代表的含义为：<em>用户名:密码:UserId:GroupId:描述:家目录:登录使用的 shell</em></li>
-<li>通过这两行对比，我们可以直接修改 youmeek 所在行的 UserId 值 和 GroupId 值，都改为 0。</li>
-</ul>
-</li>
-<li><code>groupadd judasn</code>，添加一个名为 judasn 的用户组</li>
-<li><code>groupdel judasn</code>，删除一个名为 judasn 的用户组（前提：先删除组下面的所有用户）</li>
-<li><code>usermod 用户名 -g 组名</code>，把用户修改到其他组下</li>
-<li><code>passwd youmeek</code>，修改 youmeek 用户的密码（前提：只有 root 用户才有修改其他用户的权限，其他用户只能修改自己的）</li>
-<li><code>chmod 777 文件名/目录</code>，给指定文件增加最高权限，系统中的所有人都可以进行读写。<ul>
-<li>linux 的权限分为 rwx。r 代表：可读，w 代表：可写，x 代表：可执行</li>
-<li>这三个权限都可以转换成数值表示，r = 4，w = 2，x = 1，- = 0，所以总和是 7，也就是最大权限。第一个 7 是所属主（user）的权限，第二个 7 是所属组（group）的权限，最后一位 7 是非本群组用户（others）的权限。</li>
-<li><code>chmod -R 777 目录</code> 表示递归目录下的所有文件夹，都赋予 777 权限</li>
-</ul>
-</li>
-<li><code>su</code>：切换到 root 用户，终端目录还是原来的地方（常用）<ul>
-<li><code>su -</code>：切换到 root 用户，其中 <strong>-</strong> 号另起一个终端并切换账号</li>
-<li><code>su 用户名</code>，切换指定用户帐号登陆，终端目录还是原来地方。</li>
-<li><code>su - 用户名</code>，切换到指定用户帐号登陆，其中 <strong>-</strong> 号另起一个终端并切换账号</li>
-</ul>
-</li>
-<li><code>exit</code>，注销当前用户（常用）</li>
-<li><code>sudo 某个命令</code>，使用管理员权限使用命令，使用 sudo 回车之后需要输入当前登录账号的密码。（常用）</li>
-<li><code>passwd</code>，修改当前用户密码（常用）</li>
-<li>添加临时账号，并指定用户根目录，并只有可读权限方法<ul>
-<li>添加账号并指定根目录（用户名 tempuser）：<code>useradd -d /data/logs -m tempuser</code></li>
-<li>设置密码：<code>passwd tempuser</code> 回车设置密码</li>
-<li>删除用户（该用户必须退出 SSH 才能删除成功），也会同时删除组：<code>userdel tempuser</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><ul>
-<li><code>df -h</code>，自动以合适的磁盘容量单位查看磁盘大小和使用空间<ul>
-<li><code>df -k</code>，以磁盘容量单位 K 为数值结果查看磁盘使用情况</li>
-<li><code>df -m</code>，以磁盘容量单位 M 为数值结果查看磁盘使用情况</li>
-</ul>
-</li>
-<li><code>du -sh /opt</code>，查看 opt 这个文件夹大小 （h 的意思 human-readable 用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位）</li>
-<li><code>du -sh ./*</code>，查看当前目录下所有文件夹大小 （h 的意思 human-readable 用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位）</li>
-<li><code>du -sh /opt/setups/</code>，显示 /opt/setups/ 目录所占硬盘空间大小（s 表示 –summarize 仅显示总计，即当前目录的大小。h 表示 –human-readable 以 KB，MB，GB 为单位，提高信息的可读性）</li>
-<li><code>mount /dev/sdb5 /newDir/</code>，把分区 sdb5 挂载在根目录下的一个名为 newDir 的空目录下，需要注意的是：这个目录最好为空，不然已有的那些文件将看不到，除非卸载挂载。<ul>
-<li>挂载好之后，通过：<code>df -h</code>，查看挂载情况。</li>
-</ul>
-</li>
-<li><code>umount /newDir/</code>，卸载挂载，用目录名<ul>
-<li>如果这样卸载不了可以使用：<code>umount -l /newDir/</code></li>
-</ul>
-</li>
-<li><code>umount /dev/sdb5</code>，卸载挂载，用分区名</li>
-</ul>
-<h2 id="wget-下载文件"><a href="#wget-下载文件" class="headerlink" title="wget 下载文件"></a>wget 下载文件</h2><ul>
-<li>常规下载：<code>wget http://www.gitnavi.com/index.html</code></li>
-<li>自动断点下载：<code>wget -c http://www.gitnavi.com/index.html</code></li>
-<li>后台下载：<code>wget -b http://www.gitnavi.com/index.html</code></li>
-<li>伪装代理名称下载：<code>wget --user-agent=&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.204 Safari/534.16&quot; http://www.gitnavi.com/index.html</code></li>
-<li>限速下载：<code>wget --limit-rate=300k http://www.gitnavi.com/index.html</code></li>
-<li>批量下载：<code>wget -i /opt/download.txt</code>，一个下载地址一行</li>
-<li>后台批量下载：<code>wget -b -c -i /opt/download.txt</code>，一个下载地址一行</li>
-</ul>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
-<li>编辑 hosts 文件：<code>vim /etc/hosts</code>，添加内容格式：<code>127.0.0.1 www.youmeek.com</code></li>
-<li>RPM 文件操作命令：<ul>
-<li>安装<ul>
-<li><code>rpm -i example.rpm</code>，安装 example.rpm 包</li>
-<li><code>rpm -iv example.rpm</code>，安装 example.rpm 包并在安装过程中显示正在安装的文件信息</li>
-<li><code>rpm -ivh example.rpm</code>，安装 example.rpm 包并在安装过程中显示正在安装的文件信息及安装进度</li>
-</ul>
-</li>
-<li>查询<ul>
-<li><code>rpm -qa | grep jdk</code>，查看 jdk 是否被安装</li>
-<li><code>rpm -ql jdk</code>，查看 jdk 是否被安装</li>
-</ul>
-</li>
-<li>卸载<ul>
-<li><code>rpm -e jdk</code>，卸载 jdk（一般卸载的时候都要先用 rpm -qa 看下整个软件的全名）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>YUM 软件管理：<ul>
-<li><code>yum install -y httpd</code>，安装 apache</li>
-<li><code>yum remove -y httpd</code>，卸载 apache</li>
-<li><code>yum info -y httpd</code>，查看 apache 版本信息</li>
-<li><code>yum list --showduplicates httpd</code>，查看可以安装的版本</li>
-<li><code>yum install httpd-查询到的版本号</code>，安装指定版本</li>
-<li>更多命令可以看：<a href="http://man.linuxde.net/yum" target="_blank" rel="noopener">http://man.linuxde.net/yum</a></li>
-</ul>
-</li>
-<li>查看某个配置文件，排除掉里面以 # 开头的注释内容：<ul>
-<li><code>grep &#39;^[^#]&#39; /etc/openvpn/server.conf</code></li>
-</ul>
-</li>
-<li>查看某个配置文件，排除掉里面以 # 开头和 ; 开头的注释内容：<ul>
-<li><code>grep &#39;^[^#;]&#39; /etc/openvpn/server.conf</code></li>
-</ul>
-</li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/28/bash/">
-    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
-        2019-08-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1740,7 +1312,7 @@ error_log  logs/error.log  debug;
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="cko0uxcek000ihcuha6x3dpc7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="cksik2tzm000dowifxd4957eg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1850,10 +1422,164 @@ page_pv_footer:
 
 
   
+    <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cksik2u1q003zowif0nlwfufo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
+<li>CentOS 安装：yum install -y clamav*</li>
+<li>启动 clamAV 服务：service clamd restart</li>
+<li>更新病毒库：freshclam</li>
+<li>扫描方法：<ul>
+<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
+<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
+<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
+</ul>
+</li>
+<li>如果日志有类似内容，表示有木马病毒：<ul>
+<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
+<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
+</ul>
+</li>
+<li>看下当前有多少登录者：who</li>
+<li>看下最近有哪些登录者：last</li>
+<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
+<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
+</ul>
+</li>
+<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
+<li>看下查看系统资源占用有无异常：top</li>
+<li>看下所有进程：ps aux</li>
+<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
+<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
+<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
+<li>更多详细可以用：cat /etc/passwd</li>
+</ul>
+</li>
+<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
+<li>检查某个端口的具体信息：lsof -i :18954</li>
+<li>检查启动项：chkconfig</li>
+<li>检查定时器（重要）：cat /etc/crontab</li>
+<li>检查定时器（重要）：crontab -l<ul>
+<li>vim /var/spool/cron/crontabs/root</li>
+<li>vim /var/spool/cron/root</li>
+</ul>
+</li>
+<li>检查其他系统重要文件：<ul>
+<li>cat /etc/rc.local</li>
+<li>cd /etc/init.d;ll</li>
+</ul>
+</li>
+<li>检查文件：<ul>
+<li>find / -uid 0 –perm -4000 –print</li>
+<li>find / -size +10000k –print</li>
+<li>find / -name “…” –print</li>
+<li>find / -name “.. “ –print</li>
+<li>find / -name “. “ –print</li>
+<li>find / -name “ “ –print</li>
+</ul>
+</li>
+<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
+<li>安装 iftop<ul>
+<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
+<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
+<li>没有安装第三方源的情况：<ul>
+<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
+<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
+<li>解压：tar zxf iftop-0.17.tar.gz</li>
+<li>进入解压目录：cd iftop-0.17/</li>
+<li>编译：./configure</li>
+<li>安装：make &amp;&amp; make install</li>
+</ul>
+</li>
+<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
+</code></pre></li>
+</ul>
+</li>
+<li>运行：iftop<ul>
+<li>显示端口与 IP 信息：iftop -nP</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
+<ul>
+<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
+<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
+<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
+<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
+<p>实战<br>挖矿程序</p>
+<ul>
+<li>先查看调度任务是否有新增内容<ul>
+<li>vim /var/spool/cron/root</li>
+<li>vim /var/spool/cron/crontabs/root</li>
+</ul>
+</li>
+<li>如果有，先停止定时任务：systemctl stop crond</li>
+<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
+<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
+<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
+</ul>
+</li>
+<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
+<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
+</ul>
+</li>
+<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/黑客入侵检查/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1874,7 +1600,7 @@ page_pv_footer:
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 

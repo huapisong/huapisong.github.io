@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-黑客入侵检查" class="post-黑客入侵检查 post type-post status-publish format-standard hentry">
+    <article id="post-bash" class="post-bash post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,122 +70,306 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/28/黑客入侵检查/">黑客入侵检查</a>
+      <a class="article-title" href="/2019/08/28/bash/">Bash 常用命令</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/黑客入侵检查/" data-id="cko0uxcfw003ihcuh6kyyr99h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/bash/" data-id="cksik2u2e0052owif5d43wf4q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
-<li>扫描木马工具：clamAV<br>  官网：<a href="http://pkgs.repoforge.org/clamav/" target="_blank" rel="noopener">http://pkgs.repoforge.org/clamav/</a></li>
-<li>CentOS 安装：yum install -y clamav*</li>
-<li>启动 clamAV 服务：service clamd restart</li>
-<li>更新病毒库：freshclam</li>
-<li>扫描方法：<ul>
-<li>扫描 /etc 目录，并把扫描结果放在 /root 目录下：clamscan -r /etc –max-dir-recursion=5 -l /root/etcclamav.log</li>
-<li>扫描 /bin 目录，并把扫描结果放在 /root 目录下：clamscan -r /bin –max-dir-recursion=5 -l /root/binclamav.log</li>
-<li>扫描 /usr 目录，并把扫描结果放在 /root 目录下：clamscan -r /usr –max-dir-recursion=5 -l /root/usrclamav.log</li>
+        <h2 id="基础常用命令"><a href="#基础常用命令" class="headerlink" title="基础常用命令"></a>基础常用命令</h2><ul>
+<li><code>某个命令 --h</code>，对这个命令进行解释</li>
+<li><code>某个命令 --help</code>，解释这个命令(更详细)</li>
+<li><code>man某个命令</code>，文档式解释这个命令(更更详细)(执行该命令后,还可以按/+关键字进行查询结果的搜索)</li>
+<li><code>Ctrl + c</code>，结束命令</li>
+<li><code>TAB键</code>，自动补全命令（按一次自动补全，连续按两次，提示所有以输入开头字母的所有命令）</li>
+<li><code>键盘上下键</code>，输入临近的历史命令</li>
+<li><code>history</code>，查看所有的历史命令</li>
+<li><code>Ctrl + r</code>，进入历史命令的搜索功能模式</li>
+<li><code>clear</code>，清除屏幕里面的所有命令</li>
+<li><code>pwd</code>，显示当前目录路径（常用）</li>
+<li><code>firefox&amp;</code>，最后后面的 <strong>&amp;</strong> 符号，表示使用后台方式打开 Firefox，然后显示该进程的 PID 值</li>
+<li><code>jobs</code>，查看后台运行的程序列表</li>
+<li><code>ifconfig</code>，查看内网 IP 等信息（常用）</li>
+<li><code>curl ifconfig.me</code>，查看外网 IP 信息</li>
+<li><code>curl ip.cn</code>，查看外网 IP 信息</li>
+<li><code>locate 搜索关键字</code>，快速搜索系统文件/文件夹（类似 Windows 上的 everything 索引式搜索）（常用）<ul>
+<li><code>updatedb</code>，配合上面的 locate，给 locate 的索引更新（locate 默认是一天更新一次索引）（常用）</li>
 </ul>
 </li>
-<li>如果日志有类似内容，表示有木马病毒：<ul>
-<li>/usr/bin/.sshd: Linux.Trojan.Agent FOUND</li>
-<li>/usr/sbin/ss: Linux.Trojan.Agent FOUND</li>
-<li>/usr/sbin/lsof: Linux.Trojan.Agent FOUND</li>
+<li><code>date</code>，查看系统时间（常用）<ul>
+<li><code>date -s20080103</code>，设置日期（常用）</li>
+<li><code>date -s18:24</code>，设置时间，如果要同时更改 BIOS 时间，再执行 <code>hwclock --systohc</code>（常用）</li>
 </ul>
 </li>
-<li>看下当前有多少登录者：who</li>
-<li>看下最近有哪些登录者：last</li>
-<li>查看最近尝试登录的账号信息：grep “sshd” /var/log/secure<ul>
-<li>很多这种信息就表示有人在不断地尝试用 root 登录：Failed password for root from 222.186.56.168 port 4080 ssh2</li>
+<li><code>cal</code>，在终端中查看日历，肯定没有农历显示的</li>
+<li><code>uptime</code>，查看系统已经运行了多久，当前有几个用户等信息（常用）</li>
+<li><code>cat 文件路名</code>，显示文件内容（属于打印语句）</li>
+<li><code>cat -n 文件名</code>，显示文件，并每一行内容都编号</li>
+<li><code>more 文件名</code>，用分页的方式查看文件内容（按 space 翻下一页，按 <em>Ctrl + B</em> 返回上页）</li>
+<li><code>less</code>文件名，用分页的方式查看文件内容（带上下翻页）<ul>
+<li>按 <strong>j</strong> 向下移动，按 <strong>k</strong> 向上移动</li>
+<li>按 <strong>/</strong> 后，输入要查找的字符串内容，可以对文件进行向下查询，如果存在多个结果可以按 <strong>n</strong> 调到下一个结果出</li>
+<li>按 <strong>？</strong> 后，输入要查找的字符串内容，可以对文件进行向上查询，如果存在多个结果可以按 <strong>n</strong> 调到下一个结果出</li>
 </ul>
 </li>
-<li>查看最近登录成功的账号信息：grep “Accepted” /var/log/secure，可以看到：pop3, ssh, telnet, ftp 类型</li>
-<li>看下查看系统资源占用有无异常：top</li>
-<li>看下所有进程：ps aux</li>
-<li>查看当前系统登录者有哪些，及其登录记录：last | more</li>
-<li>把最近执行的所有命令输出到一个文件，然后下载下来细细研究：history &gt;&gt; /opt/test.txt</li>
-<li>查看当前系统所有用户有哪些：cat /etc/passwd |awk -F \: ‘{print $1}’<ul>
-<li>更多详细可以用：cat /etc/passwd</li>
+<li><code>shutdown</code><ul>
+<li><code>shutdown -hnow</code>，立即关机</li>
+<li><code>shutdown -h+10</code>，10 分钟后关机</li>
+<li><code>shutdown -h23:30</code>，23:30 关机</li>
+<li><code>shutdown -rnew</code>，立即重启</li>
 </ul>
 </li>
-<li>查看开放的端口，比如常用的80,22,8009，后面的箭头表示端口对应占用的程序：netstat -lnp</li>
-<li>检查某个端口的具体信息：lsof -i :18954</li>
-<li>检查启动项：chkconfig</li>
-<li>检查定时器（重要）：cat /etc/crontab</li>
-<li>检查定时器（重要）：crontab -l<ul>
-<li>vim /var/spool/cron/crontabs/root</li>
-<li>vim /var/spool/cron/root</li>
+<li><code>poweroff</code>，立即关机（常用）</li>
+<li><code>reboot</code>，立即重启（常用）</li>
+<li><code>zip mytest.zip /opt/test/</code>，把 /opt 目录下的 test/ 目录进行压缩，压缩成一个名叫 mytest 的 zip 文件<ul>
+<li><code>unzip mytest.zip</code>，对 mytest.zip 这个文件进行解压，解压到当前所在目录</li>
+<li><code>unzip mytest.zip -d /opt/setups/</code>，对 mytest.zip 这个文件进行解压，解压到 /opt/setups/ 目录下</li>
 </ul>
 </li>
-<li>检查其他系统重要文件：<ul>
-<li>cat /etc/rc.local</li>
-<li>cd /etc/init.d;ll</li>
+<li><code>tar -cvf mytest.tar mytest/</code>，对 mytest/ 目录进行归档处理（归档和压缩不一样）</li>
+<li><code>tar -xvf mytest.tar</code>，释放 mytest.tar 这个归档文件，释放到当前目录<ul>
+<li><code>tar -xvf mytest.tar -C /opt/setups/</code>，释放 mytest.tar 这个归档文件，释放到 /opt/setups/ 目录下</li>
 </ul>
 </li>
-<li>检查文件：<ul>
-<li>find / -uid 0 –perm -4000 –print</li>
-<li>find / -size +10000k –print</li>
-<li>find / -name “…” –print</li>
-<li>find / -name “.. “ –print</li>
-<li>find / -name “. “ –print</li>
-<li>find / -name “ “ –print</li>
-</ul>
-</li>
-<li>下载 iftop 分析流量，查看是否被黑客当做肉鸡使用</li>
-<li>安装 iftop<ul>
-<li>官网：<a href="http://www.ex-parrot.com/~pdw/iftop/" target="_blank" rel="noopener">http://www.ex-parrot.com/~pdw/iftop/</a></li>
-<li>使用文章：<a href="https://linux.cn/article-1843-1.html" target="_blank" rel="noopener">https://linux.cn/article-1843-1.html</a></li>
-<li>没有安装第三方源的情况：<ul>
-<li>安装依赖包：<br>yum install -y flex byacc libpcap ncurses ncurses-devel libpcap-devel</li>
-<li>下载源码包：<br>wget <a href="http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz" target="_blank" rel="noopener">http://www.ex-parrot.com/pdw/iftop/download/iftop-0.17.tar.gz</a></li>
-<li>解压：tar zxf iftop-0.17.tar.gz</li>
-<li>进入解压目录：cd iftop-0.17/</li>
-<li>编译：./configure</li>
-<li>安装：make &amp;&amp; make install</li>
-</ul>
-</li>
-<li>有第三方源的情况（eg：EPEL）：<pre><code>yum install -y iftop
-</code></pre></li>
-</ul>
-</li>
-<li>运行：iftop<ul>
-<li>显示端口与 IP 信息：iftop -nP</li>
+<li><code>last</code>，显示最近登录的帐户及时间</li>
+<li><code>lastlog</code>，显示系统所有用户各自在最近登录的记录，如果没有登录过的用户会显示 <strong>从未登陆过</strong></li>
+<li><code>ls</code>，列出当前目录下的所有没有隐藏的文件 / 文件夹。<ul>
+<li><code>ls -a</code>，列出包括以.号开头的隐藏文件 / 文件夹（也就是所有文件）</li>
+<li><code>ls -R</code>，显示出目录下以及其所有子目录的文件 / 文件夹（递归地方式，不显示隐藏的文件）</li>
+<li><code>ls -a -R</code>，显示出目录下以及其所有子目录的文件 / 文件夹（递归地方式，显示隐藏的文件）</li>
+<li><code>ls -al</code>，列出目录下所有文件（包含隐藏）的权限、所有者、文件大小、修改时间及名称（也就是显示详细信息）</li>
+<li><code>ls -ld 目录名</code>，显示该目录的基本信息</li>
+<li><code>ls -t</code>，依照文件最后修改时间的顺序列出文件名。</li>
+<li><code>ls -F</code>，列出当前目录下的文件名及其类型。以 <strong>/</strong> 结尾表示为目录名，以 <strong>*</strong> 结尾表示为可执行文件，以 <strong>@</strong> 结尾表示为符号连接</li>
+<li><code>ls -lg</code>，同上，并显示出文件的所有者工作组名。</li>
+<li><code>ls -lh</code>，查看文件夹类文件详细信息，文件大小，文件修改时间</li>
+<li><code>ls /opt | head -5</code>，显示 opt 目录下前 5 条记录</li>
+<li><code>ls -l | grep &#39;.jar&#39;</code>，查找当前目录下所有 jar 文件</li>
+<li><code>ls -l /opt |grep &quot;^-&quot;|wc -l</code>，统计 opt 目录下文件的个数，不会递归统计</li>
+<li><code>ls -lR /opt |grep &quot;^-&quot;|wc -l</code>，统计 opt 目录下文件的个数，会递归统计</li>
+<li><code>ls -l /opt |grep &quot;^d&quot;|wc -l</code>，统计 opt 目录下目录的个数，不会递归统计</li>
+<li><code>ls -lR /opt |grep &quot;^d&quot;|wc -l</code>，统计 opt 目录下目录的个数，会递归统计</li>
+<li><code>ls -lR /opt |grep &quot;js&quot;|wc -l</code>，统计 opt 目录下 js 文件的个数，会递归统计</li>
+<li><code>ls -l</code>，列出目录下所有文件的权限、所有者、文件大小、修改时间及名称（也就是显示详细信息，不显示隐藏文件）。显示出来的效果如下：</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">中间部分：外部连接列表，即记录了哪些ip正在和本机的网络连接</span><br><span class="line"></span><br><span class="line">右边部分：实时参数分别是该访问 ip 连接到本机 2 秒，10 秒和 40 秒的平均流量</span><br><span class="line"></span><br><span class="line">=&gt; 代表发送数据，&lt;= 代表接收数据</span><br><span class="line"></span><br><span class="line">底部会显示一些全局的统计数据，peek 是指峰值情况，cumm 是从 iftop 运行至今的累计情况，而 rates 表示最近 2 秒、10 秒、40 秒内总共接收或者发送的平均网络流量。</span><br><span class="line"></span><br><span class="line">TX:（发送流量）  cumm:   143MB   peak:   10.5Mb    rates:   1.03Mb  1.54Mb  2.10Mb</span><br><span class="line">RX:（接收流量）          12.7GB          228Mb              189Mb   191Mb   183Mb</span><br><span class="line">TOTAL:（总的流量）       12.9GB          229Mb              190Mb   193Mb   185MbW</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x. 1 root root 4096 3月 26 10:57，其中最前面的 - 表示这是一个普通文件</span><br><span class="line">lrwxrwxrwx. 1 root root 4096 3月 26 10:57，其中最前面的 l 表示这是一个链接文件，类似 Windows 的快捷方式</span><br><span class="line">drwxr-xr-x. 5 root root 4096 3月 26 10:57，其中最前面的 d 表示这是一个目录</span><br></pre></td></tr></table></figure>
 <ul>
-<li>禁用 root 账号登录：vim /etc/ssh/sshd_config<br>  把 PermitRootLogin 属性 yes 改为 no</li>
-<li>如果安全度要更高，可以考虑禁用口令登录，采用私钥/公钥方式：vim /etc/ssh/sshd_config<br>  设置属性：PasswordAuthentication 为 no</li>
-<li>如果还要限制指定 IP 登录，可以考虑编辑：hosts.allow 和 hosts.deny 两个文件</li>
-<li>重要系统软件更新（更新之前最好先做好系统镜像或是快照，以防万一）：</li>
+<li><code>cd</code>，目录切换<ul>
+<li><code>cd ..</code>，改变目录位置至当前目录的父目录(上级目录)。</li>
+<li><code>cd ~</code>，改变目录位置至用户登录时的工作目录。</li>
+<li><code>cd 回车</code>，回到家目录</li>
+<li><code>cd -</code>，上一个工作目录</li>
+<li><code>cd dir1/</code>，改变目录位置至 dir1 目录下。</li>
+<li><code>cd ~user</code>，改变目录位置至用户的工作目录。</li>
+<li><code>cd ../user</code>，改变目录位置至相对路径user的目录下。</li>
+<li><code>cd /../..</code>，改变目录位置至绝对路径的目录位置下。</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum update kernel</span><br><span class="line">yum update kernel-devel</span><br><span class="line">yum update kernel-firmware</span><br><span class="line">yum update kernel-headers</span><br><span class="line">yum update openssh</span><br><span class="line">yum update openssh-clients</span><br><span class="line">yum update openssh-server</span><br></pre></td></tr></table></figure>
-<p>实战<br>挖矿程序</p>
+</li>
+<li><code>cp 源文件 目标文件</code>，复制文件<ul>
+<li><code>cp -r 源文件夹 目标文件夹</code>，复制文件夹</li>
+<li><code>cp -r -v 源文件夹 目标文件夹</code>，复制文件夹(显示详细信息，一般用于文件夹很大，需要查看复制进度的时候)</li>
+<li><code>cp /usr/share/easy-rsa/2.0/keys/{ca.crt,server.{crt,key},dh2048.pem,ta.key} /etc/openvpn/keys/</code>，复制同目录下花括号中的文件</li>
+</ul>
+</li>
+<li><code>tar cpf - . | tar xpf - -C /opt</code>，复制当前所有文件到 /opt 目录下，一般如果文件夹文件多的情况下用这个更好，用 cp 比较容易出问题</li>
+<li><code>mv 文件 目标文件夹</code>，移动文件到目标文件夹<ul>
+<li><code>mv 文件</code>，不指定目录重命名后的名字，用来重命名文件</li>
+</ul>
+</li>
+<li><code>touch 文件名</code>，创建一个空白文件/更新已有文件的时间(后者少用)</li>
+<li><code>mkdir 文件夹名</code>，创建文件夹</li>
+<li><code>mkdir -p /opt/setups/nginx/conf/</code>，创建一个名为 conf 文件夹，如果它的上级目录 nginx 没有也会跟着一起生成，如果有则跳过</li>
+<li><code>rmdir 文件夹名</code>，删除文件夹(只能删除文件夹里面是没有东西的文件夹)</li>
+<li><code>rm 文件</code>，删除文件<ul>
+<li><code>rm -r 文件夹</code>，删除文件夹</li>
+<li><code>rm -r -i 文件夹</code>，在删除文件夹里的文件会提示(要的话,在提示后面输入yes)</li>
+<li><code>rm -r -f 文件夹</code>，强制删除</li>
+<li><code>rm -r -f 文件夹1/ 文件夹2/ 文件夹3/</code>删除多个</li>
+</ul>
+</li>
+<li><code>find</code>，高级查找<ul>
+<li><code>find . -name *lin*</code>，其中 . 代表在当前目录找，-name 表示匹配文件名 / 文件夹名，*lin* 用通配符搜索含有lin的文件或是文件夹</li>
+<li><code>find . -iname *lin*</code>，其中 . 代表在当前目录找，-iname 表示匹配文件名 / 文件夹名（忽略大小写差异），*lin* 用通配符搜索含有lin的文件或是文件夹</li>
+<li><code>find / -name *.conf</code>，其中 / 代表根目录查找，*.conf代表搜索后缀会.conf的文件</li>
+<li><code>find /opt -name .oh-my-zsh</code>，其中 /opt 代表目录名，.oh-my-zsh 代表搜索的是隐藏文件 / 文件夹名字为 oh-my-zsh 的</li>
+<li><code>find /opt -type f -iname .oh-my-zsh</code>，其中 /opt 代表目录名，-type f 代表只找文件，.oh-my-zsh 代表搜索的是隐藏文件名字为 oh-my-zsh 的</li>
+<li><code>find /opt -type d -iname .oh-my-zsh</code>，其中 /opt 代表目录名，-type d 代表只找目录，.oh-my-zsh 代表搜索的是隐藏文件夹名字为 oh-my-zsh 的</li>
+<li><code>find . -name &quot;lin*&quot; -exec ls -l {} \;</code>，当前目录搜索lin开头的文件，然后用其搜索后的结果集，再执行ls -l的命令（这个命令可变，其他命令也可以），其中 -exec 和 {} \; 都是固定格式</li>
+<li><code>find /opt -type f -size +800M  -print0 | xargs -0 du -h | sort -nr</code>，找出 /opt 目录下大于 800 M 的文件</li>
+<li><code>find / -name &quot;*tower*&quot; -exec rm {} \;</code>，找到文件并删除</li>
+<li><code>find / -name &quot;*tower*&quot; -exec mv {} /opt \;</code>，找到文件并移到 opt 目录</li>
+<li><code>find . -name &quot;*&quot; |xargs grep &quot;youmeek&quot;</code>，递归查找当前文件夹下所有文件内容中包含 youmeek 的文件</li>
+<li><code>find . -size 0 | xargs rm -f &amp;</code>，删除当前目录下文件大小为0的文件</li>
+<li><code>du -hm --max-depth=2 | sort -nr | head -12</code>，找出系统中占用容量最大的前 12 个目录</li>
+</ul>
+</li>
+<li><code>cat /etc/resolv.conf</code>，查看 DNS 设置</li>
+<li><code>netstat -tlunp</code>，查看当前运行的服务，同时可以查看到：运行的程序已使用端口情况</li>
+<li><code>env</code>，查看所有系统变量</li>
+<li><code>export</code>，查看所有系统变量</li>
+<li><code>echo</code><ul>
+<li><code>echo $JAVA_HOME</code>，查看指定系统变量的值，这里查看的是自己配置的 JAVA_HOME。</li>
+<li><code>echo &quot;字符串内容&quot;</code>，输出 “字符串内容”</li>
+<li><code>echo &gt; aa.txt</code>，清空 aa.txt 文件内容（类似的还有：<code>: &gt; aa.txt</code>，其中 : 是一个占位符, 不产生任何输出）</li>
+</ul>
+</li>
+<li><code>unset $JAVA_HOME</code>，删除指定的环境变量</li>
+<li><code>ln -s /opt/data /opt/logs/data</code>，表示给 /opt/logs 目录下创建一个名为 data 的软链接，该软链接指向到 /opt/data</li>
+<li><code>grep</code><ul>
+<li><code>shell grep -H &#39;安装&#39; *.sh</code>，查找当前目录下所有 sh 类型文件中，文件内容包含 <code>安装</code> 的当前行内容</li>
+<li><code>grep &#39;test&#39; java*</code>，显示当前目录下所有以 java 开头的文件中包含 test 的行</li>
+<li><code>grep &#39;test&#39; spring.ini docker.sh</code>，显示当前目录下 spring.ini docker.sh 两个文件中匹配 test 的行</li>
+</ul>
+</li>
+<li><code>ps</code><ul>
+<li><code>ps –ef|grep java</code>，查看当前系统中有关 java 的所有进程</li>
+<li><code>ps -ef|grep --color java</code>，高亮显示当前系统中有关 java 的所有进程</li>
+</ul>
+</li>
+<li><code>kill</code><ul>
+<li><code>kill 1234</code>，结束 pid 为 1234 的进程</li>
+<li><code>kill -9 1234</code>，强制结束 pid 为 1234 的进程（慎重）</li>
+<li><code>killall java</code>，结束同一进程组内的所有为 java 进程</li>
+<li><code>ps -ef|grep hadoop|grep -v grep|cut -c 9-15|xargs kill -9</code>，结束包含关键字 hadoop 的所有进程</li>
+</ul>
+</li>
+<li><code>head</code><ul>
+<li><code>head -n 10 spring.ini</code>，查看当前文件的前 10 行内容</li>
+</ul>
+</li>
+<li><code>tail</code><ul>
+<li><code>tail -n 10 spring.ini</code>，查看当前文件的后 10 行内容</li>
+<li><code>tail -200f 文件名</code>，查看文件被更新的新内容尾 200 行，如果文件还有在新增可以动态查看到（一般用于查看日记文件）</li>
+</ul>
+</li>
+</ul>
+<h2 id="用户、权限-相关命令"><a href="#用户、权限-相关命令" class="headerlink" title="用户、权限-相关命令"></a>用户、权限-相关命令</h2><ul>
+<li>使用 pem 证书登录：<code>ssh -i /opt/mykey.pem root@192.168.0.70</code><ul>
+<li>证书权限不能太大，不然无法使用：<code>chmod 600 mykey.pem</code></li>
+</ul>
+</li>
+<li><code>hostname</code>，查看当前登陆用户全名</li>
+<li><code>cat /etc/group</code>，查看所有组</li>
+<li><code>cat /etc/passwd</code>，查看所有用户</li>
+<li><code>groups youmeek</code>，查看 youmeek 用户属于哪个组</li>
+<li><code>useradd youmeek -g judasn</code>，添加用户并绑定到 judasn 组下</li>
+<li><code>userdel -r youmeek</code>，删除名字为 youmeek 的用户<ul>
+<li>参数：<code>-r</code>，表示删除用户的时候连同用户的家目录一起删除</li>
+</ul>
+</li>
+<li><p>修改普通用户 youmeek 的权限跟 root 权限一样：</p>
 <ul>
-<li>先查看调度任务是否有新增内容<ul>
-<li>vim /var/spool/cron/root</li>
-<li>vim /var/spool/cron/crontabs/root</li>
+<li>常用方法（原理是把该用户加到可以直接使用 sudo 的一个权限状态而已）：</li>
+<li>编辑配置文件：<code>vim /etc/sudoers</code></li>
+<li>找到 98 行（预估），有一个：<code>root  ALL=(ALL)   ALL</code>，在这一行下面再增加一行，效果如下：</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">root</span>  ALL=(ALL)   ALL</span><br><span class="line">youmeek  ALL=(ALL)   ALL</span><br></pre></td></tr></table></figure>
+<ul>
+<li>另一种方法：</li>
+<li>编辑系统用户的配置文件：<code>vim /etc/passwd</code>，找到 <strong>root</strong> 和 <strong>youmeek</strong> 各自开头的那一行，比如 root 是：<code>root:x:0:0:root:/root:/bin/zsh</code>，这个代表的含义为：<em>用户名:密码:UserId:GroupId:描述:家目录:登录使用的 shell</em></li>
+<li>通过这两行对比，我们可以直接修改 youmeek 所在行的 UserId 值 和 GroupId 值，都改为 0。</li>
 </ul>
 </li>
-<li>如果有，先停止定时任务：systemctl stop crond</li>
-<li>如果对方有去 wget curl 指定网站，则先在 hosts 里面映射为 127.0.0.1，比如：127.0.0.1 prax0zma.ru<ul>
-<li>查看当前最占用 CPU 的进程 PID，加入发现是 22935，则：cd /proc/22935 &amp;&amp; ll，_发现程序目录是：/root/.tmp00/bash64</li>
-<li>我们就把该程序去掉执行任务的权限：chmod -R -x /root/.tmp00/，然后再 kill 掉该程序</li>
+<li><code>groupadd judasn</code>，添加一个名为 judasn 的用户组</li>
+<li><code>groupdel judasn</code>，删除一个名为 judasn 的用户组（前提：先删除组下面的所有用户）</li>
+<li><code>usermod 用户名 -g 组名</code>，把用户修改到其他组下</li>
+<li><code>passwd youmeek</code>，修改 youmeek 用户的密码（前提：只有 root 用户才有修改其他用户的权限，其他用户只能修改自己的）</li>
+<li><code>chmod 777 文件名/目录</code>，给指定文件增加最高权限，系统中的所有人都可以进行读写。<ul>
+<li>linux 的权限分为 rwx。r 代表：可读，w 代表：可写，x 代表：可执行</li>
+<li>这三个权限都可以转换成数值表示，r = 4，w = 2，x = 1，- = 0，所以总和是 7，也就是最大权限。第一个 7 是所属主（user）的权限，第二个 7 是所属组（group）的权限，最后一位 7 是非本群组用户（others）的权限。</li>
+<li><code>chmod -R 777 目录</code> 表示递归目录下的所有文件夹，都赋予 777 权限</li>
 </ul>
 </li>
-<li>打开别人的脚本，看下是如何书写的，发现有写入几个目录，这里进行删除：<ul>
-<li>rm -rf /tmp/.ha /boot/.b /boot/.0 /root/.tmp00</li>
+<li><code>su</code>：切换到 root 用户，终端目录还是原来的地方（常用）<ul>
+<li><code>su -</code>：切换到 root 用户，其中 <strong>-</strong> 号另起一个终端并切换账号</li>
+<li><code>su 用户名</code>，切换指定用户帐号登陆，终端目录还是原来地方。</li>
+<li><code>su - 用户名</code>，切换到指定用户帐号登陆，其中 <strong>-</strong> 号另起一个终端并切换账号</li>
 </ul>
 </li>
-<li>最后检查下是否有免密内容被修改：cd ~/.ssh/ &amp;&amp; cat authorized_keys</li>
+<li><code>exit</code>，注销当前用户（常用）</li>
+<li><code>sudo 某个命令</code>，使用管理员权限使用命令，使用 sudo 回车之后需要输入当前登录账号的密码。（常用）</li>
+<li><code>passwd</code>，修改当前用户密码（常用）</li>
+<li>添加临时账号，并指定用户根目录，并只有可读权限方法<ul>
+<li>添加账号并指定根目录（用户名 tempuser）：<code>useradd -d /data/logs -m tempuser</code></li>
+<li>设置密码：<code>passwd tempuser</code> 回车设置密码</li>
+<li>删除用户（该用户必须退出 SSH 才能删除成功），也会同时删除组：<code>userdel tempuser</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><ul>
+<li><code>df -h</code>，自动以合适的磁盘容量单位查看磁盘大小和使用空间<ul>
+<li><code>df -k</code>，以磁盘容量单位 K 为数值结果查看磁盘使用情况</li>
+<li><code>df -m</code>，以磁盘容量单位 M 为数值结果查看磁盘使用情况</li>
+</ul>
+</li>
+<li><code>du -sh /opt</code>，查看 opt 这个文件夹大小 （h 的意思 human-readable 用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位）</li>
+<li><code>du -sh ./*</code>，查看当前目录下所有文件夹大小 （h 的意思 human-readable 用人类可读性较好方式显示，系统会自动调节单位，显示合适大小的单位）</li>
+<li><code>du -sh /opt/setups/</code>，显示 /opt/setups/ 目录所占硬盘空间大小（s 表示 –summarize 仅显示总计，即当前目录的大小。h 表示 –human-readable 以 KB，MB，GB 为单位，提高信息的可读性）</li>
+<li><code>mount /dev/sdb5 /newDir/</code>，把分区 sdb5 挂载在根目录下的一个名为 newDir 的空目录下，需要注意的是：这个目录最好为空，不然已有的那些文件将看不到，除非卸载挂载。<ul>
+<li>挂载好之后，通过：<code>df -h</code>，查看挂载情况。</li>
+</ul>
+</li>
+<li><code>umount /newDir/</code>，卸载挂载，用目录名<ul>
+<li>如果这样卸载不了可以使用：<code>umount -l /newDir/</code></li>
+</ul>
+</li>
+<li><code>umount /dev/sdb5</code>，卸载挂载，用分区名</li>
+</ul>
+<h2 id="wget-下载文件"><a href="#wget-下载文件" class="headerlink" title="wget 下载文件"></a>wget 下载文件</h2><ul>
+<li>常规下载：<code>wget http://www.gitnavi.com/index.html</code></li>
+<li>自动断点下载：<code>wget -c http://www.gitnavi.com/index.html</code></li>
+<li>后台下载：<code>wget -b http://www.gitnavi.com/index.html</code></li>
+<li>伪装代理名称下载：<code>wget --user-agent=&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.204 Safari/534.16&quot; http://www.gitnavi.com/index.html</code></li>
+<li>限速下载：<code>wget --limit-rate=300k http://www.gitnavi.com/index.html</code></li>
+<li>批量下载：<code>wget -i /opt/download.txt</code>，一个下载地址一行</li>
+<li>后台批量下载：<code>wget -b -c -i /opt/download.txt</code>，一个下载地址一行</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>编辑 hosts 文件：<code>vim /etc/hosts</code>，添加内容格式：<code>127.0.0.1 www.youmeek.com</code></li>
+<li>RPM 文件操作命令：<ul>
+<li>安装<ul>
+<li><code>rpm -i example.rpm</code>，安装 example.rpm 包</li>
+<li><code>rpm -iv example.rpm</code>，安装 example.rpm 包并在安装过程中显示正在安装的文件信息</li>
+<li><code>rpm -ivh example.rpm</code>，安装 example.rpm 包并在安装过程中显示正在安装的文件信息及安装进度</li>
+</ul>
+</li>
+<li>查询<ul>
+<li><code>rpm -qa | grep jdk</code>，查看 jdk 是否被安装</li>
+<li><code>rpm -ql jdk</code>，查看 jdk 是否被安装</li>
+</ul>
+</li>
+<li>卸载<ul>
+<li><code>rpm -e jdk</code>，卸载 jdk（一般卸载的时候都要先用 rpm -qa 看下整个软件的全名）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>YUM 软件管理：<ul>
+<li><code>yum install -y httpd</code>，安装 apache</li>
+<li><code>yum remove -y httpd</code>，卸载 apache</li>
+<li><code>yum info -y httpd</code>，查看 apache 版本信息</li>
+<li><code>yum list --showduplicates httpd</code>，查看可以安装的版本</li>
+<li><code>yum install httpd-查询到的版本号</code>，安装指定版本</li>
+<li>更多命令可以看：<a href="http://man.linuxde.net/yum" target="_blank" rel="noopener">http://man.linuxde.net/yum</a></li>
+</ul>
+</li>
+<li>查看某个配置文件，排除掉里面以 # 开头的注释内容：<ul>
+<li><code>grep &#39;^[^#]&#39; /etc/openvpn/server.conf</code></li>
+</ul>
+</li>
+<li>查看某个配置文件，排除掉里面以 # 开头和 ; 开头的注释内容：<ul>
+<li><code>grep &#39;^[^#;]&#39; /etc/openvpn/server.conf</code></li>
+</ul>
+</li>
 </ul>
 
       
@@ -195,7 +379,188 @@
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/28/黑客入侵检查/">
+    <a href="/2019/08/28/bash/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/28/Vim-Install-And-Setting/">Vim 安装和配置、优化</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="cksik2u000015owifxgqpsexd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
+<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
+</ul>
+<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
+<li>CentOS：<code>sudo yum install -y vim</code></li>
+<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
+<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
+</ul>
+<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
+<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
+</ul>
+<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
+<li>注意<ul>
+<li>严格区分字母大小写</li>
+<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
+<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
+<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
+</ul>
+</li>
+<li>移动<ul>
+<li><code>j</code>，下</li>
+<li><code>k</code>，上</li>
+<li><code>h</code>，左</li>
+<li><code>l</code>，右</li>
+<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
+<li><code>gg</code>，跳到第 1 行</li>
+<li><code>G</code>，跳到最后一行</li>
+<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
+<li><code>$</code>，到本行 <strong>行尾</strong></li>
+<li><code>0</code>，到本行 <strong>行头</strong></li>
+<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
+<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
+<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
+<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
+<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
+<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
+<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
+<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
+<li><code>^</code>，到本行第一个单词头</li>
+<li><code>g_</code>，到本行最后一个单词尾巴</li>
+<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
+</ul>
+</li>
+<li>插入<ul>
+<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
+<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
+<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
+<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
+<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
+<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
+</ul>
+</li>
+<li>编辑<ul>
+<li>删除</li>
+<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
+<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
+<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
+<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
+<li><code>dd</code>，删除当前行</li>
+<li><code>cc</code>，删除当前行后进入 insert 模式</li>
+<li><code>dw</code>，删除当前光标下的单词/空格</li>
+<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
+<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
+<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
+<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
+<li>复制</li>
+<li><code>y</code>，复制光标所选字符</li>
+<li><code>yw</code>，复制光标后单词</li>
+<li><code>yy</code>，复制当前行</li>
+<li><code>4yy</code>，复制当前行及下面 4 行</li>
+<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
+<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
+<li>粘贴</li>
+<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
+<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
+<li>其他<ul>
+<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
+<li><code>u</code>，撤销</li>
+<li><code>:wq</code>，退出并 <strong>保存</strong></li>
+<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
+<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
+<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
+<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
+<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
+<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜索<ul>
+<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+</ul>
+</li>
+<li>替换<ul>
+<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
+<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
+<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
+<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
+<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
+<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
+<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
+<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
+</ul>
+</li>
+<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
+<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
+</ul>
+<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
+<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
+<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
+<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
+<li>效果如下：<ul>
+<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
+<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
+<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Vim-Install-And-Setting/">
     <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
         2019-08-28
     </time>
@@ -231,7 +596,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cko0uxcez001ehcuh2yfqfwfl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/java 加密规则变更/" data-id="cksik2u08001iowif4ojgt110" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -274,6 +639,72 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
 
 
   
+    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cksik2u020018owifgq70j3ss" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <hr>
+<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
+<hr>
+<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
+<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
+<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
+<p>下载安装 Awesomium 1.6.6 SDK</p>
+<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
+<p>安装完成</p>
+<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
+<p>重启MarkdownPad2</p>
+<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
+<p>可以预览</p>
+<hr>
+<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
+<hr>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
     <!---->
 
@@ -289,7 +720,7 @@ JRE：将两个jar文件放到%JRE_HOME%\lib\security下
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cko0uxcff002hhcuh06kk62ct" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="cksik2u15002uowif8guqfwnm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -515,72 +946,6 @@ sort test.txt | uniq -d
 
 
   
-    <article id="post-Windows 10上MarkdownPad2无法预览" class="post-Windows 10上MarkdownPad2无法预览 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">Windows 10上MarkdownPad2无法预览</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/Windows 10上MarkdownPad2无法预览/" data-id="cko0uxceu0014hcuh19p07oyg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<p>最近电脑系统升级windows 10 打开 MarkdownPad2无法预览，之前也遇到这种问题，现在总结整理记录</p>
-<hr>
-<h2 id="Windows10上使用MarkdownPad会出现无法预览的情况"><a href="#Windows10上使用MarkdownPad会出现无法预览的情况" class="headerlink" title="Windows10上使用MarkdownPad会出现无法预览的情况"></a>Windows10上使用MarkdownPad会出现无法预览的情况</h2><p><img src="/assets/markdownPad2/1.png" alt="image"></p>
-<p>从官方的说法可以看出是从 Win 8 开始就有这个问题了，解决办法就是安装 Awesomium 1.6.6 SDK. 如果还是不行就再安装 Microsoft’s DirectX End-User Runtimes (June 2010)。</p>
-<p><img src="/assets/markdownPad2/2.png" alt="image"></p>
-<p>下载安装 Awesomium 1.6.6 SDK</p>
-<p><img src="/assets/markdownPad2/3.png" alt="image"></p>
-<p>安装完成</p>
-<p><img src="/assets/markdownPad2/4.png" alt="image"></p>
-<p>重启MarkdownPad2</p>
-<p><img src="/assets/markdownPad2/5.png" alt="image"></p>
-<p>可以预览</p>
-<hr>
-<p><strong><em>vscode安装Markdown插件编辑使用</em></strong></p>
-<hr>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/">
-    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
-        2019-08-13
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-加密算法DES AES" class="post-加密算法DES AES post type-post status-publish format-standard hentry">
     <!---->
 
@@ -596,7 +961,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cko0uxcfu003ehcuhveeych89" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/加密算法DES AES/" data-id="cksik2u1p003xowif0u0e08d8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -671,7 +1036,7 @@ sort test.txt | uniq -d
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cko0uxcfh002mhcuhd39w13pp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/07/16/vscode vue 用户代码片段/" data-id="cksik2u16002xowif60suxovz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -763,7 +1128,7 @@ sort test.txt | uniq -d
 
 
   
-    <article id="post-vue 事件中的 .native" class="post-vue 事件中的 .native post type-post status-publish format-standard hentry">
+    <article id="post-netstat查看端口占用情况" class="post-netstat查看端口占用情况 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -771,37 +1136,184 @@ sort test.txt | uniq -d
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue 事件中的 .native/">vue 事件中的 (native)</a>
+      <a class="article-title" href="/2019/06/03/netstat查看端口占用情况/">netstat 查看端口占用情况</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 事件中的 .native/" data-id="cko0uxcfl002whcuh9yf8j39t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/netstat查看端口占用情况/" data-id="cksik2u2a004wowifu5s9lfpa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="native是什么-？"><a href="#native是什么-？" class="headerlink" title=".native是什么 ？"></a>.native是什么 <strong>？</strong></h2><pre><code>.native - 监听组件根元素的原生事件。
-主要是给自定义的组件添加原生事件。
-# * 给普通的标签加事件，然后加native是无效的
+        <h2 id="netstat-命令详解"><a href="#netstat-命令详解" class="headerlink" title="netstat 命令详解"></a>netstat 命令详解</h2><pre><code>netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息。
+</code></pre><h3 id="该命令的一般格式为"><a href="#该命令的一般格式为" class="headerlink" title="该命令的一般格式为"></a>该命令的一般格式为</h3><pre><code>NETSTAT [-a] [-b] [-e] [-f] [-n] [-o] [-p proto] [-r] [-s] [-t] [interval]
+</code></pre><h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><pre><code># 命令中各选项的含义如下：
+  -a            显示所有连接和侦听端口。
+  -b            显示在创建每个连接或侦听端口时涉及的可执行程序。
+                在某些情况下，已知可执行程序承载多个独立的
+                组件，这些情况下，显示创建连接或侦听端口时涉
+                及的组件序列。此情况下，可执行程序的名称
+                位于底部[]中，它调用的组件位于顶部，直至达
+                到 TCP/IP。注意，此选项可能很耗时，并且在您没有
+                足够权限时可能失败。
+  -e            显示以太网统计。此选项可以与 -s 选项结合使用。
+  -f            显示外部地址的完全限定域名(FQDN)。
+  -n            以数字形式显示地址和端口号。
+  -o            显示拥有的与每个连接关联的进程 ID。
+  -p proto      显示 proto 指定的协议的连接；proto 可以是下列任
+                何一个: TCP、UDP、TCPv6 或 UDPv6。如果与 -s 选
+                项一起用来显示每个协议的统计，proto 可以是下列任
+                何一个: IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP
+                或 UDPv6。
+  -r            显示路由表。
+  -s            显示每个协议的统计。默认情况下，显示
+                IP、IPv6、ICMP、ICMPv6、TCP、TCPv6、UDP 和 UDPv6
+                的统计；-p 选项可用于指定默认的子网。
+  -t            显示当前连接卸载状态。
+  interval      重新显示选定的统计，各个显示间暂停的间隔秒数。
+                按 CTRL+C 停止重新显示统计。如果省略，则 netstat
+                将打印当前的配置信息一次。
+</code></pre><h3 id="列标题"><a href="#列标题" class="headerlink" title="列标题"></a>列标题</h3><pre><code>Name            接口的名字
+Mtu             接口的最大传输单位
+Net/Dest        接口所在的网络
+Address         接口的IP地址
+Ipkts           接收到的数据包数目
+Ierrs           接收到时已损坏的数据包数目
+Opkts           发送的数据包数目
+Oeers           发送时已损坏的数据包数目
+Collisions      由这个接口所记录的网络冲突数目
+</code></pre><h3 id="常见状态"><a href="#常见状态" class="headerlink" title="常见状态"></a>常见状态</h3><pre><code># 即连接状态。在原模式中没有状态，在用户数据报协议中也经常没有状态，于是状态列可以空出来。若有状态，通常取值为：
+LISTEN          侦听来自远方的TCP端口的连接请求
+SYN-SENT        在发送连接请求后等待匹配的连接请求
+SYN-RECEIVED    在收到和发送一个连接请求后等待对方对连接请求的确认
+ESTABLISHED     代表一个打开的连接
+FIN-WAIT-1      等待远程TCP连接中断请求，或先前的连接中断请求的确认
+FIN-WAIT-2      从远程TCP等待连接中断请求
+CLOSE-WAIT      等待从本地用户发来的连接中断请求
+CLOSING         等待远程TCP对连接中断的确认
+LAST-ACK        等待原来的发向远程TCP的连接中断请求的确认
+TIME-WAIT       等待足够的时间以确保远程TCP接收到连接中断请求的确认
+CLOSED          没有任何连接状态
+</code></pre><h3 id="命令示例"><a href="#命令示例" class="headerlink" title="命令示例"></a>命令示例</h3><pre><code># window
+netstat
 
- &lt;el-dropdown class=&quot;submitBtn&quot;&gt;
-     &lt;el-button type=&quot;primary&quot; size=&quot;mini&quot;&gt; 更多菜单&lt;i class=&quot;el-icon-arrow-down el-icon--right&quot;&gt;&lt;/i&gt;
-     &lt;/el-button&gt;
-         &lt;el-dropdown-menu slot=&quot;dropdown&quot;&gt;
-             &lt;el-dropdown-item @click.native=&quot;click&quot;&gt; 双皮奶 &lt;/el-dropdown-item&gt;
-         &lt;/el-dropdown-menu&gt;
- &lt;/el-dropdown&gt;
-</code></pre><h2 id="将click的native去掉，思路如下-："><a href="#将click的native去掉，思路如下-：" class="headerlink" title="将click的native去掉，思路如下 ："></a>将click的native去掉，思路如下 <strong>：</strong></h2><pre><code> 子组件监听父组件给的click事件，
- 子组件内部处理click事件然后向外发送click事件：$emit(&quot;click&quot;.fn)
+活动连接
 
-&lt;template&gt;
-  &lt;!-- 此处自定义事件名也叫 `click` 所以在使用组件时加不加 `.native` 修饰符都可以 --&gt;
-  &lt;button type=&quot;button&quot; @click=&quot;$emit(&apos;click&apos;)&quot;&gt;&lt;slot /&gt;&lt;/button&gt;
-&lt;/template&gt;
+协议    本地地址               外部地址                状态
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:52946  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:55759  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:58502  ESTABLISHED
+TCP    10.43.22.175:445       WIN-FLOHTHI4JEE:65469  ESTABLISHED
+TCP    10.43.22.175:49244     115.239.210.27:https   ESTABLISHED
+TCP    10.43.22.175:49280     ec2-52-26-166-58:https  ESTABLISHED
+TCP    10.43.22.175:49286     ec2-52-26-166-58:https  ESTABLISHED
+TCP    10.43.22.175:49309     115.239.210.27:https   ESTABLISHED
+TCP    10.43.22.175:49317     115.239.210.27:https   ESTABLISHED
+
+# linux
+nestat -ano
+
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       Timer
+tcp        0      0 0.0.0.0:9400            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9401            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9091            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9092            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9093            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9094            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9096            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9097            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9098            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9100            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9300            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8661            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9301            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:9302            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:8662            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 10.42.0.172:7926        10.42.0.171:3306        ESTABLISHED keepalive (1249.51/0/0)
+tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:41354       140.207.127.79:443      CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:15065       10.42.0.172:9092        CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:40634       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:40590       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:13171       10.42.0.171:6380        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:38967       10.42.0.171:3306        TIME_WAIT   timewait (11.86/0/0)
+...
+...
+Active UNIX domain sockets (servers and established)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  3      [ ]         DGRAM                    6159     /run/systemd/notify
+unix  2      [ ]         DGRAM                    6161     /run/systemd/cgroups-agent
+unix  2      [ ACC ]     STREAM     LISTENING     6169     /run/systemd/journal/stdout
+unix  5      [ ]         DGRAM                    6172     /run/systemd/journal/socket
+unix  11     [ ]         DGRAM                    6174     /dev/log
+unix  2      [ ACC ]     STREAM     LISTENING     15465    /run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     9897     /run/systemd/private
+unix  2      [ ]         DGRAM                    16559    /var/run/chrony/chronyd.sock
+unix  2      [ ]         DGRAM                    9913     /run/systemd/shutdownd
+unix  2      [ ACC ]     SEQPACKET  LISTENING     9922     /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     9943     /run/lvm/lvmetad.socket
+unix  2      [ ACC ]     STREAM     LISTENING     15080    /var/run/vmware/guestServicePipe
+unix  2      [ ACC ]     STREAM     LISTENING     9978     /run/lvm/lvmpolld.socket
+unix  3      [ ]         STREAM     CONNECTED     10197
+unix  2      [ ]         STREAM     CONNECTED     34959351
+</code></pre><p>查看端口为8080的情况</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">netstat -ano |grep 8080</span><br></pre></td></tr></table></figure>
+
+TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       59932
+TCP    10.43.22.175:53227     183.3.235.67:8080      ESTABLISHED     5280
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">netstat -ano |grep 8660</span><br></pre></td></tr></table></figure>
+</code></pre><p>输出</p>
+<pre><code>tcp        0      0 0.0.0.0:8660            0.0.0.0:*               LISTEN      off (0.00/0/0)
+tcp        0      0 10.42.0.172:29541       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29569       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29345       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29407       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29595       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        1      0 10.42.0.172:25839       10.42.0.172:8660        CLOSE_WAIT  off (0.00/0/0)
+tcp        0      0 10.42.0.172:29523       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29583       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.182:16848       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29565       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29395       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29345       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29467       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29595       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29339       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29467       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29581       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29407       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29571       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29571       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29523       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.182:16844       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29325       TIME_WAIT   timewait (8.36/0/0)
+tcp        0      0 10.42.0.172:29583       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29581       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29565       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29339       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29395       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29393       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29499       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29499       ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29393       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:29569       10.42.0.172:8660        ESTABLISHED off (0.00/0/0)
+tcp        0      0 10.42.0.172:8660        10.42.0.172:29541       ESTABLISHED off (0.00/0/0)
+</code></pre><p>被占用端口对应的PID 对应的进程</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># windows</span><br><span class="line">tasklist|grep 8080</span><br></pre></td></tr></table></figure>
+
+node.exe                      8080 Console                    1     11,144 K
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># linux</span><br><span class="line">ps -ef|grep 8660</span><br></pre></td></tr></table></figure>
+
+root      4825  4749  0 13:28 pts/0    00:00:00 grep --color=auto 8660
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -810,7 +1322,142 @@ sort test.txt | uniq -d
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2019/06/03/vue 事件中的 .native/">
+    <a href="/2019/06/03/netstat查看端口占用情况/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-markdown生成目录" class="post-markdown生成目录 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/markdown生成目录/">markdown 文档中自动生成目录的方式</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/markdown生成目录/" data-id="cksik2u0y002fowifuqec5dr6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="markdown-文档中自动生成目录的方式"><a href="#markdown-文档中自动生成目录的方式" class="headerlink" title="markdown 文档中自动生成目录的方式"></a>markdown 文档中自动生成目录的方式</h2><h3 id="一、有道自动生成"><a href="#一、有道自动生成" class="headerlink" title="一、有道自动生成"></a>一、有道自动生成</h3><p>在文章开始地方输入[toc]，即可在对应位置插入目录</p>
+<h3 id="二、npm-语法生成"><a href="#二、npm-语法生成" class="headerlink" title="二、npm 语法生成"></a>二、npm 语法生成</h3><p>全局安装doctoc插件</p>
+<pre><code>npm install doctoc -g
+</code></pre><p>执行</p>
+<pre><code>doctoc demo.md
+</code></pre><p>文件，即可在文档中自动生成目录</p>
+<h3 id="三、两种方式的优缺点"><a href="#三、两种方式的优缺点" class="headerlink" title="三、两种方式的优缺点"></a>三、两种方式的优缺点</h3><p>1.有道生成目录</p>
+<p>优点是：简单快捷，</p>
+<p>缺点是：直接生成文字目录，没有生成相应的目录连接</p>
+<p>2.npm doctoc生成目录</p>
+<p>优点：生成了相应的目录连接（例如：文章段落一有地方要跳转到段落二，这时候有目录链接就很方便的完成跳转了）</p>
+<p>缺点：依赖npm</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/markdown生成目录/">
+    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
+        2019-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Markdown/">Markdown</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 一点点" class="post-vue 一点点 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/06/03/vue 一点点/">vue 一点点</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue 一点点/" data-id="cksik2u1d0039owiftjvd1lx2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><p>Vue.js 是什么</p>
+<p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。<br>   <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">api</a></p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。</p>
+<p><img src="/assets/vueImg/API.png" alt="image"></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><pre><code>[v-text](https://cn.vuejs.org/v2/api/ ##v-text)
+[v-html](https://cn.vuejs.org/v2/api/ ##v-html)
+[v-show](https://cn.vuejs.org/v2/api/ ##v-show)
+[v-if](https://cn.vuejs.org/v2/api/ ##v-if)
+[v-else](https://cn.vuejs.org/v2/api/ ##v-else)
+[v-else-if](https://cn.vuejs.org/v2/api/ ##v-else-if)
+[v-for](https://cn.vuejs.org/v2/api/ ##v-for)
+[v-on](https://cn.vuejs.org/v2/api/ ##v-on)
+[v-bind](https://cn.vuejs.org/v2/api/ ##v-bind)
+[v-model](https://cn.vuejs.org/v2/api/ ##v-model)
+[v-slot](https://cn.vuejs.org/v2/api/ ##v-slot)
+[v-pre](https://cn.vuejs.org/v2/api/ ##v-pre)
+[v-cloak](https://cn.vuejs.org/v2/api/ ##v-cloak)
+[v-once](https://cn.vuejs.org/v2/api/ ##v-once)
+</code></pre><h2 id="Vue-实例"><a href="#Vue-实例" class="headerlink" title="Vue 实例"></a>Vue 实例</h2>   <!-- Vue 实例常用选项 -->
+<p>   new Vue({<br>      <!-- Vue 实例的挂载目标 --><br>      el:’ ##app’,<br>      <!-- 数据对象 --><br>      data:{},<br>      <!-- 计算属性 --><br>      computed:{},<br>      <!-- 方法 --><br>      methods:{},<br>      <!-- 观察 --><br>      watch:{},<br>      mounted:{},<br>      <!-- 自定义指令 --><br>      directives:{},<br>      <!-- 注册或获取全局组件 --><br>      components:{},<br>      <!-- 过滤器 --><br>      filters:{}<br>   })</p>
+<p>$ npm install -g vue-cli<br>$ vue init webpack my-project<br>$ cd my-project<br>$ npm install<br>$ npm run dev<br>$ npm run build<br>$ npm run unit<br>$ npm run e2e</p>
+<p>$ vue init webpack#develop my-project<br>$ vue init username/repo my-project</p>
+<p>Documentation can be found at <a href="https://vuejs-templates.github.io/webpack" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/03/vue 一点点/">
     <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
         2019-06-03
     </time>
@@ -819,293 +1466,6 @@ sort test.txt | uniq -d
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
   <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-vue async await" class="post-vue async await post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/vue async await/">async await</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/vue async await/" data-id="cko0uxcfj002qhcuhhw2zs280" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。<br>async-await 是promise和generator的语法糖。只是为了让我们书写代码时更加流畅，当然也增强了代码的可读性。简单来说：async-await 是建立在 promise机制之上的，并不能取代其地位。<br>async 用来表示函数是异步的，定义的函数会返回一个promise对象，可以使用then方法添加回调函数。<br>await 可以理解为是 async wait 的简写。await 必须出现在 async 函数内部，不能单独使用。<br>await 后面可以跟任何的JS 表达式。虽然说 await 可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被 resolved。如果await的是 promise对象会造成异步函数停止执行并且等待 promise 的解决,如果等的是正常的表达式则立即执行。</p>
-<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2. 基本用法"></a>2. 基本用法</h2><h3 id="2-1-返回-promise-对象"><a href="#2-1-返回-promise-对象" class="headerlink" title="2.1 返回 promise 对象"></a>2.1 返回 promise 对象</h3><p>async 函数返回的是一个 promise 对象.</p>
-<pre><code>async function test (){
-  return &apos;hello async&apos;;
-}
-let result = test();
-console.log(result);
-// Promise {&lt;resolved&gt;: &quot;hello async&quot;}
-</code></pre><p>所以，async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。所以 可以使用 then() 链来处理这个 Promise 对象，就像这样：</p>
-<pre><code>test().then(v =&gt; {
-  console.log(v); // hello async
-});
-</code></pre><h3 id="2-2-Promise-对象的状态变化"><a href="#2-2-Promise-对象的状态变化" class="headerlink" title="2.2 Promise 对象的状态变化"></a>2.2 Promise 对象的状态变化</h3><p>async 函数返回的 Promise 对象，必须等到内部所有 await 命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到 return 语句或者抛出错误。也就是说，只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。</p>
-<h3 id="2-3-await-命令"><a href="#2-3-await-命令" class="headerlink" title="2.3 await 命令"></a>2.3 await 命令</h3><p>正常情况下，await 命令后面是一个 Promise 对象。如果不是，会被转成一个立即 resolve 的 Promise 对象。</p>
-<pre><code>async function f() {
-  return await 123;
-}
-
-f().then(v =&gt; console.log(v))
-// 123
-</code></pre><p>上面代码中，await 命令的参数是数值123，它被转成 Promise 对象，并立即 resolve。</p>
-<p>await 命令后面的 Promise 对象如果变为 reject 状态，则 reject 的参数会被 catch 方法的回调函数接收到。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-.catch(e =&gt; console.log(e))
-// 出错了
-</code></pre><p>注意，上面代码中，await 语句前面没有 return，但是 reject 方法的参数依然传入了 catch 方法的回调函数。这里如果在 await 前面加上 return，效果是一样的。</p>
-<p>只要一个 await 语句后面的 Promise 变为 reject，那么整个 async 函数都会中断执行。</p>
-<pre><code>async function f() {
-  await Promise.reject(&apos;出错了&apos;);
-  await Promise.resolve(&apos;hello world&apos;); // 不会执行
-}
-</code></pre><p>上面代码中，第二个 await 语句是不会执行的，因为第一个 await 语句状态变成了 reject。</p>
-<p>有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个 await 放在 try…catch 结构里面，这样不管这个异步操作是否成功，第二个 await 都会执行。</p>
-<pre><code>async function f() {
-  try {
-    await Promise.reject(&apos;出错了&apos;);
-  } catch(e) {
-  }
-  return await Promise.resolve(&apos;hello world&apos;);
-}
-
-f()
-.then(v =&gt; console.log(v))
-// hello world
-</code></pre><h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><h3 id="Syntax-Error-await-is-a-reserved-word"><a href="#Syntax-Error-await-is-a-reserved-word" class="headerlink" title="Syntax Error: await is a reserved word"></a>Syntax Error: await is a reserved word</h3><pre><code># 报错例：
-async submit() {
-    try {
-        this.$refs[formName].validate(valid =&gt; {
-            let res = await submit(...this.submitForm)
-            this.$message.success(res.resultMessage）
-        })
-    } catch (err){
-        console.log(err)
-        this.$message.success(err.resultMessage）
-    }
-}
-</code></pre><p>上例报错： Syntax Error: await is a reserved word<br>    检查代码 分析： async 在submit()函数前面，里面 validate() 还有一个隐式函数 valid =&gt; {}，async 应该写在隐式函数前面</p>
-<pre><code>#修改后例：
-   submit() {
-       try {
-           this.$refs[formName].validate(async valid =&gt; {
-               let res = await submit(...this.params)
-               this.$message.success(res.resultMessage）
-           })
-       } catch (err){
-           console.log(err)
-           this.$message.success(err.resultMessage）
-       }
-   }
-</code></pre><p>如果有多个 await 命令，可以统一放在 try…catch 结构中。</p>
-<pre><code>async main() {
-  try {
-    const val1 = await firstStep();
-    const val2 = await secondStep(val1);
-    const val3 = await thirdStep(val1, val2);
-    console.log(&apos;Final: &apos;, val3);
-  }
-  catch (err) {
-    console.error(err);
-  }
-}
-
-await in for 循环
-
-let arr = [1, 2, 3, 4, 5];
-arr.forEach(async item =&gt; {
-  await console.log(item)
-});
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/vue async await/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js-export-excel" class="post-js-export-excel post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js-export-excel/">js 导出 excel</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js-export-excel/" data-id="cko0uxcf3001nhcuhezkkpix6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="使用-js-export-excel-导出"><a href="#使用-js-export-excel-导出" class="headerlink" title="使用 js-export-excel 导出"></a>使用 js-export-excel 导出</h2><p>  <a href="https://github.com/cuikangjie/js-export-excel" target="_blank" rel="noopener">github</a></p>
-<h2 id="扩展使用（添加二级标题，-合并单元格）"><a href="#扩展使用（添加二级标题，-合并单元格）" class="headerlink" title="扩展使用（添加二级标题， 合并单元格）"></a>扩展使用（添加二级标题， 合并单元格）</h2><h3 id="修改-js-export-excel-js"><a href="#修改-js-export-excel-js" class="headerlink" title="修改 js-export-excel.js"></a>修改 js-export-excel.js</h3><pre><code>// # 添加二级标题 
-workbook: {
-    SheetNames: [],
-    Sheets: {},
-    merges: [],
-    sheetHeaderSecond: [],
-}, 
-// # 在标题下一行添加
-let sheetHeaderSecond= _options.sheetHeaderSecond || data.sheetHeaderSecond;
-if (sheetHeaderSecond &amp;&amp; sheetHeaderSecond.length &gt; 0) {
-    sheetData.unshift(sheetHeaderSecond);
-}
-// 添加合并规则
-if (!ws[&apos;!merges&apos;]) ws[&apos;!merges&apos;] = [];
-let merge = (_options.merges || data.merges) || [];
-// ws[&apos;!merges&apos;].push(merge);
-ws[&apos;!merges&apos;] = merge;
-</code></pre><h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><pre><code>import ExportJsonExcel from&quot;@/common/js-export-excel&quot;;
-//  sheetHeaderSecond: [&apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;, &apos;二级标题&apos;,&apos;二级标题&apos; ],
-itemContent= {
-  sheetData: sheetData,
-  sheetName: sheetName,
-  merges: [{ s: {r:1, c:1}, e: {r:1, c:6} }], // 合并
-  sheetHeaderSecond:sheetHeaderSecond, // 二级标题
-  sheetFilter:filterData,
-  sheetHeader:headerData // 一级标题
-};
-
-option.datas.push(itemContent);
-let toExcel = new ExportJsonExcel(option);
-toExcel.saveExcel();
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js-export-excel/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-js" class="post-js post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/06/03/js/">js</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/06/03/js/" data-id="cko0uxcf4001qhcuholj76inw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 前一月</span><br><span class="line">new Date(new Date().setMonth(new Date().getMonth() -1 )).getFullYear() + &apos;-&apos; + (new Date(new Date().setMonth(new Date().getMonth() - 1)).getMonth() + 1)</span><br><span class="line"># 前一天</span><br><span class="line">new Date(new Date()-24*60*60*1000)</span><br></pre></td></tr></table></figure>
-<h2 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h2><p>函数防抖(debounce)：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间。</p>
-<ul>
-<li>实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法</li>
-<li>缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span> (<span class="params">fn, wait</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer !== <span class="literal">null</span>)&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = setTimeout(fn,wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>,debounce(handle,<span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
-<h2 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h2><p>函数节流(throttle)：高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率。</p>
-<ul>
-<li>实现方式：每次触发事件时，如果当前有等待执行的延时函数，则直接return</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节流throttle代码：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> canRun = <span class="literal">true</span>; <span class="comment">// 通过闭包保存一个标记</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 在函数开头判断标记是否为true，不为true则return</span></span><br><span class="line">        <span class="keyword">if</span> (!canRun) <span class="keyword">return</span>;</span><br><span class="line">          <span class="comment">// 立即设置为false</span></span><br><span class="line">        canRun = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 将外部传入的函数的执行放在setTimeout中</span></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; </span><br><span class="line">        <span class="comment">// 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。</span></span><br><span class="line">        <span class="comment">// 当定时器没有执行的时候标记永远是false，在开头被return掉</span></span><br><span class="line">            fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            canRun = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'节流：'</span>, e.target.innerWidth, e.target.innerHeight);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, throttle(sayHi,<span class="number">500</span>));</span><br></pre></td></tr></table></figure>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/06/03/js/">
-    <time datetime="2019-06-02T16:00:00.000Z" class="entry-date">
-        2019-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/JS/">JS</a>
   </div>
 
     
@@ -1121,7 +1481,7 @@ toExcel.saveExcel();
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1142,7 +1502,7 @@ toExcel.saveExcel();
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 

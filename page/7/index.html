@@ -62,7 +62,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
+    <article id="post-maven-instruction" class="post-maven-instruction post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -70,23 +70,92 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
+      <a class="article-title" href="/2018/01/29/maven-instruction/">maven使用简单介绍</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="cko0uxcft003bhcuh6v9twtyu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="cksik2u0z002howif7bnh6u4o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>刷新 DNS 解析缓存</p>
-<pre><code># cmd 执行 
-ipconfig /flushdns
-</code></pre>
+        <p>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
+<p>详细教程：<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">https://www.w3cschool.cn/maven/</a></p>
+<h3 id="简单使用maven做什么-？"><a href="#简单使用maven做什么-？" class="headerlink" title="简单使用maven做什么 ？"></a>简单使用maven做什么 <strong>？</strong></h3><ul>
+<li>提供了项目对象模型（POM）文件来管理项目的构建。</li>
+<li><p>仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">本地仓库用来存储项目的依赖库；</span><br><span class="line">中央仓库是下载依赖库的默认位置；</span><br><span class="line">远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远程仓库是中央仓库的补充。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>构建不依赖于IDE的标准化项目（导入IDE只需要以maven项目导入即可）</p>
+</li>
+<li>目录结构统一并且简单，约定大于配置，被其他构建工具以及项目广泛采用</li>
+<li>统一对项目依赖的jar包进行管理，明确jar包依赖以及对应的版本自动下载等（<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">细节请看详细教程</a>）</li>
+</ul>
+<h3 id="maven的下载安装"><a href="#maven的下载安装" class="headerlink" title="maven的下载安装"></a>maven的下载安装</h3><h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. <strong>下载</strong></h4><p>进入<a href="http://maven.apache.org/" target="_blank" rel="noopener">官网</a>选择download菜单进入下载页面<br><img src="/assets/mavenImg/download.png" alt="image"><br>tar.gz文件对应linux系统<br>zip文件对应windows系统</p>
+<h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. <strong>安装</strong></h4><pre><code>解压即可使用  
+对于在windows下使用maven，如果需要使用cmd执行命令的话，需要在path环境变量中添加maven/bin目录即可，使用IDE并不需要配置环境变量等  
+推荐目录结构如下：
+</code></pre><p><img src="/assets/mavenImg/maven-directory.png" alt="image"></p>
+<pre><code>第一个为解压后的文件目录  
+第二个用来作为maven的全局文件（settings.xml）存放目录（IDE中需要在maven配置中指向此文件才会生效，日后更换maven版本只需要更换原来的maven解压路径即可，不必再做配置）  
+第三个用来作为maven下载jar包的本地仓库存放目录（需要在settings.xml配置文件中指定，不然存放到默认路径C盘中，不方便管理与查找）  
+</code></pre><h4 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. <strong>配置</strong></h4><p>在解压的文件目录下进入conf文件夹，其中有默认的settings.xml配置文件<br><img src="/assets/mavenImg/maven-conf-directory.png" alt="image"><br>配置文件一般只需要配置2个地方，一个是下载jar包的本地仓库存放目录，另外一个为下载jar包的国内镜像地址（默认地址为国外，速度较慢）<br><img src="/assets/mavenImg/maven-conf-repository.png" alt="image"><br>从默认的注释中复制出来，配置上前面定好的本地仓库存放目录，如果不配置则会存放到注释中默认指向地址${user.home}/.m2/repository<br><img src="/assets/mavenImg/maven-conf-mirror.png" alt="image"><br>依旧从默认的注释中复制镜像出来，id与name可以随意起名，mirrorOf为central则说明是中央仓库，URL推荐填写阿里云maven仓库地址 <a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a><br>之后保存，复制出一份存放在前面设置的maven全局文件存放目录下面（当替换maven版本时，内置的配置文件使用IDE设置好全局文件时可不用更改，更换maven版本也只是解压新版本后在IDE中设置新的maven安装路径就完成了）  </p>
+<h3 id="IDE中配置maven"><a href="#IDE中配置maven" class="headerlink" title="IDE中配置maven"></a>IDE中配置maven</h3><ol>
+<li><p><strong>MyEclipse</strong><br>点击导航栏window进入preferences搜索maven<br><img src="/assets/mavenImg/myeclipse-maven.png" alt="image"><br>建议勾选Download Artifact Sources（下载jar包的同时下载源码，方便直接点方法进源码查看）<br><img src="/assets/mavenImg/myeclipse-maven-install.png" alt="image"><br>添加安装的maven<br><img src="/assets/mavenImg/myeclipse-maven-settings.png" alt="image"><br>设置好maven的全局配置文件路径（本地仓库存放目录自动扫描文件中的目录）<br>至此完成了MyEclipse中maven的配置  </p>
+</li>
+<li><p><strong>IDEA</strong><br>不要在打开项目的时候选择file/settings，那样设置完只会针对当前项目，若打开了项目，则选择file/Close Project关闭项目回退到初始idea界面</p>
+</li>
+</ol>
+<p><img src="/assets/mavenImg/idea-settings.png" alt="image"><br><img src="/assets/mavenImg/idea-settings1.png" alt="image"><br>指定好maven的安装目录以及配置文件位置<br><img src="/assets/mavenImg/idea-maven.png" alt="image"><br><img src="/assets/mavenImg/idea-maven-importing.png" alt="image"><br>至此完成了idea中的maven的配置</p>
+<h3 id="创建一个maven的java-web项目"><a href="#创建一个maven的java-web项目" class="headerlink" title="创建一个maven的java web项目"></a>创建一个maven的java web项目</h3><ol>
+<li><p><strong>MyEclipse</strong><br><img src="/assets/mavenImg/myeclipse-create01.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create02.png" alt="image"><br>选取项目模板java web项目为maven-archetype-webapp<br><img src="/assets/mavenImg/myeclipse-create03.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+<li><p><strong>IDEA</strong><br>新建项目<br><img src="/assets/mavenImg/idea-create01.png" alt="image"><br><img src="/assets/mavenImg/idea-create02.png" alt="image"><br><img src="/assets/mavenImg/idea-create03.png" alt="image"><br><img src="/assets/mavenImg/idea-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+</ol>
+<h3 id="maven的java-web项目的目录结构"><a href="#maven的java-web项目的目录结构" class="headerlink" title="maven的java web项目的目录结构"></a>maven的java web项目的目录结构</h3><p><a href="/assets/mavenImg/pom.xml">pom.xml项目配置文件例子，包含普通项目所需jar包引入，行间内置注释</a><br><img src="/assets/mavenImg/maven-directory-javaweb.png" alt="文件目录结构">  </p>
+<pre><code>```
+project
+│   pom.xml（maven项目配置文件）
+│
+└───src（源码根目录）
+│   │
+│   └───main（源码主目录）
+│   │   │
+│   │   └───java（java源码目录）
+│   │   │   │
+│   │   │   └───xxx（项目包名）
+│   │   │   └───sql（包名，有清空数据库在java源码目录下同级放置）
+│   │   │
+│   │   └───resources（源码所使用的资源文件目录，存放配置文件）
+│   │   │   │
+│   │   │   └───config（配置文件）
+│   │   │        │
+│   │   │        └───jdbc
+│   │   │        └───mybatis
+│   │   │        └───spring
+│   │   │
+│   │   └───webapp（web文件目录，等同于WebRoot）
+│   │   │
+│   │
+│   └───test（测试目录，测试用例等，小项目暂未使用）
+│        │   xxxTest.java
+│        │   ...
+│    
+└───target（maven项目默认编译输出目录，自动生成）
+          │   ...
+```  
+</code></pre><ol>
+<li>java源码目录使用模板生成没有此文件夹，自行创建并设置为源码目录，MyEclipse设置方式为文件夹右键Build Path/Use as Source Folder，idea为右键Make Directory as/Sources Root</li>
+<li>resources资源文件目录在导入maven项目时此文件夹为普通文件夹，需要IDE设置为资源文件夹，MyEclipse设置方式同上，idea为右键Make Directory as/Resources Root</li>
+<li>如果需要引入特殊jar包（第三方支付等），跟以前方式一致</li>
+<li>旧项目转化为maven项目，按照上述创建一个maven项目，直接打开2边的文件夹，直接拷贝到相应地方，删除多余jar包以及原来多余编译生成的文件即可，无需其余操作，反之把maven项目转化也一样（需要把编译目录下的jar包拷过去）</li>
+</ol>
+
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -94,15 +163,15 @@ ipconfig /flushdns
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/刷新 DNS 解析缓存/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
+    <a href="/2018/01/29/maven-instruction/">
+    <time datetime="2018-01-28T16:00:00.000Z" class="entry-date">
+        2018-01-29
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
+  <a class="article-category-link" href="/categories/Maven/">Maven</a>
   </div>
 
     
@@ -130,7 +199,7 @@ ipconfig /flushdns
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cko0uxcf3001mhcuh8i0z98ks" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cksik2u0a001oowifdz1sie6p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -223,7 +292,7 @@ jrobin-1.5.14.jar
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cko0uxcfv003fhcuhp2gn8jug" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cksik2u1r0042owif6ogatmdf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -274,7 +343,7 @@ jrobin-1.5.14.jar
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="cko0uxcew0018hcuhe1lzcdux" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="cksik2u04001cowifcgl7rtsx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -320,6 +389,59 @@ jrobin-1.5.14.jar
 
 
   
+    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="cksik2u1o003vowif0i5oewi6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>刷新 DNS 解析缓存</p>
+<pre><code># cmd 执行 
+ipconfig /flushdns
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/刷新 DNS 解析缓存/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
     <!---->
 
@@ -335,7 +457,7 @@ jrobin-1.5.14.jar
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cko0uxcgh004ohcuhkfh1gkmo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cksik2u1x004fowifmds9p3ue" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -575,7 +697,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="cko0uxceq000thcuho5yam3ys" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="cksik2tzv000uowifx4y4nyik" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -630,7 +752,7 @@ proxy settings
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cko0uxcfd002chcuhji984qev" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cksik2u13002qowifilfov7ds" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -799,7 +921,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cko0uxcfc0029hcuha9od96vw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cksik2u14002towifiqoiq6r8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -904,7 +1026,7 @@ $lsnrctl start
 
 
   
-    <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
+    <article id="post-File-Extract-Compress" class="post-File-Extract-Compress post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -912,56 +1034,131 @@ $lsnrctl start
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/1.ssh用户权限配置/">ssh用户权限配置</a>
+      <a class="article-title" href="/2017/02/06/File-Extract-Compress/">Linux 下常用压缩文件的解压、压缩</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="cko0uxce10000hcuhc2abn85y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="cksik2tzh0007owifjklt0vao" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>本文主要介绍的是如何是Linux环境下配置ssh用户权限，因为很多时候不给用户root账号，下面就和大家一起分享如何配置ssh用户权限。</p>
-<pre><code>1. 添加用户
+        <h2 id="常用压缩包解压令整理"><a href="#常用压缩包解压令整理" class="headerlink" title="常用压缩包解压令整理"></a>常用压缩包<strong>解压</strong>令整理</h2><ul>
+<li>Linux 后缀为 <code>.war</code> 格式的文件（一般用在部署 Tomcat 项目的时候）</li>
+<li><p>命令：<code>unzip -oq XXXXXX.war -d ROOT</code></p>
+<ul>
+<li>如果没有 ROOT 目录会自动创建 ROOT 目录。</li>
+</ul>
+</li>
+<li><p>Linux 后缀为 <code>.tar.gz</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar zxvf XXXXXX.tar.gz</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.bz2</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>bzip2 -d XXXXXX.bz2</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar.bz2</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar jxvf XXXXXX.tar.bz2</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>tar zxvf XXXXXX.tar</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.gz</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>gunzip XXXXXX.gz</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.zip</code> 格式的文件-解压</p>
+</li>
+<li>命令：<code>unzip XXXXXX.zip</code></li>
+<li><p>命令：<code>unzip XXXXXX.zip -d /opt/</code>，解压到指定目录</p>
+</li>
+<li><p>Linux 后缀为 <code>.7z</code> 格式的文件-解压</p>
+</li>
+<li><p>命令：<code>7za x XXXXXX.7z</code></p>
+</li>
+<li><p>Linux 后缀为 <code>.tar.xz</code> 格式的文件-解压，解压出来是tar，再对tar进行解压</p>
+</li>
+<li>命令：<code>tar xf XXXXXX.tar.xz</code></li>
+</ul>
+<hr>
+<h2 id="常用文件进行压缩命令整理"><a href="#常用文件进行压缩命令整理" class="headerlink" title="常用文件进行压缩命令整理"></a>常用文件进行<strong>压缩</strong>命令整理</h2><ul>
+<li>Linux 压缩文件夹为后缀 <code>.war</code> 格式的文件（最好不要对根目录进行压缩，不然会多出一级目录）</li>
+<li>命令：<code>jar -cvfM0 cas.war /opt/cas/META-INF /opt/cas/WEB-INF /opt/cas/index.jsp</code></li>
+<li><p>或者命令：<code>cd 项目根目录 ; jar -cvfM0 cas.war ./*</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -zcvf test11.tar test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar.gz</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -zcvf test11.tar.gz test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.bz2</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>bzip2 -v test.txt</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.tar.bz2</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>tar -jcvf test11.tar.gz test11</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.zip</code> 格式的文件</p>
+</li>
+<li><p>命令：<code>zip -r test1.zip /opt/test1/</code></p>
+</li>
+<li><p>Linux 压缩文件为后缀 <code>.7z</code> 格式的文件</p>
+</li>
+<li>命令：<code>7za a test1.7z /opt/test1/</code></li>
+</ul>
+<h2 id="分卷压缩"><a href="#分卷压缩" class="headerlink" title="分卷压缩"></a>分卷压缩</h2><ul>
+<li>分卷压缩：<code>zip -s 100M myFile.zip --out newFile.zip</code></li>
+<li>最终效果：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">newFile.z01</span><br><span class="line">newFile.z02</span><br><span class="line">newFile.z03</span><br><span class="line">newFile.z04</span><br><span class="line">newFile.zip</span><br></pre></td></tr></table></figure>
+<h2 id="特殊格式"><a href="#特殊格式" class="headerlink" title="特殊格式"></a>特殊格式</h2><ul>
+<li>7z<ul>
+<li>7z 的安装：<ul>
+<li>访问官网下载解压包：<a href="http://sourceforge.net/projects/p7zip/files/p7zip/" target="_blank" rel="noopener">http://sourceforge.net/projects/p7zip/files/p7zip/</a></li>
+<li>解压压缩包：<code>tar jxvf p7zip_15.14_src_all.tar.bz2</code></li>
+<li>进入目录：<code>cd p7zip_15.14</code></li>
+<li>执行安装：<code>sh install.sh</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>rar<ul>
+<li>rar 的安装：<ul>
+<li>下载：<code>wget http://www.rarlab.com/rar/rarlinux-3.8.0.tar.gz</code></li>
+<li>解压下载下来的压缩包：<code>tar zxvf rarlinux-3.8.0.tar.gz</code></li>
+<li>进入解压后目录：<code>cd rar</code></li>
+<li>编译：<code>make</code></li>
+<li>安装：<code>make install</code></li>
+</ul>
+</li>
+<li>rar 解压：<code>rar x 文件名.rar</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="jar-包操作"><a href="#jar-包操作" class="headerlink" title="jar 包操作"></a>jar 包操作</h2><h3 id="修改-jar-包配置文件"><a href="#修改-jar-包配置文件" class="headerlink" title="修改 jar 包配置文件"></a>修改 jar 包配置文件</h3><ul>
+<li>命令：<code>vim mytest.jar</code>，这时候会展示 jar 中所有层级目录下的所有文件</li>
+<li>输入：<code>/log4j2.xml</code> 回车，光标定位到该文件，然后再回车，进入编辑该文件状态</li>
+<li>此时可以修改配置文件了，修改后 <code>:wq</code> 保存退出，接着 <code>：q</code> 退出 jar 编辑状态</li>
+</ul>
+<h3 id="更新-Jar-包中的文件"><a href="#更新-Jar-包中的文件" class="headerlink" title="更新 Jar 包中的文件"></a>更新 Jar 包中的文件</h3><ul>
+<li>替换（新增）jar 根目录下的文件：<code>jar uvf mytest.jar ClassToAdd.class</code>  </li>
+<li>一般 class 文件都是在多层目录里面的，需要这样做：<code>jar uvf mytest.jar com/youmeek/ClassToAdd.class</code><ul>
+<li>需要在 jar 所在的文件夹下创建：<code>mkdir -p ./com/youmeek</code>，该目录必须和原 jar 里面的层级目录结构一致</li>
+</ul>
+</li>
+</ul>
 
-adduser huapisong  //添加一个名为huapisong的用户
-passwd huapisong   //修改密码
-Changing password for user huapisong.
-New UNIX password:     //在这里输入新密码
-Retype new UNIX password:  //再次输入新密码
-passwd: all authentication tokens updated successfully.
-
-2. 赋予root权限
-
-方法一：修改 /etc/sudoers 文件，找到下面一行，把前面的注释（#）去掉
-## Allows people in group wheel to run all commands
-%wheel    ALL=(ALL)    ALL
-# 然后修改用户，使其属于root组（wheel），命令如下：
-
-usermod -g root huapisong
-# 修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-方法二：修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，如下所示：
-## Allow root to run any commands anywhere
-root    ALL=(ALL)     ALL
-huapisong   ALL=(ALL)     ALL
-#修改完毕，现在可以用huapisong帐号登录，然后用命令 su - ，即可获得root权限进行操作。
-
-3. 用useradd新增的用户不能直接用ssh远程访问，需要修改ssh相关配置
-如下：
-vi /etc/ssh/sshd_config 
-#添加
-AllowUsers root huapisong
-#多个用户用空格隔开
-
-4. 然后重启sshd服务生效即可，重启命令可以使用:
-#shell
-service sshd restart
-</code></pre>
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -969,89 +1166,7 @@ service sshd restart
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/02/06/1.ssh用户权限配置/">
-    <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
-        2017-02-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-linux 内存清理释放命令" class="post-linux 内存清理释放命令 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/06/linux 内存清理释放命令/">内存释放</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="cko0uxcf6001vhcuhq06d1efk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>内存使用情况</p>
-<pre><code>free -m
-</code></pre><p>释放缓存前同步</p>
-<pre><code>sync
-</code></pre><p>释放所有缓存</p>
-<pre><code># 删除内存缓存
-echo 3 &gt; /proc/sys/vm/drop_caches
-#  查看文件内容
-cat /proc/sys/vm/drop_caches
-</code></pre><p>释放缓存数字参数说明</p>
-<pre><code>0 – 不释放
-1 – 释放页缓存
-2 – 释放dentries和inodes
-3 – 释放所有缓存
-</code></pre><p>free -m命令结果说明<br>第一行：全局角度描述系统使用的内存状况</p>
-<pre><code>total——总物理内存
-used——已使用内存，一般情况这个值会比较大，因为这个值包括了cache+应用程序使用的内存
-free——完全未被使用的内存
-shared——应用程序共享内存
-buffers——缓存，主要用于目录方面,inode值等（ls大目录可看到这个值增加）
-cached——缓存，用于已打开的文件
-note:
-    total=used+free
-    used=buffers+cached (maybe add shared also)
-</code></pre><p>第二行：描述应用程序的内存使用</p>
-<p>前个值表示-buffers/cache——应用程序使用的内存大小，used减去缓存值</p>
-<p>后个值表示+buffers/cache——所有可供应用程序使用的内存大小，free加上缓存值</p>
-<pre><code>-buffers/cache=used-buffers-cached
-+buffers/cache=free+buffers+cached
-</code></pre><p>第三行：表示swap的使用</p>
-<pre><code>used——已使用
-free——未使用
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/02/06/linux 内存清理释放命令/">
+    <a href="/2017/02/06/File-Extract-Compress/">
     <time datetime="2017-02-05T16:00:00.000Z" class="entry-date">
         2017-02-06
     </time>
@@ -1075,7 +1190,7 @@ free——未使用
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -1096,7 +1211,7 @@ free——未使用
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 

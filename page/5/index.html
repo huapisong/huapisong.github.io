@@ -62,6 +62,100 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-vue 重新渲染组件（重置或者更新) " class="post-vue 重新渲染组件（重置或者更新)  post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">vue 重新渲染组件（重置或者更新）</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 重新渲染组件（重置或者更新) /" data-id="cksik2u1h003gowifek8aouea" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="动态组件-amp-异步组件"><a href="#动态组件-amp-异步组件" class="headerlink" title="动态组件 &amp; 异步组件"></a>动态组件 &amp; 异步组件</h2><p>  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新<br>  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。<br>  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。</p>
+<h2 id="方案一：v-if（可以重置生命周期）"><a href="#方案一：v-if（可以重置生命周期）" class="headerlink" title="方案一：v-if（可以重置生命周期）"></a>方案一：v-if（可以重置生命周期）</h2><pre><code>当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲染。使用 v-if 可以解决这个问题
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; v-if=&quot;reFresh&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        reFresh:true,
+      }
+    },
+    watch:{
+      $route(to, form) {
+        this.reFresh= false
+        this.$nextTick(()=&gt;{
+            this.reFresh = true
+        })
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre><p>  这种方式虽然可以实现，但太不优雅  </p>
+<h2 id="方案二-key-’’（此处可触发watch和update）"><a href="#方案二-key-’’（此处可触发watch和update）" class="headerlink" title="方案二 :key=’’（此处可触发watch和update）"></a>方案二 :key=’’（此处可触发watch和update）</h2><pre><code>通过vue key 实现，原理请查看官方文档。所以当key 值变更时，会自动的重新渲染。
+
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; :key=&quot;key&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        key: 1
+      }
+    },
+    watch:{
+      $route(to, form) {
+        ++this.key
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-java生命周期" class="post-java生命周期 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +171,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="cko0uxcgo004whcuhtrf7bgbw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/29/java生命周期/" data-id="cksik2u21004lowifbl9nti1e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -304,7 +398,7 @@ public class Test4 {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="cko0uxcgl004uhcuh27pxgy8f" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="cksik2u29004vowif8gcdm7u4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -541,7 +635,7 @@ public CopyOnWriteArraySet() {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cko0uxcgo004yhcuhzcahj4sf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="cksik2u2b004xowiftptjfi97" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -793,6 +887,89 @@ server {
 
 
   
+    <article id="post-oracle和mysql区别" class="post-oracle和mysql区别 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/oracle和mysql区别/">MySQL与Oracle的区别</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cksik2u2c004yowif95qblerz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>一、并发性</p>
+<p>并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。</p>
+<p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
+<p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
+<p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
+<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
+<p>三、事务<br>oracle很早就完全支持事务。</p>
+<p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
+<p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
+<p>五、提交方式<br>oracle默认不自动提交，需要用户手动提交。<br>mysql默认是自动提交。</p>
+<p>六、逻辑备份</p>
+<p>oracle逻辑备份时不锁定数据，且备份的数据是一致的。</p>
+<p>mysql逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用。</p>
+<p>七、热备份<br>oracle有成熟的热备工具rman，热备时，不影响用户使用数据库。即使备份的数据库不一致，也可以在恢复时通过归档日志和联机重做日志进行一致的回复。<br>mysql:<br>myisam的引擎，用mysql自带的mysqlhostcopy热备时，需要给表加读锁，影响dml操作。<br>innodb的引擎，它会备份innodb的表和索引，但是不会备份.frm文件。用ibbackup备份时，会有一个日志文件记录备份期间的数据变化，因此可以不用锁表，不影响其他用户使用数据库。但此工具是收费的。<br>innobackup是结合ibbackup使用的一个脚本，他会协助对.frm文件的备份。</p>
+<p>八、sql语句的扩展和灵活性<br>mysql对sql语句有很多非常实用而方便的扩展，比如limit功能，insert可以一次插入多行数据，select某些管理数据可以不加from。<br>oracle在这方面感觉更加稳重传统一些。</p>
+<p>九、复制<br>oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。<br>mysql:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。</p>
+<p>十、性能诊断<br>oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等<br>mysql的诊断调优方法较少，主要有慢查询日志。</p>
+<p>十一、权限与安全</p>
+<p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
+<p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
+<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
+<p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
+<p>这就完成了一个客户端与服务端交互的过程。</p>
+<p>其他：</p>
+<ol>
+<li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
+<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
+</li>
+</ol>
+<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/oracle和mysql区别/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-javaThread" class="post-javaThread post type-post status-publish format-standard hentry">
     <!---->
 
@@ -808,7 +985,7 @@ server {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cko0uxcgz005bhcuhh3ridole" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cksik2u2f0054owifug5knx7y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1164,89 +1341,6 @@ public void set(T value) {
 
 
   
-    <article id="post-oracle和mysql区别" class="post-oracle和mysql区别 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/18/oracle和mysql区别/">MySQL与Oracle的区别</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cko0uxcgq0052hcuhbg1588kr" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>一、并发性</p>
-<p>并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。</p>
-<p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
-<p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
-<p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
-<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
-<p>三、事务<br>oracle很早就完全支持事务。</p>
-<p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
-<p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
-<p>五、提交方式<br>oracle默认不自动提交，需要用户手动提交。<br>mysql默认是自动提交。</p>
-<p>六、逻辑备份</p>
-<p>oracle逻辑备份时不锁定数据，且备份的数据是一致的。</p>
-<p>mysql逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用。</p>
-<p>七、热备份<br>oracle有成熟的热备工具rman，热备时，不影响用户使用数据库。即使备份的数据库不一致，也可以在恢复时通过归档日志和联机重做日志进行一致的回复。<br>mysql:<br>myisam的引擎，用mysql自带的mysqlhostcopy热备时，需要给表加读锁，影响dml操作。<br>innodb的引擎，它会备份innodb的表和索引，但是不会备份.frm文件。用ibbackup备份时，会有一个日志文件记录备份期间的数据变化，因此可以不用锁表，不影响其他用户使用数据库。但此工具是收费的。<br>innobackup是结合ibbackup使用的一个脚本，他会协助对.frm文件的备份。</p>
-<p>八、sql语句的扩展和灵活性<br>mysql对sql语句有很多非常实用而方便的扩展，比如limit功能，insert可以一次插入多行数据，select某些管理数据可以不加from。<br>oracle在这方面感觉更加稳重传统一些。</p>
-<p>九、复制<br>oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。<br>mysql:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。</p>
-<p>十、性能诊断<br>oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等<br>mysql的诊断调优方法较少，主要有慢查询日志。</p>
-<p>十一、权限与安全</p>
-<p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
-<p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
-<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
-<p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
-<p>这就完成了一个客户端与服务端交互的过程。</p>
-<p>其他：</p>
-<ol>
-<li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
-<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
-</li>
-</ol>
-<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/18/oracle和mysql区别/">
-    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
-        2019-04-18
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/数据库/">数据库</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Spring Cloud高可用" class="post-Spring Cloud高可用 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1262,7 +1356,7 @@ public void set(T value) {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cko0uxcer000xhcuhmt136zoa" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cksik2tzx000zowifepp1fy3c" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1369,84 +1463,6 @@ java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 
 
   
-    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="cko0uxceq000vhcuhsb8kruvo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
-##开启限流
-zuul:
-    # 定义的路由规则
-    routes:
-    export-service:
-        path:  /main/api/
-        url: exportPdf
-        serviceId: export-service
-    ratelimit:
-    enabled: true
-#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
-#      ##针对某个 url 进行限流，不影响其他 
-    policy-list:
-        - export-service:
-        - limit: 1 #3秒内只能刷新一次
-            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
-            type:
-#              - origin
-            - url
-#      policies:
-#        export-service:
-#          - limit: 1
-#            refresh-interval: 10
-#            type:
-#  #            - user
-#              - origin
-#  #            - url
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/15/Spring Cloud限流/">
-    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
-        2019-04-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1462,7 +1478,7 @@ zuul:
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="cko0uxcge004khcuhrhi14iuq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="cksik2u1w004bowifelok0pgz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1606,6 +1622,84 @@ public class ComputeClientHystrix implements ComputeClient {
 
 
   
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="cksik2tzw000xowifzxbw2zp1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1621,7 +1715,7 @@ public class ComputeClientHystrix implements ComputeClient {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="cko0uxcgg004mhcuh4odk21r4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="cksik2u1w004dowifmbbcxlal" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1836,213 +1930,10 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
 
 
   
-    <article id="post-Spring Cloud(一)服务注册与发现" class="post-Spring Cloud(一)服务注册与发现 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/04/11/Spring Cloud(一)服务注册与发现/">Spring Cloud构建微服务架构（一）服务注册与发现</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cko0uxcgg004lhcuhcpxloefv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="Spring-Cloud-简介"><a href="#Spring-Cloud-简介" class="headerlink" title="Spring Cloud 简介"></a>Spring Cloud 简介</h3><p>Spring Cloud是一个基于Spring Boot实现的云应用开发工具，它为基于JVM的云应用开发中的配置管理、服务发现、断路器、智能路由、微代理、控制总线、全局锁、决策竞选、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
-<p>Spring Cloud包含了多个子项目（针对分布式系统中涉及的多个不同开源产品），比如：Spring Cloud Config、Spring Cloud Netflix、Spring Cloud CloudFoundry、Spring Cloud AWS、Spring Cloud Security、Spring Cloud Commons、Spring Cloud Zookeeper、Spring Cloud CLI等项目。</p>
-<h3 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h3><p>“微服务架构”在这几年非常的火热，以至于关于微服务架构相关的产品社区也变得越来越活跃（比如：netflix、dubbo），Spring Cloud也因Spring社区的强大知名度和影响力也被广大架构师与开发者备受关注。</p>
-<p>那么什么是“微服务架构”呢？简单的说，微服务架构就是将一个完整的应用从数据存储开始垂直拆分成多个不同的服务，每个服务都能独立部署、独立维护、独立扩展，服务与服务间通过诸如RESTful API的方式互相调用。</p>
-<p>对于“微服务架构”，大家在互联网可以搜索到很多相关的介绍和研究文章来进行学习和了解。也可以阅读始祖Martin Fowler的《Microservices》，本文不做更多的介绍和描述。</p>
-<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p>在简单介绍了Spring Cloud和微服务架构之后，下面回归本文的主旨内容，如何使用Spring Cloud搭建服务注册与发现模块。</p>
-<p>这里我们会用到Spring Cloud Netflix，该项目是Spring Cloud的子项目之一，主要内容是对Netflix公司一系列开源产品的包装，它为Spring Boot应用提供了自配置的Netflix OSS整合。通过一些简单的注解，开发者就可以快速的在应用中配置一下常用模块并构建庞大的分布式系统。它主要提供的模块包括：服务发现（Eureka），断路器（Hystrix），智能路有（Zuul），客户端负载均衡（Ribbon）等。</p>
-<p>所以，我们这里的核心内容就是服务发现模块：Eureka。下面我们动手来做一些尝试。</p>
-<h3 id="创建“服务注册中心”"><a href="#创建“服务注册中心”" class="headerlink" title="创建“服务注册中心”"></a>创建“服务注册中心”</h3><p>创建一个基础的Spring Boot工程，并在pom.xml中引入需要的依赖内容：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-
-&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;
-</code></pre><p>通过@EnableEurekaServer注解启动一个服务注册中心提供给其他应用进行对话。这一步非常的简单，只需要在一个普通的Spring Boot应用中添加这个注解就能开启此功能，比如下面的例子：</p>
-<pre><code>import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
-@EnableEurekaServer
-@SpringBootApplication
-public class EurekaApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaApplication.class, args);
-    }
-
-}
-</code></pre><p>在默认设置下，该服务注册中心也会将自己作为客户端来尝试注册它自己，所以我们需要禁用它的客户端注册行为，只需要在application.properties中问增加如下配置：</p>
-<pre><code>server.port=1000
-eureka.client.register-with-eureka=false
-eureka.client.fetch-registry=false
-eureka.client.serviceUrl.defaultZone=http://localhost:${server.port}/eureka/
-</code></pre><p>为了与后续要进行注册的服务区分，这里将服务注册中心的端口通过server.port属性设置为1000。</p>
-<p><a href="http://localhost:1000/" target="_blank" rel="noopener">启动工程后，访问：http://localhost:1000/</a></p>
-<p>可以看到下面的页面，其中还没有发现任何服务<br> <img src="/assets/SpringCloudImg/eurekaService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
-<h3 id="创建“服务提供方”"><a href="#创建“服务提供方”" class="headerlink" title="创建“服务提供方”"></a>创建“服务提供方”</h3><p>下面我们创建提供服务的客户端，并向服务注册中心注册自己。</p>
-<p>假设我们有一个提供计算功能的微服务模块，我们实现一个RESTful API，通过传入两个参数a和b，最后返回a + b的结果。</p>
-<p>首先，创建一个基本的Spring Boot应用 compute-service，在pom.xml中，加入如下配置：</p>
-<pre><code>&lt;parent&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
-    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
-&lt;/parent&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-    &lt;/dependency&gt;
-
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-</code></pre><p>其次，实现/add请求处理接口，通过DiscoveryClient对象，在日志中打印出服务实例的相关内容。</p>
-<pre><code>@RestController
-public class ComputeController {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    // 服务注册
-    @Autowired
-    private Registration registration;
-    @Autowired
-    private DiscoveryClient client;
-
-    @RequestMapping(value = &quot;/add&quot; ,method = RequestMethod.GET)
-    public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
-
-        ServiceInstance instance = serviceInstance();
-        Integer r = a + b;
-        logger.info(&quot;/add, host:&quot; + instance.getHost() + &quot;, service_id:&quot; + instance.getServiceId() + &quot;, result:&quot; + r);
-        return r;
-    }
-    public ServiceInstance serviceInstance() {
-        List&lt;ServiceInstance&gt; list = client.getInstances(registration.getServiceId());
-        if (list != null &amp;&amp; list.size() &gt; 0) {
-            for (ServiceInstance itm : list){
-                if (itm.getPort() == 2001)
-                    return itm;
-            }
-        }
-        return null;
-    }
-}
-</code></pre><p>最后在主类中通过加上@EnableDiscoveryClient注解，该注解能激活Eureka中的DiscoveryClient实现，才能实现Controller中对服务信息的输出。</p>
-<pre><code>@EnableDiscoveryClient
-@SpringBootApplication
-public class ComputeServiceApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(ComputeServiceApplication.class, args);
-    }
-
-}
-</code></pre><p>我们在完成了服务内容的实现之后，再继续对application.properties做一些配置工作，具体如下：</p>
-<pre><code>spring.application.name=compute-service
-server.port=2001
-eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
-</code></pre><p>通过spring.application.name属性，我们可以指定微服务的名称后续在调用的时候只需要使用该名称就可以进行服务的访问。</p>
-<p>eureka.client.serviceUrl.defaultZone属性对应服务注册中心的配置内容，指定服务注册中心的位置。</p>
-<p>为了在本机上测试区分服务提供方和服务注册中心，使用server.port属性设置不同的端口。</p>
-<p>启动该工程后，再次访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
-<p>可以看到，我们定义的服务被注册了。<br><img src="/assets/SpringCloudImg/eurekaComputeService.png" alt="image"><br><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/compute-service</a></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/04/11/Spring Cloud(一)服务注册与发现/">
-    <time datetime="2019-04-10T16:00:00.000Z" class="entry-date">
-        2019-04-11
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -2063,7 +1954,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
