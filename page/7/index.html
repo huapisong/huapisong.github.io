@@ -77,7 +77,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="cksik2u0z002howif7bnh6u4o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="ckto51wh7001z64ifgqftn0ay" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -184,264 +184,6 @@ project
 
 
   
-    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cksik2u0a001oowifdz1sie6p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
-        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
-        &lt;version&gt;1.60.0&lt;/version&gt;
-    &lt;/dependency&gt;
-
-# Configuration.java
-
-import net.bull.javamelody.MonitoringFilter;
-import net.bull.javamelody.SessionListener;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-/**
- *
- * @author zqs
- * @since
- */
-@Configuration
-public class JavamelodyConfiguration {
-    @Bean
-    public FilterRegistrationBean monitorFilter(){
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
-        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
-        return filterRegistrationBean;
-    }
-
-    @Bean
-    public ServletListenerRegistrationBean sessionListener(){
-        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
-        servletListenerRegistrationBean.setListener(new SessionListener());
-        return servletListenerRegistrationBean;
-    }
-}   
-</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
-javamelody.jar
-jrobin-1.5.14.jar
-启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
-
-访问：http://主机地址：端口号/项目名/monitoring
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/javamelody/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cksik2u1r0042owif6ogatmdf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/右键添加Notepad2/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-console" class="post-console post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/console/">(Javascript %s or %d represents string?)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="cksik2u04001cowifcgl7rtsx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>What you are seeing there is the string substitution patterns that are built into console.log() or console.debug().</p>
-<p>The pattern goes as I have presented below:</p>
-<p>%s for a String</p>
-<p>%d or %i for Number</p>
-<p>%f for Floating points</p>
-<p>%o for an Object</p>
-<p>%j for an JSON</p>
-<p>So essentially you are replacing the specifier with the values supplied as so:</p>
-<p>var name = ‘Chris’;<br>console.log(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
-<p>console.debug(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
-<p><a href="https://nodejs.org/api/util.html#util_util_format_format_args" target="_blank" rel="noopener">https://nodejs.org/api/util.html#util_util_format_format_args</a></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/console/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/console/">console</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="cksik2u1o003vowif0i5oewi6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>刷新 DNS 解析缓存</p>
-<pre><code># cmd 执行 
-ipconfig /flushdns
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/刷新 DNS 解析缓存/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
     <!---->
 
@@ -457,7 +199,7 @@ ipconfig /flushdns
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cksik2u1x004fowifmds9p3ue" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="ckto51wio004t64ifxbwxuwjv" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -682,6 +424,264 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
 
 
   
+    <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/javamelody/">javamelody java系统监控插件</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="ckto51wh2001o64ifo8hznqwq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><pre><code>&lt;!-- java系统监控插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;net.bull.javamelody&lt;/groupId&gt;
+        &lt;artifactId&gt;javamelody-core&lt;/artifactId&gt;
+        &lt;version&gt;1.60.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+# Configuration.java
+
+import net.bull.javamelody.MonitoringFilter;
+import net.bull.javamelody.SessionListener;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ *
+ * @author zqs
+ * @since
+ */
+@Configuration
+public class JavamelodyConfiguration {
+    @Bean
+    public FilterRegistrationBean monitorFilter(){
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new MonitoringFilter());
+        filterRegistrationBean.addUrlPatterns(&quot;/*&quot;);
+        return filterRegistrationBean;
+    }
+
+    @Bean
+    public ServletListenerRegistrationBean sessionListener(){
+        ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();
+        servletListenerRegistrationBean.setListener(new SessionListener());
+        return servletListenerRegistrationBean;
+    }
+}   
+</code></pre><h2 id="普通javaweb项目"><a href="#普通javaweb项目" class="headerlink" title="普通javaweb项目"></a>普通javaweb项目</h2><pre><code>导入jar包：
+javamelody.jar
+jrobin-1.5.14.jar
+启动项目的时候监控系统自动启动，无需配置（jdk1.7,tomcat 7 环境下）；
+
+访问：http://主机地址：端口号/项目名/monitoring
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/javamelody/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-console" class="post-console post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/console/">(Javascript %s or %d represents string?)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="ckto51wgw001c64ifwvt47qd1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>What you are seeing there is the string substitution patterns that are built into console.log() or console.debug().</p>
+<p>The pattern goes as I have presented below:</p>
+<p>%s for a String</p>
+<p>%d or %i for Number</p>
+<p>%f for Floating points</p>
+<p>%o for an Object</p>
+<p>%j for an JSON</p>
+<p>So essentially you are replacing the specifier with the values supplied as so:</p>
+<p>var name = ‘Chris’;<br>console.log(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
+<p>console.debug(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
+<p><a href="https://nodejs.org/api/util.html#util_util_format_format_args" target="_blank" rel="noopener">https://nodejs.org/api/util.html#util_util_format_format_args</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/console/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/console/">console</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="ckto51whv003c64ifbhncemum" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>刷新 DNS 解析缓存</p>
+<pre><code># cmd 执行 
+ipconfig /flushdns
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/刷新 DNS 解析缓存/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="ckto51whw003d64ifj3j7hklg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/右键添加Notepad2/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-SVN-error" class="post-SVN-error post type-post status-publish format-standard hentry">
     <!---->
 
@@ -697,7 +697,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="cksik2tzv000uowifx4y4nyik" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="ckto51wgn000u64ifoht9heuy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -752,7 +752,7 @@ proxy settings
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cksik2u13002qowifilfov7ds" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="ckto51whc002b64if444x5vvq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -921,7 +921,7 @@ ionic start myApp sidemenu 创建一个带有滑动的项目
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cksik2u14002towifiqoiq6r8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="ckto51whd002e64if15s8lz1t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1041,7 +1041,7 @@ $lsnrctl start
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="cksik2tzh0007owifjklt0vao" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="ckto51wg8000864if1b9aq0ro" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
