@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="准备工作Node.js环境搭建
+创建工程选择一个目录，新建一个准备存放工程内容的文件夹demo。
+打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下
+$ npm init
+This utility will walk you through">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>node  爬虫 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="准备工作Node.js环境搭建 创建工程选择一个目录，新建一个准备存放工程内容的文件夹demo。 打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下 $ npm init This utility will walk you through creating a package.json file. It only covers the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node  爬虫">
+<meta property="og:url" content="http://yoursite.com/2019/04/10/node+superagent爬虫/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="准备工作Node.js环境搭建 创建工程选择一个目录，新建一个准备存放工程内容的文件夹demo。 打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下 $ npm init This utility will walk you through creating a package.json file. It only covers the">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T02:28:58.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node  爬虫">
+<meta name="twitter:description" content="准备工作Node.js环境搭建 创建工程选择一个目录，新建一个准备存放工程内容的文件夹demo。 打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下 $ npm init This utility will walk you through creating a package.json file. It only covers the">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-node+superagent爬虫" class="post-node+superagent爬虫 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      node  爬虫
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="clesbyv1b0028psiamw6krb4b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><pre><code>Node.js环境搭建
+</code></pre><h3 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h3><p>选择一个目录，新建一个准备存放工程内容的文件夹demo。</p>
+<p>打开终端（windows机器打开CMD命令行），输入npm init，根据提示，逐步输入工程信息，具体示例如下</p>
+<pre><code>$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install &lt;pkg&gt;` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (demo) demo
+version: (1.0.0)
+description: 爬虫
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author: huapisong
+license: (ISC)
+About to write to D:\test\demo\package.json:
+
+{
+  &quot;name&quot;: &quot;demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;爬虫&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;huapisong&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
+
+
+Is this ok? (yes) yes
+</code></pre><p>此时文件夹下生成了一个package.json文件，其中包含了工程的基本信息以及引用的框架等信息</p>
+<h3 id="框架引入"><a href="#框架引入" class="headerlink" title="框架引入"></a>框架引入</h3><pre><code>superagent：发起http请求
+cheerio：解析http返回的html内容
+async：多线程并发控制
+</code></pre><p>安装命令 npm install –save PACKAGE_NAME，执行以下三条命令后，工程目录下多了一个node_modules目录，该目录就是引入的框架内容。</p>
+<pre><code>$npm install --save superagent
+$npm install --save cheerio
+$npm install --save async
+</code></pre><h3 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a>编码过程</h3><p>工程目录下，创建index.js</p>
+<pre><code>var superagent = require(&apos;superagent&apos;);
+var cheerio = require(&apos;cheerio&apos;);
+var async = require(&apos;async&apos;);
+
+var fs = require(&apos;fs&apos;);
+var request = require(&quot;request&quot;);
+
+console.log(&apos;爬虫程序开始运行......&apos;);
+
+// 第一步，发起请求，获取的列表
+superagent
+    .get(&apos;http://www.wanfangdata.com.cn/keywords/getNewKeywords.do?keywords=java&amp;resource=all&amp;topNumber=18&apos;)
+    .set(&apos;Accept&apos;, &apos;application/json, text/javascript, */*; q=0.01&apos;)
+    .set(&apos;Content-Type&apos;,&apos;text/html;charset=UTF-8&apos;)
+    .end(function(err, res){
+        // res.body, res.headers, res.status
+        //let body = cheerio.load(res.body);
+        // 请求返回后的处理
+        // 将response中返回的结果转换成JSON对象
+        var words = JSON.parse(res.text).word;
+        console.log(&apos;抓取的数据：&apos; + JSON.stringify(words));
+
+        async.mapSeries(words,
+            function (word, callback) {
+                console.log(&apos;抓取的数据：&apos; + word);
+                // 对每个对象的处理逻辑
+                fetchInfo(word, callback);
+                console.timeEnd(&quot;  耗时&quot;);
+
+            },
+            function (err, result) {
+                console.log(&apos;final:\n&apos; + result);
+            }
+        );
+        // 并发遍历 words对象
+        /* var words = JSON.parse(res.text);
+        async.mapLimit(words, 10,
+            function (word, callback) {
+                console.log(&apos;抓取的数据：&apos; + word);
+                // 对每个对象的处理逻辑
+                fetchInfo(word, callback);
+                console.timeEnd(&quot;  耗时&quot;);
+
+            },
+            function (err, result) {
+                console.log(&apos;final:\n&apos; + result);
+            }
+        );*/
+
+    });
+
+var concurrencyCount = 0; // 当前并发数记录
+var fetchInfo = function(word, callback){
+    console.time(&apos;  耗时&apos;);
+    concurrencyCount++;
+    console.log(&apos;并发数：&apos;, concurrencyCount, &apos;，正在抓取的是&apos;, word);
+
+    // 写入文件内容（如果文件不存在会创建一个文件）
+    fs.writeFile(&apos;./try4.txt&apos;, word+&apos;\n&apos;, { &apos;flag&apos;: &apos;a&apos; }, function(err) {
+        if (err) {
+            console.log(&apos;并发数:&apos;, concurrencyCount--, &apos;word&apos;, word);
+            callback(null, word);
+            throw err;
+        }
+        callback(null, word);
+        // 写入成功后读取测试
+        /*fs.readFile(&apos;./try4.txt&apos;, &apos;utf-8&apos;, function(err, data) {
+            if (err) {
+                throw err;
+            }
+            console.log(data);
+        });*/
+    });
+
+}
+</code></pre><p>工程目录下执行命令，node index.js，抓取程序开始执行</p>
+<pre><code> node index.js
+爬虫程序开始运行......
+抓取的数据：[&quot;Java&quot;,&quot;JAVA&quot;,&quot;java&quot;,&quot;Java语言&quot;,&quot;JAVA语言&quot;,&quot;Java技术&quot;,&quot;JAVA技术&quot;,&quot;Java3D&quot;,&quot;JavaEE&quot;,&quot;Java虚拟机&quot;,&quot;Java EE&quot;,&quot;JavaBean&quot;,&quot;Java程序设计&quot;,&quot;JavaScript&quot;,&quot;JAVASCRIPT&quot;,&quot;Javascript&quot;,&quot;Java Applet&quot;]
+抓取的数据：Java
+并发数： 1 ，正在抓取的是 Java
+ 耗时: 1.329ms
+抓取的数据：JAVA
+并发数： 2 ，正在抓取的是 JAVA
+ 耗时: 0.646ms
+抓取的数据：java
+并发数： 3 ，正在抓取的是 java
+ 耗时: 0.625ms
+抓取的数据：Java语言
+并发数： 4 ，正在抓取的是 Java语言
+ 耗时: 0.642ms
+抓取的数据：JAVA语言
+并发数： 5 ，正在抓取的是 JAVA语言
+ 耗时: 0.663ms
+抓取的数据：Java技术
+并发数： 6 ，正在抓取的是 Java技术
+ 耗时: 0.410ms
+抓取的数据：JAVA技术
+并发数： 7 ，正在抓取的是 JAVA技术
+ 耗时: 0.395ms
+抓取的数据：Java3D
+并发数： 8 ，正在抓取的是 Java3D
+ 耗时: 0.377ms
+抓取的数据：JavaEE
+并发数： 9 ，正在抓取的是 JavaEE
+ 耗时: 0.240ms
+抓取的数据：Java虚拟机
+并发数： 10 ，正在抓取的是 Java虚拟机
+ 耗时: 0.346ms
+抓取的数据：Java EE
+并发数： 11 ，正在抓取的是 Java EE
+ 耗时: 0.306ms
+抓取的数据：JavaBean
+并发数： 12 ，正在抓取的是 JavaBean
+ 耗时: 0.323ms
+抓取的数据：Java程序设计
+并发数： 13 ，正在抓取的是 Java程序设计
+ 耗时: 0.326ms
+抓取的数据：JavaScript
+并发数： 14 ，正在抓取的是 JavaScript
+ 耗时: 0.306ms
+抓取的数据：JAVASCRIPT
+并发数： 15 ，正在抓取的是 JAVASCRIPT
+ 耗时: 0.346ms
+抓取的数据：Javascript
+并发数： 16 ，正在抓取的是 Javascript
+ 耗时: 1.027ms
+抓取的数据：Java Applet
+并发数： 17 ，正在抓取的是 Java Applet
+ 耗时: 0.955ms
+final:
+Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚拟机,Java EE,JavaBean,Java程序设计,JavaScript,JAVASCRIPT,Javascript,Java Applet
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/10/node+superagent爬虫/">
+    <time datetime="2019-04-09T16:00:00.000Z" class="entry-date">
+        2019-04-10
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Node/">Node</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/04/11/Spring Cloud(一)服务注册与发现/" rel="prev"><span class="meta-nav">←</span> Spring Cloud构建微服务架构（一）服务注册与发现</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/04/08/几个能够免费生成二维码的api接口/" rel="next">几个能够免费生成二维码的api接口 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

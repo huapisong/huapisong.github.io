@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="dialog 遮盖层Vue开发中出现对话框被遮罩层挡住问题解决方案造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
+
+# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>vue elementUi | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="dialog 遮盖层Vue开发中出现对话框被遮罩层挡住问题解决方案造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：  # modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true  Element UI该组件已经在属性层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue elementUi">
+<meta property="og:url" content="http://yoursite.com/2019/03/26/vue elemetUl /index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="dialog 遮盖层Vue开发中出现对话框被遮罩层挡住问题解决方案造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：  # modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true  Element UI该组件已经在属性层">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-21T02:19:54.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue elementUi">
+<meta name="twitter:description" content="dialog 遮盖层Vue开发中出现对话框被遮罩层挡住问题解决方案造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：  # modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true  Element UI该组件已经在属性层">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      vue elementUi
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="clesbyv1m002vpsiamfefn1ue" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="dialog-遮盖层"><a href="#dialog-遮盖层" class="headerlink" title="dialog 遮盖层"></a>dialog 遮盖层</h2><h3 id="Vue开发中出现对话框被遮罩层挡住问题解决方案"><a href="#Vue开发中出现对话框被遮罩层挡住问题解决方案" class="headerlink" title="Vue开发中出现对话框被遮罩层挡住问题解决方案"></a>Vue开发中出现对话框被遮罩层挡住问题解决方案</h3><pre><code>造成这个问题的原因是对话框组件的父元素的position有fixed或者relative值，比较简单易行的办法如下：
+
+# modal-append-to-body 遮罩层是否插入至 body 元素上，若为 false，则遮罩层会插入至 Dialog 的父元素上 boolean — true
+
+Element UI该组件已经在属性层面提供了解决办法，只要添加
+:modal-append-to-body=&quot;false&quot;
+就可以了。
+</code></pre><h2 id="vue-手机输入框回车页面刷新"><a href="#vue-手机输入框回车页面刷新" class="headerlink" title="vue 手机输入框回车页面刷新"></a>vue 手机输入框回车页面刷新</h2><h3 id="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"><a href="#当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新" class="headerlink" title="当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新"></a>当Form组件中只有一个Input组件时，鼠标聚焦输入框后，点击回车键，页面就会刷新</h3><pre><code># 例如以下代码
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><pre><code># 方法一：
+# 用@submit.native.prevent来阻止默认行为，在组件Form上添加@submit.native.prevent
+&lt;el-form :model=&quot;form&quot;  @submit.native.prevent&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+
+# 方法二：
+# 再在表单里添加一个Input组件（若需求需要一个input,可将第二个Input组件隐藏）
+&lt;el-form :model=&quot;form&quot;&gt;
+  &lt;el-form-item prop=&quot;username&quot;&gt;
+    &lt;el-input v-model=&quot;form.username&quot; placeholder=&quot;请输入姓名&quot;&gt;&lt;/el-input&gt;
+    &lt;el-input v-show=&quot;false&quot;&gt;&lt;/el-input&gt;
+  &lt;/el-form-item&gt;
+&lt;/el-form&gt;
+</code></pre><h2 id="数据更新但是页面没有更新的情况"><a href="#数据更新但是页面没有更新的情况" class="headerlink" title="数据更新但是页面没有更新的情况"></a>数据更新但是页面没有更新的情况</h2><p>  使用this.$forceUpdate()可以重新渲染组件,这样就可以得到想要的效果。<br>  vue官方对$forceUpdate的解释是：<br>  $forceUpdate可以迫使 Vue 实例重新渲染。它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/03/26/vue elemetUl /">
+    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
+        2019-03-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/03/26/vue组件之间通信/" rel="prev"><span class="meta-nav">←</span> vue组件之间的通信</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/01/01/RPC入门总结  RPC定义和原理/" rel="next">RPC入门总结 RPC定义和原理 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

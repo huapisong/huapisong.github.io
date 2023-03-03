@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <title>随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="随记">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随记">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-vue + webpack-build-params-init" class="post-vue + webpack-build-params-init post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/06/vue + webpack-build-params-init/">编译不同环境 global 参数设置</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack-build-params-init/" data-id="clesbyv1k002qpsiabc8mzrrn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="获取-‘npm-run-build-dev’-中的参数，修改-global"><a href="#获取-‘npm-run-build-dev’-中的参数，修改-global" class="headerlink" title="获取 ‘npm run build dev’ 中的参数，修改 global"></a>获取 ‘npm run build dev’ 中的参数，修改 global</h2><pre><code># 在 build.js 中添加如下修改
+
+const yargs = require(&apos;yargs&apos;)
+const fs = require(&apos;fs&apos;)
+let envList = [&apos;prod&apos;, &apos;test&apos;, &apos;dev&apos;, &apos;local&apos;, &apos;stage&apos;];
+let globConfig = (yargs.argv.config &amp;&amp; envList.includes(yargs.argv.config)) ? yargs.argv.config : (yargs.argv._[0]? yargs.argv._[0]: envList[2]);
+let versionConfig = yargs.argv.vers ? yargs.argv.vers : &apos;1.0.0.0&apos;;
+console.log(&apos;building for&apos;, globConfig,)
+console.log(yargs.argv, yargs.argv._[0])
+
+let glogFile = fs.readFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;), &apos;utf-8&apos;)
+let curFile = glogFile.replace(/(let\s*env\s*\=\s*)(\d+)(\s*\;)/gi, (s0, s1, s2, s3) =&gt; {
+  let config = 4
+  // (globConfig === &apos;test&apos;) ? 2 : ((globConfig === &apos;prod&apos;) ? 1 : ((globConfig === &apos;dev&apos;) ? 3: globConfig === &apos;stage&apos; ? 5 : 4))
+  switch(globConfig) {
+    case &apos;test&apos;:
+      config = 2
+      break;
+    case &apos;prod&apos;:
+      config = 1
+      break;
+    case &apos;dev&apos;:
+      config = 3
+      break;
+    case &apos;stage&apos;:
+      config = 5
+      break;
+    default:
+      config = 4
+  }
+  return s1 + config + s3;
+}).replace(/(let\s*version\s*\=\s*\&quot;)(.*)(\&quot;\;)/gi, (s0, s1, s2, s3) =&gt; {
+  return s1 + versionConfig + s3;
+})
+
+fs.writeFileSync(path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;), curFile, &apos;utf-8&apos;);
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/06/vue + webpack-build-params-init/">
+    <time datetime="2019-05-05T16:00:00.000Z" class="entry-date">
+        2019-05-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 修改子组件样式" class="post-vue 修改子组件样式 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/05/vue 修改子组件样式/">vue 修改子组件样式</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 修改子组件样式/" data-id="clesbyv1o0030psias3x7lqxj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="Scoped-CSS"><a href="#Scoped-CSS" class="headerlink" title="Scoped CSS"></a>Scoped CSS</h3><p>当 style 标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。这类似于 Shadow DOM 中的样式封装。它有一些注意事项，但不需要任何 polyfill。它通过使用 PostCSS 来实现以下转换：</p>
+<pre><code>&lt;style scoped&gt;
+.example {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot;&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>转换结果：</p>
+<pre><code>&lt;style&gt;
+.example[data-v-f3f3eg9] {
+  color: red;
+}
+&lt;/style&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;example&quot; data-v-f3f3eg9&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><h3 id="混用本地和全局样式"><a href="#混用本地和全局样式" class="headerlink" title="混用本地和全局样式"></a>混用本地和全局样式</h3><p>你可以在一个组件中同时使用有 scoped 和非 scoped 样式：</p>
+<pre><code>&lt;style&gt;
+/* 全局样式 */
+&lt;/style&gt;
+
+&lt;style scoped&gt;
+/* 本地样式 */
+&lt;/style&gt;
+</code></pre><h3 id="子组件的根元素"><a href="#子组件的根元素" class="headerlink" title="子组件的根元素"></a>子组件的根元素</h3><p>使用 scoped 后，父组件的样式将不会渗透到子组件中。不过一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。这样设计是为了让父组件可以从布局的角度出发，调整其子组件根元素的样式。</p>
+<h3 id="深度作用选择器"><a href="#深度作用选择器" class="headerlink" title="深度作用选择器"></a>深度作用选择器</h3><p>如果你希望 scoped 样式中的一个选择器能够作用得“更深”，例如影响子组件，你可以使用 &gt;&gt;&gt; 操作符：</p>
+<pre><code>&lt;style scoped&gt;
+.a &gt;&gt;&gt; .b { /* ... */ }
+&lt;/style&gt;
+</code></pre><p>上述代码将会编译成：</p>
+<pre><code>.a[data-v-f3f3eg9] .b { /* ... */ }
+</code></pre><p>有些像 Sass 之类的预处理器无法正确解析 &gt;&gt;&gt;。这种情况下你可以使用 /deep/ 或 ::v-deep 操作符取而代之——两者都是 &gt;&gt;&gt; 的别名，同样可以正常工作。</p>
+<p>例：</p>
+<pre><code> &lt;template slot-scope=&quot;slotProps&quot;&gt;
+    &lt;xx-input
+    v-model=&quot;slotProps.option.record.name&quot;
+    :type=&quot;form.input.type&quot;
+    placeholder=&quot;请输入&quot;
+    :required=&quot;true&quot;
+    size=&quot;60&quot;
+    class=&quot;table-input&quot;
+  &gt;&lt;/xx-input&gt;
+ &lt;/template&gt;
+
+&lt;style lang=&quot;css&quot; scoped&gt;
+.table-input /deep/ .input-no-label .input__content{
+  margin-bottom: 0;
+}
+&lt;/style&gt;
+</code></pre><h3 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h3><p>通过 v-html 创建的 DOM 内容不受 scoped 样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
+<h3 id="还有一些要留意"><a href="#还有一些要留意" class="headerlink" title="还有一些要留意"></a>还有一些要留意</h3><p><strong>Scoped 样式不能代替 class</strong>考虑到浏览器渲染各种 CSS 选择器的方式，当 p { color: red } 是 scoped 时 (即与特性选择器组合使用时) 会慢很多倍。如果你使用 class 或者 id 取而代之，比如 .example { color: red }，性能影响就会消除。</p>
+<p><strong>在递归组件中小心使用后代选择器!</strong> 对选择器 .a .b 中的 CSS 规则来说，如果匹配 .a 的元素包含一个递归子组件，则所有的子组件中的 .b 都将被这个规则匹配。</p>
+<h3 id="不推荐使用全局样式"><a href="#不推荐使用全局样式" class="headerlink" title="*不推荐使用全局样式"></a>*不推荐使用全局样式</h3><p>参考：<a href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/zh/guide/scoped-css.html</a></p>
+<h3 id="vue-的样式覆盖问题"><a href="#vue-的样式覆盖问题" class="headerlink" title="vue 的样式覆盖问题"></a>vue 的样式覆盖问题</h3><pre><code>一般想要覆盖第三方插件样式，可自己定义class，或者直接获取三方类名，添加样式，只需要在后面加 !important属性即可
+.subitem-date-picker {
+  width: 100% !important;
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 修改子组件样式/">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-vue 重新渲染组件（重置或者更新) " class="post-vue 重新渲染组件（重置或者更新)  post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">vue 重新渲染组件（重置或者更新）</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 重新渲染组件（重置或者更新) /" data-id="clesbyv1p0033psiacg9dq6ga" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="动态组件-amp-异步组件"><a href="#动态组件-amp-异步组件" class="headerlink" title="动态组件 &amp; 异步组件"></a>动态组件 &amp; 异步组件</h2><p>  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新<br>  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。<br>  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。</p>
+<h2 id="方案一：v-if（可以重置生命周期）"><a href="#方案一：v-if（可以重置生命周期）" class="headerlink" title="方案一：v-if（可以重置生命周期）"></a>方案一：v-if（可以重置生命周期）</h2><pre><code>当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲染。使用 v-if 可以解决这个问题
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; v-if=&quot;reFresh&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        reFresh:true,
+      }
+    },
+    watch:{
+      $route(to, form) {
+        this.reFresh= false
+        this.$nextTick(()=&gt;{
+            this.reFresh = true
+        })
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre><p>  这种方式虽然可以实现，但太不优雅  </p>
+<h2 id="方案二-key-’’（此处可触发watch和update）"><a href="#方案二-key-’’（此处可触发watch和update）" class="headerlink" title="方案二 :key=’’（此处可触发watch和update）"></a>方案二 :key=’’（此处可触发watch和update）</h2><pre><code>通过vue key 实现，原理请查看官方文档。所以当key 值变更时，会自动的重新渲染。
+
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; :key=&quot;key&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        key: 1
+      }
+    },
+    watch:{
+      $route(to, form) {
+        ++this.key
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-java集合框架" class="post-java集合框架 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/28/java集合框架/">java 集合框架</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/28/java集合框架/" data-id="clesbyv2f004vpsia3lx40cb6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="一、只有光头才能变强"><a href="#一、只有光头才能变强" class="headerlink" title="一、只有光头才能变强"></a>一、只有光头才能变强</h3><h4 id="1、-什么是Java集合API"><a href="#1、-什么是Java集合API" class="headerlink" title="1、 什么是Java集合API"></a>1、 什么是Java集合API</h4><pre><code>Java集合框架API是用来表示和操作集合的统一框架，它包含接口、实现类、以及帮助程序员完成一些编程的算法。简言之，API在上层完成以下几件事：
+
+● 编程更加省力，提高城程序速度和代码质量
+
+● 非关联的API提高互操作性
+
+● 节省学习使用新API成本
+
+● 节省设计新API的时间
+
+● 鼓励、促进软件重用
+
+具体来说，有6个集合接口，最基本的是Collection接口，由三个接口Set、List、SortedSet继承，另外两个接口是Map、SortedMap,这两个接口不继承Collection，表示映射而不是真正的集合。
+</code></pre><h4 id="2、-什么是Iterator"><a href="#2、-什么是Iterator" class="headerlink" title="2、 什么是Iterator"></a>2、 什么是Iterator</h4><pre><code>一些集合类提供了内容遍历的功能，通过java.util.Iterator接口。这些接口允许遍历对象的集合。依次操作每个元素对象。当使用 Iterators时，在获得Iterator的时候包含一个集合快照。通常在遍历一个Iterator的时候不建议修改集合本省。
+</code></pre><h4 id="3、-Iterator与ListIterator有什么区别"><a href="#3、-Iterator与ListIterator有什么区别" class="headerlink" title="3、 Iterator与ListIterator有什么区别"></a>3、 Iterator与ListIterator有什么区别</h4><pre><code>Iterator:只能正向遍历集合，适用于获取移除元素。ListIerator：继承Iterator,可以双向列表的遍历，同样支持元素的修改。
+</code></pre><h4 id="4、-什么是HaspMap和Map"><a href="#4、-什么是HaspMap和Map" class="headerlink" title="4、 什么是HaspMap和Map"></a>4、 什么是HaspMap和Map</h4><pre><code>Map是接口，Java 集合框架中一部分，用于存储键值对，HashMap是用哈希算法实现Map的类。
+</code></pre><h4 id="5、-HashMap与HashTable有什么区别？对比Hashtable-VS-HashMap"><a href="#5、-HashMap与HashTable有什么区别？对比Hashtable-VS-HashMap" class="headerlink" title="5、 HashMap与HashTable有什么区别？对比Hashtable VS HashMap"></a>5、 HashMap与HashTable有什么区别？对比Hashtable VS HashMap</h4><pre><code>两者都是用key-value方式获取数据。Hashtable是原始集合类之一(也称作遗留类)。HashMap作为新集合框架的一部分在Java2的1.2版本中加入。它们之间有一下区别：
+
+● HashMap和Hashtable大致是等同的，除了非同步和空值(HashMap允许null值作为key和value，而Hashtable不可以)。
+
+● HashMap没法保证映射的顺序一直不变，但是作为HashMap的子类LinkedHashMap，如果想要预知的顺序迭代(默认按照插入顺序),你可以很轻易的置换为HashMap，如果使用Hashtable就没那么容易了。
+
+● HashMap不是同步的，而Hashtable是同步的。
+
+● 迭代HashMap采用快速失败机制，而Hashtable不是，所以这是设计的考虑点。
+</code></pre><h4 id="6、-在Hashtable上下文中同步是什么意思"><a href="#6、-在Hashtable上下文中同步是什么意思" class="headerlink" title="6、 在Hashtable上下文中同步是什么意思"></a>6、 在Hashtable上下文中同步是什么意思</h4><pre><code>同步意味着在一个时间点只能有一个线程可以修改哈希表，任何线程在执行hashtable的更新操作前需要获取对象锁，其他线程等待锁的释放。
+</code></pre><h4 id="7、-什么叫做快速失败特性"><a href="#7、-什么叫做快速失败特性" class="headerlink" title="7、 什么叫做快速失败特性"></a>7、 什么叫做快速失败特性</h4><pre><code>从高级别层次来说快速失败是一个系统或软件对于其故障做出的响应。一个快速失败系统设计用来即时报告可能会导致失败的任何故障情况，它通常用来停止正常的操作而不是尝试继续做可能有缺陷的工作。当有问题发生时，快速失败系统即时可见地发错错误告警。在Java中，快速失败与iterators有关。如果一个iterator在集合对象上创建了，其它线程欲“结构化”的修改该集合对象，并发修改异常 (ConcurrentModificationException) 抛出。
+</code></pre><h4 id="8、-怎样使Hashmap同步"><a href="#8、-怎样使Hashmap同步" class="headerlink" title="8、 怎样使Hashmap同步"></a>8、 怎样使Hashmap同步</h4><pre><code>HashMap可以通过Map m = Collections.synchronizedMap（hashMap）来达到同步的效果。
+</code></pre><h4 id="9、-什么时候使用Hashtable，什么时候使用HashMap"><a href="#9、-什么时候使用Hashtable，什么时候使用HashMap" class="headerlink" title="9、 什么时候使用Hashtable，什么时候使用HashMap"></a>9、 什么时候使用Hashtable，什么时候使用HashMap</h4><pre><code>基本的不同点是Hashtable同步HashMap不是的，所以无论什么时候有多个线程访问相同实例的可能时，就应该使用Hashtable，反之使用HashMap。非线程安全的数据结构能带来更好的性能。
+
+如果在将来有一种可能—你需要按顺序获得键值对的方案时，HashMap是一个很好的选择，因为有HashMap的一个子类 LinkedHashMap。所以如果你想可预测的按顺序迭代(默认按插入的顺序)，你可以很方便用LinkedHashMap替换HashMap。反观要是使用的Hashtable就没那么简单了。同时如果有多个线程访问HashMap，Collections.synchronizedMap()可以代替，总的来说HashMap更灵活。
+</code></pre><h4 id="10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector"><a href="#10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector" class="headerlink" title="10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector"></a>10、为什么Vector类认为是废弃的或者是非官方地不推荐使用？或者说为什么我们应该一直使用ArrayList而不是Vector</h4><pre><code>你应该使用ArrayList而不是Vector是因为默认情况下你是非同步访问的，Vector同步了每个方法，你几乎从不要那样做，通常有想要同步的是整个操作序列。同步单个的操作也不安全(如果你迭代一个Vector,你还是要加锁，以避免其它线程在同一时刻改变集合).而且效率更慢。当然同样有锁的开销即使你不需要，这是个很糟糕的方法在默认情况下同步访问。你可以一直使用Collections.sychronizedList来装饰一个集合。
+
+事实上Vector结合了“可变数组”的集合和同步每个操作的实现。这是另外一个设计上的缺陷。Vector还有些遗留的方法在枚举和元素获取的方法，这些方法不同于List接口，如果这些方法在代码中程序员更趋向于想用它。尽管枚举速度更快，但是他们不能检查如果集合在迭代的时候修改了，这样将导致问题。尽管以上诸多原因，oracle也从没宣称过要废弃Vector.
+</code></pre><h3 id="二、CopyOnWriteArrayList-Set-介绍"><a href="#二、CopyOnWriteArrayList-Set-介绍" class="headerlink" title="二、CopyOnWriteArrayList(Set)介绍"></a>二、CopyOnWriteArrayList(Set)介绍</h3><p>一般来说，我们会认为：CopyOnWriteArrayList是同步List的替代品，CopyOnWriteArraySet是同步Set的替代品。</p>
+<p>无论是Hashtable–&gt;ConcurrentHashMap，还是说Vector–&gt;CopyOnWriteArrayList。JUC下支持并发的容器与老一代的线程安全类相比，总结起来就是加锁粒度的问题</p>
+<pre><code>Hashtable、Vector加锁的粒度大(直接在方法声明处使用synchronized)
+ConcurrentHashMap、CopyOnWriteArrayList加锁粒度小(用各种的方式来实现线程安全，比如我们知道的ConcurrentHashMap用了cas锁、volatile等方式来实现线程安全..)
+JUC下的线程安全容器在遍历的时候不会抛出ConcurrentModificationException异常
+</code></pre><p>所以一般来说，我们都会使用JUC包下给我们提供的线程安全容器，而不是使用老一代的线程安全容器。</p>
+<p>下面我们来看看CopyOnWriteArrayList是怎么实现的，为什么使用迭代器遍历的时候就不用额外加锁，也不会抛出ConcurrentModificationException异常。</p>
+<h4 id="2-1CopyOnWriteArrayList实现原理"><a href="#2-1CopyOnWriteArrayList实现原理" class="headerlink" title="2.1CopyOnWriteArrayList实现原理"></a>2.1CopyOnWriteArrayList实现原理</h4><p>我们还是先来回顾一下COW：</p>
+<pre><code>如果有多个调用者（callers）同时请求相同资源（如内存或磁盘上的数据存储），他们会共同获取相同的指针指向相同的资源，直到某个调用者试图修改资源的内容时，系统才会真正复制一份专用副本（private copy）给该调用者，而其他调用者所见到的最初的资源仍然保持不变。优点是如果调用者没有修改该资源，就不会有副本（private copy）被建立，因此多个调用者只是读取操作时可以共享同一份资源。
+</code></pre><p>概括一下CopyOnWriteArrayList源码注释介绍了什么：</p>
+<pre><code>CopyOnWriteArrayList是线程安全容器(相对于ArrayList)，底层通过复制数组的方式来实现。
+CopyOnWriteArrayList在遍历的使用不会抛出ConcurrentModificationException异常，并且遍历的时候就不用额外加锁
+元素可以为null
+</code></pre><h4 id="2-1-1看一下CopyOnWriteArrayList基本的结构"><a href="#2-1-1看一下CopyOnWriteArrayList基本的结构" class="headerlink" title="2.1.1看一下CopyOnWriteArrayList基本的结构"></a>2.1.1看一下CopyOnWriteArrayList基本的结构</h4><pre><code>/** 可重入锁对象 */
+final transient ReentrantLock lock = new ReentrantLock();
+
+/** CopyOnWriteArrayList底层由数组实现，volatile修饰 */
+private transient volatile Object[] array;
+
+/**
+ * 得到数组
+ */
+final Object[] getArray() {
+    return array;
+}
+
+/**
+ * 设置数组
+ */
+final void setArray(Object[] a) {
+    array = a;
+}
+
+/**
+ * 初始化CopyOnWriteArrayList相当于初始化数组
+ */
+public CopyOnWriteArrayList() {
+    setArray(new Object[0]);
+}
+</code></pre><p>看起来挺简单的，CopyOnWriteArrayList底层就是数组，加锁就交由ReentrantLock来完成。</p>
+<h4 id="2-1-2常见方法的实现"><a href="#2-1-2常见方法的实现" class="headerlink" title="2.1.2常见方法的实现"></a>2.1.2常见方法的实现</h4><p>根据上面的分析我们知道如果遍历Vector/SynchronizedList是需要自己手动加锁的。</p>
+<p>CopyOnWriteArrayList使用迭代器遍历时不需要显示加锁，看看add()、clear()、remove()与get()方法的实现可能就有点眉目了。</p>
+<p>首先我们可以看看add()方法</p>
+<pre><code>public boolean add(E e) {
+
+    // 加锁
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+
+        // 得到原数组的长度和元素
+        Object[] elements = getArray();
+        int len = elements.length;
+
+        // 复制出一个新数组
+        Object[] newElements = Arrays.copyOf(elements, len + 1);
+
+        // 添加时，将新元素添加到新数组中
+        newElements[len] = e;
+
+        // 将volatile Object[] array 的指向替换成新数组
+        setArray(newElements);
+        return true;
+    } finally {
+        lock.unlock();
+    }
+}
+</code></pre><p>通过代码我们可以知道：在添加的时候就上锁，并复制一个新数组，增加操作在新数组上完成，将array指向到新数组中，最后解锁。</p>
+<p>再来看看size()方法：</p>
+<pre><code>public int size() {
+
+    // 直接得到array数组的长度
+    return getArray().length;
+}
+</code></pre><p>再来看看get()方法：</p>
+<pre><code>public E get(int index) {
+    return get(getArray(), index);
+}
+
+final Object[] getArray() {
+    return array;
+}
+</code></pre><p>那再来看看set()方法</p>
+<pre><code>public E set(int index, E element) {
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+
+        // 得到原数组的旧值
+        Object[] elements = getArray();
+        E oldValue = get(elements, index);
+
+        // 判断新值和旧值是否相等
+        if (oldValue != element) {
+
+            // 复制新数组，新值在新数组中完成
+            int len = elements.length;
+            Object[] newElements = Arrays.copyOf(elements, len);
+            newElements[index] = element;
+
+            // 将array引用指向新数组
+            setArray(newElements);
+        } else {
+            // Not quite a no-op; enssures volatile write semantics
+            setArray(elements);
+        }
+        return oldValue;
+    } finally {
+        lock.unlock();
+    }
+}
+</code></pre><p>对于remove()、clear()跟set()和add()是类似的，这里我就不再贴出代码了。</p>
+<p>总结：</p>
+<pre><code>在修改时，复制出一个新数组，修改的操作在新数组中完成，最后将新数组交由array变量指向。
+写加锁，读不加锁
+</code></pre><h4 id="2-1-3剖析为什么遍历时不用调用者显式加锁"><a href="#2-1-3剖析为什么遍历时不用调用者显式加锁" class="headerlink" title="2.1.3剖析为什么遍历时不用调用者显式加锁"></a>2.1.3剖析为什么遍历时不用调用者显式加锁</h4><p>常用的方法实现我们已经基本了解了，但还是不知道为啥能够在容器遍历的时候对其进行修改而不抛出异常。所以，来看一下他的迭代器吧：</p>
+<pre><code>// 1. 返回的迭代器是COWIterator
+public Iterator&lt;E&gt; iterator() {
+    return new COWIterator&lt;E&gt;(getArray(), 0);
+}
+
+
+// 2. 迭代器的成员属性
+private final Object[] snapshot;
+private int cursor;
+
+// 3. 迭代器的构造方法
+private COWIterator(Object[] elements, int initialCursor) {
+    cursor = initialCursor;
+    snapshot = elements;
+}
+
+// 4. 迭代器的方法...
+public E next() {
+    if (! hasNext())
+        throw new NoSuchElementException();
+    return (E) snapshot[cursor++];
+}
+
+//.... 可以发现的是，迭代器所有的操作都基于snapshot数组，而snapshot是传递进来的array数组
+</code></pre><p>到这里，我们应该就可以想明白了！CopyOnWriteArrayList在使用迭代器遍历的时候，操作的都是原数组！</p>
+<h4 id="2-1-4CopyOnWriteArrayList缺点"><a href="#2-1-4CopyOnWriteArrayList缺点" class="headerlink" title="2.1.4CopyOnWriteArrayList缺点"></a>2.1.4CopyOnWriteArrayList缺点</h4><p>看了上面的实现源码，我们应该也大概能分析出CopyOnWriteArrayList的缺点了。</p>
+<pre><code>内存占用：如果CopyOnWriteArrayList经常要增删改里面的数据，经常要执行add()、set()、remove()的话，那是比较耗费内存的。
+    因为我们知道每次add()、set()、remove()这些增删改操作都要复制一个数组出来。
+
+数据一致性：CopyOnWrite容器只能保证数据的最终一致性，不能保证数据的实时一致性。
+    从上面的例子也可以看出来，比如线程A在迭代CopyOnWriteArrayList容器的数据。线程B在线程A迭代的间隙中将CopyOnWriteArrayList部分的数据修改了(已经调用setArray()了)。但是线程A迭代出来的是原有的数据。
+</code></pre><h4 id="2-1-5CopyOnWriteSet"><a href="#2-1-5CopyOnWriteSet" class="headerlink" title="2.1.5CopyOnWriteSet"></a>2.1.5CopyOnWriteSet</h4><p>CopyOnWriteArraySet的原理就是CopyOnWriteArrayList。</p>
+<pre><code>private final CopyOnWriteArrayList&lt;E&gt; al;
+
+public CopyOnWriteArraySet() {
+    al = new CopyOnWriteArrayList&lt;E&gt;();
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/28/java集合框架/">
+    <time datetime="2019-04-27T16:00:00.000Z" class="entry-date">
+        2019-04-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-nginx解决方案" class="post-nginx解决方案 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/24/nginx解决方案/">Nginx解决方案</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/24/nginx解决方案/" data-id="clesbyv2g0051psiakr7a1k37" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="1-方案场景"><a href="#1-方案场景" class="headerlink" title="1.方案场景"></a>1.方案场景</h3><p>现有多台应用服务器，要实现所有的访问先访问到反向代理服务器上再转内部对应的应用。</p>
+<pre><code>反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。简而言之就是隐藏所有的服务器，与之相对的是正向代理，如我们常用的vpn，目的是隐藏访问客户端。
+</code></pre><p>我们在这里打算采用Nginx作为方向代理的服务器</p>
+<h3 id="2-什么是nginx"><a href="#2-什么是nginx" class="headerlink" title="2.什么是nginx"></a>2.什么是nginx</h3><pre><code>Nginx(&quot;engine x&quot;)是一款是由俄罗斯的程序设计师Igor Sysoev开发高性能的 Web和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。
+在高连接并发的情况下，Nginx是Apache服务器不错的替代品。
+</code></pre><h3 id="3-nginx安装"><a href="#3-nginx安装" class="headerlink" title="3.nginx安装"></a>3.nginx安装</h3><pre><code>在/usr/local/src下进行，否则后面会编译错误
+</code></pre><h4 id="3-1-安装编译工具和库文件"><a href="#3-1-安装编译工具和库文件" class="headerlink" title="3.1 安装编译工具和库文件"></a>3.1 安装编译工具和库文件</h4><pre><code>yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel
+</code></pre><h4 id="3-2-安装PCRE"><a href="#3-2-安装PCRE" class="headerlink" title="3.2 安装PCRE"></a>3.2 安装PCRE</h4><p> PCRE 作用是让 Nginx 支持 Rewrite 功能。<br> 下载 PCRE 安装包，下载地址： <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a></p>
+<pre><code>wget http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz
+</code></pre><p> 解压安装包</p>
+<pre><code>tar zxvf pcre-8.35.tar.gz
+</code></pre><p> 进入安装包目录</p>
+<pre><code>cd pcre-8.35
+</code></pre><p> 编译安装</p>
+<pre><code>./configure
+make &amp;&amp; make install
+</code></pre><p> 查看pcre版本</p>
+<pre><code>pcre-config --version
+</code></pre><p> 若有版本显示，表明安装成功</p>
+<h4 id="3-3-安装Nginx"><a href="#3-3-安装Nginx" class="headerlink" title="3.3 安装Nginx"></a>3.3 安装Nginx</h4><p>下载 Nginx，下载地址：<a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a></p>
+<pre><code>wget http://nginx.org/download/nginx-1.6.2.tar.gz
+</code></pre><p>解压安装包</p>
+<pre><code>tar zxvf nginx-1.6.2.tar.gz
+</code></pre><p>进入安装包目录</p>
+<pre><code>cd nginx-1.6.2
+</code></pre><p>编译安装</p>
+<pre><code>./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/usr/local/src/pcre-8.35
+make
+make isntall
+</code></pre><p>注意，编译安装的路径要按照实际安装的路径来，本次是在/usr/local/src下</p>
+<p>查看nginx版本</p>
+<pre><code>/usr/local/webserver/nginx/sbin/nginx -v
+</code></pre><p>若有版本显示，表明安装成功</p>
+<h3 id="4-nginx的配置"><a href="#4-nginx的配置" class="headerlink" title="4.nginx的配置"></a>4.nginx的配置</h3><p>nginx的配置文件在/usr/local/webserver/nginx/conf/nginx.conf下，我们只要修改nginx.conf的内容就可以修改Nginx的配置<br>配置文件的格式如下</p>
+<pre><code>main # 全局设置
+events { # Nginx工作模式
+    ....
+}
+http { # http设置
+    ....
+    upstream myproject { # 负载均衡服务器设置
+        .....
+    }
+    server  { # 主机设置
+        ....
+        location { # URL匹配
+            ....
+        }
+    }
+    server  {
+        ....
+        location {
+            ....
+        }
+    }
+    ....
+}
+</code></pre><h4 id="4-1-main模块"><a href="#4-1-main模块" class="headerlink" title="4.1 main模块"></a>4.1 main模块</h4><p>main区域是一个全局设置</p>
+<pre><code>#user 来指定Nginx Worker进程运行用户以及用户组，默认由nobody账号运行。
+user  nobody;
+#指定了Nginx要开启的子进程数。每个Nginx进程平均耗费10M~12M内存。根据经验，一般指定1个进程就足够了，如果是多核CPU，建议指定和CPU的数量一样的进程数即可。我这里写2，那么就会开启2个子进程，总共3个进程。
+worker_processes  1;
+
+#error_log 来定义全局错误日志文件。日志输出级别有debug、info、notice、warn、error、crit可供选择，其中，debug输出日志最为最详细，而crit输出日志最少。
+error_log  logs/error.log;
+error_log  logs/error.log  notice;
+error_log  logs/error.log  info;
+#pid 来指定进程id的存储文件位置。
+pid        logs/nginx.pid
+</code></pre><h4 id="4-2-events模块"><a href="#4-2-events模块" class="headerlink" title="4.2 events模块"></a>4.2 events模块</h4><p>events模块来用指定nginx的工作模式和工作模式及连接数上限，一般是这样</p>
+<pre><code>events {
+    use kqueue; #用来指定Nginx的工作模式
+    #指定Nginx的单个进程的最大连接数，即接收到的前端的最大请求数，默认为1024
+    worker_connections  1024;
+}
+</code></pre><h4 id="4-3-http模块"><a href="#4-3-http模块" class="headerlink" title="4.3 http模块"></a>4.3 http模块</h4><p>  http是Nginx的核心模块，它负责http服务器相关属性的配置，里面的server和upstream子模块至关重要，我们在设置方向代理、负债均衡以及虚拟目录等的时候，就是依赖于这两个模块的配置</p>
+<pre><code>http {
+     #设定mime类型,类型由mime.type文件定义
+    include       /etc/nginx/mime.types;
+    #设定了默认的类型为二进制流，也就是当文件类型未定义时使用这种方式
+    default_type  application/octet-stream;
+
+    #用于设置日志的格式，和记录哪些参数，这里设置为main，刚好用于access_log来纪录这种类型。
+    log_format main &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                    &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                    &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+    #设定日志文件，后面的main是日志的格式样式，对应于log_format的main。
+    access_log    /var/log/nginx/access.log main;
+
+    #用于开启高效文件传输模式。将tcp_nopush和tcp_nodelay两个指令设置为on用于防止网络阻塞。
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+
+    #设置客户端连接保持活动的超时时间。在超过这个时间之后，服务器会关闭该连接。
+    keepalive_timeout 10;
+
+    #设定负载均衡的服务器列表
+    upstream load_balance_server {
+        ......
+    }
+
+   #HTTP服务器
+   server {
+       ......
+    }
+}
+</code></pre><h5 id="4-3-1-upstream模块"><a href="#4-3-1-upstream模块" class="headerlink" title="4.3.1 upstream模块"></a>4.3.1 upstream模块</h5><p>  upstream主要负责负载均衡，通过一个简单的调度算法来实现客户端IP到后端服务器的负载均衡。</p>
+<pre><code>upstream test.com{
+    ip_hash;
+    server 123.206.117.62:80;
+    server 123.206.117.62:80 down;
+    server 123.206.117.62:8080  max_fails=3  fail_timeout=20s;
+    server 123.206.117.62:8080;
+}
+</code></pre><blockquote>
+<ul>
+<li>上面的代码，test.com是upstream指定的负载均衡器的名称，这个名称可以任意指定，在后面需要的地方直接调用即可。</li>
+<li>ip_hash这是其中的一种负载均衡调度算法，Nginx的负载均衡模块目前支持4种调度算法<blockquote>
+<ul>
+<li>weight 轮询（默认）。每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某台服务器宕机，故障系统被自动剔除，使用户访问不受影响。weight。指定轮询权值，weight值越大，分配到的访问机率越高，主要用于后端每个服务器性能不均的情况下。</li>
+<li>ip_hash。每个请求按访问IP的hash结果分配，这样来自同一个IP的访客固定访问一个后端服务器，有效解决了动态网页存在的session共享问题。</li>
+<li>fair（第三方）。比上面两个更加智能的负载均衡算法。此种算法可以依据页面大小和加载时间长短智能地进行负载均衡，也就是根据后端服务器的响应时间来分配请求，响应时间短的优先分配。Nginx本身是不支持fair的，如果需要使用这种调度算法，必须下载Nginx的upstream_fair模块。</li>
+<li>url_hash（第三方）。按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，可以进一步提高后端缓存服务器的效率。Nginx本身是不支持url_hash的，如果需要使用这种调度算法，必须安装Nginx的hash软件包。</li>
+</ul>
+</blockquote>
+</li>
+<li>server指定的是各种服务器，包括服务器的ip、端口以及每个后端服务器在负载均衡中的状态，常用的状态有：<blockquote>
+<ol>
+<li>down，表示当前的server暂时不参与负载均衡。</li>
+<li>backup，预留的备份机器。当其他所有的非backup机器出现故障或者忙的时候，才会请求backup机器，因此这台机器的压力最轻。</li>
+<li>max_fails，允许请求失败的次数，默认为1。当超过最大次数时，返回proxy_next_upstream 模块定义的错误。</li>
+<li>fail_timeout，在经历了max_fails次失败后，暂停服务的时间。max_fails可以和fail_timeout一起使用。<br>注意：当负载调度算法为ip_hash时，后端服务器在负载均衡调度中的状态不能是weight和backup。其它情况可以是weight，表示负载的权重，默认为1，weight越大，权重越大。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<h5 id="4-3-2-server模块"><a href="#4-3-2-server模块" class="headerlink" title="4.3.2 server模块"></a>4.3.2 server模块</h5><p>  server模块是http的子模块，它用来定一个虚拟主机，它的基本配置如下</p>
+<pre><code>server {
+    #指定虚拟主机的服务端口
+    listen 8080;
+    #用来指定IP地址或者域名，多个域名之间用空格分开。
+    server_name localhost 123.206.117.62 www.test.com;
+    # 全局定义，如果都是这一个目录，这样定义最简单。
+    root   /Users/marscheng/www; #示在这整个server虚拟主机内，全部的root web根目录。注意要和locate {}下面定义的区分开来。
+    index  index.php index.html index.htm; #全局定义访问的默认首页地址。注意要和locate {}下面定义的区分开来。
+    charset utf-8;#网页的默认编码格式
+    #用来指定此虚拟主机的访问日志存放路径，最后的main用于指定访问日志的输出格式
+    access_log  usr/local/var/log/host.access.log  main;
+    #错误日志文件
+    error_log  usr/local/var/log/host.error.log  error;
+    #用于定位的配置
+    location / {
+          ....  
+        }
+
+}
+</code></pre><p>  location模块</p>
+<p>  location模块一般是在server中定义的，它在Nginx中用的最多，无论是负载均衡、反向代理还是虚拟域名，都跟它的配置有关。</p>
+<p>  location是用来定位，解析url,定位URL，所以，它也提供了强大的正则匹配功能，也支持条件判断匹配，用户可以通过location指令实现Nginx对动态、静态网页进行过滤处理。</p>
+<ol>
+<li><p>设定默认首页和虚拟机目录</p>
+<pre><code>location / {
+  #指令用于指定访问根目录时，虚拟主机的web目录，这个目录可以是相对路径（相对路径是相对于nginx的安装目录）。也可以是绝对路径。
+  root   /Users/marscheng/www;
+  #用于设定我们只输入域名后访问的默认首页地址，有个先后顺序：index.php index.html index.htm，如果没有开启目录浏览权限，又找不到这些默认首页，就会报403错误。
+  index  index.jsp index.html index.htm;
+}
+</code></pre></li>
+<li><p>用正则表达式匹配</p>
+<pre><code>location ~ \.html$ { #匹配.html结尾的URL，用来解析html文件。里面的root也是一样，用来表示虚拟主机的根目录。
+  root           /Users/marscheng/www;
+  fastcgi_pass   127.0.0.1:9000;
+  fastcgi_index  index.html;
+  include        fastcgi.conf;
+}
+</code></pre></li>
+</ol>
+<p>这里只是简单介绍，详细的配置可以参考这篇文章：<br><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
+<p>网上还有一篇介绍Nginx比较好的，文章，地址如下：<br><a href="http://www.jianshu.com/p/bed000e1830b" target="_blank" rel="noopener">http://www.jianshu.com/p/bed000e1830b</a></p>
+<h3 id="5-方案设计"><a href="#5-方案设计" class="headerlink" title="5.方案设计"></a>5.方案设计</h3><p>根据场景设计了如下的配置方案：</p>
+<pre><code>http {
+#此处省略一些基本配置
+
+upstream product_server{
+    server 9.236.2.35:8081;
+}
+
+upstream admin_server{
+    server 9.236.2.36:8082;
+}
+
+upstream finance_server{
+    server 9.236.2.37:8083;
+}
+
+server {
+    #此处省略一些基本配置
+    #根据不同正则匹配默认指向不同的的server
+    location / {
+        proxy_pass http://product_server;
+    }
+
+    location /product/{
+        proxy_pass http://product_server;
+    }
+
+    location /admin/ {
+        proxy_pass http://admin_server;
+    }
+
+    location /finance/ {
+        proxy_pass http://finance_server;
+    }
+}
+</code></pre><p>}</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/24/nginx解决方案/">
+    <time datetime="2019-04-23T16:00:00.000Z" class="entry-date">
+        2019-04-24
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-oracle和mysql区别" class="post-oracle和mysql区别 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/oracle和mysql区别/">MySQL与Oracle的区别</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="clesbyv2g0053psiaxexdtlrj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>一、并发性</p>
+<p>并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。</p>
+<p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
+<p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
+<p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
+<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
+<p>三、事务<br>oracle很早就完全支持事务。</p>
+<p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
+<p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
+<p>五、提交方式<br>oracle默认不自动提交，需要用户手动提交。<br>mysql默认是自动提交。</p>
+<p>六、逻辑备份</p>
+<p>oracle逻辑备份时不锁定数据，且备份的数据是一致的。</p>
+<p>mysql逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用。</p>
+<p>七、热备份<br>oracle有成熟的热备工具rman，热备时，不影响用户使用数据库。即使备份的数据库不一致，也可以在恢复时通过归档日志和联机重做日志进行一致的回复。<br>mysql:<br>myisam的引擎，用mysql自带的mysqlhostcopy热备时，需要给表加读锁，影响dml操作。<br>innodb的引擎，它会备份innodb的表和索引，但是不会备份.frm文件。用ibbackup备份时，会有一个日志文件记录备份期间的数据变化，因此可以不用锁表，不影响其他用户使用数据库。但此工具是收费的。<br>innobackup是结合ibbackup使用的一个脚本，他会协助对.frm文件的备份。</p>
+<p>八、sql语句的扩展和灵活性<br>mysql对sql语句有很多非常实用而方便的扩展，比如limit功能，insert可以一次插入多行数据，select某些管理数据可以不加from。<br>oracle在这方面感觉更加稳重传统一些。</p>
+<p>九、复制<br>oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。<br>mysql:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。</p>
+<p>十、性能诊断<br>oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等<br>mysql的诊断调优方法较少，主要有慢查询日志。</p>
+<p>十一、权限与安全</p>
+<p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
+<p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
+<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
+<p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
+<p>这就完成了一个客户端与服务端交互的过程。</p>
+<p>其他：</p>
+<ol>
+<li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
+<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
+</li>
+</ol>
+<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/oracle和mysql区别/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-javaThread" class="post-javaThread post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/javaThread/">java 线程</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="clesbyv2g005fpsiat9eozuqp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><pre><code>进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
+线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。
+线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。
+多进程是指操作系统能同时运行多个任务（程序）。
+多线程是指在同一程序中有多个顺序流在执行。
+
+多线程的存在其实就是“最大限度的利用cpu资源”，当某一个线程的处理不需要占用cpu而之和I/O打交道的时候，让需要占用cpu资源的其他线程有机会获得cpu资源。从根本上说，这就是说多线程编程的目的。
+多线程目的： 使用多线程，可以帮助我们编写出cpu最大利用率的高效程序，使得空闲时间降到最低
+
+在java中要想实现多线程：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">继续Thread类</span><br><span class="line">实现Runable接口</span><br><span class="line">通过Callable创建线程</span><br><span class="line">线程池来实现</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="ExecutorService-创建线程池"><a href="#ExecutorService-创建线程池" class="headerlink" title="ExecutorService  创建线程池"></a>ExecutorService  创建线程池</h3><pre><code>// 创建一个可缓存的线程池，调用execute将重用以前构成的线程（如果线程可用）。
+// 如果没有可用的线程，则创建一个新线程并添加到池中。终止并从缓存中移出那些已有60秒钟未被使用的线程。
+Executors.newCachedThreadPool();
+// 创建固定数目的线程池
+Executors.newFixedThreadPool(1);
+// 创建一个单线程化的Executor
+Executors.newSingleThreadExecutor();
+// 创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代Time类。
+Executors.newScheduledThreadPool(1);
+</code></pre><p> 为什么不推荐通过Executors直接创建线程池</p>
+<pre><code>原因：
+java中BlockingQueue主要有两种实现，分别是ArrayBlockingQueue和LinkedBlockingQueue。ArrayBlockingQueue是一个用数组实现的有界阻塞队列，必须设置容量。
+而LinkedBlockingQueue是一个用链表实现的有界阻塞队列，容量可以选择进行设置，不设置的话，将是一个无边界的阻塞队列，最大长度为Integer.MAX_VALUE.
+
+查看new SingleExecutor时的源码可以发现，在创建LinkedBlockingQueue时，并未指定容量。
+此时，LinkedBlockingQueue就是一个无边界队列，对于一个无边界队列来说，是可以不断的向队列中加入任务的，这种情况下就有可能因为任务过多而导致内存溢出的问题。
+</code></pre><p> 创建线程池的正确方法：</p>
+<pre><code>避免使用Executors创建线程池，主要是避免使用其中的默认实现，那么我们可以自己直接调用ThreadPoolExecutor的构造函数自己创建线程池。在创建的同时，给BlockQueue指定容量就可以了。
+
+ExecutorService executor = new ThreadPoolExecutor(10, 10,
+        60L, TimeUnit.SECONDS,
+        new ArrayBlockingQueue&lt;Runnable&gt;(10));
+
+这种情况下，一旦提交的线程数超过当前可用线程数时，就会抛出java.util.concurrent.RejectedExecutionException，
+这是因为当前线程池使用的队列是有界边界队列，队列已经满了便无法继续处理新的请求。但是异常（Exception）总比发生错误（Error）要好。
+</code></pre><h3 id="ExecutorService-shutdown-、ShutdownNow-、awaitTermination"><a href="#ExecutorService-shutdown-、ShutdownNow-、awaitTermination" class="headerlink" title="ExecutorService  shutdown()、ShutdownNow()、awaitTermination()"></a>ExecutorService  shutdown()、ShutdownNow()、awaitTermination()</h3><pre><code>shutdown() 停止接收新任务，原来的任务继续执行
+    1、停止接收新的submit的任务；
+    2、已经提交的任务（包括正在跑的和队列中等待的）,会继续执行完成；
+    3、等到第2步完成后，才真正停止；
+
+ShutdownNow() 停止接收新任务，原来的任务停止执行
+    1、跟 shutdown() 一样，先停止接收新submit的任务；
+    2、忽略队列里等待的任务；
+    3、尝试将正在执行的任务interrupt中断；
+    4、返回未执行的任务列表；
+
+awaitTermination(long timeOut, TimeUnit unit)：当前线程阻塞
+    当前线程阻塞，直到：
+    等所有已提交的任务（包括正在跑的和队列中等待的）执行完；
+    或者 等超时时间到了（timeout 和 TimeUnit设定的时间）；
+    或者 线程被中断，抛出InterruptedException
+
+区别
+
+    1、shutdown() 和 shutdownNow() 的区别
+        shutdown() 只是关闭了提交通道，用submit()是无效的；而内部该怎么跑还是怎么跑，跑完再停。
+        shutdownNow() 能立即停止线程池，正在跑的和正在等待的任务都停下了。
+    2、shutdown() 和 awaitTermination() 的区别
+        shutdown() 后，不能再提交新的任务进去；但是 awaitTermination() 后，可以继续提交。
+        awaitTermination()是阻塞的，返回结果是线程池是否已停止（true/false）；shutdown() 不阻塞。
+
+总结
+    1、优雅的关闭，用 shutdown()
+    2、想立马关闭，并得到未执行任务列表，用shutdownNow()
+    3、优雅的关闭，并允许关闭声明后新任务能提交，用 awaitTermination()
+    4、关闭功能 【从强到弱】 依次是：shuntdownNow() &gt; shutdown() &gt; awaitTermination()
+</code></pre><p>例：</p>
+<p>1、扩展Thread类实现的多线程例子</p>
+<pre><code>public static void main(String[] args) {
+    MyThread T1 = new MyThread(&quot;A&quot;);
+    MyThread T2 = new MyThread(&quot;B&quot;);
+    T1.start();
+    T2.start();
+}
+class MyThread extends Thread {
+    private String name;
+    public MyThread(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println(name+&quot;:&quot;+i);
+            try {
+                sleep(1000); //休眠1秒，避免太快导致看不到同时执行
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+}
+
+结果：
+   A:0
+   B:0
+   A:1
+   B:1
+   A:2
+   B:2
+   A:3
+   B:3
+   A:4
+   B:4
+</code></pre><p>2、实现Runnable 、 ExecutorService 接口的多线程例子</p>
+<pre><code>    ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                     60L, TimeUnit.SECONDS,
+                     new ArrayBlockingQueue&lt;Runnable&gt;(10));
+    public static void main(String[] args) {
+        // executor
+        /*for (int i = 0; i &lt; Integer.MAX_VALUE; i++) {
+            executor.execute(new SubThread());
+        }*/
+
+        // Runnable
+        executor.execute(new MyRunnable());
+    }
+
+ // 1. Runnable
+class SubThread implements Runnable {
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) { //do nothing
+        }
+    }
+}
+
+ // 2. Runnable
+class MyRunnable implements Runnable{
+
+    public void run(){
+        System.out.println(&quot;Runnable:run()....&quot;);
+        int i=0;
+        while(i&lt;20){
+            i++;
+            for(int j=0;j&lt;1000000;j++);
+            System.out.println(&quot;i=&quot;+i);
+        }
+    }
+}
+结果：
+    Runnable:run()....
+    i=1
+    i=2
+    i=3
+    i=4
+    i=5
+    i=6
+    i=7
+    i=8
+    i=9
+    i=10
+    i=11
+    i=12
+    i=13
+    i=14
+    i=15
+    i=16
+    i=17
+    i=18
+    i=19
+    i=20
+</code></pre><p>3、实现Callable接口的多线程例子  </p>
+<pre><code>    ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                             60L, TimeUnit.SECONDS,
+                             new ArrayBlockingQueue&lt;Runnable&gt;(10));
+    public static void main(String[] args) {
+        // Callable
+        Future future1 = executor.submit(new MyCallable());
+        Future future2 = executor.submit(new MyCallable());
+        try {
+            System.out.println(future1.get());
+            System.out.println(future2.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        // 停止接收新任务，原来的任务继续执行
+        executor.shutdown();
+    }
+class MyCallable implements Callable&lt;String&gt; {
+    public String call() throws Exception {
+        System.out.println(&quot;开始执行Callable&quot;);
+        String[] ss={&quot;zhangsan&quot;,&quot;lisi&quot;};
+        long[] num=new long[2];
+        for(int i=0;i&lt;1000000;i++){
+            num[(int)(Math.random()*2)]++;
+        }
+
+        if(num[0]&gt;num[1]){
+            return ss[0];
+        }else if(num[0]&lt;num[1]){
+            throw new Exception(&quot;弃权!&quot;);
+        }else{
+            return ss[1];
+        }
+    }
+}
+
+结果;
+
+开始执行Callable
+开始执行Callable
+zhangsan
+zhangsan
+</code></pre><h3 id="wait和sleep的区别"><a href="#wait和sleep的区别" class="headerlink" title="wait和sleep的区别"></a>wait和sleep的区别</h3><pre><code>1.wait和notify方法定义在Object类中，因此会被所有的类所继承。 这些方法都是final的，即它们都是不能被重写的，不能通过子类覆写去改变它们的行为。 而sleep方法是在Thread类中是由native修饰的，本地方法。
+2.当线程调用了wait()方法时，它会释放掉对象的锁。 
+    Thread.sleep()，它会导致线程睡眠指定的毫秒数，但线程在睡眠的过程中是不会释放掉对象的锁的。
+3.正因为wait方法会释放锁，所以调用该方法时，当前的线程必须拥有当前对象的monitor，也即lock，就是锁。
+要确保调用wait()方法的时候拥有锁，即，wait()方法的调用必须放在synchronized方法或synchronized块中。
+4.sleep方法时间到，线程处于临时阻塞状态或者运行状态。 wait方法如果没有被设置时间，就必须要通过notify或者notifyAll来唤醒。
+</code></pre><p>notify()</p>
+<pre><code>notify()方法会唤醒一个等待当前对象的锁的线程。 如果多个线程在等待，它们中的一个将会选择被唤醒。
+这种选择是随意的，和具体实现有关。（线程等待一个对象的锁是由于调用了wait方法中的一个）。
+
+被唤醒的线程是不能被执行的，需要等到当前线程放弃这个对象的锁。
+被唤醒的线程将和其他线程以通常的方式进行竞争，来获得对象的锁。也就是说，被唤醒的线程并没有什么优先权，也没有什么劣势，对象的下一个线程还是需要通过一般性的竞争。
+且notify方法和wait一样，是需要放在synchronized方法或synchronized块中。
+
+notifyAll()方法会唤醒在此对象监视器上等待的所有线程。线程通过调用其中一个 wait 方法，在对象的监视器上等待。
+直到当前线程放弃此对象上的锁定，才能继续执行被唤醒的线程。被唤醒的线程将以常规方式与在该对象上主动同步的其他所有线程进行竞争；
+</code></pre><p>   尽量使用notifyAll()，notify()非常容易导致死锁。</p>
+<h2 id="ThreadLocal-的简单使用及实现的原理"><a href="#ThreadLocal-的简单使用及实现的原理" class="headerlink" title="ThreadLocal 的简单使用及实现的原理"></a>ThreadLocal 的简单使用及实现的原理</h2><h3 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h3><pre><code>ThreadLocal的实例代表了一个线程局部的变量，每条线程都只能看到自己的值，并不会意识到其它的线程中也存在该变量。
+
+它采用采用空间来换取时间的方式，解决多线程中相同变量的访问冲突问题。
+</code></pre><h3 id="ThreadLocal是什么"><a href="#ThreadLocal是什么" class="headerlink" title="ThreadLocal是什么"></a>ThreadLocal是什么</h3><pre><code>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。
+</code></pre><h3 id="ThreadLocal的核心机制"><a href="#ThreadLocal的核心机制" class="headerlink" title="ThreadLocal的核心机制"></a>ThreadLocal的核心机制</h3><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个Thread线程内部都有一个Map。</span><br><span class="line">Map里面存储线程本地对象（key）和线程的变量副本（value）</span><br><span class="line">但是，Thread内部的Map是由ThreadLocal维护的，由ThreadLocal负责向map获取和设置线程的变量值。</span><br></pre></td></tr></table></figure>
+</code></pre><p>所以对于不同的线程，每次获取副本值时，别的线程并不能获取到当前线程的副本值，形成了副本的隔离，互不干扰</p>
+<h3 id="ThreadLocal的简单使用"><a href="#ThreadLocal的简单使用" class="headerlink" title="ThreadLocal的简单使用"></a>ThreadLocal的简单使用</h3><p>下面的例子中，创建了两个线程，然后线程对各自的局部变量进行递增的操作。每个线程中的局部变量的初始值都是100。</p>
+<pre><code>public class ThreadLocalTest {
+    // ThreadLocal中的值
+    static class Bank {
+        ThreadLocal&lt;Integer&gt; t = new ThreadLocal&lt;Integer&gt;() {
+            // 重写里面的方法就可以修改初始值了
+            @Override
+            protected Integer initialValue(){
+                return 100;
+            }
+        };
+        public int get() {
+            return t.get();
+        }
+        public void set() {
+            // 获取值
+            t.set(t.get() + 10);
+        }
+        public void set(Integer value) {
+            // 获取值
+            t.set(value);
+        }
+    }
+    /** 定义对ThreadLocal的操作，也就是在原来的基础上进行加10的操作，然后打印出结果。 */
+    // 对ThreadLocal的操作
+    static class Transfer implements Runnable {
+        Bank bank;
+        public Transfer(Bank bank) {
+            this.bank = bank;
+        }
+        @Override
+        public void run() {
+            for (int i = 0; i &lt; 10; i++) {
+                //
+                bank.set();
+                // 输出不同线程的ThreadLocal的值
+                System.out.println(Thread.currentThread() + &quot;：：：&quot; + bank.get());
+            }
+        }
+    }
+    /** 创建两个线程并启动，主线程等待这两个线程执行完成。最值得注意的就是主线程中输出的bank.get()，输出的初始值100。 */
+    // 创建线程并等待线程执行完成
+    public static void main(String[] args) throws InterruptedException {
+        //
+        Bank bank = new Bank();
+        // bank.set(50);
+        // 多个线程都是同时操作一个变量，但是不同线程的结果是互不影响的
+        Transfer t = new Transfer(bank);
+        Thread t1 = new Thread(t);
+        t1.start();
+        Thread t2 = new Thread(t);
+        t2.start();
+        t1.join();
+        t2.join();
+        // 需要注意的是，这个是main（） 线程中的变量，输出的是 ThreadLocal&lt;Integer&gt; t 的初始值， 也就是100
+        System.out.println(bank.get());
+    }
+}
+</code></pre><h3 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h3><p>ThreadLocal类提供如下几个核心方法：</p>
+<pre><code>public T get() { }
+public void set(T value) { }
+public void remove() { }
+protected T initialValue() { }
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get()方法用于获取当前线程的副本变量值。</span><br><span class="line">set()方法用于保存当前线程的副本变量值。</span><br><span class="line">initialValue()为当前线程初始副本变量值。</span><br><span class="line">remove()方法移除当前前程的副本变量值</span><br></pre></td></tr></table></figure>
+</code></pre><p>每个Thread的对象都有一个ThreadLocalMap，当创建一个ThreadLocal的时候，就会将该ThreadLocal对象添加到该Map中，其中键就是ThreadLocal，值可以是任意类型。</p>
+<p>在该类中，重要的方法就是两个：set()和get()方法。当调用ThreadLocal的get()方法的时候，会先找到当前线程的ThreadLocalMap，然后再找到对应的值。set()方法也是一样。</p>
+<pre><code>public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings(&quot;unchecked&quot;)
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/javaThread/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud高可用" class="post-Spring Cloud高可用 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/17/Spring Cloud高可用/">Spring Cloud构建微服务架构  高可用</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="clesbyv0q0015psia22s14c40" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="一、SpringCloud简介"><a href="#一、SpringCloud简介" class="headerlink" title="一、SpringCloud简介"></a>一、SpringCloud简介</h3><p>Spring Cloud是一系列框架的有序集合。<br>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。<br>Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<h3 id="二、微服务的注册与发现-Eureka"><a href="#二、微服务的注册与发现-Eureka" class="headerlink" title="二、微服务的注册与发现-Eureka"></a>二、微服务的注册与发现-Eureka</h3><p> Eureka是Netflix开源的服务发现组件，本身是基于Rest的服务，它包含服务端和客户端两部分；在SpringCloud中将它集成在其中，从而实现了微服务的发现与注册；</p>
+<ul>
+<li>Eureka的GitHub：<a href="https://github.com/Netflix/Eureka" target="_blank" rel="noopener">https://github.com/Netflix/Eureka</a></li>
+</ul>
+<p>Eureka Server可以运行多个实例来构建集群，解决单点问题，Eureka Server采用的是Peer to Peer对等通信。这是一种去中心化的架构，无master/slave区分，每一个Peer都是对等的。在这种架构中，节点通过彼此互相注册来提高可用性，每个节点需要添加一个或多个有效的serviceUrl指向其他节点。每个节点都可被视为其他节点的副本。</p>
+<p>如果某台Eureka Server宕机，Eureka Client的请求会自动切换到新的Eureka Server节点，当宕机的服务器重新恢复后，Eureka会再次将其纳入到服务器集群管理之中。当节点开始接受客户端请求时，所有的操作都会进行replicateToPeer（节点间复制）操作，将请求复制到其他Eureka Server当前所知的所有节点中。</p>
+<p>简单来说，Eureka Server的高可用，实际上就是将自己也作为服务向其他服务注册中心进行注册，这样就可以形成一组相互注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果。</p>
+<p> 集群模式下，Eureka的架构图：<br><img src="/assets/SpringCloudImg/eurekaService1.png" alt="image"><br>Eureka Server</p>
+<pre><code>- 服务端-没有存储，内存保持，每服务实例需要发送心跳去续约 
+- 客户端-在内存中缓存着eureka的注册信息，因此不必每请求到eureka查找服务 
+- eureka之间会做注册服务同步，从而保证状态一致，客户端只需访问一个
+</code></pre><p>eureka Service Provider</p>
+<pre><code>- 会向Eureka Server做Register（服务注册）、Renew（服务续约）、Cancel（服务下线）等操作 
+</code></pre><p>Service Consumer</p>
+<pre><code>- 会向Eureka Server获取注册服务列表，并消费服务
+</code></pre><h3 id="三、Eureka的高可用"><a href="#三、Eureka的高可用" class="headerlink" title="三、Eureka的高可用"></a>三、Eureka的高可用</h3><p>eureka 项目下复制application.properties<br>分别命名为：</p>
+<pre><code>application-server1.properties, application-server2.properties, application-server3.properties
+</code></pre><p>修改hosts文件：</p>
+<pre><code>127.0.0.1    localhost server1 server2 server3
+</code></pre><p>application-server1.properties的配置文件：</p>
+<pre><code>server.port=1001
+spring.application.name=eureka-server-1
+spring.profiles.active=server1
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server1
+eureka.client.serviceUrl.defaultZone=http://server2:1002/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server2.properties的配置文件：</p>
+<pre><code>server.port=1002
+spring.application.name=eureka-server-2
+spring.profiles.active=server2
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server2
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server3.properties的配置文件：</p>
+<pre><code>server.port=1003
+spring.application.name=eureka-server-3
+spring.profiles.active=server3
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server3
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>compute-service   项目下复制application.properties 为： application-dev.properties<br>配置信息：</p>
+<pre><code>spring.application.name=compute-service
+server.port=2001
+eureka.client.serviceUrl.defaultZone=http://server3:1003/eureka/,http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>分别启动服务端server3、server2、server1、compute-service</p>
+<pre><code># 分别在项目下 执行 mvn clean install  命令编译 生成 target
+ mvn clean install
+
+# 在 /SpringCloudDemo/eureka/target 下执行,启动
+
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server1
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server2
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server3
+
+# 在 /SpringCloudDemo/compute-service/target 下执行,启动
+java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+</code></pre><p>访问，<a href="http://localhost:1001/" target="_blank" rel="noopener">http://localhost:1001/</a>，<a href="http://localhost:1002/" target="_blank" rel="noopener">http://localhost:1002/</a>，<a href="http://localhost:1003/" target="_blank" rel="noopener">http://localhost:1003/</a>，如下：<br><img src="/assets/SpringCloudImg/keepalived1.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived2.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived3.png" alt="image"></p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
+<p>至此，完成了Eureka的高可用；</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/17/Spring Cloud高可用/">
+    <time datetime="2019-04-16T16:00:00.000Z" class="entry-date">
+        2019-04-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="clesbyv0q000xpsiabhzwbvfp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud(三)断路器/">Spring Cloud构建微服务架构 (三) 断路器</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="clesbyv2a004lpsiabfa27ps3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后就会出现因等待出现故障的依赖方响应而形成任务积压，最终导致自身服务的瘫痪。</p>
+<p>举个例子，在一个电商网站中，我们可能会将系统拆分成，用户、订单、库存、积分、评论等一系列的服务单元。用户创建一个订单的时候，在调用订单服务创建订单的时候，会向库存服务来请求出货（判断是否有足够库存来出货）。此时若库存服务因网络原因无法被访问到，导致创建订单服务的线程进入等待库存申请服务的响应，在漫长的等待之后用户会因为请求库存失败而得到创建订单失败的结果。如果在高并发情况之下，因这些等待线程在等待库存服务的响应而未能释放，使得后续到来的创建订单请求被阻塞，最终导致订单服务也不可用。</p>
+<p>在微服务架构中，存在着那么多的服务单元，若一个单元出现故障，就会因依赖关系形成故障蔓延，最终导致整个系统的瘫痪，这样的架构相较传统架构就更加的不稳定。为了解决这样的问题，因此产生了断路器模式。<br>什么是断路器</p>
+<p>断路器模式源于Martin Fowler的Circuit Breaker一文。“断路器”本身是一种开关装置，用于在电路上保护线路过载，当线路中有电器发生短路时，“断路器”能够及时的切断故障电路，防止发生过载、发热、甚至起火等严重后果。</p>
+<p>在分布式架构中，断路器模式的作用也是类似的，当某个服务单元发生故障（类似用电器发生短路）之后，通过断路器的故障监控（类似熔断保险丝），向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。<br>Netflix Hystrix</p>
+<p>在Spring Cloud中使用了Hystrix 来实现断路器的功能。Hystrix是Netflix开源的微服务框架套件之一，该框架目标在于通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能。</p>
+<p>下面我们来看看如何使用Hystrix。<br>准备工作</p>
+<p>在开始加入断路器之前，我们先拿之前构建两个微服务为基础进行下面的操作，主要使用下面几个工程：</p>
+<pre><code>SpringCloudDemo
+    eureka工程：服务注册中心，端口1000
+    compute-service工程：服务单元，端口2001 / 2000
+    eureka-ribbon：通过ribbon实现的服务单元，依赖compute-service的服务，端口2002
+    eureka-feign：通过feign实现的服务单元，依赖compute-service的服务，端口2003
+</code></pre><p>若您还没有使用Spring Cloud的经验，可以先阅读《服务注册与发现》与《服务消费者》，对Spring Cloud构建的微服务有一个初步的认识。</p>
+<h3 id="Ribbon中引入Hystrix"><a href="#Ribbon中引入Hystrix" class="headerlink" title="Ribbon中引入Hystrix"></a>Ribbon中引入Hystrix</h3><pre><code>依次启动eureka-server、compute-service、eureka-ribbon工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2002/add，调用eureka-ribbon的服务，该服务会去调用compute-service的服务，计算出10+20的值，页面显示30
+关闭compute-service服务，访问http://localhost:2002/add，我们获得了下面的报错信息
+
+{&quot;timestamp&quot;:&quot;2019-04-16T07:11:04.064+0000&quot;,&quot;status&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;I/O error on GET request for \&quot;http://COMPUTE-SERVICE/add\&quot;: Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect&quot;,&quot;path&quot;:&quot;/add&quot;}
+</code></pre><p>pom.xml中引入依赖hystrix依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+    &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+    &lt;version&gt;RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>在eureka-ribbon的主类RibbonApplication中使用@EnableCircuitBreaker注解开启断路器功能：</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class RibbonApplication {
+
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(RibbonApplication.class, args);
+    }
+
+}
+</code></pre><p>改造原来的服务消费方式，新增ComputeService类，在使用ribbon消费服务的函数上增加@HystrixCommand注解来指定回调方法。</p>
+<pre><code>@Service
+public class ComputeService {
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @HystrixCommand(fallbackMethod = &quot;addServiceFallback&quot;)
+    public String addService() {
+        return restTemplate.getForEntity(&quot;http://COMPUTE-SERVICE/add?a=10&amp;b=20&quot;, String.class).getBody();
+    }
+
+    public String addServiceFallback() {
+        return &quot;error&quot;;
+    }
+
+}
+</code></pre><p>提供rest接口的Controller改为调用ComputeService的addService</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    private ComputeService computeService;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public String add() {
+        return computeService.addService();
+    }
+
+}
+</code></pre><p>验证断路器的回调</p>
+<pre><code>依次启动eureka、compute-service、eureka-ribbon工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2002/add，页面显示：30
+关闭compute-service服务后再访问http://localhost:2002/add
+显示：error
+</code></pre><h3 id="Feign使用Hystrix"><a href="#Feign使用Hystrix" class="headerlink" title="Feign使用Hystrix"></a>Feign使用Hystrix</h3><p>注意这里说的是“使用”，没有错，我们不需要在Feigh工程中引入Hystix，Feign中已经依赖了Hystrix，我们可以在未做任何改造前，尝试下面你的操作：</p>
+<pre><code>依次启动eureka、compute-service、eureka-feign工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2003/add，调用eureka-feign的服务，该服务会去调用compute-service的服务，计算出10+20的值，页面显示30
+关闭compute-service服务，访问http://localhost:2003/add，我们获得了下面的报错信息
+
+{&quot;timestamp&quot;:&quot;2019-04-16T07:11:04.064+0000&quot;,&quot;status&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;I/O error on GET request for \&quot;http://COMPUTE-SERVICE/add\&quot;: Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect&quot;,&quot;path&quot;:&quot;/add&quot;}
+</code></pre><p>appliction.yml 配置</p>
+<pre><code>feign:
+    hystrix:
+        enabled: true
+</code></pre><p>使用@FeignClient注解中的fallback属性指定回调类</p>
+<pre><code>@FeignClient(value = &quot;compute-service&quot;, fallback = ComputeClientHystrix.class)
+public interface ComputeClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = &quot;/add&quot;)
+    Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b);
+
+}
+</code></pre><p>创建回调类ComputeClientHystrix，实现@FeignClient的接口，此时实现的方法就是对应@FeignClient接口中映射的fallback函数。</p>
+<pre><code>@Component
+public class ComputeClientHystrix implements ComputeClient {
+
+    @Override
+    public Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b) {
+        return -9999;
+    }
+
+}
+</code></pre><p>再用之前的方法验证一下，是否在compute-service服务不可用的情况下，页面返回了-9999。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud(三)断路器/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      </nav>
+    </nav>
+  
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

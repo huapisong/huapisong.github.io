@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>启动报错 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改 nginx -t 2.已经启动nginx或者配置文件中的端口号被占用检查端口是否被占用 netst">
+<meta property="og:type" content="article">
+<meta property="og:title" content="启动报错">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/Nginx.service failed/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改 nginx -t 2.已经启动nginx或者配置文件中的端口号被占用检查端口是否被占用 netst">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-17T06:35:24.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="启动报错">
+<meta name="twitter:description" content="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下1.nginx配置文件有错误运行下面命令查看修改 nginx -t 2.已经启动nginx或者配置文件中的端口号被占用检查端口是否被占用 netst">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Nginx.service failed" class="post-Nginx.service failed post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      启动报错
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/Nginx.service failed/" data-id="clesbyv0b000lpsiam7y3cu4e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下"><a href="#启动nginx服务时如果遇到这个错误-Job-for-nginx-service-failed-because-the-control-process-exited-with-error-code-See-“systemctl-stat-可能原因如下" class="headerlink" title="启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下"></a>启动nginx服务时如果遇到这个错误 Job for nginx.service failed because the control process exited with error code. See “systemctl stat 可能原因如下</h2><h3 id="1-nginx配置文件有错误"><a href="#1-nginx配置文件有错误" class="headerlink" title="1.nginx配置文件有错误"></a>1.nginx配置文件有错误</h3><pre><code>运行下面命令查看修改
+nginx -t
+</code></pre><h3 id="2-已经启动nginx或者配置文件中的端口号被占用"><a href="#2-已经启动nginx或者配置文件中的端口号被占用" class="headerlink" title="2.已经启动nginx或者配置文件中的端口号被占用"></a>2.已经启动nginx或者配置文件中的端口号被占用</h3><pre><code>检查端口是否被占用
+netstat -tnlp
+
+如果端口已经被占用，自己权衡一下是换个端口还是把占用端口的进程杀掉
+检查nginx是否已经启动
+ps -aux | grep nginx
+
+如果已经启动使用下面命令干掉即可
+
+pkill -9 nginx
+</code></pre><h2 id="解决Nginx出现403-forbidden-13-Permission-denied-报错"><a href="#解决Nginx出现403-forbidden-13-Permission-denied-报错" class="headerlink" title="解决Nginx出现403 forbidden (13: Permission denied)报错"></a>解决Nginx出现403 forbidden (13: Permission denied)报错</h2><p>查看nginx日志，路径为/var/log/nginx/error.log。打开日志发现报错Permission denied，详细报错如下</p>
+<pre><code>&quot;/app/index.html&quot; is forbidden (13: Permission denied), client: 10.43.25.6, server: localhost, request: &quot;GET / HTTP/1.1&quot;, host: &quot;10.42.1.50&quot;
+</code></pre><h3 id="由于启动用户和nginx工作用户不一致所致"><a href="#由于启动用户和nginx工作用户不一致所致" class="headerlink" title="由于启动用户和nginx工作用户不一致所致"></a>由于启动用户和nginx工作用户不一致所致</h3><pre><code># 查看nginx的启动用户，发现是nginx，而为是用root启动的
+ps aux | grep nginx
+
+# 显示如下：
+nginx      1180  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+nginx      1181  0.0  0.0 121164  3740 ?        S    14:03   0:00 nginx: worker process
+
+# 将nginx.config的user改为和启动用户一致
+vi conf/nginx.conf
+
+# 修改如下：
+# user  nginx;
+user  root;
+</code></pre><h3 id="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"><a href="#权限问题，如果nginx没有web目录的操作权限，也会出现403错误" class="headerlink" title="权限问题，如果nginx没有web目录的操作权限，也会出现403错误"></a>权限问题，如果nginx没有web目录的操作权限，也会出现403错误</h3><pre><code># 修改权限
+chmod -R 777 /app
+</code></pre><h3 id="SELinux设置为开启状态（enabled）的原因"><a href="#SELinux设置为开启状态（enabled）的原因" class="headerlink" title="SELinux设置为开启状态（enabled）的原因"></a>SELinux设置为开启状态（enabled）的原因</h3><pre><code># 查看当前selinux的状态
+/usr/sbin/sestatus
+
+# 显示如下：
+SELinux status:                 enabled
+
+# 将SELINUX=enforcing 修改为 SELINUX=disabled 状态
+vi /etc/selinux/config
+
+# 修改如下：
+#SELINUX=enforcing
+SELINUX=disabled
+
+# 重启生效
+reboot
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/Nginx.service failed/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Nginx/">Nginx</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/12/17/vue-Quill-Editor/" rel="prev"><span class="meta-nav">←</span> vue中Quill富文本编辑器的使用</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/12/17/POI-Word-Convert-HTML/" rel="next">POI word转html <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

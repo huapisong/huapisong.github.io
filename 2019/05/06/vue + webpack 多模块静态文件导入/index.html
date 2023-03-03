@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="多个模块导入静态文件项目结构目录
+官方推荐的css及js引用方式如下:
+&amp;lt;!-- 引入样式 --&amp;gt;
+&amp;lt;link href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>vue + webpack 多模块静态文件导入 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="多个模块导入静态文件项目结构目录 官方推荐的css及js引用方式如下: &amp;lt;!-- 引入样式 --&amp;gt; &amp;lt;link href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;  &amp;lt;!--">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue + webpack 多模块静态文件导入">
+<meta property="og:url" content="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="多个模块导入静态文件项目结构目录 官方推荐的css及js引用方式如下: &amp;lt;!-- 引入样式 --&amp;gt; &amp;lt;link href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;  &amp;lt;!--">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/vueImg/projects.png">
+<meta property="og:image" content="http://yoursite.com/assets/vueImg/staticFile.png">
+<meta property="og:updated_time" content="2019-12-10T06:47:39.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue + webpack 多模块静态文件导入">
+<meta name="twitter:description" content="多个模块导入静态文件项目结构目录 官方推荐的css及js引用方式如下: &amp;lt;!-- 引入样式 --&amp;gt; &amp;lt;link href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;  &amp;lt;!--">
+<meta name="twitter:image" content="http://yoursite.com/assets/vueImg/projects.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue + webpack 多模块静态文件导入" class="post-vue + webpack 多模块静态文件导入 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      vue + webpack 多模块静态文件导入
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/06/vue + webpack 多模块静态文件导入/" data-id="clesbyv1i002mpsiabfi5t8ck" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="多个模块导入静态文件"><a href="#多个模块导入静态文件" class="headerlink" title="多个模块导入静态文件"></a>多个模块导入静态文件</h2><p>项目结构目录<br><img src="/assets/vueImg/projects.png" alt="Image text"></p>
+<p>官方推荐的css及js引用方式如下:</p>
+<pre><code>&lt;!-- 引入样式 --&gt;
+&lt;link href=&quot;https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/index.css&quot; rel=&quot;stylesheet&quot;&gt; 
+&lt;!-- 引入组件库 --&gt;
+&lt;script src=&quot;https://lib.baomitu.com/vue/2.4.4/vue.min.js&quot;&gt;&lt;/script&gt; 
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/element-ui@2.2.0/lib/index.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>这种方式引入,如果环境只有内网,没有外网的话,会导致页面直接空白.（或cdn 访问不通、不在维护等……）</p>
+<p>很简单把css的href及js的src的网址输入浏览器可以得到css和js的源码,直接拷贝到本地即可.</p>
+<p>index.html 引入</p>
+<pre><code>&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+  &lt;title&gt;xxxxx&lt;/title&gt;
+  &lt;link href=&quot;/static/css/element-ui2.2.0/index.css&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;script src=&apos;/static/js/vue2.7.0/vue.min.js&apos;&gt;&lt;/script&gt;
+  &lt;script src=&apos;/static/js/vue-router3.0.2/vue-router.min.js&apos;&gt;&lt;/script&gt;
+  &lt;script src=&apos;/static/js/element-ui@2.2.0/index.js&apos;&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre><h2 id="静态文件配置（多模块、多服务、各服务端口不同）"><a href="#静态文件配置（多模块、多服务、各服务端口不同）" class="headerlink" title="静态文件配置（多模块、多服务、各服务端口不同）"></a>静态文件配置（多模块、多服务、各服务端口不同）</h2><pre><code># config 配置信息
+assetsSubDirectory: &apos;static&apos;,
+assetsPublicPath: &apos;/&apos;,
+
+# 项目是 vue+webpack 多模块
+ 开发环境中多个模块需要启动多个服务，各服务监听的端口不同，使用离线存储数据时存在跨域不共通的问题。
+ 解决思路： 采用第三方代理服务器，前端所有的请求到代理服务器由代理服务器进行请求分发
+ 实现：采用gulp-connect 做为代理服务器，代理转发的具体代码如下
+
+const gulp = require(&apos;gulp&apos;);
+const connect = require(&apos;gulp-connect&apos;);
+const proxy = require(&apos;http-proxy-middleware&apos;);
+const ipLib = require(&apos;ip&apos;);
+const path = require(&apos;path&apos;);
+const fs = require(&apos;fs&apos;)
+
+
+let currentIp = ipLib.address()
+let globPath = path.resolve(__dirname, &apos;../src/assets/js/global.js&apos;)
+const proxyPort = &apos;7890&apos;
+
+gulp.task(&apos;server&apos;, function(){
+  connect.server({
+    port: proxyPort,
+    host: &apos;0.0.0.0&apos;,
+    middleware: function(connect, opt) {
+      return [
+        proxy(&apos;/login&apos;, {
+          target: &apos;http://www.localhost:8080&apos;, // target host
+          changeOrigin: true,               // needed for virtual hosted sites
+          ws: true,
+          router: { // login
+            [ currentIp + &apos;:&apos;+proxyPort] : &apos;http://&apos; + currentIp + &apos;:10258/&apos;
+          }
+        }),
+        proxy(&apos;/static&apos;, {
+          target: &apos;http://www.localhost:8080&apos;, // target host
+          changeOrigin: true,               // needed for virtual hosted sites
+          ws: true,
+          router: { // static
+            [ currentIp + &apos;:&apos;+proxyPort] : &apos;http://&apos; + currentIp + &apos;:10258/&apos;
+          }
+        }),
+      ]
+    }
+  })
+})
+</code></pre><h2 id="本地使用element-ui-图标不显示或显示错乱的问题"><a href="#本地使用element-ui-图标不显示或显示错乱的问题" class="headerlink" title="本地使用element ui 图标不显示或显示错乱的问题"></a>本地使用element ui 图标不显示或显示错乱的问题</h2><p>但是问题来了,element-ui的index.css拷贝本地之后,会发现图标无法正常显示了.</p>
+<pre><code>原因
+
+在本地的index.css中发现如下代码是网络请求icon的
+
+@charset &quot;UTF-8&quot;;.el-pagination--small .arrow.disabled,.el-table .hidden-columns,.el-table td.is-hidden&gt;*,.el-table th.is-hidden&gt;*,.el-table--hidden{visibility:hidden}@font-face{font-family:element-icons;src:url(fonts/element-icons.woff) format(&quot;woff&quot;),url(fonts/element-icons.ttf) format(&quot;truetype&quot;);font-weight:400;
+</code></pre><p>解决办法</p>
+<p>访问 <a href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.woff" target="_blank" rel="noopener">https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.woff</a><br><a href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.ttf" target="_blank" rel="noopener">https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.2.0/theme-chalk/fonts/element-icons.ttf</a></p>
+<p>文件自动下载下来,放到项目的/static/css/element-ui2.2.0/fonts文件夹下即可</p>
+<p><img src="/assets/vueImg/staticFile.png" alt="Image text"></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/06/vue + webpack 多模块静态文件导入/">
+    <time datetime="2019-05-05T16:00:00.000Z" class="entry-date">
+        2019-05-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/05/14/node-vue-webpack构建项目/" rel="prev"><span class="meta-nav">←</span> node-vue-webpack 构建项目</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/05/06/vue + webpack-build-params-init/" rel="next">编译不同环境 global 参数设置 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Spring Cloud构建微服务架构 (三) 断路器 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后就会出现因等待出现故障的依赖方响应而形成任务积压，最终导致自身服务的瘫痪。 举个例子，在一个电商网站">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud构建微服务架构 (三) 断路器">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后就会出现因等待出现故障的依赖方响应而形成任务积压，最终导致自身服务的瘫痪。 举个例子，在一个电商网站">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T02:36:57.091Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud构建微服务架构 (三) 断路器">
+<meta name="twitter:description" content="在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后就会出现因等待出现故障的依赖方响应而形成任务积压，最终导致自身服务的瘫痪。 举个例子，在一个电商网站">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Spring Cloud构建微服务架构 (三) 断路器
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="clesbyv2a004lpsiabfa27ps3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后就会出现因等待出现故障的依赖方响应而形成任务积压，最终导致自身服务的瘫痪。</p>
+<p>举个例子，在一个电商网站中，我们可能会将系统拆分成，用户、订单、库存、积分、评论等一系列的服务单元。用户创建一个订单的时候，在调用订单服务创建订单的时候，会向库存服务来请求出货（判断是否有足够库存来出货）。此时若库存服务因网络原因无法被访问到，导致创建订单服务的线程进入等待库存申请服务的响应，在漫长的等待之后用户会因为请求库存失败而得到创建订单失败的结果。如果在高并发情况之下，因这些等待线程在等待库存服务的响应而未能释放，使得后续到来的创建订单请求被阻塞，最终导致订单服务也不可用。</p>
+<p>在微服务架构中，存在着那么多的服务单元，若一个单元出现故障，就会因依赖关系形成故障蔓延，最终导致整个系统的瘫痪，这样的架构相较传统架构就更加的不稳定。为了解决这样的问题，因此产生了断路器模式。<br>什么是断路器</p>
+<p>断路器模式源于Martin Fowler的Circuit Breaker一文。“断路器”本身是一种开关装置，用于在电路上保护线路过载，当线路中有电器发生短路时，“断路器”能够及时的切断故障电路，防止发生过载、发热、甚至起火等严重后果。</p>
+<p>在分布式架构中，断路器模式的作用也是类似的，当某个服务单元发生故障（类似用电器发生短路）之后，通过断路器的故障监控（类似熔断保险丝），向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。<br>Netflix Hystrix</p>
+<p>在Spring Cloud中使用了Hystrix 来实现断路器的功能。Hystrix是Netflix开源的微服务框架套件之一，该框架目标在于通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能。</p>
+<p>下面我们来看看如何使用Hystrix。<br>准备工作</p>
+<p>在开始加入断路器之前，我们先拿之前构建两个微服务为基础进行下面的操作，主要使用下面几个工程：</p>
+<pre><code>SpringCloudDemo
+    eureka工程：服务注册中心，端口1000
+    compute-service工程：服务单元，端口2001 / 2000
+    eureka-ribbon：通过ribbon实现的服务单元，依赖compute-service的服务，端口2002
+    eureka-feign：通过feign实现的服务单元，依赖compute-service的服务，端口2003
+</code></pre><p>若您还没有使用Spring Cloud的经验，可以先阅读《服务注册与发现》与《服务消费者》，对Spring Cloud构建的微服务有一个初步的认识。</p>
+<h3 id="Ribbon中引入Hystrix"><a href="#Ribbon中引入Hystrix" class="headerlink" title="Ribbon中引入Hystrix"></a>Ribbon中引入Hystrix</h3><pre><code>依次启动eureka-server、compute-service、eureka-ribbon工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2002/add，调用eureka-ribbon的服务，该服务会去调用compute-service的服务，计算出10+20的值，页面显示30
+关闭compute-service服务，访问http://localhost:2002/add，我们获得了下面的报错信息
+
+{&quot;timestamp&quot;:&quot;2019-04-16T07:11:04.064+0000&quot;,&quot;status&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;I/O error on GET request for \&quot;http://COMPUTE-SERVICE/add\&quot;: Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect&quot;,&quot;path&quot;:&quot;/add&quot;}
+</code></pre><p>pom.xml中引入依赖hystrix依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+    &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+    &lt;version&gt;RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>在eureka-ribbon的主类RibbonApplication中使用@EnableCircuitBreaker注解开启断路器功能：</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class RibbonApplication {
+
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(RibbonApplication.class, args);
+    }
+
+}
+</code></pre><p>改造原来的服务消费方式，新增ComputeService类，在使用ribbon消费服务的函数上增加@HystrixCommand注解来指定回调方法。</p>
+<pre><code>@Service
+public class ComputeService {
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @HystrixCommand(fallbackMethod = &quot;addServiceFallback&quot;)
+    public String addService() {
+        return restTemplate.getForEntity(&quot;http://COMPUTE-SERVICE/add?a=10&amp;b=20&quot;, String.class).getBody();
+    }
+
+    public String addServiceFallback() {
+        return &quot;error&quot;;
+    }
+
+}
+</code></pre><p>提供rest接口的Controller改为调用ComputeService的addService</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    private ComputeService computeService;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public String add() {
+        return computeService.addService();
+    }
+
+}
+</code></pre><p>验证断路器的回调</p>
+<pre><code>依次启动eureka、compute-service、eureka-ribbon工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2002/add，页面显示：30
+关闭compute-service服务后再访问http://localhost:2002/add
+显示：error
+</code></pre><h3 id="Feign使用Hystrix"><a href="#Feign使用Hystrix" class="headerlink" title="Feign使用Hystrix"></a>Feign使用Hystrix</h3><p>注意这里说的是“使用”，没有错，我们不需要在Feigh工程中引入Hystix，Feign中已经依赖了Hystrix，我们可以在未做任何改造前，尝试下面你的操作：</p>
+<pre><code>依次启动eureka、compute-service、eureka-feign工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2003/add，调用eureka-feign的服务，该服务会去调用compute-service的服务，计算出10+20的值，页面显示30
+关闭compute-service服务，访问http://localhost:2003/add，我们获得了下面的报错信息
+
+{&quot;timestamp&quot;:&quot;2019-04-16T07:11:04.064+0000&quot;,&quot;status&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;I/O error on GET request for \&quot;http://COMPUTE-SERVICE/add\&quot;: Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect&quot;,&quot;path&quot;:&quot;/add&quot;}
+</code></pre><p>appliction.yml 配置</p>
+<pre><code>feign:
+    hystrix:
+        enabled: true
+</code></pre><p>使用@FeignClient注解中的fallback属性指定回调类</p>
+<pre><code>@FeignClient(value = &quot;compute-service&quot;, fallback = ComputeClientHystrix.class)
+public interface ComputeClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = &quot;/add&quot;)
+    Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b);
+
+}
+</code></pre><p>创建回调类ComputeClientHystrix，实现@FeignClient的接口，此时实现的方法就是对应@FeignClient接口中映射的fallback函数。</p>
+<pre><code>@Component
+public class ComputeClientHystrix implements ComputeClient {
+
+    @Override
+    public Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b) {
+        return -9999;
+    }
+
+}
+</code></pre><p>再用之前的方法验证一下，是否在compute-service服务不可用的情况下，页面返回了-9999。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud(三)断路器/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/04/15/Spring Cloud限流/" rel="prev"><span class="meta-nav">←</span> Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/04/12/Spring Cloud(二)服务消费者/" rel="next">Spring Cloud构建微服务架构（二）服务消费者 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="java中的set接口有如下的特点不允许出现重复元素；
+集合中的元素位置无顺序；
+有且只有一个值为null的元素。
+因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为：
+互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。
+
+无序性：一个集合中">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>java中set接口的用法 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="java中的set接口有如下的特点不允许出现重复元素； 集合中的元素位置无顺序； 有且只有一个值为null的元素。 因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为： 互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。  无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java中set接口的用法">
+<meta property="og:url" content="http://yoursite.com/2016/06/03/java中set接口的用法/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="java中的set接口有如下的特点不允许出现重复元素； 集合中的元素位置无顺序； 有且只有一个值为null的元素。 因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为： 互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。  无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T01:24:07.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java中set接口的用法">
+<meta name="twitter:description" content="java中的set接口有如下的特点不允许出现重复元素； 集合中的元素位置无顺序； 有且只有一个值为null的元素。 因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为： 互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。  无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-java中set接口的用法" class="post-java中set接口的用法 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      java中set接口的用法
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="clesbyv2f004tpsiakvue1fyp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="java中的set接口有如下的特点"><a href="#java中的set接口有如下的特点" class="headerlink" title="java中的set接口有如下的特点"></a>java中的set接口有如下的特点</h2><pre><code>不允许出现重复元素；
+集合中的元素位置无顺序；
+有且只有一个值为null的元素。
+</code></pre><p>因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为：</p>
+<pre><code>互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。
+
+无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按照序关系排序。但就集合本身的特性而言，元素之间没有必然的序。
+
+空集的性质：空集是一切集合的子集
+
+
+
+  Set不保存重复的元素。Set中最常被使用的是测试归属性，你可以很容易的询问某个对象是否在某个Set中。Set具有与Collection完全一样的接口，因此没有任何额外的功能。实际上Set就是Collection，只是行为不同。
+</code></pre><p>实现了Set接口的主要有HashSet、TreeSet、LinkedHashSet这几个共同点就是每个相同的项只保存一份。他们也有不同点，区别如下：</p>
+<h2 id="1-HashSet"><a href="#1-HashSet" class="headerlink" title="1. HashSet"></a>1. HashSet</h2><p>HashSet使用的是相当复杂的方式来存储元素的，使用HashSet能够最快的获取集合中的元素，效率非常高（以空间换时间）。会根据hashcode和equals来庞端是否是同一个对象，如果hashcode一样，并且equals返回true，则是同一个对象，不能重复存放。</p>
+<pre><code>package cn.set;
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Student{
+    int id;
+    public Student(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student){
+            Student  stu = (Student) obj;
+            if (stu.id == this.id)
+                return true;
+        }
+        return false;
+    }
+}
+public class HashSetTest {
+    public static void main(String[] args) {
+        Set&lt;Student&gt; set = new HashSet&lt;Student&gt;();
+        Student s1 = new Student(1);
+        Student s2 = new Student(1);
+        Student s3 = new Student(2);
+        set.add(s1);
+        set.add(s2);
+        set.add(s3);
+        for (Student s : set) {
+            System.out.println(s);
+        }
+    }
+}
+</code></pre><p>正如上例所示，重写了hashCode()和equals()方法来区分同意对象后，就不能存放同以对象了。如果注释这两个方法，则所有Student对象视为不同对象，都可以存放。</p>
+<h2 id="2-TreeSet"><a href="#2-TreeSet" class="headerlink" title="2.TreeSet"></a>2.TreeSet</h2><p>　　TreeSet也不能存放重复对象，但是TreeSet会自动排序，如果存放的对象不能排序则会报错，所以存放的对象必须指定排序规则。排序规则包括自然排序和客户排序。</p>
+<p>　　①自然排序：TreeSet要添加哪个对象就在哪个对象类上面实现java.lang.Comparable接口，并且重写comparaTo()方法，返回0则表示是同一个对象，否则为不同对象。</p>
+<p>　　②客户排序：建立一个第三方类并实现java.util.Comparator接口。并重写方法。定义集合形式为TreeSet ts = new TreeSet(new 第三方类());</p>
+<p>下面一个例子用TreeSet存放自然排序的对象：</p>
+<pre><code>package cn.set;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+class Student1 implements Comparable&lt;Student1&gt;{
+    int id;
+    public Student1(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student1){
+            Student1  stu = (Student1) obj;
+            if (stu.id == this.id)
+                return true;
+        }
+        return false;
+    }
+    public int compareTo(Student1 o) {
+        return (this.id-o.id);
+    }
+}
+
+public class TreeSetTest {
+    public static void main(String[] args) {
+        Set&lt;Student1&gt; set = new TreeSet&lt;Student1&gt;();
+        Student1 s1 = new Student1(5);
+        Student1 s2 = new Student1(1);
+        Student1 s3 = new Student1(2);
+        Student1 s4 = new Student1(4);
+        Student1 s5 = new Student1(3);
+        set.add(s1);
+        set.add(s2);
+        set.add(s3);
+        set.add(s4);
+        set.add(s5);
+        for (Student1 s : set) {
+            System.out.println(s);
+        }
+    }
+
+}
+</code></pre><p>输出结果为：<br>    1<br>    2<br>    3<br>    4<br>    5</p>
+<p>下面一个例子用TreeSet存放客户排序的对象：</p>
+<pre><code>package com.set;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+class Student1 implements Comparable&lt;Student1&gt;{
+    int id;
+    public Student1(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Student1){
+            Student1  stu = (Student1) obj;
+            if (stu.id == this.id)
+                return true;
+        }
+        return false;
+    }
+    public int compareTo(Student1 o) {
+        return (this.id-o.id);
+    }
+}
+
+public class TreeSetTest {
+    public static void main(String[] args) {
+        Set&lt;Student1&gt; set = new TreeSet&lt;Student1&gt;();
+        Student1 s1 = new Student1(5);
+        Student1 s2 = new Student1(1);
+        Student1 s3 = new Student1(2);
+        Student1 s4 = new Student1(4);
+        Student1 s5 = new Student1(3);
+        set.add(s1);
+        set.add(s2);
+        set.add(s3);
+        set.add(s4);
+        set.add(s5);
+        for (Student1 s : set) {
+            System.out.println(s);
+        }
+    }
+
+}
+</code></pre><p>输出结果为：</p>
+<pre><code>5
+4
+3
+2
+1
+</code></pre><p>大家都知道List存放时按照插入顺序排序的，其实也可以用自然排序和客户排序对List集合排序，大家请看：</p>
+<pre><code>package cn.set;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class MySort1 implements java.util.Comparator&lt;Student3&gt;{
+    public int compare(Student3 o1, Student3 o2) {
+        return o2.id-o1.id;
+    }
+}
+class Student3 implements Comparable&lt;Student3&gt;{
+    int id;
+    public Student3(int id) {
+        this.id = id;
+    }
+    @Override
+    public String toString() {
+        return this.id+&quot;&quot;;
+    }
+    public int compareTo(Student3 o) {
+        return (this.id-o.id);
+    }
+}
+
+public class ListSort {
+    public static void main(String[] args) {
+        List&lt;Student3&gt; list = new ArrayList&lt;Student3&gt;();
+        Student3 s1 = new Student3(5);
+        Student3 s2 = new Student3(1);
+        Student3 s3 = new Student3(2);
+        Student3 s4 = new Student3(4);
+        Student3 s5 = new Student3(3);
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        list.add(s4);
+        list.add(s5);
+        System.out.println(list);
+        //自然排序：
+        Collections.sort(list);
+        System.out.println(list);
+        //客户排序
+        Collections.sort(list, new MySort1());
+        System.out.println(list);
+    }
+}
+</code></pre><p>输出结果为：</p>
+<pre><code>[5, 1, 2, 4, 3]
+[1, 2, 3, 4, 5]
+[5, 4, 3, 2, 1]
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2016/06/03/java中set接口的用法/">
+    <time datetime="2016-06-02T16:00:00.000Z" class="entry-date">
+        2016-06-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" rel="prev"><span class="meta-nav">←</span> 服务器上的iptables防火墙应该如何配置才能更安全</a></span>
+    
+    
+        <span class="nav-next"><a href="/2016/06/03/java 正则表达式 手机号 邮箱/" rel="next">java 正则表达式 手机号 邮箱 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

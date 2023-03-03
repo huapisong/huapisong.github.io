@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？
+RibbonRibbon是一个基于HTTP和TCP客户端的负载均衡器。Feign">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Spring Cloud构建微服务架构（二）服务消费者 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？ RibbonRibbon是一个基于HTTP和TCP客户端的负载均衡器。Feign中也使用Ribbon，后续会介绍Feign的使用。 Ribbon可以在通过客户端中配置的ribbon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud构建微服务架构（二）服务消费者">
+<meta property="og:url" content="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？ RibbonRibbon是一个基于HTTP和TCP客户端的负载均衡器。Feign中也使用Ribbon，后续会介绍Feign的使用。 Ribbon可以在通过客户端中配置的ribbon">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/SpringCloudImg/eurekaComputeService1.png">
+<meta property="og:updated_time" content="2019-08-13T02:36:22.002Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud构建微服务架构（二）服务消费者">
+<meta name="twitter:description" content="在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？ RibbonRibbon是一个基于HTTP和TCP客户端的负载均衡器。Feign中也使用Ribbon，后续会介绍Feign的使用。 Ribbon可以在通过客户端中配置的ribbon">
+<meta name="twitter:image" content="http://yoursite.com/assets/SpringCloudImg/eurekaComputeService1.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Spring Cloud构建微服务架构（二）服务消费者
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="clesbyv2b004npsiaddph6q5d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在上一篇《Spring Cloud构建微服务架构（一）服务注册与发现》中，我们已经成功创建了“服务注册中心”，实现并注册了一个“服务提供者：COMPUTE-SERVICE”。那么我们要如何去消费服务提供者的接口内容呢？</p>
+<h3 id="Ribbon"><a href="#Ribbon" class="headerlink" title="Ribbon"></a>Ribbon</h3><p>Ribbon是一个基于HTTP和TCP客户端的负载均衡器。Feign中也使用Ribbon，后续会介绍Feign的使用。</p>
+<p>Ribbon可以在通过客户端中配置的ribbonServerList服务端列表去轮询访问以达到均衡负载的作用。</p>
+<p>当Ribbon与Eureka联合使用时，ribbonServerList会被DiscoveryEnabledNIWSServerList重写，扩展成从Eureka注册中心中获取服务端列表。同时它也会用NIWSDiscoveryPing来取代IPing，它将职责委托给Eureka来确定服务端是否已经启动。</p>
+<p>下面我们通过实例看看如何使用Ribbon来调用服务，并实现客户端的均衡负载。<br>准备工作</p>
+<pre><code>启动服务注册中心：eureka
+启动服务提供方：compute-service
+修改compute-service中的server-port为2000，再启动一个服务提供方：compute-service
+</code></pre><p>此时访问：<a href="http://localhost:1000/" target="_blank" rel="noopener">http://localhost:1000/</a></p>
+<p>可以看到COMPUTE-SERVICE服务有两个单元正在运行：</p>
+<pre><code>zangqisong-PC:compute-service:2001
+zangqisong-PC:compute-service:2000
+</code></pre><p><img src="/assets/SpringCloudImg/eurekaComputeService1.png" alt="image"><br>使用Ribbon实现客户端负载均衡的消费者</p>
+<p>构建一个基本Spring Boot项目，并在pom.xml中加入如下内容：</p>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-ribbon&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+        &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+        &lt;version&gt;RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+</code></pre><p>在应用主类中，通过@EnableDiscoveryClient注解来添加发现服务能力。创建RestTemplate实例，并通过@LoadBalanced注解开启均衡负载能力。</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class EurekaRibbonApplication {
+
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaRibbonApplication.class, args);
+    }
+
+}
+</code></pre><p>创建ConsumerController来消费COMPUTE-SERVICE的add服务。通过直接RestTemplate来调用服务，计算10 + 20的值。</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public String add() {
+        return restTemplate.getForEntity(&quot;http://COMPUTE-SERVICE/add?a=10&amp;b=20&quot;, String.class).getBody();
+    }
+
+}
+</code></pre><p>application.properties中配置eureka服务注册中心</p>
+<pre><code>spring.application.name=ribbon-consumer
+server.port=2002
+eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
+</code></pre><p><a href="http://localhost:2002/add" target="_blank" rel="noopener">启动该应用，并访问两次：http://localhost:2002/add</a></p>
+<p>然后，打开compute-service的两个服务提供方，分别输出了类似下面的日志内容：</p>
+<pre><code>端口为2000服务提供端的日志：
+
+2019-04-16 13:48:40.690  INFO 79592 --- [nio-2000-exec-2] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
+
+端口为2001服务提供端的日志：
+
+2019-04-16 13:48:40.811  INFO 114792 --- [nio-2001-exec-7] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2001, result:30
+</code></pre><p>可以看到，之前启动的两个compute-service服务端分别被调用了一次。到这里，我们已经通过Ribbon在客户端已经实现了对服务调用的均衡负载。</p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka-ribbon</a></p>
+<h3 id="Feign"><a href="#Feign" class="headerlink" title="Feign"></a>Feign</h3><p>Feign是一个声明式的Web Service客户端，它使得编写Web Serivce客户端变得更加简单。我们只需要使用Feign来创建一个接口并用注解来配置它既可完成。它具备可插拔的注解支持，包括Feign注解和JAX-RS注解。Feign也支持可插拔的编码器和解码器。Spring Cloud为Feign增加了对Spring MVC注解的支持，还整合了Ribbon和Eureka来提供均衡负载的HTTP客户端实现。</p>
+<p>下面，通过一个例子来展现Feign如何方便的声明对上述computer-service服务的定义和调用。</p>
+<p>创建一个Spring Boot工程，配置pom.xml，将上述的配置中的ribbon依赖替换成feign的依赖即可，具体如下：</p>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.1.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+        &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+        &lt;version&gt;RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre><p>在应用主类中通过@EnableFeignClients注解开启Feign功能，具体如下：</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+public class EurekaFeignApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaFeignApplication.class, args);
+    }
+
+}
+</code></pre><p>定义compute-service服务的接口，具体如下：</p>
+<pre><code>@FeignClient(&quot;compute-service&quot;)
+public interface ComputeClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = &quot;/add&quot;)
+    Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b);
+
+}
+
+使用@FeignClient(&quot;compute-service&quot;)注解来绑定该接口对应compute-service服务
+通过Spring MVC的注解来配置compute-service服务下的具体实现。
+</code></pre><p>在web层中调用上面定义的ComputeClient，具体如下：</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    ComputeClient computeClient;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public Integer add() {
+        return computeClient.add(10, 20);
+    }
+
+}
+</code></pre><p>application.properties中不用变，指定eureka服务注册中心即可，如：</p>
+<pre><code>spring.application.name=feign-consumer
+server.port=2003
+eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
+</code></pre><p><a href="http://localhost:2003/add" target="_blank" rel="noopener">启动该应用，访问几次：http://localhost:2003/add</a></p>
+<p>再观察日志，可以得到之前使用Ribbon时一样的结果，对服务提供方实现了均衡负载。</p>
+<pre><code>2019-04-16 14:48:21.475  INFO 114792 --- [nio-2001-exec-9] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
+2019-04-16 14:48:21.741  INFO 79592 --- [nio-2000-exec-4] c.e.c.controller.ComputeController       : /add, host:zangqisong-PC, service_id:COMPUTE-SERVICE:2000, result:30
+</code></pre><p>这一节我们通过Feign以接口和注解配置的方式，轻松实现了对compute-service服务的绑定，这样我们就可以在本地应用中像本地服务一下的调用它，并且做到了客户端均衡负载。</p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">示例可参见：SpringCloudDemo/eureka-feign</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/12/Spring Cloud(二)服务消费者/">
+    <time datetime="2019-04-11T16:00:00.000Z" class="entry-date">
+        2019-04-12
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/04/15/Spring Cloud(三)断路器/" rel="prev"><span class="meta-nav">←</span> Spring Cloud构建微服务架构 (三) 断路器</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/04/11/Spring Cloud(一)服务注册与发现/" rel="next">Spring Cloud构建微服务架构（一）服务注册与发现 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

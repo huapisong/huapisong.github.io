@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="package com.example.demo;
+
+import java.util.Stack;
+
+/**
+ * String 的反转
+ */
+public class Reverse {
+    private String str = null;
+
+    public Reverse(St">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>String 的反转 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="package com.example.demo;  import java.util.Stack;  /**  * String 的反转  */ public class Reverse {     private String str = null;      public Reverse(String str) {         this.str = str;     }      //">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String 的反转">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/String-Reverse/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="package com.example.demo;  import java.util.Stack;  /**  * String 的反转  */ public class Reverse {     private String str = null;      public Reverse(String str) {         this.str = str;     }      //">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T02:49:39.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="String 的反转">
+<meta name="twitter:description" content="package com.example.demo;  import java.util.Stack;  /**  * String 的反转  */ public class Reverse {     private String str = null;      public Reverse(String str) {         this.str = str;     }      //">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-String-Reverse" class="post-String-Reverse post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      String 的反转
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="clesbyv0q0012psiacaumv2u7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>package com.example.demo;
+
+import java.util.Stack;
+
+/**
+ * String 的反转
+ */
+public class Reverse {
+    private String str = null;
+
+    public Reverse(String str) {
+        this.str = str;
+    }
+
+    // 数组实现String反转
+    public String reverseByArray() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        for (int i = 0; i &lt; ch.length / 2; i++) {
+            char temp = ch[i];
+            ch[i] = ch[ch.length - i - 1];
+            ch[ch.length - i - 1] = temp;
+        }
+        return new String(ch);
+    }
+
+    // 用栈实现String反转
+    public String reverseByStack() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        for (char c : ch) {
+            stack.push(c);// 每个字符，推进栈
+        }
+        for (int i = 0; i &lt; ch.length; i++) {
+            ch[i] = stack.pop();// 移除这个堆栈的顶部对象
+        }
+        return new String(ch);
+    }
+
+    // 用逆序遍历实现String反转
+    public String reverseBySort() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = str.length() - 1; i &gt;= 0; i--) {
+            sb.append(str.charAt(i));// 使用StringBuffer从右往左拼接字符
+        }
+        return sb.toString();
+    }
+
+    // 使用位运算实现String反转
+    public String reverseByBit() {
+        if (str == null || str.length() == 1) {
+            return str;
+        }
+        char[] ch = str.toCharArray();// 字符串转换成字符数组
+        int len = str.length();
+        for (int i = 0; i &lt; len / 2; i++) {
+            ch[i] ^= ch[len - 1 - i];
+            ch[len - 1 - i] ^= ch[i];
+            ch[i] ^= ch[len - 1 - i];
+        }
+        return new String(ch);
+    }
+
+    //使用递归实现String反转
+    public String reverseByRecursive(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (str.length() == 1) {
+            return str;
+        } else {
+            // 从下标为1开始截取字符串，在返回下标为0的字符
+            return reverseByRecursive(str.substring(1)) + str.charAt(0);
+        }
+    }
+
+    // 使用 StringBuilder reverse() 方法反转
+    public String reverseByStringBuilder(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        String s = &quot;123456&quot;;
+
+        Reverse r = new Reverse(s);
+        System.out.println(r.reverseByArray());
+        System.out.println(r.reverseByStack());
+        System.out.println(r.reverseBySort());
+        System.out.println(r.reverseByBit());
+        System.out.println(r.reverseByRecursive(s));
+        System.out.println(r.reverseByStringBuilder(s));
+    }
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/02/06/String-Reverse/">
+    <time datetime="2018-02-05T16:00:00.000Z" class="entry-date">
+        2018-02-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/06/06/Node-Install-And-Usage/" rel="prev"><span class="meta-nav">←</span> Node 安装和配置</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/01/29/maven-instruction/" rel="next">maven使用简单介绍 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

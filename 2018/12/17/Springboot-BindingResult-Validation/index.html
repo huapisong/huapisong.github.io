@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="1、创建一个参数对象# Validation
+package common.validate.type
+    public class Validation {
+
+    /**查询*/
+    public interface Select {
+    }
+    /**更新*/
+    pub">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Springboot 使用注解@Validated和BindingResult校验参数 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、创建一个参数对象# Validation package common.validate.type     public class Validation {      /**查询*/     public interface Select {     }     /**更新*/     public interface Update {     }     /**插入*/     publi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot 使用注解@Validated和BindingResult校验参数">
+<meta property="og:url" content="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="1、创建一个参数对象# Validation package common.validate.type     public class Validation {      /**查询*/     public interface Select {     }     /**更新*/     public interface Update {     }     /**插入*/     publi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-20T07:32:36.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Springboot 使用注解@Validated和BindingResult校验参数">
+<meta name="twitter:description" content="1、创建一个参数对象# Validation package common.validate.type     public class Validation {      /**查询*/     public interface Select {     }     /**更新*/     public interface Update {     }     /**插入*/     publi">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Springboot-BindingResult-Validation" class="post-Springboot-BindingResult-Validation post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Springboot 使用注解@Validated和BindingResult校验参数
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="clesbyv0q0010psial9o02ofx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1、创建一个参数对象"><a href="#1、创建一个参数对象" class="headerlink" title="1、创建一个参数对象"></a>1、创建一个参数对象</h2><pre><code># Validation
+package common.validate.type
+    public class Validation {
+
+    /**查询*/
+    public interface Select {
+    }
+    /**更新*/
+    public interface Update {
+    }
+    /**插入*/
+    public interface Insert {
+    }
+    /**删除*/
+    public interface Delete {
+    }
+
+    /**查询详情*/
+    public interface SelectDetail {
+    }
+
+}
+
+import java.util.List;
+import common.validate.type.Validation;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+public class Parameter {
+
+    @NotEmpty(message=&quot;姓名不能为空&quot;, groups = Validation.Update.class)
+    private String name;
+
+    @Min(value = 18, message = &quot;年龄必须大于18岁&quot;, groups = Validation.Update.class)
+    private int age;
+
+    @NotEmpty(message=&quot;hobbies不能为空&quot;, groups = Validation.Update.class)
+    private List&lt;String&gt; hobbies;
+
+    @NotBlank(message=&quot;账号不能为空&quot;, groups = Validation.Update.class)
+    private String account;
+
+    @Size(min=5,max=10,message=&quot;密码的长度应该在5和10之间&quot;, groups = Validation.Update.class) 
+    private String password;
+
+    @Email(message=&quot;邮箱格式错误&quot;, groups = Validation.Update.class)
+    private String email;
+
+    // Getter and Setter
+    // ... 
+
+}
+</code></pre><h2 id="2、controller控制层写参数接收的入口"><a href="#2、controller控制层写参数接收的入口" class="headerlink" title="2、controller控制层写参数接收的入口"></a>2、controller控制层写参数接收的入口</h2><pre><code>public class BaseController {
+    /**
+    * 正常的返回值
+    *
+    * @param outPutBean
+    */
+    protected void setSuccess(BaseVO outPutBean) {
+        outPutBean.setResultCode(ConstantsRecruit.ResultCode.SUCCESS);
+    }
+
+    /**
+    * 处理参数异常
+    *
+    * @param bindingResult
+    */
+    protected void paramaterVidation(BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMesssage = new StringBuilder(&quot;参数异常:&quot;);
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorMesssage.append(fieldError.getField());
+                errorMesssage.append(&quot;:&quot;);
+                errorMesssage.append(fieldError.getDefaultMessage());
+                errorMesssage.append(&quot;; &quot;);
+            }
+            throw new TestAplException(ConstantsRecruit.ResultCode.PARAM_ERR, errorMesssage.toString());
+        }
+    }
+}
+
+
+# 注意：BindingResult需要放到@Validated后面
+
+public class TestController extends BaseController{
+
+    @ApiOperation(value = &quot;测试&quot;, notes = &quot;更新&quot;)
+    @PostMapping(value = &quot;/update&quot;)
+    public BaseVO update(@RequestBody @Validated(Validation.Update.class) Parameter input,BindingResult bindingResult){
+        paramaterVidation(bindingResult);
+        BaseVO vo = new BaseVO();
+        commonService.update();
+        setSuccess(vo);
+        return vo;
+    }
+}
+</code></pre><h2 id="3、常用校验注解"><a href="#3、常用校验注解" class="headerlink" title="3、常用校验注解"></a>3、常用校验注解</h2><p>@Null 只能是null<br>@NotNull 不能为null 注意用在基本类型上无效，基本类型有默认初始值<br>@AssertFalse 必须为false<br>@AssertTrue 必须是true</p>
+<p>字符串/数组/集合检查：(字符串本身就是个数组)<br>@Pattern(regexp=”reg”) 验证字符串满足正则<br>@Size(max, min) 验证字符串、数组、集合长度范围<br>@NotEmpty 验证字符串不为空或者null<br>@NotBlank 验证字符串不为null或者trim()后不为空</p>
+<p>数值检查：同时能验证一个字符串是否是满足限制的数字的字符串<br>@Max 规定值得上限int<br>@Min 规定值得下限<br>@DecimalMax(“10.8”) 以传入字符串构建一个BigDecimal，规定值要小于这个值<br>@DecimalMin 可以用来限制浮点数大小<br>@Digits(int1, int2) 限制一个小数，整数精度小于int1；小数部分精度小于int2<br>@Digits 无参数，验证字符串是否合法<br>@Range(min=long1,max=long2) 检查数字是否在范围之间<br>这些都包括边界值</p>
+<p>日期检查：Date/Calendar<br>@Post 限定一个日期，日期必须是过去的日期<br>@Future 限定一个日期，日期必须是未来的日期</p>
+<p>其他验证：<br>@Vaild 递归验证，用于对象、数组和集合，会对对象的元素、数组的元素进行一一校验<br>@Email 用于验证一个字符串是否是一个合法的右键地址，空字符串或null算验证通过<br>@URL(protocol=,host=,port=,regexp=,flags=) 用于校验一个字符串是否是合法URL</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/12/17/Springboot-BindingResult-Validation/">
+    <time datetime="2018-12-16T16:00:00.000Z" class="entry-date">
+        2018-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Springboot/">Springboot</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/01/01/RPC入门总结  RPC定义和原理/" rel="prev"><span class="meta-nav">←</span> RPC入门总结 RPC定义和原理</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/06/13/Maven-Install-And-Settings/" rel="next">Maven 安装和配置 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="环境说明
+CentOS 7.3
+
+关键点
+免密登录的关键点在于理解谁登录谁。
+A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D
+
+A 生成密钥
+在 A 机器上输入命令：ssh-keygen
+根据提示回车，共有三次交互提示，都回车即可。
+
+
+生成的密钥目录在：/roo">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>SSH 免密登录 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="环境说明 CentOS 7.3  关键点 免密登录的关键点在于理解谁登录谁。 A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D  A 生成密钥 在 A 机器上输入命令：ssh-keygen 根据提示回车，共有三次交互提示，都回车即可。   生成的密钥目录在：/root/.ssh 写入：cat /root/.ssh/id_rsa.pub &amp;gt;&amp;gt; /root">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSH 免密登录">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/SSH-login-without-password/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="环境说明 CentOS 7.3  关键点 免密登录的关键点在于理解谁登录谁。 A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D  A 生成密钥 在 A 机器上输入命令：ssh-keygen 根据提示回车，共有三次交互提示，都回车即可。   生成的密钥目录在：/root/.ssh 写入：cat /root/.ssh/id_rsa.pub &amp;gt;&amp;gt; /root">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T05:26:22.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSH 免密登录">
+<meta name="twitter:description" content="环境说明 CentOS 7.3  关键点 免密登录的关键点在于理解谁登录谁。 A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D  A 生成密钥 在 A 机器上输入命令：ssh-keygen 根据提示回车，共有三次交互提示，都回车即可。   生成的密钥目录在：/root/.ssh 写入：cat /root/.ssh/id_rsa.pub &amp;gt;&amp;gt; /root">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-SSH-login-without-password" class="post-SSH-login-without-password post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      SSH 免密登录
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/SSH-login-without-password/" data-id="clesbyv0q000upsiawkzwet3a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><ul>
+<li>CentOS 7.3</li>
+</ul>
+<h2 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h2><ul>
+<li>免密登录的关键点在于理解谁登录谁。</li>
+<li>A 生成的公钥给 B，也给 C、D，则 A 可以直接免密 SSH 登录 B、C、D</li>
+</ul>
+<h2 id="A-生成密钥"><a href="#A-生成密钥" class="headerlink" title="A 生成密钥"></a>A 生成密钥</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh-keygen</code><ul>
+<li>根据提示回车，共有三次交互提示，都回车即可。</li>
+</ul>
+</li>
+<li>生成的密钥目录在：<strong>/root/.ssh</strong></li>
+<li>写入：<code>cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</code></li>
+<li>测试：<code>ssh localhost</code></li>
+</ul>
+<h2 id="把-A-的公钥发给-B"><a href="#把-A-的公钥发给-B" class="headerlink" title="把 A 的公钥发给 B"></a>把 A 的公钥发给 B</h2><ul>
+<li>假设 B 机器的 ip：<code>192.168.1.105</code></li>
+<li>则在 A 机器上输入：<code>ssh-copy-id -i /root/.ssh/id_rsa.pub -p 22 root@192.168.1.105</code>，根据提示输入 B 机器的 root 密码，成功会有相应提示</li>
+</ul>
+<h2 id="测试-A-免密登录到-B"><a href="#测试-A-免密登录到-B" class="headerlink" title="测试 A 免密登录到 B"></a>测试 A 免密登录到 B</h2><ul>
+<li>在 A 机器上输入命令：<code>ssh -p 22 root@192.168.1.105</code>，则会相应登录成功的提示</li>
+</ul>
+<hr>
+<h2 id="如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的"><a href="#如果是用-pem-登录的话，用-ssh-copy-id-是无法使用的" class="headerlink" title="如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的"></a>如果是用 pem 登录的话，用 ssh-copy-id 是无法使用的</h2><ul>
+<li>先保存 A 的 pub 到本地：<code>sz /root/.ssh/id_rsa.pub</code></li>
+<li>登录 B 机子：<code>cd /root/.ssh/</code></li>
+<li>如果 B 机子没有 authorized_keys 文件则创建：<code>touch /root/.ssh/authorized_keys</code><ul>
+<li>设置权限：<code>chmod 600 /root/.ssh/authorized_keys</code></li>
+</ul>
+</li>
+<li>上传 pub 文件到 B 机子，并在 B 机子上执行：<code>cd /root/.ssh/ &amp;&amp; cat id_rsa.pub &gt;&gt; authorized_keys</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/SSH-login-without-password/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/08/28/Vim-Install-And-Setting/" rel="prev"><span class="meta-nav">←</span> Vim 安装和配置、优化</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/08/13/java 加密规则变更/" rel="next">java 加密规则变更 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

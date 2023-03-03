@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="自定义字体修改添加 stylevar Font = Quill.import(&amp;apos;attributors/style/font&amp;apos;);
+# 结果源码
+&amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;font-family: SimSun;&amp;quot;&amp;gt;宋体 测试&amp;l">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>vue中Quill富文本编辑器的使用 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="自定义字体修改添加 stylevar Font = Quill.import(&amp;apos;attributors/style/font&amp;apos;); # 结果源码 &amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;font-family: SimSun;&amp;quot;&amp;gt;宋体 测试&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt; 添加 classvar Font = Quill.imp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue中Quill富文本编辑器的使用">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/vue-Quill-Editor/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="自定义字体修改添加 stylevar Font = Quill.import(&amp;apos;attributors/style/font&amp;apos;); # 结果源码 &amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;font-family: SimSun;&amp;quot;&amp;gt;宋体 测试&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt; 添加 classvar Font = Quill.imp">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-14T03:14:47.649Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue中Quill富文本编辑器的使用">
+<meta name="twitter:description" content="自定义字体修改添加 stylevar Font = Quill.import(&amp;apos;attributors/style/font&amp;apos;); # 结果源码 &amp;lt;p&amp;gt;&amp;lt;span style=&amp;quot;font-family: SimSun;&amp;quot;&amp;gt;宋体 测试&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt; 添加 classvar Font = Quill.imp">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue-Quill-Editor" class="post-vue-Quill-Editor post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      vue中Quill富文本编辑器的使用
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/12/17/vue-Quill-Editor/" data-id="clesbyv2g0055psia8tishe78" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="自定义字体修改"><a href="#自定义字体修改" class="headerlink" title="自定义字体修改"></a>自定义字体修改</h2><h3 id="添加-style"><a href="#添加-style" class="headerlink" title="添加 style"></a>添加 style</h3><pre><code>var Font = Quill.import(&apos;attributors/style/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span style=&quot;font-family: SimSun;&quot;&gt;宋体 测试&lt;/span&gt;&lt;/p&gt;
+</code></pre><h3 id="添加-class"><a href="#添加-class" class="headerlink" title="添加 class"></a>添加 class</h3><pre><code>var Font = Quill.import(&apos;attributors/class/font&apos;);
+# 结果源码
+&lt;p&gt;&lt;span class=&quot;ql-font-SimSun&quot;&gt;宋体&lt;/span&gt;&lt;/p&gt;
+</code></pre><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre><code>&lt;!-- 富文本编辑 vue-quill-editor --&gt;
+&lt;template&gt;
+&lt;div class&gt;
+    &lt;quill-editor
+    v-model=&quot;contentHtml&quot;
+    ref=&quot;myQuillEditor&quot;
+    :options=&quot;editorOption&quot;
+    &gt;&lt;/quill-editor&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import &apos;quill/dist/quill.core.css&apos;;
+import &apos;quill/dist/quill.snow.css&apos;;
+import &apos;quill/dist/quill.bubble.css&apos;;
+import { quillEditor, Quill } from &apos;vue-quill-editor&apos;;
+// 图片拖拽功能 ie 不支持
+// import { ImageDrop } from &apos;quill-image-drop-module&apos;;
+// Quill.register(&apos;modules/imageDrop&apos;, ImageDrop);
+
+var fonts = [&apos;STXihei&apos;, &apos;SimSun&apos;, &apos;SimHei&apos;,&apos;Microsoft-YaHei&apos;,&apos;KaiTi&apos;,&apos;FangSong&apos;,&apos;Arial&apos;,&apos;sans-serif&apos;];  
+
+var Font = Quill.import(&apos;attributors/style/font&apos;);
+// var Font = Quill.import(&apos;attributors/class/font&apos;);
+// var Font = Quill.import(&apos;formats/font&apos;);
+Font.whitelist = fonts; //将字体加入到白名单 
+Quill.register(Font, true);
+
+export default {
+props: {
+    content: {
+    type: String,
+    default: &quot;&quot;
+    }
+},
+mounted() {
+},
+components: {
+    &apos;quill-editor&apos;: quillEditor
+},
+data() {
+    return {
+    // contentHtml: this.content,
+    editorOption: {
+        modules: {
+        toolbar: {
+            container: [  // 工具栏
+            [&apos;bold&apos;, &apos;italic&apos;, &apos;underline&apos;, &apos;strike&apos;],
+            [&apos;blockquote&apos;, &apos;code-block&apos;],
+            [{ &apos;header&apos;: 1 }, { &apos;header&apos;: 2 }],
+            [{ &apos;list&apos;: &apos;ordered&apos; }, { &apos;list&apos;: &apos;bullet&apos; }],
+            [{ &apos;script&apos;: &apos;sub&apos; }, { &apos;script&apos;: &apos;super&apos; }],
+            [{ &apos;indent&apos;: &apos;-1&apos; }, { &apos;indent&apos;: &apos;+1&apos; }],
+            [{ &apos;direction&apos;: &apos;rtl&apos; }],
+            [{ &apos;size&apos;: [&apos;small&apos;, false, &apos;large&apos;, &apos;huge&apos;] }],
+            [{ &apos;header&apos;: [1, 2, 3, 4, 5, 6, false] }],
+            [{ &apos;color&apos;: [] }, { &apos;background&apos;: [] }],
+            [{ &apos;font&apos;: fonts }],
+            [{ &apos;align&apos;: [] }],
+            [&apos;clean&apos;],
+            [&apos;link&apos;, &apos;image&apos;, &apos;video&apos;]
+            ],
+            handlers: {
+            // &apos;image&apos;: function (value) {
+            //   console.log(value);
+            //     if (value) {
+            //         alert(&apos;自定义图片&apos;);
+            //     } else {
+            //       this.quill.format(&apos;image&apos;, false);
+            //     }
+            // }
+            }
+        },
+        history: {
+            delay: 1000,
+            maxStack: 50,
+            userOnly: false
+        },
+        // imageDrop: true,
+        }
+    }
+    };
+},
+computed: {
+    contentHtml: {
+    get() {
+        return this.content;
+    },
+    // setter
+    set(val) {
+        if (val.replace(/[^\x00-\xff]/g, &apos;01&apos;).length &gt;= 10 * 1024 * 1024)
+        this.$message.error(&apos;富文本内容大小不得大于10M！&apos;);
+        this.$emit(&quot;update:content&quot;, val);
+    }
+    },
+},
+watch: {
+    // &apos;contentHtml&apos;(newVal, oldVal) {
+    //   if (!newVal) {
+    //     return;
+    //   }
+    //   if (newVal == oldVal) {
+    //     return;
+    //   }
+    //   this.$emit(&quot;update:content&quot;, newVal);
+    // }
+},
+};
+&lt;/script&gt;
+&lt;style&gt;
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+content: &quot;14px&quot;;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;small&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;small&quot;]::before {
+content: &quot;10px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;large&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;large&quot;]::before {
+content: &quot;18px&quot;;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=&quot;huge&quot;]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=&quot;huge&quot;]::before {
+content: &quot;32px&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+content: &quot;文本&quot;;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;1&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;1&quot;]::before {
+content: &quot;标题1&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;2&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;2&quot;]::before {
+content: &quot;标题2&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;3&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;3&quot;]::before {
+content: &quot;标题3&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;4&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;4&quot;]::before {
+content: &quot;标题4&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;5&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;5&quot;]::before {
+content: &quot;标题5&quot;;
+}
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value=&quot;6&quot;]::before,
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value=&quot;6&quot;]::before {
+content: &quot;标题6&quot;;
+}
+
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STXihei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STXihei]::before {
+    content: &quot;华文细黑&quot;;
+    font-family: &quot;STXihei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
+    content: &quot;宋体&quot;;
+    font-family: &quot;SimSun&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimHei]::before {
+    content: &quot;黑体&quot;;
+    font-family: &quot;SimHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Microsoft-YaHei]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Microsoft-YaHei]::before {
+    content: &quot;微软雅黑&quot;;
+    font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=KaiTi]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=KaiTi]::before {
+    content: &quot;楷体&quot;;
+    font-family: &quot;KaiTi&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=FangSong]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=FangSong]::before {
+    content: &quot;仿宋&quot;;
+    font-family: &quot;FangSong&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
+    content: &quot;Arial&quot;;
+    font-family: &quot;Arial&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
+    content: &quot;Times New Roman&quot;;
+    font-family: &quot;Times New Roman&quot;;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
+    content: &quot;sans-serif&quot;;
+    font-family: &quot;sans-serif&quot;;
+}
+
+.ql-font-STXihei {
+font-family: &quot;STXihei&quot;;
+}
+.ql-font-SimSun {
+font-family: &quot;SimSun&quot;;
+}
+.ql-font-SimHei {
+font-family: &quot;SimHei&quot;;
+}
+.ql-font-Microsoft-YaHei {
+font-family: &quot;Microsoft YaHei&quot;;
+}
+.ql-font-KaiTi {
+font-family: &quot;KaiTi&quot;;
+}
+.ql-font-FangSong {
+font-family: &quot;FangSong&quot;;
+}
+.ql-font-Arial {
+font-family: &quot;Arial&quot;;
+}
+.ql-font-Times-New-Roman {
+font-family: &quot;Times New Roman&quot;;
+}
+.ql-font-sans-serif {
+font-family: &quot;sans-serif&quot;;
+}
+&lt;/style&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/17/vue-Quill-Editor/">
+    <time datetime="2019-12-16T16:00:00.000Z" class="entry-date">
+        2019-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/12/17/AES/" rel="prev"><span class="meta-nav">←</span> AES 加密、解密</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/12/17/Nginx.service failed/" rel="next">启动报错 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

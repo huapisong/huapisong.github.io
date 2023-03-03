@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="动态组件 &amp;amp; 异步组件  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。
+方案">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>vue 重新渲染组件（重置或者更新） | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="动态组件 &amp;amp; 异步组件  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。 方案一：v-if（可以重置生命周期）当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 重新渲染组件（重置或者更新）">
+<meta property="og:url" content="http://yoursite.com/2019/05/05/vue 重新渲染组件（重置或者更新) /index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="动态组件 &amp;amp; 异步组件  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。 方案一：v-if（可以重置生命周期）当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-29T08:22:54.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue 重新渲染组件（重置或者更新）">
+<meta name="twitter:description" content="动态组件 &amp;amp; 异步组件  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。 方案一：v-if（可以重置生命周期）当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-vue 重新渲染组件（重置或者更新) " class="post-vue 重新渲染组件（重置或者更新)  post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      vue 重新渲染组件（重置或者更新）
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/05/05/vue 重新渲染组件（重置或者更新) /" data-id="clesbyv1p0033psiacg9dq6ga" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="动态组件-amp-异步组件"><a href="#动态组件-amp-异步组件" class="headerlink" title="动态组件 &amp; 异步组件"></a>动态组件 &amp; 异步组件</h2><p>  组件根据传入的数据动态产生DOM结构, 只操作数据便可以重新渲染页面, 路由相同时页面不重新渲染或更新<br>  一、当数据通过异步操作后，对之前加载的数据进行变更后，发现数据不生效。<br>  二、A组件或者B组件触发数据更新，C组件数据更新了，但是C组件仍显示上一次数据。</p>
+<h2 id="方案一：v-if（可以重置生命周期）"><a href="#方案一：v-if（可以重置生命周期）" class="headerlink" title="方案一：v-if（可以重置生命周期）"></a>方案一：v-if（可以重置生命周期）</h2><pre><code>当路由变更后,通过watch 监听，先去销毁当前的组件，然后再重现渲染。使用 v-if 可以解决这个问题
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; v-if=&quot;reFresh&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        reFresh:true,
+      }
+    },
+    watch:{
+      $route(to, form) {
+        this.reFresh= false
+        this.$nextTick(()=&gt;{
+            this.reFresh = true
+        })
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre><p>  这种方式虽然可以实现，但太不优雅  </p>
+<h2 id="方案二-key-’’（此处可触发watch和update）"><a href="#方案二-key-’’（此处可触发watch和update）" class="headerlink" title="方案二 :key=’’（此处可触发watch和update）"></a>方案二 :key=’’（此处可触发watch和update）</h2><pre><code>通过vue key 实现，原理请查看官方文档。所以当key 值变更时，会自动的重新渲染。
+
+&lt;template&gt;
+  &lt;form-component :initModelForData=&quot;initModelForData&quot; :subTitle=&quot;subTitle&quot; :columnList=&quot;columnList&quot; :key=&quot;key&quot;&gt;&lt;/form-component&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default{
+    data(){
+      return {
+        key: 1
+      }
+    },
+    watch:{
+      $route(to, form) {
+        ++this.key
+      }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/05/vue 重新渲染组件（重置或者更新) /">
+    <time datetime="2019-05-04T16:00:00.000Z" class="entry-date">
+        2019-05-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/05/05/vue 修改子组件样式/" rel="prev"><span class="meta-nav">←</span> vue 修改子组件样式</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/04/28/java集合框架/" rel="next">java 集合框架 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

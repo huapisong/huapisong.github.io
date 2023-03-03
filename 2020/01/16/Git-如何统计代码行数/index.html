@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } ">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>git 如何统计代码行数 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 如何统计代码行数">
+<meta property="og:url" content="http://yoursite.com/2020/01/16/Git-如何统计代码行数/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-08-19T06:31:28.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 如何统计代码行数">
+<meta name="twitter:description" content="1.根据用户名时间段统计git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s,">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Git-如何统计代码行数" class="post-Git-如何统计代码行数 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      git 如何统计代码行数
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2020/01/16/Git-如何统计代码行数/" data-id="clesbyv0b000bpsiasuffxs4m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-根据用户名时间段统计"><a href="#1-根据用户名时间段统计" class="headerlink" title="1.根据用户名时间段统计"></a>1.根据用户名时间段统计</h2><p>git log –author=”username” –since=2018-01-01 –until=2019-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s\n”, add, subs, loc }’ -</p>
+<h2 id="2-查看提交者排名前-N-位"><a href="#2-查看提交者排名前-N-位" class="headerlink" title="2.查看提交者排名前 N 位"></a>2.查看提交者排名前 N 位</h2><p>git log –pretty=’%aN’ | sort | uniq -c | sort -k1 -n -r | head -n 5</p>
+<h2 id="3-提交数统计"><a href="#3-提交数统计" class="headerlink" title="3.提交数统计"></a>3.提交数统计</h2><p>git log –oneline | wc -l</p>
+<h2 id="4-根据用户名统计"><a href="#4-根据用户名统计" class="headerlink" title="4.根据用户名统计"></a>4.根据用户名统计</h2><p>git log –author=”username” –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s\n”, add, subs, loc }’ -</p>
+<h2 id="5-根据时间段统计"><a href="#5-根据时间段统计" class="headerlink" title="5.根据时间段统计"></a>5.根据时间段统计</h2><p>git log –since=2021-01-01 –until=2021-12-31 –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s\n”, add, subs, loc }’</p>
+<h2 id="6-统计每个人的增删行数"><a href="#6-统计每个人的增删行数" class="headerlink" title="6.统计每个人的增删行数"></a>6.统计每个人的增删行数</h2><p>git log –format=’%aN’ | sort -u | while read name; do echo -en “$name\t”; git log –author=”$name” –pretty=tformat: –numstat | awk ‘{ add += $1; subs += $2; loc += $1 - $2 } END { printf “added lines: %s, removed lines: %s, total lines: %s “, add, subs, loc }’ -; done</p>
+<h2 id="7-贡献者统计"><a href="#7-贡献者统计" class="headerlink" title="7.贡献者统计"></a>7.贡献者统计</h2><p>git log –pretty=’%aN’ | sort -u | wc -l</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2020/01/16/Git-如何统计代码行数/">
+    <time datetime="2020-01-15T16:00:00.000Z" class="entry-date">
+        2020-01-16
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/03/19/Openoffice-install-and-startservice/" rel="prev"><span class="meta-nav">←</span> openoffice</a></span>
+    
+    
+        <span class="nav-next"><a href="/2020/01/16/Git-remote-and-push/" rel="next">git 开发生产仓库同步代码 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

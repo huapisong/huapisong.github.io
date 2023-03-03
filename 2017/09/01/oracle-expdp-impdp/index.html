@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="expdp 导出expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp;
+删除用户-- 删除用户
+drop user BOSYUNTEST cascade;
+-- 删除用户时若报错：ORA-01940: cannot drop a us">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>oracle expdp / impdp | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="expdp 导出expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp; 删除用户-- 删除用户 drop user BOSYUNTEST cascade; -- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id SELECT SID,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oracle expdp &#x2F; impdp">
+<meta property="og:url" content="http://yoursite.com/2017/09/01/oracle-expdp-impdp/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="expdp 导出expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp; 删除用户-- 删除用户 drop user BOSYUNTEST cascade; -- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id SELECT SID,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-13T02:30:49.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oracle expdp &#x2F; impdp">
+<meta name="twitter:description" content="expdp 导出expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp; 删除用户-- 删除用户 drop user BOSYUNTEST cascade; -- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id SELECT SID,">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-oracle-expdp-impdp" class="post-oracle-expdp-impdp post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      oracle expdp / impdp
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="clesbyv1e002ipsia61gk0yg1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="expdp-导出"><a href="#expdp-导出" class="headerlink" title="expdp 导出"></a>expdp 导出</h3><pre><code>expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp;
+</code></pre><h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><pre><code>-- 删除用户
+drop user BOSYUNTEST cascade;
+-- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id
+SELECT SID,SERIAL# FROM V$SESSION WHERE USERNAME=&apos;TQBAY&apos;;
+-- 再一个个kill掉该用户的会话再执行drop user
+ALTER SYSTEM KILL SESSION &apos;24,25341&apos;;
+</code></pre><h3 id="查询表空间路径"><a href="#查询表空间路径" class="headerlink" title="查询表空间路径"></a>查询表空间路径</h3><pre><code>select * from dba_data_files;
+</code></pre><h3 id="删除表空间和文件"><a href="#删除表空间和文件" class="headerlink" title="删除表空间和文件"></a>删除表空间和文件</h3><pre><code>-- 删除临时表空间和文件
+drop tablespace BOSYUN_TEST_TEMP including contents and datafiles;
+-- 删除数据表空间和文件
+drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
+drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
+</code></pre><h3 id="创建表空间"><a href="#创建表空间" class="headerlink" title="创建表空间"></a>创建表空间</h3><pre><code>-- 创建临时表空间
+CREATE SMALLFILE TEMPORARY TABLESPACE BOSYUN_TEST_TEMP TEMPFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_TEMP&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
+-- 创建数据表空间
+CREATE SMALLFILE TABLESPACE BOSYUN_TEST_DATA DATAFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_DATA&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED LOGGING EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
+-- 创建用户
+CREATE USER BOSYUNTEST PROFILE &quot;DEFAULT&quot; IDENTIFIED BY BOSYUNTEST DEFAULT TABLESPACE BOSYUN_TEST_DATA TEMPORARY TABLESPACE BOSYUN_TEST_TEMP ACCOUNT UNLOCK;
+-- 用户授权
+GRANT CONNECT TO BOSYUNTEST WITH ADMIN OPTION;
+GRANT DBA TO BOSYUNTEST;
+GRANT RESOURCE TO BOSYUNTEST;
+</code></pre><h3 id="可通过以下命令查看数据库已有的目录-："><a href="#可通过以下命令查看数据库已有的目录-：" class="headerlink" title="可通过以下命令查看数据库已有的目录 ："></a>可通过以下命令查看数据库已有的目录 <strong>：</strong></h3><pre><code># 查询 DATA_PUMP_DIR
+select * from DBA_DIRECTORIES;
+ /home/oracle/oradata/bosyun/dpdump/        DATA_PUMP_DIR
+
+-- 创建 DATA_PUMP_DIR目录
+create or replace directory DATA_PUMP_DIR as &apos;D:\app\Administrator\admin\orcl\dpdump&apos;;
+1.修改/data/oracle/product/11.2.0/db_1/network/admin/tnsnames.ora 
+2.把dmp文件放到DATA_PUMP_DIR目录下 （预先将dmp文件放置到指定的directory目录下，
+
+-- DATA_PUMP_DIR 需要预先将目录权限赋予该用户。
+grant read,write on directory DATA_PUMP_DIR to TQBAY_TEST;
+</code></pre><h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><pre><code>impdp TQBAY_TEST/TQBAY_TEST@bosyun directory=DATA_PUMP_DIR dumpfile=TQBAY_20170519.dump REMAP_SCHEMA=TQBAY:TQBAY_TEST;
+
+# 上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。  在后面加上 ignore=y 就可以了。
+# 基本上上面的导入导出够用了。不少情况要先是将表彻底删除，然后导入。
+</code></pre><h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><pre><code>select * from DBA_DIRECTORIES; --查询表 DATA_PUMP_DIR
+select * from product_component_version;  --查询oracle版本
+
+ --------oracle 解锁用户-------
+su - oracle
+sqlplus / as sysdba  --执行
+sql : alter user QICOLOR account unlock; --QICOLOR 用户解锁
+alter user QICOLOR_FORMAL account unlock;
+
+select userenv(&apos;language&apos;) from dual;-- 字符集
+------------------------------
+</code></pre><h3 id="数据库重启"><a href="#数据库重启" class="headerlink" title="数据库重启"></a>数据库重启</h3><pre><code>#关闭数据库存
+$export ORACLE_SID=QICOLOR
+$su - oracle
+$sqlplus / as sysdba
+$shutdown immediate
+$lsnrctl stop
+
+$export ORACLE_SID=TQBAY
+$su - oracle
+$sqlplus / as sysdba
+$shutdown immediate
+$lsnrctl stop
+
+#启动数据库
+$su - oracle
+$sqlplus / as sysdba
+$startup
+$lsnrctl start
+</code></pre><h3 id="oracle-管理员不用密码登录"><a href="#oracle-管理员不用密码登录" class="headerlink" title="oracle 管理员不用密码登录"></a>oracle 管理员不用密码登录</h3><pre><code>（1） 以oracle身份登录数据库，命令：su - oracle
+（2） 进入Sqlplus控制台，命令：sqlplus /nolog
+（3） 以系统管理员登录，命令：connect / as sysdba
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/01/oracle-expdp-impdp/">
+    <time datetime="2017-08-31T16:00:00.000Z" class="entry-date">
+        2017-09-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/12/15/node/" rel="prev"><span class="meta-nav">←</span> node.js yeoman grunt 快速构建项目</a></span>
+    
+    
+        <span class="nav-next"><a href="/2017/02/06/1.ssh用户权限配置/" rel="next">ssh用户权限配置 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="官网：http://maven.apache.org/
+详细教程：https://www.w3cschool.cn/maven/
+简单使用maven做什么 ？
+提供了项目对象模型（POM）文件来管理项目的构建。
+仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。
+123本地仓库用来存储项目的依赖库；中">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>maven使用简单介绍 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="官网：http://maven.apache.org/ 详细教程：https://www.w3cschool.cn/maven/ 简单使用maven做什么 ？ 提供了项目对象模型（POM）文件来管理项目的构建。 仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。 123本地仓库用来存储项目的依赖库；中央仓库是下载依赖库的默认位置；远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maven使用简单介绍">
+<meta property="og:url" content="http://yoursite.com/2018/01/29/maven-instruction/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="官网：http://maven.apache.org/ 详细教程：https://www.w3cschool.cn/maven/ 简单使用maven做什么 ？ 提供了项目对象模型（POM）文件来管理项目的构建。 仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。 123本地仓库用来存储项目的依赖库；中央仓库是下载依赖库的默认位置；远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/download.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/maven-directory.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/maven-conf-directory.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/maven-conf-repository.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/maven-conf-mirror.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-maven.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-maven-install.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-maven-settings.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-settings.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-settings1.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-maven.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-maven-importing.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-create01.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-create02.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-create03.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/myeclipse-create04.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-create01.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-create02.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-create03.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/idea-create04.png">
+<meta property="og:image" content="http://yoursite.com/assets/mavenImg/maven-directory-javaweb.png">
+<meta property="og:updated_time" content="2019-08-13T01:37:04.752Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="maven使用简单介绍">
+<meta name="twitter:description" content="官网：http://maven.apache.org/ 详细教程：https://www.w3cschool.cn/maven/ 简单使用maven做什么 ？ 提供了项目对象模型（POM）文件来管理项目的构建。 仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。 123本地仓库用来存储项目的依赖库；中央仓库是下载依赖库的默认位置；远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远">
+<meta name="twitter:image" content="http://yoursite.com/assets/mavenImg/download.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-maven-instruction" class="post-maven-instruction post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      maven使用简单介绍
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="clesbyv190023psiao8z6ul14" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
+<p>详细教程：<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">https://www.w3cschool.cn/maven/</a></p>
+<h3 id="简单使用maven做什么-？"><a href="#简单使用maven做什么-？" class="headerlink" title="简单使用maven做什么 ？"></a>简单使用maven做什么 <strong>？</strong></h3><ul>
+<li>提供了项目对象模型（POM）文件来管理项目的构建。</li>
+<li><p>仓库的搜索顺序为：本地仓库、中央仓库、远程仓库。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">本地仓库用来存储项目的依赖库；</span><br><span class="line">中央仓库是下载依赖库的默认位置；</span><br><span class="line">远程仓库，因为并非所有的库存储在中央仓库，或者中央仓库访问速度很慢，远程仓库是中央仓库的补充。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>构建不依赖于IDE的标准化项目（导入IDE只需要以maven项目导入即可）</p>
+</li>
+<li>目录结构统一并且简单，约定大于配置，被其他构建工具以及项目广泛采用</li>
+<li>统一对项目依赖的jar包进行管理，明确jar包依赖以及对应的版本自动下载等（<a href="https://www.w3cschool.cn/maven/" target="_blank" rel="noopener">细节请看详细教程</a>）</li>
+</ul>
+<h3 id="maven的下载安装"><a href="#maven的下载安装" class="headerlink" title="maven的下载安装"></a>maven的下载安装</h3><h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. <strong>下载</strong></h4><p>进入<a href="http://maven.apache.org/" target="_blank" rel="noopener">官网</a>选择download菜单进入下载页面<br><img src="/assets/mavenImg/download.png" alt="image"><br>tar.gz文件对应linux系统<br>zip文件对应windows系统</p>
+<h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. <strong>安装</strong></h4><pre><code>解压即可使用  
+对于在windows下使用maven，如果需要使用cmd执行命令的话，需要在path环境变量中添加maven/bin目录即可，使用IDE并不需要配置环境变量等  
+推荐目录结构如下：
+</code></pre><p><img src="/assets/mavenImg/maven-directory.png" alt="image"></p>
+<pre><code>第一个为解压后的文件目录  
+第二个用来作为maven的全局文件（settings.xml）存放目录（IDE中需要在maven配置中指向此文件才会生效，日后更换maven版本只需要更换原来的maven解压路径即可，不必再做配置）  
+第三个用来作为maven下载jar包的本地仓库存放目录（需要在settings.xml配置文件中指定，不然存放到默认路径C盘中，不方便管理与查找）  
+</code></pre><h4 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. <strong>配置</strong></h4><p>在解压的文件目录下进入conf文件夹，其中有默认的settings.xml配置文件<br><img src="/assets/mavenImg/maven-conf-directory.png" alt="image"><br>配置文件一般只需要配置2个地方，一个是下载jar包的本地仓库存放目录，另外一个为下载jar包的国内镜像地址（默认地址为国外，速度较慢）<br><img src="/assets/mavenImg/maven-conf-repository.png" alt="image"><br>从默认的注释中复制出来，配置上前面定好的本地仓库存放目录，如果不配置则会存放到注释中默认指向地址${user.home}/.m2/repository<br><img src="/assets/mavenImg/maven-conf-mirror.png" alt="image"><br>依旧从默认的注释中复制镜像出来，id与name可以随意起名，mirrorOf为central则说明是中央仓库，URL推荐填写阿里云maven仓库地址 <a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a><br>之后保存，复制出一份存放在前面设置的maven全局文件存放目录下面（当替换maven版本时，内置的配置文件使用IDE设置好全局文件时可不用更改，更换maven版本也只是解压新版本后在IDE中设置新的maven安装路径就完成了）  </p>
+<h3 id="IDE中配置maven"><a href="#IDE中配置maven" class="headerlink" title="IDE中配置maven"></a>IDE中配置maven</h3><ol>
+<li><p><strong>MyEclipse</strong><br>点击导航栏window进入preferences搜索maven<br><img src="/assets/mavenImg/myeclipse-maven.png" alt="image"><br>建议勾选Download Artifact Sources（下载jar包的同时下载源码，方便直接点方法进源码查看）<br><img src="/assets/mavenImg/myeclipse-maven-install.png" alt="image"><br>添加安装的maven<br><img src="/assets/mavenImg/myeclipse-maven-settings.png" alt="image"><br>设置好maven的全局配置文件路径（本地仓库存放目录自动扫描文件中的目录）<br>至此完成了MyEclipse中maven的配置  </p>
+</li>
+<li><p><strong>IDEA</strong><br>不要在打开项目的时候选择file/settings，那样设置完只会针对当前项目，若打开了项目，则选择file/Close Project关闭项目回退到初始idea界面</p>
+</li>
+</ol>
+<p><img src="/assets/mavenImg/idea-settings.png" alt="image"><br><img src="/assets/mavenImg/idea-settings1.png" alt="image"><br>指定好maven的安装目录以及配置文件位置<br><img src="/assets/mavenImg/idea-maven.png" alt="image"><br><img src="/assets/mavenImg/idea-maven-importing.png" alt="image"><br>至此完成了idea中的maven的配置</p>
+<h3 id="创建一个maven的java-web项目"><a href="#创建一个maven的java-web项目" class="headerlink" title="创建一个maven的java web项目"></a>创建一个maven的java web项目</h3><ol>
+<li><p><strong>MyEclipse</strong><br><img src="/assets/mavenImg/myeclipse-create01.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create02.png" alt="image"><br>选取项目模板java web项目为maven-archetype-webapp<br><img src="/assets/mavenImg/myeclipse-create03.png" alt="image"><br><img src="/assets/mavenImg/myeclipse-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+<li><p><strong>IDEA</strong><br>新建项目<br><img src="/assets/mavenImg/idea-create01.png" alt="image"><br><img src="/assets/mavenImg/idea-create02.png" alt="image"><br><img src="/assets/mavenImg/idea-create03.png" alt="image"><br><img src="/assets/mavenImg/idea-create04.png" alt="image"><br>finish完成创建，第一次创建时需要下载一些jar包，会慢一点，至此就创建完毕了  </p>
+</li>
+</ol>
+<h3 id="maven的java-web项目的目录结构"><a href="#maven的java-web项目的目录结构" class="headerlink" title="maven的java web项目的目录结构"></a>maven的java web项目的目录结构</h3><p><a href="/assets/mavenImg/pom.xml">pom.xml项目配置文件例子，包含普通项目所需jar包引入，行间内置注释</a><br><img src="/assets/mavenImg/maven-directory-javaweb.png" alt="文件目录结构">  </p>
+<pre><code>```
+project
+│   pom.xml（maven项目配置文件）
+│
+└───src（源码根目录）
+│   │
+│   └───main（源码主目录）
+│   │   │
+│   │   └───java（java源码目录）
+│   │   │   │
+│   │   │   └───xxx（项目包名）
+│   │   │   └───sql（包名，有清空数据库在java源码目录下同级放置）
+│   │   │
+│   │   └───resources（源码所使用的资源文件目录，存放配置文件）
+│   │   │   │
+│   │   │   └───config（配置文件）
+│   │   │        │
+│   │   │        └───jdbc
+│   │   │        └───mybatis
+│   │   │        └───spring
+│   │   │
+│   │   └───webapp（web文件目录，等同于WebRoot）
+│   │   │
+│   │
+│   └───test（测试目录，测试用例等，小项目暂未使用）
+│        │   xxxTest.java
+│        │   ...
+│    
+└───target（maven项目默认编译输出目录，自动生成）
+          │   ...
+```  
+</code></pre><ol>
+<li>java源码目录使用模板生成没有此文件夹，自行创建并设置为源码目录，MyEclipse设置方式为文件夹右键Build Path/Use as Source Folder，idea为右键Make Directory as/Sources Root</li>
+<li>resources资源文件目录在导入maven项目时此文件夹为普通文件夹，需要IDE设置为资源文件夹，MyEclipse设置方式同上，idea为右键Make Directory as/Resources Root</li>
+<li>如果需要引入特殊jar包（第三方支付等），跟以前方式一致</li>
+<li>旧项目转化为maven项目，按照上述创建一个maven项目，直接打开2边的文件夹，直接拷贝到相应地方，删除多余jar包以及原来多余编译生成的文件即可，无需其余操作，反之把maven项目转化也一样（需要把编译目录下的jar包拷过去）</li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/29/maven-instruction/">
+    <time datetime="2018-01-28T16:00:00.000Z" class="entry-date">
+        2018-01-29
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/02/06/String-Reverse/" rel="prev"><span class="meta-nav">←</span> String 的反转</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/01/01/右键添加Notepad2/" rel="next">右键添加Notepad2 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

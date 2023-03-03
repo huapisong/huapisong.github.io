@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Vim 介绍
+Vim 官网：http://www.vim.org/
+
+Vim 安装
+CentOS：sudo yum install -y vim
+Ubuntu：sudo apt-get install -y vim
+Windows GVim 下载：http://www.xiazaiba.com/ht">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Vim 安装和配置、优化 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Vim 介绍 Vim 官网：http://www.vim.org/  Vim 安装 CentOS：sudo yum install -y vim Ubuntu：sudo apt-get install -y vim Windows GVim 下载：http://www.xiazaiba.com/html/3347.html  Vim 配置（CentOS 环境） 编辑配置文件是：sudo vim /">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim 安装和配置、优化">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="Vim 介绍 Vim 官网：http://www.vim.org/  Vim 安装 CentOS：sudo yum install -y vim Ubuntu：sudo apt-get install -y vim Windows GVim 下载：http://www.xiazaiba.com/html/3347.html  Vim 配置（CentOS 环境） 编辑配置文件是：sudo vim /">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/vim/reg.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png">
+<meta property="og:updated_time" content="2019-08-29T01:54:41.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim 安装和配置、优化">
+<meta name="twitter:description" content="Vim 介绍 Vim 官网：http://www.vim.org/  Vim 安装 CentOS：sudo yum install -y vim Ubuntu：sudo apt-get install -y vim Windows GVim 下载：http://www.xiazaiba.com/html/3347.html  Vim 配置（CentOS 环境） 编辑配置文件是：sudo vim /">
+<meta name="twitter:image" content="http://yoursite.com/assets/vim/reg.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Vim-Install-And-Setting" class="post-Vim-Install-And-Setting post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Vim 安装和配置、优化
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Vim-Install-And-Setting/" data-id="clesbyv0q0016psiaw5pr09ap" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Vim-介绍"><a href="#Vim-介绍" class="headerlink" title="Vim 介绍"></a>Vim 介绍</h2><ul>
+<li>Vim 官网：<a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a></li>
+</ul>
+<h2 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h2><ul>
+<li>CentOS：<code>sudo yum install -y vim</code></li>
+<li>Ubuntu：<code>sudo apt-get install -y vim</code></li>
+<li>Windows GVim 下载：<a href="http://www.xiazaiba.com/html/3347.html" target="_blank" rel="noopener">http://www.xiazaiba.com/html/3347.html</a></li>
+</ul>
+<h2 id="Vim-配置（CentOS-环境）"><a href="#Vim-配置（CentOS-环境）" class="headerlink" title="Vim 配置（CentOS 环境）"></a>Vim 配置（CentOS 环境）</h2><ul>
+<li>编辑配置文件是：<code>sudo vim /etc/vimrc</code></li>
+</ul>
+<h2 id="Vim-基础快捷键"><a href="#Vim-基础快捷键" class="headerlink" title="Vim 基础快捷键"></a>Vim 基础快捷键</h2><ul>
+<li>注意<ul>
+<li>严格区分字母大小写</li>
+<li>含有 <code>Ctrl</code> 字眼都表示 Ctrl 键盘按钮</li>
+<li>特定符号需要配合 Shift 键，比如字母键盘区上面的数字区：!@#%%^&amp;*()</li>
+<li>要按出冒号键 <code>:</code> 也是需要 Shift 的</li>
+</ul>
+</li>
+<li>移动<ul>
+<li><code>j</code>，下</li>
+<li><code>k</code>，上</li>
+<li><code>h</code>，左</li>
+<li><code>l</code>，右</li>
+<li><code>v</code>，按 v 之后按方向键可以选中你要选中的文字</li>
+<li><code>gg</code>，跳到第 1 行</li>
+<li><code>G</code>，跳到最后一行</li>
+<li><code>16G</code> 或 <code>:16</code>，跳到第 16 行</li>
+<li><code>$</code>，到本行 <strong>行尾</strong></li>
+<li><code>0</code>，到本行 <strong>行头</strong></li>
+<li><code>w</code>，到下一个单词的 <strong>开头</strong></li>
+<li><code>e</code>，到下一个单词的 <strong>结尾</strong></li>
+<li><code>Ctrl + u</code>，向文件 <strong>首翻</strong> 半屏</li>
+<li><code>Ctrl + d</code>，向文件 <strong>尾翻</strong> 半屏</li>
+<li><code>Ctrl + f</code>，向文件 <strong>尾翻</strong> 一屏</li>
+<li><code>Ctrl + b</code>，向文件 <strong>首翻</strong> 一屏</li>
+<li><code>*</code>，匹配光标当前所在的单词，移动光标到 <strong>下一个</strong> 匹配单词</li>
+<li><code>#</code>，匹配光标当前所在的单词，移动光标到 <strong>上一个</strong> 匹配单词</li>
+<li><code>^</code>，到本行第一个单词头</li>
+<li><code>g_</code>，到本行最后一个单词尾巴</li>
+<li><code>%</code>，匹配括号移动，包括 <strong>(、{、[</strong></li>
+</ul>
+</li>
+<li>插入<ul>
+<li><code>I</code>，在当前 <strong>行首</strong> 插入</li>
+<li><code>A</code>，在当前 <strong>行尾</strong> 插入</li>
+<li><code>i</code>，在当前字符的 <strong>左边</strong> 插入</li>
+<li><code>a</code>，在当前字符的 <strong>右边</strong> 插入</li>
+<li><code>o</code>，在当前行 <strong>下面</strong> 插入一个新行</li>
+<li><code>O</code>，在当前行 <strong>上面</strong> 插入一个新行</li>
+</ul>
+</li>
+<li>编辑<ul>
+<li>删除</li>
+<li><code>x</code>，删除 <strong>光标后</strong> 的 1 个字符</li>
+<li><code>2x</code>，删除 <strong>光标后</strong> 的 2 个字符</li>
+<li><code>X</code>，删除 <strong>光标前</strong> 的 1 个字符</li>
+<li><code>2X</code>，删除 <strong>光标前</strong> 的 2 个字符</li>
+<li><code>dd</code>，删除当前行</li>
+<li><code>cc</code>，删除当前行后进入 insert 模式</li>
+<li><code>dw</code>，删除当前光标下的单词/空格</li>
+<li><code>d$</code>，删除光标至 <strong>行尾</strong> 所有字符</li>
+<li><code>dG</code>，删除光标至 <strong>文件尾</strong> 所有字符</li>
+<li><code>3dd</code>，从当前光标开始，删掉 3 行</li>
+<li><code>echo &gt; aa.txt</code>，从 bash 角度清空文件内容，这个比较高效</li>
+<li>复制</li>
+<li><code>y</code>，复制光标所选字符</li>
+<li><code>yw</code>，复制光标后单词</li>
+<li><code>yy</code>，复制当前行</li>
+<li><code>4yy</code>，复制当前行及下面 4 行</li>
+<li><code>y$</code>，复制光标位置至 <strong>行尾</strong> 的内容</li>
+<li><code>y^</code>，复制光标位置至 <strong>行首</strong> 的内容</li>
+<li>粘贴</li>
+<li><code>p</code>，将粘贴板中内容复制到 <strong>光标之后</strong></li>
+<li><code>P</code>，将粘贴板中内容复制到 <strong>光标之前</strong></li>
+<li>其他<ul>
+<li><code>ddp</code>，交换当前光标所在行和下一行的位置</li>
+<li><code>u</code>，撤销</li>
+<li><code>:wq</code>，退出并 <strong>保存</strong></li>
+<li><code>:q!</code>，退出并 <strong>不保存</strong></li>
+<li><code>Ctrl + v</code>，进入 Vim 列编辑</li>
+<li><code>guu</code>，把当前行的字母全部转换成 <strong>小写</strong></li>
+<li><code>gUU</code>，把当前行的字母全部转换成 <strong>大写</strong></li>
+<li><code>g~~</code>，把当前行的字母是大写的转换成小写，是小写的转换成大写</li>
+<li><code>:saveas /opt/setups/text.txt</code>，另存到 /opt/setups/text.txt</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>搜索<ul>
+<li><code>/YouMeek</code>，从光标开始处向文件尾搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+<li><code>?YouMeek</code>，从光标开始处向文件首搜索 YouMeek 字符，按 <code>n</code> 继续向下找，按 <code>N</code> 继续向上找</li>
+</ul>
+</li>
+<li>替换<ul>
+<li><code>:%s/YouMeek/Judasn/g</code>，把文件中所有 YouMeek 替换为：Judasn</li>
+<li><code>:%s/YouMeek/Judasn/</code>，把文件中所有行中第一个 YouMeek 替换为：Judasn</li>
+<li><code>:s/YouMeek/Judasn/</code>，把光标当前行第一个 YouMeek 替换为 Judasn</li>
+<li><code>:s/YouMeek/Judasn/g</code>，把光标当前行所有 YouMeek 替换为 Judasn</li>
+<li><code>:s#YouMeek/#Judasn/#</code>，除了使用斜杠作为分隔符之外，还可以使用 # 作为分隔符，此时中间出现的 / 不会作为分隔符，该命令表示：把光标当前行第一个 YouMeek/ 替换为 Judasn/</li>
+<li><code>:10,31s/YouMeek/Judasn/g</code>，把第 10 行到 31 行之间所有 YouMeek 替换为 Judasn</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vim-的特殊复制、黏贴"><a href="#Vim-的特殊复制、黏贴" class="headerlink" title="Vim 的特殊复制、黏贴"></a>Vim 的特殊复制、黏贴</h2><ul>
+<li>Vim 提供了 12 个剪贴板，分别是：<code>0,1,2,3,4,5,6,7,8,9,a,&quot;</code>，默认采用的是 <code>&quot;</code>，也就是双引号，可能你初读感觉很奇怪。你可以用 Vim 编辑某个文件，然后输入：<code>:reg</code>。你可以看到如下内容：<ul>
+<li><img src="\assets\vim\reg.jpg" alt="vim"></li>
+</ul>
+</li>
+<li>复制到某个剪切板的命令：<code>&quot;7y</code>，表示使用 7 号剪切板。</li>
+<li>黏贴某个剪切板内容：<code>&quot;7p</code>，表示使用 7 号剪切板内容进行黏贴</li>
+</ul>
+<h2 id="Vim-配置"><a href="#Vim-配置" class="headerlink" title="Vim 配置"></a>Vim 配置</h2><ul>
+<li>我个人本地不使用 Vim 的，基本上都是在操作服务器的时候使用，所以这里推荐这个配置文件<ul>
+<li><a href="https://github.com/wklken/vim-for-server" target="_blank" rel="noopener">vim-for-server</a></li>
+<li>在假设你已经备份好你的 Vim 配置文件后，使用该配置文件：<code>curl https://raw.githubusercontent.com/wklken/vim-for-server/master/vimrc &gt; ~/.vimrc</code></li>
+<li>效果如下：<ul>
+<li><img src="https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png" alt="vim-for-server"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要特别注意的是，如果你平时粘贴内容到终端 Vim 出现缩进错乱，一般需要这样做：<ul>
+<li>进入 vim 后，按 <code>F5</code>，然后 <code>shift + insert</code> 进行粘贴。这种事就不会错乱了。</li>
+<li>原因是：<code>vim ~/.vimrc</code> 中有一行这样的设置：<code>set pastetoggle=&lt;F5&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>对两个文件进行对比：<code>vimdiff /opt/1.txt /opt/2.txt</code></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Vim-Install-And-Setting/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/08/28/黑客入侵检查/" rel="prev"><span class="meta-nav">←</span> 黑客入侵检查</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/08/28/SSH-login-without-password/" rel="next">SSH 免密登录 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

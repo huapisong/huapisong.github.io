@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。
+首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题基本介绍
+“不蒜子”与百度统计谷歌分析等有区别：“">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>hexo页脚添加访客人数和总访问量 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。 首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题基本介绍 “不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo页脚添加访客人数和总访问量">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/Hexo-busuanzi/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。 首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题基本介绍 “不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-29T09:58:48.566Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo页脚添加访客人数和总访问量">
+<meta name="twitter:description" content="昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。 首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题基本介绍 “不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Hexo-busuanzi" class="post-Hexo-busuanzi post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      hexo页脚添加访客人数和总访问量
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/28/Hexo-busuanzi/" data-id="clesbyv0b000gpsiauk2l5rm1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>昨天刚刚为博客添加了页脚显示访客人数和总访问量的功能，今天整理一下为hexo博客添加页脚访客人数和总访问量的两种方法，本人使用的是不蒜子来进行统计的。</p>
+<p>首先还是得先说一下基本配置：hexo搭建博客，使用NexT主题，利用不蒜子来进行统计，然后进入正题<br>基本介绍</p>
+<p>“不蒜子”与百度统计谷歌分析等有区别：“不蒜子”可直接将访问次数显示在您在网页上（也可不显示）；对于已经上线一段时间的网站，“不蒜子”允许您初始化首次数据。</p>
+<p>不蒜子就是那么一款记录访客和访问量的插件，接下来就介绍两种使用不蒜子计数的方法。<br>一、脚本方法使用不蒜子计数<br>1.安装脚本（必选）</p>
+<p>要使用不蒜子必须在页面中引入busuanzi.js，代码如下：</p>
+<pre><code>&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>本人使用的是next主题，所以在themes/next/layout/_partial/footer.swig中添加上述脚本，也可以把脚本添加在header中，如果使用的是其他主题，大致也是一样的，不过可能后缀是ejs，没有影响。<br>2.安装标签（可选）</p>
+<p>要显示站点总访问量，复制以下代码添加到你需要显示的位置。有两种算法可选：</p>
+<p>算法a：pv的方式，单个用户连续点击n篇文章，记录n次访问量。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_pv&quot;&gt;
+    本站总访问量&lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+&lt;/span&gt;
+</code></pre><p>算法b：uv的方式，单个用户连续点击n篇文章，只记录1次访客数。</p>
+<pre><code>&lt;span id=&quot;busuanzi_container_site_uv&quot;&gt;
+本站访客数&lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;人次
+&lt;/span&gt;
+</code></pre><p>3.安装教程</p>
+<p>一般显示站点访问量在页脚，所以我们选择在footer.swig中添加标签，同时我们还可以通过修改主题配置来方便选择是否显示访问量，步骤如下：首先，我们在next主题下的_config.yml中加入以下配置：</p>
+<pre><code># visitors count
+counter: true
+</code></pre><p>之后可以更改counter的值为false来隐藏页脚的访问量统计，然后，我们在themes/next/layout/_partial/footer.swig中添加以下代码：</p>
+<pre><code>{% if theme.footer.counter %}
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    {% endif %}
+</code></pre><p>这样便可以在底部显示访问量了，并且可以通过更改主题配置中的参数来选择是否显示访问量，只要引入busuanzi.js之后，即使不显示访问量也会统计。<br>二、配置方式使用不蒜子计数</p>
+<p>第一种引入脚本的方法适用于任何类型的个人站点，如果你使用的主题是NexT，那么你可以很方便的进行不蒜子的访客统计设置，仅仅只需要一步：</p>
+<p>打开主题的配置文件/theme/next/_config.yml，找到如下配置：</p>
+<pre><code># Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: false
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: &lt;i class=&quot;fa fa-user&quot;&gt;&lt;/i&gt;
+site_uv_footer:
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;
+site_pv_footer:
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;
+page_pv_footer:
+</code></pre><p>将enable的值由false改为true，便可以看到页脚出现访问量，上述配置表示：</p>
+<pre><code>site_uv表示是否显示整个网站的UV数
+site_pv表示是否显示整个网站的PV数
+page_pv表示是否显示每个页面的PV数
+当然，对于不蒜子的配置可以随意更改，一下附上本人的配置：
+
+# Show PV/UV of the website/page with busuanzi.
+# Get more information on http://ibruce.info/2015/04/04/busuanzi/
+busuanzi_count:
+# count values only if the other configs are false
+enable: true
+# custom uv span for the whole site
+site_uv: true
+site_uv_header: 访客数
+site_uv_footer: 人
+# custom pv span for the whole site
+site_pv: true
+site_pv_header: 总访问量
+site_pv_footer: 次
+# custom pv span for one page only
+page_pv: true
+page_pv_header: &lt;i class=&quot;fa fa-file-o&quot;&gt;&lt;/i&gt;  阅读数
+page_pv_footer:
+</code></pre><p>注意事项</p>
+<pre><code>两种方法选择一种使用即可，都使用可能会出现无法显示的问题
+使用hexo s部署在本地预览效果的时候，uv数和pv数会过大，这是由于不蒜子用户使用一个存储空间，所以使用localhost:4000进行本地预览的时候会导致数字异常，这是正常现象，只需要将博客部署至云端即可恢复正常。
+网站运行一段时间后想要初始化访问次数，官方回答是可以注册登录自行修改阅读次数，但是我登录官网依旧显示无法注册，如果有方法可以在评论中指出。
+</code></pre><p>以上hexo统计访客的方法属于个人整理，如果有错误欢迎在评论中指出。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/28/Hexo-busuanzi/">
+    <time datetime="2019-08-27T16:00:00.000Z" class="entry-date">
+        2019-08-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/08/28/bash/" rel="prev"><span class="meta-nav">←</span> Bash 常用命令</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/08/28/黑客入侵检查/" rel="next">黑客入侵检查 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="搭建运行环境Shell 初体验# 创建文件
+$ touch test.sh
+# chmod 修改 test.sh 权限
+$ chmod 771 ./test.sh
+$ ll  # 查看权限
+# -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Shell | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="搭建运行环境Shell 初体验# 创建文件 $ touch test.sh # chmod 修改 test.sh 权限 $ chmod 771 ./test.sh $ ll  # 查看权限 # -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh  # 没有修改成功 $ vi test.sh  # 添加 头 #!/bin/bash 或 #!/b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/shell/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="搭建运行环境Shell 初体验# 创建文件 $ touch test.sh # chmod 修改 test.sh 权限 $ chmod 771 ./test.sh $ ll  # 查看权限 # -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh  # 没有修改成功 $ vi test.sh  # 添加 头 #!/bin/bash 或 #!/b">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-09T02:30:40.510Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell">
+<meta name="twitter:description" content="搭建运行环境Shell 初体验# 创建文件 $ touch test.sh # chmod 修改 test.sh 权限 $ chmod 771 ./test.sh $ ll  # 查看权限 # -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh  # 没有修改成功 $ vi test.sh  # 添加 头 #!/bin/bash 或 #!/b">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-shell" class="post-shell post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Shell
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/08/13/shell/" data-id="clesbyv1f002jpsiacqnjg8zl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="搭建运行环境"><a href="#搭建运行环境" class="headerlink" title="搭建运行环境"></a>搭建运行环境</h2><h3 id="Shell-初体验"><a href="#Shell-初体验" class="headerlink" title="Shell 初体验"></a>Shell 初体验</h3><pre><code># 创建文件
+$ touch test.sh
+# chmod 修改 test.sh 权限
+$ chmod 771 ./test.sh
+$ ll  # 查看权限
+# -rw-r--r-- 1 huapisong 197121  0 8月  13 15:57 test.sh
+ # 没有修改成功
+$ vi test.sh 
+# 添加 头 #!/bin/bash 或 #!/bin/sh
+$ chmod 771 ./test.sh
+$ ll
+# 修改成功
+# -rwxr-xr-x 1 huapisong 197121 10 8月  13 15:56 test.sh*
+</code></pre><h3 id="关机操作"><a href="#关机操作" class="headerlink" title="关机操作"></a>关机操作</h3><pre><code># 会立即关闭机器
+shutdown -h now
+
+# 60秒后关机
+shutdown -s -t 60
+</code></pre><h3 id="重启操作"><a href="#重启操作" class="headerlink" title="重启操作"></a>重启操作</h3><p>shutdown -r now<br>sudo reboot<br>这两个命令功能一样，其中shutdown -r now的-r应当就是restart的意思。</p>
+<h2 id="Shell-写入文件"><a href="#Shell-写入文件" class="headerlink" title="Shell 写入文件"></a>Shell 写入文件</h2><h3 id="cat-多行写入"><a href="#cat-多行写入" class="headerlink" title="cat 多行写入"></a>cat 多行写入</h3><h4 id="1-cat-覆盖写入"><a href="#1-cat-覆盖写入" class="headerlink" title="1.cat 覆盖写入"></a>1.cat 覆盖写入</h4><pre><code># 语法： cat &gt; 文件名 &lt;&lt;EOF， 然后把多行文字放在下面，并以EOF结束
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="2-cat-追加写入"><a href="#2-cat-追加写入" class="headerlink" title="2.cat 追加写入"></a>2.cat 追加写入</h4><pre><code># 如果需要追加文本，那就变成cat&gt;&gt;：
+# 语法： cat &gt;&gt; 文件名 &lt;&lt;EOF
+#!/bin/bash
+# start.sh
+
+echo &quot;___________脚本开始____________&quot;
+cat&gt;&gt;./test.sh &lt;&lt;EOF
+#!/bin/bash
+echo &quot;hello test.sh&quot;
+echo $RANDOM
+EOF
+bash ./test.sh
+echo &quot;___________脚本结束____________&quot;
+</code></pre><h4 id="3-查看写入"><a href="#3-查看写入" class="headerlink" title="3.查看写入"></a>3.查看写入</h4><pre><code># 执行
+$ bash start.sh
+# 输出
+    ___________脚本开始____________
+    hello test.sh
+    21312
+    ___________脚本结束____________
+
+# 查看生成的文件
+$ cat ./test.sh
+# 输出
+
+    #!/bin/bash
+    echo &quot;hello test.sh&quot;
+    echo 21312
+</code></pre><h3 id="echo-输出重定向写入"><a href="#echo-输出重定向写入" class="headerlink" title="echo 输出重定向写入"></a>echo 输出重定向写入</h3><h4 id="1-echo-gt-覆盖写入"><a href="#1-echo-gt-覆盖写入" class="headerlink" title="1.echo &gt; 覆盖写入"></a>1.echo &gt; 覆盖写入</h4><pre><code># 输出重定向
+echo echo &quot;输出重定向&quot;&gt; test1.sh
+</code></pre><h4 id="2-echo-gt-gt-追加写入"><a href="#2-echo-gt-gt-追加写入" class="headerlink" title="2.echo &gt;&gt; 追加写入"></a>2.echo &gt;&gt; 追加写入</h4><pre><code># 输出追加重定向
+echo echo &quot;输出追加重定向&quot; &gt;&gt; test1.sh
+</code></pre><h2 id="Sort-命令常用相关选项"><a href="#Sort-命令常用相关选项" class="headerlink" title="Sort 命令常用相关选项"></a>Sort 命令常用相关选项</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>会检查文件顺序是否已排好序，如果乱序，则输出第一个乱序的行的相关信息，然后返回1</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>指定排序的列数</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>忽略每一行前面所有的空白行，从第一个可见的字符开始比较</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>将小写字母都转换成大写字母进行排序</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>反转降序</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>去除重复行</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>输出命名，重定向</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>按字符来排序</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>指定分隔符</td>
+</tr>
+<tr>
+<td>-M</td>
+<td>以月份排序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="uniq命令的作用"><a href="#uniq命令的作用" class="headerlink" title="uniq命令的作用"></a>uniq命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c/–count</td>
+<td>在每列旁边显示除改行重复出现的次数</td>
+</tr>
+<tr>
+<td>-d/–repeated</td>
+<td>仅显示重复出现的行列</td>
+</tr>
+<tr>
+<td>-s&lt;字符位置&gt;</td>
+<td>忽略比较指定的字符</td>
+</tr>
+<tr>
+<td>-u/–unique</td>
+<td>仅显示只有一次，不重复的行列</td>
+</tr>
+<tr>
+<td>-w&lt;字符位置&gt;</td>
+<td>指定要比较的字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="join命令的作用"><a href="#join命令的作用" class="headerlink" title="join命令的作用"></a>join命令的作用</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a FILENAME</td>
+<td>FILENAME表示第几个文件，-a1表示第一个文件，-a2表示第二个文件</td>
+</tr>
+<tr>
+<td>-e EMPTY</td>
+<td>若在FILE1与FILE2找不到指定的栏位，则在输出中填入-e选定的字符串</td>
+</tr>
+<tr>
+<td>-i,–ignore-case</td>
+<td>比较时忽略大小写差异</td>
+</tr>
+<tr>
+<td>-o FORMAT</td>
+<td>按照指定的格式显示结果</td>
+</tr>
+<tr>
+<td>-v FILENUM</td>
+<td>-v 1表示只显示FILE1中与FILE2中没有相同栏位的行；</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>2表示只显示FILE2中与FILE1中没有相同栏位的行：</td>
+</tr>
+<tr>
+<td>-t CHAR</td>
+<td>使用栏位的分隔符</td>
+</tr>
+<tr>
+<td>-1 FIELD</td>
+<td>链接FILE1指定的栏位</td>
+</tr>
+<tr>
+<td>-j  FIELD</td>
+<td>等价与-1 FIELD -2 FIELD</td>
+</tr>
+</tbody>
+</table>
+<pre><code># 重复输出
+sort test.txt | uniq -d 
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/13/shell/">
+    <time datetime="2019-08-12T16:00:00.000Z" class="entry-date">
+        2019-08-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Shell/">Shell</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/08/13/Windows 10上MarkdownPad2无法预览/" rel="prev"><span class="meta-nav">←</span> Windows 10上MarkdownPad2无法预览</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/08/13/加密算法DES AES/" rel="next">加密算法 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/03/前端学习/">前端学习</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
