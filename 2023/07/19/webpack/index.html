@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="场景：扫描漏洞的时候，nodel_modules中有的插件的版本注释会视为漏洞，需要删除这些注释注意：webpack4中用到terser-webpack-plugin压缩插件，不能使用最新的版本，而是&amp;lt;terser-webpack-plugin@4.x&amp;gt;版本；webpack5对应的使用&amp;">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>terser-webpack-plugin的使用:删除注释和console | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="场景：扫描漏洞的时候，nodel_modules中有的插件的版本注释会视为漏洞，需要删除这些注释注意：webpack4中用到terser-webpack-plugin压缩插件，不能使用最新的版本，而是&amp;lt;terser-webpack-plugin@4.x&amp;gt;版本；webpack5对应的使用&amp;lt;terser-webpack-plugin@5.x&amp;gt;版本，否则会报错误：Error: T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="terser-webpack-plugin的使用:删除注释和console">
+<meta property="og:url" content="http://yoursite.com/2023/07/19/webpack/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="场景：扫描漏洞的时候，nodel_modules中有的插件的版本注释会视为漏洞，需要删除这些注释注意：webpack4中用到terser-webpack-plugin压缩插件，不能使用最新的版本，而是&amp;lt;terser-webpack-plugin@4.x&amp;gt;版本；webpack5对应的使用&amp;lt;terser-webpack-plugin@5.x&amp;gt;版本，否则会报错误：Error: T">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/assets/webpack/terser_webpack_error.png">
+<meta property="og:updated_time" content="2023-07-19T08:04:58.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="terser-webpack-plugin的使用:删除注释和console">
+<meta name="twitter:description" content="场景：扫描漏洞的时候，nodel_modules中有的插件的版本注释会视为漏洞，需要删除这些注释注意：webpack4中用到terser-webpack-plugin压缩插件，不能使用最新的版本，而是&amp;lt;terser-webpack-plugin@4.x&amp;gt;版本；webpack5对应的使用&amp;lt;terser-webpack-plugin@5.x&amp;gt;版本，否则会报错误：Error: T">
+<meta name="twitter:image" content="http://yoursite.com/assets/webpack/terser_webpack_error.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-webpack" class="post-webpack post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      terser-webpack-plugin的使用:删除注释和console
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2023/07/19/webpack/" data-id="cllu7jau1003b4kiatcn6pqg3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="场景：扫描漏洞的时候，nodel-modules中有的插件的版本注释会视为漏洞，需要删除这些注释"><a href="#场景：扫描漏洞的时候，nodel-modules中有的插件的版本注释会视为漏洞，需要删除这些注释" class="headerlink" title="场景：扫描漏洞的时候，nodel_modules中有的插件的版本注释会视为漏洞，需要删除这些注释"></a>场景：扫描漏洞的时候，nodel_modules中有的插件的版本注释会视为漏洞，需要删除这些注释</h2><pre><code>注意：webpack4中用到terser-webpack-plugin压缩插件，不能使用最新的版本，而是&lt;terser-webpack-plugin@4.x&gt;版本；webpack5对应的使用&lt;terser-webpack-plugin@5.x&gt;版本，否则会报错误：Error: TypeError: Cannot read property ‘javascript‘ of undefined。如下图所示：
+</code></pre><p><img src="/assets/webpack/terser_webpack_error.png" alt="image"></p>
+<h2 id="terser-webpack-plugin的使用"><a href="#terser-webpack-plugin的使用" class="headerlink" title="terser-webpack-plugin的使用"></a>terser-webpack-plugin的使用</h2><h3 id="①安装插件（我用的webpack4）"><a href="#①安装插件（我用的webpack4）" class="headerlink" title="①安装插件（我用的webpack4）"></a>①安装插件（我用的webpack4）</h3><pre><code>npm install webpack@4.46.0
+</code></pre><h3 id="②vue-config-js中的配置"><a href="#②vue-config-js中的配置" class="headerlink" title="②vue.config.js中的配置"></a>②vue.config.js中的配置</h3><pre><code>const TerserPlugin = require(&quot;terser-webpack-plugin&quot;);
+module.exports = {
+configureWebpack: {
+    optimization: {
+    minimize: process.env.NODE_ENV === &apos;production&apos;?true:false,//为了不影响dev时的构建速度
+    minimizer: [
+        new TerserPlugin({
+        parallel: true,//使用多进程并发运行以提高构建速度 Boolean|Number 默认值： true  
+        terserOptions: {
+            compress: {
+            drop_console: true,//移除所有console相关代码；
+            drop_debugger: true,//移除自动断点功能；
+            pure_funcs: [&quot;console.log&quot;, &quot;console.error&quot;],//配置移除指定的指令，如console.log,alert等
+            },
+            format: {
+            comments: false,//删除注释
+            },
+        },
+        extractComments: false,//是否将注释剥离到单独的文件中
+        })
+    ]
+    }
+},
+
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2023/07/19/webpack/">
+    <time datetime="2023-07-18T16:00:00.000Z" class="entry-date">
+        2023-07-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2023/07/19/webpack4 thread-loader cache/" rel="prev"><span class="meta-nav">←</span> webpack vue-cli 启动编译慢</a></span>
+    
+    
+        <span class="nav-next"><a href="/2023/03/23/node mysql2/" rel="next">node mysql2 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-mysql2/">node mysql2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/27/制作npm/">生成npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/indexedDB/">windows indexedDB</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/webpack4 thread-loader cache/">webpack vue-cli 启动编译慢</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/webpack/">terser-webpack-plugin的使用:删除注释和console</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/23/node mysql2/">node mysql2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

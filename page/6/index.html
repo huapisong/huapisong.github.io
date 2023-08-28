@@ -62,6 +62,819 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-oracle和mysql区别" class="post-oracle和mysql区别 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/oracle和mysql区别/">MySQL与Oracle的区别</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/oracle和mysql区别/" data-id="cllu7jauh005g4kiash3id1ia" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>一、并发性</p>
+<p>并发性是oltp数据库最重要的特性，但并发涉及到资源的获取、共享与锁定。</p>
+<p>mysql:<br>mysql以表级锁为主，对资源锁定的粒度很大，如果一个session对一个表加锁时间过长，会让其他session无法更新此表中的数据。<br>虽然InnoDB引擎的表可以用行级锁，但这个行级锁的机制依赖于表的索引，如果表没有索引，或者sql语句没有使用索引，那么仍然使用表级锁。</p>
+<p>oracle:<br>oracle使用行级锁，对资源锁定的粒度要小很多，只是锁定sql需要的资源，并且加锁是在数据库中的数据行上，不依赖与索引。所以oracle对并发性的支持要好很多。</p>
+<p>二、一致性<br>oracle:<br>oracle支持serializable的隔离级别，可以实现最高级别的读一致性。每个session提交后其他session才能看到提交的更改。oracle通过在undo表空间中构造多版本数据块来实现读一致性，<br>每个session查询时，如果对应的数据块发生变化，oracle会在undo表空间中为这个session构造它查询时的旧的数据块。</p>
+<p>mysql:<br>mysql没有类似oracle的构造多版本数据块的机制，只支持read  commited的隔离级别。一个session读取数据时，其他session不能更改数据，但可以在表最后插入数据。<br>session更新数据时，要加上排它锁，其他session无法访问数据。</p>
+<p>三、事务<br>oracle很早就完全支持事务。</p>
+<p>mysql在innodb存储引擎的行级锁的情况下才支持事务。</p>
+<p>四、数据持久性<br>oracle<br>保证提交的数据均可恢复，因为oracle把提交的sql操作线写入了在线联机日志文件中，保持到了磁盘上，<br>如果出现数据库或主机异常重启，重启后oracle可以考联机在线日志恢复客户提交的数据。<br>mysql:<br>默认提交sql语句，但如果更新过程中出现db或主机重启的问题，也许会丢失数据。</p>
+<p>五、提交方式<br>oracle默认不自动提交，需要用户手动提交。<br>mysql默认是自动提交。</p>
+<p>六、逻辑备份</p>
+<p>oracle逻辑备份时不锁定数据，且备份的数据是一致的。</p>
+<p>mysql逻辑备份时要锁定数据，才能保证备份的数据是一致的，影响业务正常的dml使用。</p>
+<p>七、热备份<br>oracle有成熟的热备工具rman，热备时，不影响用户使用数据库。即使备份的数据库不一致，也可以在恢复时通过归档日志和联机重做日志进行一致的回复。<br>mysql:<br>myisam的引擎，用mysql自带的mysqlhostcopy热备时，需要给表加读锁，影响dml操作。<br>innodb的引擎，它会备份innodb的表和索引，但是不会备份.frm文件。用ibbackup备份时，会有一个日志文件记录备份期间的数据变化，因此可以不用锁表，不影响其他用户使用数据库。但此工具是收费的。<br>innobackup是结合ibbackup使用的一个脚本，他会协助对.frm文件的备份。</p>
+<p>八、sql语句的扩展和灵活性<br>mysql对sql语句有很多非常实用而方便的扩展，比如limit功能，insert可以一次插入多行数据，select某些管理数据可以不加from。<br>oracle在这方面感觉更加稳重传统一些。</p>
+<p>九、复制<br>oracle:既有推或拉式的传统数据复制，也有dataguard的双机或多机容灾机制，主库出现问题是，可以自动切换备库到主库，但配置管理较复杂。<br>mysql:复制服务器配置简单，但主库出问题时，丛库有可能丢失一定的数据。且需要手工切换丛库到主库。</p>
+<p>十、性能诊断<br>oracle有各种成熟的性能诊断调优工具，能实现很多自动分析、诊断功能。比如awr、addm、sqltrace、tkproof等<br>mysql的诊断调优方法较少，主要有慢查询日志。</p>
+<p>十一、权限与安全</p>
+<p>mysql的用户与主机有关，感觉没有什么意义，另外更容易被仿冒主机及ip有可乘之机。<br>oracle的权限与安全概念比较传统，中规中矩。</p>
+<p>十二、分区表和分区索引<br>oracle的分区表和分区索引功能很成熟，可以提高用户访问db的体验。<br>mysql的分区表还不太成熟稳定。</p>
+<p>十三、管理工具<br>oracle有多种成熟的命令行、图形界面、web管理工具，还有很多第三方的管理工具，管理极其方便高效。<br>mysql管理工具较少，在linux下的管理工具的安装有时要安装额外的包（phpmyadmin，  etc)，有一定复杂性。</p>
+<p>服务端提供oracle服务的实例，其是数据库的核心，用于数据库的管理，对象的管理与存储、数据的存储、查询、数据库资源的监控、监听等一些服务。<br>而客户端只是一个与服务端交互的工具，如sqlplus，在sqlplus里执行SQL语句传到服务端，服务端进行解析后执行SQL里的操作，并将操作结果输出到客户端。</p>
+<p>这就完成了一个客户端与服务端交互的过程。</p>
+<p>其他：</p>
+<ol>
+<li>Oracle是大型数据库而Mysql是中小型数据库，Oracle市场占有率达40%，Mysql只有20%左右，同时Mysql是开源的而Oracle价格非常高。</li>
+<li><p>Oracle支持大并发，大访问量，是OLTP(On-Line  Transaction  Processing联机事务处理系统)最好的工具。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLTP，也叫联机事务处理（Online  Transaction  Processing），表示事务性非常高的系统，一般都是高可用的在线系统，</span><br><span class="line">以小的事务以及小的查询为主，评估其系统的时候，一般看其每秒执行的Transaction以及Execute  SQL的数量。</span><br><span class="line">在这样的系统中，单个数据库每秒处理的Transaction往往超过几百个，或者是几千个，Select  语句的执行量每秒几千甚至几万个。</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+<li><p>安装所用的空间差别也是很大的，Mysql安装完后才152M而Oracle有3G左右，且使用的时候Oracle占用特别大的内存空间和其他机器性能。<br>4.Oracle也Mysql操作上的一些区别<br>①主键  Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto  increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>②单引号的处理  MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。<br>③翻页的SQL语句的处理  MYSQL处理翻页的SQL语句比较简单，用LIMIT  开始位置,  记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置,  并且只能用ROWNUM&lt;100,  不能用ROWNUM&gt;80<br>④  长字符串的处理  长字符串的处理ORACLE也有它特殊的地方。INSERT和UPDATE时最大可操作的字符串长度小于等于4000个单字节,  如果要插入更长的字符串,  请考虑字段用CLOB类型，方法借用ORACLE里自带的DBMS_LOB程序包。插入修改记录前一定要做进行非空和长度判断，不能为空的字段值和超出长度字段值都应该提出警告,返回上次操作。  ⑤空字符的处理  MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT  NULL来定义ORACLE表结构,  导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL或空字符，需要把它改成一个空格的字符串。<br>⑥字符串的模糊比较  MYSQL里用  字段名  like  ‘%字符串%’,ORACLE里也可以用  字段名  like  ‘%字符串%’  但这种方法不能使用索引,  速度不快。<br>⑦Oracle实现了ANSII  SQL中大部分功能，如，事务的隔离级别、传播特性等而Mysql在这方面还是比较的若</p>
+</li>
+</ol>
+<p>5.mysql存储引擎有好多，常用的mysiam,innodb等，而创建oracle中没有存储引擎这个概念！  </p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/oracle和mysql区别/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-javaThread" class="post-javaThread post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/18/javaThread/">java 线程</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/18/javaThread/" data-id="cllu7jauw005u4kiakjg5v99h" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><pre><code>进程：每个进程都有独立的代码和数据空间（进程上下文），进程间的切换会有较大的开销，一个进程包含1--n个线程。
+线程：同一类线程共享代码和数据空间，每个线程有独立的运行栈和程序计数器(PC)，线程切换开销小。
+线程和进程一样分为五个阶段：创建、就绪、运行、阻塞、终止。
+多进程是指操作系统能同时运行多个任务（程序）。
+多线程是指在同一程序中有多个顺序流在执行。
+
+多线程的存在其实就是“最大限度的利用cpu资源”，当某一个线程的处理不需要占用cpu而之和I/O打交道的时候，让需要占用cpu资源的其他线程有机会获得cpu资源。从根本上说，这就是说多线程编程的目的。
+多线程目的： 使用多线程，可以帮助我们编写出cpu最大利用率的高效程序，使得空闲时间降到最低
+
+在java中要想实现多线程：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">继续Thread类</span><br><span class="line">实现Runable接口</span><br><span class="line">通过Callable创建线程</span><br><span class="line">线程池来实现</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="ExecutorService-创建线程池"><a href="#ExecutorService-创建线程池" class="headerlink" title="ExecutorService  创建线程池"></a>ExecutorService  创建线程池</h3><pre><code>// 创建一个可缓存的线程池，调用execute将重用以前构成的线程（如果线程可用）。
+// 如果没有可用的线程，则创建一个新线程并添加到池中。终止并从缓存中移出那些已有60秒钟未被使用的线程。
+Executors.newCachedThreadPool();
+// 创建固定数目的线程池
+Executors.newFixedThreadPool(1);
+// 创建一个单线程化的Executor
+Executors.newSingleThreadExecutor();
+// 创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代Time类。
+Executors.newScheduledThreadPool(1);
+</code></pre><p> 为什么不推荐通过Executors直接创建线程池</p>
+<pre><code>原因：
+java中BlockingQueue主要有两种实现，分别是ArrayBlockingQueue和LinkedBlockingQueue。ArrayBlockingQueue是一个用数组实现的有界阻塞队列，必须设置容量。
+而LinkedBlockingQueue是一个用链表实现的有界阻塞队列，容量可以选择进行设置，不设置的话，将是一个无边界的阻塞队列，最大长度为Integer.MAX_VALUE.
+
+查看new SingleExecutor时的源码可以发现，在创建LinkedBlockingQueue时，并未指定容量。
+此时，LinkedBlockingQueue就是一个无边界队列，对于一个无边界队列来说，是可以不断的向队列中加入任务的，这种情况下就有可能因为任务过多而导致内存溢出的问题。
+</code></pre><p> 创建线程池的正确方法：</p>
+<pre><code>避免使用Executors创建线程池，主要是避免使用其中的默认实现，那么我们可以自己直接调用ThreadPoolExecutor的构造函数自己创建线程池。在创建的同时，给BlockQueue指定容量就可以了。
+
+ExecutorService executor = new ThreadPoolExecutor(10, 10,
+        60L, TimeUnit.SECONDS,
+        new ArrayBlockingQueue&lt;Runnable&gt;(10));
+
+这种情况下，一旦提交的线程数超过当前可用线程数时，就会抛出java.util.concurrent.RejectedExecutionException，
+这是因为当前线程池使用的队列是有界边界队列，队列已经满了便无法继续处理新的请求。但是异常（Exception）总比发生错误（Error）要好。
+</code></pre><h3 id="ExecutorService-shutdown-、ShutdownNow-、awaitTermination"><a href="#ExecutorService-shutdown-、ShutdownNow-、awaitTermination" class="headerlink" title="ExecutorService  shutdown()、ShutdownNow()、awaitTermination()"></a>ExecutorService  shutdown()、ShutdownNow()、awaitTermination()</h3><pre><code>shutdown() 停止接收新任务，原来的任务继续执行
+    1、停止接收新的submit的任务；
+    2、已经提交的任务（包括正在跑的和队列中等待的）,会继续执行完成；
+    3、等到第2步完成后，才真正停止；
+
+ShutdownNow() 停止接收新任务，原来的任务停止执行
+    1、跟 shutdown() 一样，先停止接收新submit的任务；
+    2、忽略队列里等待的任务；
+    3、尝试将正在执行的任务interrupt中断；
+    4、返回未执行的任务列表；
+
+awaitTermination(long timeOut, TimeUnit unit)：当前线程阻塞
+    当前线程阻塞，直到：
+    等所有已提交的任务（包括正在跑的和队列中等待的）执行完；
+    或者 等超时时间到了（timeout 和 TimeUnit设定的时间）；
+    或者 线程被中断，抛出InterruptedException
+
+区别
+
+    1、shutdown() 和 shutdownNow() 的区别
+        shutdown() 只是关闭了提交通道，用submit()是无效的；而内部该怎么跑还是怎么跑，跑完再停。
+        shutdownNow() 能立即停止线程池，正在跑的和正在等待的任务都停下了。
+    2、shutdown() 和 awaitTermination() 的区别
+        shutdown() 后，不能再提交新的任务进去；但是 awaitTermination() 后，可以继续提交。
+        awaitTermination()是阻塞的，返回结果是线程池是否已停止（true/false）；shutdown() 不阻塞。
+
+总结
+    1、优雅的关闭，用 shutdown()
+    2、想立马关闭，并得到未执行任务列表，用shutdownNow()
+    3、优雅的关闭，并允许关闭声明后新任务能提交，用 awaitTermination()
+    4、关闭功能 【从强到弱】 依次是：shuntdownNow() &gt; shutdown() &gt; awaitTermination()
+</code></pre><p>例：</p>
+<p>1、扩展Thread类实现的多线程例子</p>
+<pre><code>public static void main(String[] args) {
+    MyThread T1 = new MyThread(&quot;A&quot;);
+    MyThread T2 = new MyThread(&quot;B&quot;);
+    T1.start();
+    T2.start();
+}
+class MyThread extends Thread {
+    private String name;
+    public MyThread(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println(name+&quot;:&quot;+i);
+            try {
+                sleep(1000); //休眠1秒，避免太快导致看不到同时执行
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+}
+
+结果：
+   A:0
+   B:0
+   A:1
+   B:1
+   A:2
+   B:2
+   A:3
+   B:3
+   A:4
+   B:4
+</code></pre><p>2、实现Runnable 、 ExecutorService 接口的多线程例子</p>
+<pre><code>    ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                     60L, TimeUnit.SECONDS,
+                     new ArrayBlockingQueue&lt;Runnable&gt;(10));
+    public static void main(String[] args) {
+        // executor
+        /*for (int i = 0; i &lt; Integer.MAX_VALUE; i++) {
+            executor.execute(new SubThread());
+        }*/
+
+        // Runnable
+        executor.execute(new MyRunnable());
+    }
+
+ // 1. Runnable
+class SubThread implements Runnable {
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) { //do nothing
+        }
+    }
+}
+
+ // 2. Runnable
+class MyRunnable implements Runnable{
+
+    public void run(){
+        System.out.println(&quot;Runnable:run()....&quot;);
+        int i=0;
+        while(i&lt;20){
+            i++;
+            for(int j=0;j&lt;1000000;j++);
+            System.out.println(&quot;i=&quot;+i);
+        }
+    }
+}
+结果：
+    Runnable:run()....
+    i=1
+    i=2
+    i=3
+    i=4
+    i=5
+    i=6
+    i=7
+    i=8
+    i=9
+    i=10
+    i=11
+    i=12
+    i=13
+    i=14
+    i=15
+    i=16
+    i=17
+    i=18
+    i=19
+    i=20
+</code></pre><p>3、实现Callable接口的多线程例子  </p>
+<pre><code>    ExecutorService executor = new ThreadPoolExecutor(10, 10,
+                             60L, TimeUnit.SECONDS,
+                             new ArrayBlockingQueue&lt;Runnable&gt;(10));
+    public static void main(String[] args) {
+        // Callable
+        Future future1 = executor.submit(new MyCallable());
+        Future future2 = executor.submit(new MyCallable());
+        try {
+            System.out.println(future1.get());
+            System.out.println(future2.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        // 停止接收新任务，原来的任务继续执行
+        executor.shutdown();
+    }
+class MyCallable implements Callable&lt;String&gt; {
+    public String call() throws Exception {
+        System.out.println(&quot;开始执行Callable&quot;);
+        String[] ss={&quot;zhangsan&quot;,&quot;lisi&quot;};
+        long[] num=new long[2];
+        for(int i=0;i&lt;1000000;i++){
+            num[(int)(Math.random()*2)]++;
+        }
+
+        if(num[0]&gt;num[1]){
+            return ss[0];
+        }else if(num[0]&lt;num[1]){
+            throw new Exception(&quot;弃权!&quot;);
+        }else{
+            return ss[1];
+        }
+    }
+}
+
+结果;
+
+开始执行Callable
+开始执行Callable
+zhangsan
+zhangsan
+</code></pre><h3 id="wait和sleep的区别"><a href="#wait和sleep的区别" class="headerlink" title="wait和sleep的区别"></a>wait和sleep的区别</h3><pre><code>1.wait和notify方法定义在Object类中，因此会被所有的类所继承。 这些方法都是final的，即它们都是不能被重写的，不能通过子类覆写去改变它们的行为。 而sleep方法是在Thread类中是由native修饰的，本地方法。
+2.当线程调用了wait()方法时，它会释放掉对象的锁。 
+    Thread.sleep()，它会导致线程睡眠指定的毫秒数，但线程在睡眠的过程中是不会释放掉对象的锁的。
+3.正因为wait方法会释放锁，所以调用该方法时，当前的线程必须拥有当前对象的monitor，也即lock，就是锁。
+要确保调用wait()方法的时候拥有锁，即，wait()方法的调用必须放在synchronized方法或synchronized块中。
+4.sleep方法时间到，线程处于临时阻塞状态或者运行状态。 wait方法如果没有被设置时间，就必须要通过notify或者notifyAll来唤醒。
+</code></pre><p>notify()</p>
+<pre><code>notify()方法会唤醒一个等待当前对象的锁的线程。 如果多个线程在等待，它们中的一个将会选择被唤醒。
+这种选择是随意的，和具体实现有关。（线程等待一个对象的锁是由于调用了wait方法中的一个）。
+
+被唤醒的线程是不能被执行的，需要等到当前线程放弃这个对象的锁。
+被唤醒的线程将和其他线程以通常的方式进行竞争，来获得对象的锁。也就是说，被唤醒的线程并没有什么优先权，也没有什么劣势，对象的下一个线程还是需要通过一般性的竞争。
+且notify方法和wait一样，是需要放在synchronized方法或synchronized块中。
+
+notifyAll()方法会唤醒在此对象监视器上等待的所有线程。线程通过调用其中一个 wait 方法，在对象的监视器上等待。
+直到当前线程放弃此对象上的锁定，才能继续执行被唤醒的线程。被唤醒的线程将以常规方式与在该对象上主动同步的其他所有线程进行竞争；
+</code></pre><p>   尽量使用notifyAll()，notify()非常容易导致死锁。</p>
+<h2 id="ThreadLocal-的简单使用及实现的原理"><a href="#ThreadLocal-的简单使用及实现的原理" class="headerlink" title="ThreadLocal 的简单使用及实现的原理"></a>ThreadLocal 的简单使用及实现的原理</h2><h3 id="ThreadLocal简介"><a href="#ThreadLocal简介" class="headerlink" title="ThreadLocal简介"></a>ThreadLocal简介</h3><pre><code>ThreadLocal的实例代表了一个线程局部的变量，每条线程都只能看到自己的值，并不会意识到其它的线程中也存在该变量。
+
+它采用采用空间来换取时间的方式，解决多线程中相同变量的访问冲突问题。
+</code></pre><h3 id="ThreadLocal是什么"><a href="#ThreadLocal是什么" class="headerlink" title="ThreadLocal是什么"></a>ThreadLocal是什么</h3><pre><code>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。
+</code></pre><h3 id="ThreadLocal的核心机制"><a href="#ThreadLocal的核心机制" class="headerlink" title="ThreadLocal的核心机制"></a>ThreadLocal的核心机制</h3><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个Thread线程内部都有一个Map。</span><br><span class="line">Map里面存储线程本地对象（key）和线程的变量副本（value）</span><br><span class="line">但是，Thread内部的Map是由ThreadLocal维护的，由ThreadLocal负责向map获取和设置线程的变量值。</span><br></pre></td></tr></table></figure>
+</code></pre><p>所以对于不同的线程，每次获取副本值时，别的线程并不能获取到当前线程的副本值，形成了副本的隔离，互不干扰</p>
+<h3 id="ThreadLocal的简单使用"><a href="#ThreadLocal的简单使用" class="headerlink" title="ThreadLocal的简单使用"></a>ThreadLocal的简单使用</h3><p>下面的例子中，创建了两个线程，然后线程对各自的局部变量进行递增的操作。每个线程中的局部变量的初始值都是100。</p>
+<pre><code>public class ThreadLocalTest {
+    // ThreadLocal中的值
+    static class Bank {
+        ThreadLocal&lt;Integer&gt; t = new ThreadLocal&lt;Integer&gt;() {
+            // 重写里面的方法就可以修改初始值了
+            @Override
+            protected Integer initialValue(){
+                return 100;
+            }
+        };
+        public int get() {
+            return t.get();
+        }
+        public void set() {
+            // 获取值
+            t.set(t.get() + 10);
+        }
+        public void set(Integer value) {
+            // 获取值
+            t.set(value);
+        }
+    }
+    /** 定义对ThreadLocal的操作，也就是在原来的基础上进行加10的操作，然后打印出结果。 */
+    // 对ThreadLocal的操作
+    static class Transfer implements Runnable {
+        Bank bank;
+        public Transfer(Bank bank) {
+            this.bank = bank;
+        }
+        @Override
+        public void run() {
+            for (int i = 0; i &lt; 10; i++) {
+                //
+                bank.set();
+                // 输出不同线程的ThreadLocal的值
+                System.out.println(Thread.currentThread() + &quot;：：：&quot; + bank.get());
+            }
+        }
+    }
+    /** 创建两个线程并启动，主线程等待这两个线程执行完成。最值得注意的就是主线程中输出的bank.get()，输出的初始值100。 */
+    // 创建线程并等待线程执行完成
+    public static void main(String[] args) throws InterruptedException {
+        //
+        Bank bank = new Bank();
+        // bank.set(50);
+        // 多个线程都是同时操作一个变量，但是不同线程的结果是互不影响的
+        Transfer t = new Transfer(bank);
+        Thread t1 = new Thread(t);
+        t1.start();
+        Thread t2 = new Thread(t);
+        t2.start();
+        t1.join();
+        t2.join();
+        // 需要注意的是，这个是main（） 线程中的变量，输出的是 ThreadLocal&lt;Integer&gt; t 的初始值， 也就是100
+        System.out.println(bank.get());
+    }
+}
+</code></pre><h3 id="ThreadLocal的实现原理"><a href="#ThreadLocal的实现原理" class="headerlink" title="ThreadLocal的实现原理"></a>ThreadLocal的实现原理</h3><p>ThreadLocal类提供如下几个核心方法：</p>
+<pre><code>public T get() { }
+public void set(T value) { }
+public void remove() { }
+protected T initialValue() { }
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get()方法用于获取当前线程的副本变量值。</span><br><span class="line">set()方法用于保存当前线程的副本变量值。</span><br><span class="line">initialValue()为当前线程初始副本变量值。</span><br><span class="line">remove()方法移除当前前程的副本变量值</span><br></pre></td></tr></table></figure>
+</code></pre><p>每个Thread的对象都有一个ThreadLocalMap，当创建一个ThreadLocal的时候，就会将该ThreadLocal对象添加到该Map中，其中键就是ThreadLocal，值可以是任意类型。</p>
+<p>在该类中，重要的方法就是两个：set()和get()方法。当调用ThreadLocal的get()方法的时候，会先找到当前线程的ThreadLocalMap，然后再找到对应的值。set()方法也是一样。</p>
+<pre><code>public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings(&quot;unchecked&quot;)
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/18/javaThread/">
+    <time datetime="2019-04-17T16:00:00.000Z" class="entry-date">
+        2019-04-18
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud高可用" class="post-Spring Cloud高可用 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/17/Spring Cloud高可用/">Spring Cloud构建微服务架构  高可用</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/17/Spring Cloud高可用/" data-id="cllu7jasq00114kiajbn2own6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="一、SpringCloud简介"><a href="#一、SpringCloud简介" class="headerlink" title="一、SpringCloud简介"></a>一、SpringCloud简介</h3><p>Spring Cloud是一系列框架的有序集合。<br>它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。<br>Spring Cloud并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<h3 id="二、微服务的注册与发现-Eureka"><a href="#二、微服务的注册与发现-Eureka" class="headerlink" title="二、微服务的注册与发现-Eureka"></a>二、微服务的注册与发现-Eureka</h3><p> Eureka是Netflix开源的服务发现组件，本身是基于Rest的服务，它包含服务端和客户端两部分；在SpringCloud中将它集成在其中，从而实现了微服务的发现与注册；</p>
+<ul>
+<li>Eureka的GitHub：<a href="https://github.com/Netflix/Eureka" target="_blank" rel="noopener">https://github.com/Netflix/Eureka</a></li>
+</ul>
+<p>Eureka Server可以运行多个实例来构建集群，解决单点问题，Eureka Server采用的是Peer to Peer对等通信。这是一种去中心化的架构，无master/slave区分，每一个Peer都是对等的。在这种架构中，节点通过彼此互相注册来提高可用性，每个节点需要添加一个或多个有效的serviceUrl指向其他节点。每个节点都可被视为其他节点的副本。</p>
+<p>如果某台Eureka Server宕机，Eureka Client的请求会自动切换到新的Eureka Server节点，当宕机的服务器重新恢复后，Eureka会再次将其纳入到服务器集群管理之中。当节点开始接受客户端请求时，所有的操作都会进行replicateToPeer（节点间复制）操作，将请求复制到其他Eureka Server当前所知的所有节点中。</p>
+<p>简单来说，Eureka Server的高可用，实际上就是将自己也作为服务向其他服务注册中心进行注册，这样就可以形成一组相互注册的服务注册中心，以实现服务清单的互相同步，达到高可用的效果。</p>
+<p> 集群模式下，Eureka的架构图：<br><img src="/assets/SpringCloudImg/eurekaService1.png" alt="image"><br>Eureka Server</p>
+<pre><code>- 服务端-没有存储，内存保持，每服务实例需要发送心跳去续约 
+- 客户端-在内存中缓存着eureka的注册信息，因此不必每请求到eureka查找服务 
+- eureka之间会做注册服务同步，从而保证状态一致，客户端只需访问一个
+</code></pre><p>eureka Service Provider</p>
+<pre><code>- 会向Eureka Server做Register（服务注册）、Renew（服务续约）、Cancel（服务下线）等操作 
+</code></pre><p>Service Consumer</p>
+<pre><code>- 会向Eureka Server获取注册服务列表，并消费服务
+</code></pre><h3 id="三、Eureka的高可用"><a href="#三、Eureka的高可用" class="headerlink" title="三、Eureka的高可用"></a>三、Eureka的高可用</h3><p>eureka 项目下复制application.properties<br>分别命名为：</p>
+<pre><code>application-server1.properties, application-server2.properties, application-server3.properties
+</code></pre><p>修改hosts文件：</p>
+<pre><code>127.0.0.1    localhost server1 server2 server3
+</code></pre><p>application-server1.properties的配置文件：</p>
+<pre><code>server.port=1001
+spring.application.name=eureka-server-1
+spring.profiles.active=server1
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server1
+eureka.client.serviceUrl.defaultZone=http://server2:1002/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server2.properties的配置文件：</p>
+<pre><code>server.port=1002
+spring.application.name=eureka-server-2
+spring.profiles.active=server2
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server2
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server3:1003/eureka/
+</code></pre><p>application-server3.properties的配置文件：</p>
+<pre><code>server.port=1003
+spring.application.name=eureka-server-3
+spring.profiles.active=server3
+#表示是否将自己注册在EurekaServer上，默认为true。由于当前应用就是EurekaServer，所以置为false
+eureka.client.register-with-eureka=true
+#表示表示是否从EurekaServer获取注册信息，默认为true。单节点不需要同步其他的EurekaServer节点的数据
+#eureka.client.fetch-registry=false
+#指定主机名
+eureka.instance.hostname=server3
+eureka.client.serviceUrl.defaultZone=http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>compute-service   项目下复制application.properties 为： application-dev.properties<br>配置信息：</p>
+<pre><code>spring.application.name=compute-service
+server.port=2001
+eureka.client.serviceUrl.defaultZone=http://server3:1003/eureka/,http://server1:1001/eureka/,http://server2:1002/eureka/
+</code></pre><p>分别启动服务端server3、server2、server1、compute-service</p>
+<pre><code># 分别在项目下 执行 mvn clean install  命令编译 生成 target
+ mvn clean install
+
+# 在 /SpringCloudDemo/eureka/target 下执行,启动
+
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server1
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server2
+java -jar eureka-0.0.1-SNAPSHOT.jar --spring.profiles.active=server3
+
+# 在 /SpringCloudDemo/compute-service/target 下执行,启动
+java -jar compute-service-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+</code></pre><p>访问，<a href="http://localhost:1001/" target="_blank" rel="noopener">http://localhost:1001/</a>，<a href="http://localhost:1002/" target="_blank" rel="noopener">http://localhost:1002/</a>，<a href="http://localhost:1003/" target="_blank" rel="noopener">http://localhost:1003/</a>，如下：<br><img src="/assets/SpringCloudImg/keepalived1.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived2.png" alt="image"><br><img src="/assets/SpringCloudImg/keepalived3.png" alt="image"></p>
+<p><a href="https://github.com/huapisong/SpringCloudDemo/" target="_blank" rel="noopener">该工程可参见：SpringCloudDemo/eureka</a></p>
+<p>至此，完成了Eureka的高可用；</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/17/Spring Cloud高可用/">
+    <time datetime="2019-04-16T16:00:00.000Z" class="entry-date">
+        2019-04-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud限流" class="post-Spring Cloud限流 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud限流/">Spring Cloud构建微服务架构 局部限流：针对某个服务进行限流</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud限流/" data-id="cllu7jasq000x4kiaciwhl0yl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="bootstrap-yml"><a href="#bootstrap-yml" class="headerlink" title="bootstrap.yml"></a>bootstrap.yml</h2><pre><code># 局部限流：针对某个服务进行限流
+##开启限流
+zuul:
+    # 定义的路由规则
+    routes:
+    export-service:
+        path:  /main/api/
+        url: exportPdf
+        serviceId: export-service
+    ratelimit:
+    enabled: true
+#      ## 3s 内请求超过 1 次，服务端就抛出异常，3s 后可以恢复正常请求
+#      ##针对某个 url 进行限流，不影响其他 
+    policy-list:
+        - export-service:
+        - limit: 1 #3秒内只能刷新一次
+            refresh-interval: 3 #限制时间（秒） 3秒内只能刷新一次
+            type:
+#              - origin
+            - url
+#      policies:
+#        export-service:
+#          - limit: 1
+#            refresh-interval: 10
+#            type:
+#  #            - user
+#              - origin
+#  #            - url
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud限流/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Spring Cloud(三)断路器" class="post-Spring Cloud(三)断路器 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/04/15/Spring Cloud(三)断路器/">Spring Cloud构建微服务架构 (三) 断路器</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/15/Spring Cloud(三)断路器/" data-id="cllu7jauh004z4kiagtgrijy4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在微服务架构中，我们将系统拆分成了一个个的服务单元，各单元间通过服务注册与订阅的方式互相依赖。由于每个单元都在不同的进程中运行，依赖通过远程调用的方式执行，这样就有可能因为网络原因或是依赖服务自身问题出现调用故障或延迟，而这些问题会直接导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最后就会出现因等待出现故障的依赖方响应而形成任务积压，最终导致自身服务的瘫痪。</p>
+<p>举个例子，在一个电商网站中，我们可能会将系统拆分成，用户、订单、库存、积分、评论等一系列的服务单元。用户创建一个订单的时候，在调用订单服务创建订单的时候，会向库存服务来请求出货（判断是否有足够库存来出货）。此时若库存服务因网络原因无法被访问到，导致创建订单服务的线程进入等待库存申请服务的响应，在漫长的等待之后用户会因为请求库存失败而得到创建订单失败的结果。如果在高并发情况之下，因这些等待线程在等待库存服务的响应而未能释放，使得后续到来的创建订单请求被阻塞，最终导致订单服务也不可用。</p>
+<p>在微服务架构中，存在着那么多的服务单元，若一个单元出现故障，就会因依赖关系形成故障蔓延，最终导致整个系统的瘫痪，这样的架构相较传统架构就更加的不稳定。为了解决这样的问题，因此产生了断路器模式。<br>什么是断路器</p>
+<p>断路器模式源于Martin Fowler的Circuit Breaker一文。“断路器”本身是一种开关装置，用于在电路上保护线路过载，当线路中有电器发生短路时，“断路器”能够及时的切断故障电路，防止发生过载、发热、甚至起火等严重后果。</p>
+<p>在分布式架构中，断路器模式的作用也是类似的，当某个服务单元发生故障（类似用电器发生短路）之后，通过断路器的故障监控（类似熔断保险丝），向调用方返回一个错误响应，而不是长时间的等待。这样就不会使得线程因调用故障服务被长时间占用不释放，避免了故障在分布式系统中的蔓延。<br>Netflix Hystrix</p>
+<p>在Spring Cloud中使用了Hystrix 来实现断路器的功能。Hystrix是Netflix开源的微服务框架套件之一，该框架目标在于通过控制那些访问远程系统、服务和第三方库的节点，从而对延迟和故障提供更强大的容错能力。Hystrix具备拥有回退机制和断路器功能的线程和信号隔离，请求缓存和请求打包，以及监控和配置等功能。</p>
+<p>下面我们来看看如何使用Hystrix。<br>准备工作</p>
+<p>在开始加入断路器之前，我们先拿之前构建两个微服务为基础进行下面的操作，主要使用下面几个工程：</p>
+<pre><code>SpringCloudDemo
+    eureka工程：服务注册中心，端口1000
+    compute-service工程：服务单元，端口2001 / 2000
+    eureka-ribbon：通过ribbon实现的服务单元，依赖compute-service的服务，端口2002
+    eureka-feign：通过feign实现的服务单元，依赖compute-service的服务，端口2003
+</code></pre><p>若您还没有使用Spring Cloud的经验，可以先阅读《服务注册与发现》与《服务消费者》，对Spring Cloud构建的微服务有一个初步的认识。</p>
+<h3 id="Ribbon中引入Hystrix"><a href="#Ribbon中引入Hystrix" class="headerlink" title="Ribbon中引入Hystrix"></a>Ribbon中引入Hystrix</h3><pre><code>依次启动eureka-server、compute-service、eureka-ribbon工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2002/add，调用eureka-ribbon的服务，该服务会去调用compute-service的服务，计算出10+20的值，页面显示30
+关闭compute-service服务，访问http://localhost:2002/add，我们获得了下面的报错信息
+
+{&quot;timestamp&quot;:&quot;2019-04-16T07:11:04.064+0000&quot;,&quot;status&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;I/O error on GET request for \&quot;http://COMPUTE-SERVICE/add\&quot;: Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect&quot;,&quot;path&quot;:&quot;/add&quot;}
+</code></pre><p>pom.xml中引入依赖hystrix依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.netflix.hystrix&lt;/groupId&gt;
+    &lt;artifactId&gt;hystrix-javanica&lt;/artifactId&gt;
+    &lt;version&gt;RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>在eureka-ribbon的主类RibbonApplication中使用@EnableCircuitBreaker注解开启断路器功能：</p>
+<pre><code>@SpringBootApplication
+@EnableDiscoveryClient
+@EnableCircuitBreaker
+public class RibbonApplication {
+
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(RibbonApplication.class, args);
+    }
+
+}
+</code></pre><p>改造原来的服务消费方式，新增ComputeService类，在使用ribbon消费服务的函数上增加@HystrixCommand注解来指定回调方法。</p>
+<pre><code>@Service
+public class ComputeService {
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @HystrixCommand(fallbackMethod = &quot;addServiceFallback&quot;)
+    public String addService() {
+        return restTemplate.getForEntity(&quot;http://COMPUTE-SERVICE/add?a=10&amp;b=20&quot;, String.class).getBody();
+    }
+
+    public String addServiceFallback() {
+        return &quot;error&quot;;
+    }
+
+}
+</code></pre><p>提供rest接口的Controller改为调用ComputeService的addService</p>
+<pre><code>@RestController
+public class ConsumerController {
+
+    @Autowired
+    private ComputeService computeService;
+
+    @RequestMapping(value = &quot;/add&quot;, method = RequestMethod.GET)
+    public String add() {
+        return computeService.addService();
+    }
+
+}
+</code></pre><p>验证断路器的回调</p>
+<pre><code>依次启动eureka、compute-service、eureka-ribbon工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2002/add，页面显示：30
+关闭compute-service服务后再访问http://localhost:2002/add
+显示：error
+</code></pre><h3 id="Feign使用Hystrix"><a href="#Feign使用Hystrix" class="headerlink" title="Feign使用Hystrix"></a>Feign使用Hystrix</h3><p>注意这里说的是“使用”，没有错，我们不需要在Feigh工程中引入Hystix，Feign中已经依赖了Hystrix，我们可以在未做任何改造前，尝试下面你的操作：</p>
+<pre><code>依次启动eureka、compute-service、eureka-feign工程
+访问http://localhost:1000/可以看到注册中心的状态
+访问http://localhost:2003/add，调用eureka-feign的服务，该服务会去调用compute-service的服务，计算出10+20的值，页面显示30
+关闭compute-service服务，访问http://localhost:2003/add，我们获得了下面的报错信息
+
+{&quot;timestamp&quot;:&quot;2019-04-16T07:11:04.064+0000&quot;,&quot;status&quot;:500,&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;I/O error on GET request for \&quot;http://COMPUTE-SERVICE/add\&quot;: Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect&quot;,&quot;path&quot;:&quot;/add&quot;}
+</code></pre><p>appliction.yml 配置</p>
+<pre><code>feign:
+    hystrix:
+        enabled: true
+</code></pre><p>使用@FeignClient注解中的fallback属性指定回调类</p>
+<pre><code>@FeignClient(value = &quot;compute-service&quot;, fallback = ComputeClientHystrix.class)
+public interface ComputeClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = &quot;/add&quot;)
+    Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b);
+
+}
+</code></pre><p>创建回调类ComputeClientHystrix，实现@FeignClient的接口，此时实现的方法就是对应@FeignClient接口中映射的fallback函数。</p>
+<pre><code>@Component
+public class ComputeClientHystrix implements ComputeClient {
+
+    @Override
+    public Integer add(@RequestParam(value = &quot;a&quot;) Integer a, @RequestParam(value = &quot;b&quot;) Integer b) {
+        return -9999;
+    }
+
+}
+</code></pre><p>再用之前的方法验证一下，是否在compute-service服务不可用的情况下，页面返回了-9999。</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/04/15/Spring Cloud(三)断路器/">
+    <time datetime="2019-04-14T16:00:00.000Z" class="entry-date">
+        2019-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spring Cloud(二)服务消费者" class="post-Spring Cloud(二)服务消费者 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +890,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="clesbyv2b004npsiaddph6q5d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/12/Spring Cloud(二)服务消费者/" data-id="cllu7jauh00504kiatc5msbh6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -307,7 +1120,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="clesbyv29004jpsia2o3peega" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/11/Spring Cloud(一)服务注册与发现/" data-id="cllu7jauh004y4kiacfad0gjj" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -510,7 +1323,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:1000/eureka/
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="clesbyv1b0028psiamw6krb4b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/10/node+superagent爬虫/" data-id="cllu7jatm002c4kiakpgyow7r" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -740,7 +1553,7 @@ Java,JAVA,java,Java语言,JAVA语言,Java技术,JAVA技术,Java3D,JavaEE,Java虚
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="clesbyv1t003cpsia7ftnnp69" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/04/08/几个能够免费生成二维码的api接口/" data-id="cllu7jau1003i4kia6o3u81tw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -789,91 +1602,6 @@ https://sapi.k780.com/?app=qr.get&amp;data=内容&amp;level=L&amp;size=6
 
 
   
-    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="clesbyv1p0034psiasziqgo78" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
-</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
-* 组件之间的通信
-* @param Vue
-*/
-const install = (Vue) =&gt;{
-  const Bus = new Vue({
-      methods:{
-          emit(event, ...args){
-              this.$emit(event, ...args)
-          },
-          on (event, callback){
-              this.$on(event, callback)
-          },
-          off(event, callback){
-              this.$off(event, callback)
-          }
-      }
-  })
-  Vue.prototype.$bus = Bus
-}
-export default install
-</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
-Vue.use(VueBus)
-</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
-let num = Math.floor(Math.random() * 100 + 1);
-this.$bus.$emit(&apos;getMenu&apos;, num);
-
-# 组件 b
-,created() {
-    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
-        // console.log(target);
-        this.getMenus();
-    });
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/03/26/vue组件之间通信/">
-    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
-        2019-03-26
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Vue/">Vue</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-vue elemetUl " class="post-vue elemetUl  post type-post status-publish format-standard hentry">
     <!---->
 
@@ -889,7 +1617,7 @@ this.$bus.$emit(&apos;getMenu&apos;, num);
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="clesbyv1m002vpsiamfefn1ue" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue elemetUl /" data-id="cllu7jatm002w4kia0ale401a" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -954,509 +1682,6 @@ Element UI该组件已经在属性层面提供了解决办法，只要添加
 
 
   
-    <article id="post-RPC入门总结  RPC定义和原理" class="post-RPC入门总结  RPC定义和原理 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/01/01/RPC入门总结  RPC定义和原理/">RPC入门总结 RPC定义和原理</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="clesbyv2b004mpsiavgrxnqcm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>一、RPC</p>
-<pre><code>1. RPC是什么
-
-    RPC（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。
-
-RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。
-2. 为什么要用RPC？ 
-其实这是应用开发到一定的阶段的强烈需求驱动的。
-
-    1. 如果我们开发简单的单一应用，逻辑简单、用户不多、流量不大，那我们用不着；
-
-    2. 当我们的系统访问量增大、业务增多时，我们会发现一台单机运行此系统已经无法承受。此时，我们可以将业务拆分成几个互不关联的应用，分别部署在各自机器上，以划清逻辑并减小压力。此时，我们也可以不需要RPC，因为应用之间是互不关联的。
-    3. 当我们的业务越来越多、应用也越来越多时，自然的，我们会发现有些功能已经不能简单划分开来或者划分不出来。此时，可以将公共业务逻辑抽离出来，将之组成独立的服务Service应用 。而原有的、新增的应用都可以与那些独立的Service应用 交互，以此来完成完整的业务功能。所以此时，我们急需一种高效的应用程序之间的通讯手段来完成这种需求，所以你看，RPC大显身手的时候来了！
-    其实3描述的场景也是服务化 、微服务 和分布式系统架构 的基础场景。即RPC框架就是实现以上结构的有力方式。
-</code></pre><p>二、RPC的原理和框架</p>
-<pre><code>Nelson 的论文中指出实现 RPC 的程序包括 5 个部分：
-
-1. User
-
-2. User-stub
-
-3. RPCRuntime
-
-4. Server-stub
-
-5. Server
-
-    这里 user 就是 client 端，当 user 想发起一个远程调用时，它实际是通过本地调用user-stub。user-stub 负责将调用的接口、方法和参数通过约定的协议规范进行编码并通过本地的 RPCRuntime 实例传输到远端的实例。远端 RPCRuntime 实例收到请求后交给 server-stub 进行解码后发起本地端调用，调用结果再返回给 user 端。
-    RPC 服务方通过 RpcServer 去导出（export）远程接口方法，而客户方通过 RpcClient 去引入（import）远程接口方法。客户方像调用本地方法一样去调用远程接口方法，RPC 框架提供接口的代理实现，实际的调用将委托给代理RpcProxy 。代理封装调用信息并将调用转交给RpcInvoker 去实际执行。在客户端的RpcInvoker 通过连接器RpcConnector 去维持与服务端的通道RpcChannel，并使用RpcProtocol 执行协议编码（encode）并将编码后的请求消息通过通道发送给服务方。
-    RPC 服务端接收器 RpcAcceptor 接收客户端的调用请求，同样使用RpcProtocol 执行协议解码（decode）。解码后的调用信息传递给RpcProcessor 去控制处理调用过程，最后再委托调用给RpcInvoker 去实际执行并返回调用结果。如下是各个部分的详细职责：
-    1. RpcServer  
-       负责导出（export）远程接口  
-    2. RpcClient  
-       负责导入（import）远程接口的代理实现  
-    3. RpcProxy  
-       远程接口的代理实现  
-    4. RpcInvoker  
-       客户方实现：负责编码调用信息和发送调用请求到服务方并等待调用结果返回  
-       服务方实现：负责调用服务端接口的具体实现并返回调用结果  
-    5. RpcProtocol  
-       负责协议编/解码  
-    6. RpcConnector  
-       负责维持客户方和服务方的连接通道和发送数据到服务方  
-    7. RpcAcceptor  
-       负责接收客户方请求并返回请求结果  
-    8. RpcProcessor  
-       负责在服务方控制调用过程，包括管理调用线程池、超时时间等  
-    9. RpcChannel  
-       数据传输通道  
-</code></pre><p>三、Java中常用的RPC框架</p>
-<pre><code>目前常用的RPC框架如下：
-
-1. Thrift：thrift是一个软件框架，用来进行可扩展且跨语言的服务的开发。它结合了功能强大的软件堆栈和代码生成引擎，以构建在 C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, JavaScript, Node.js, Smalltalk, and OCaml 这些编程语言间无缝结合的、高效的服务。
-
-2. Dubbo：Dubbo是一个分布式服务框架，以及SOA治理方案。其功能主要包括：高性能NIO通讯及多协议集成，服务动态寻址与路由，软负载均衡与容错，依赖分析与降级等。 Dubbo是阿里巴巴内部的SOA服务化治理方案的核心框架，Dubbo自2011年开源后，已被许多非阿里系公司使用。 
-
-3. Spring Cloud：Spring Cloud由众多子项目组成，如Spring Cloud Config、Spring Cloud Netflix、Spring Cloud Consul 等，提供了搭建分布式系统及微服务常用的工具，如配置管理、服务发现、断路器、智能路由、微代理、控制总线、一次性token、全局锁、选主、分布式会话和集群状态等，满足了构建微服务所需的所有解决方案。Spring Cloud基于Spring Boot, 使得开发部署极其简单。
-</code></pre><p>四、RPC和消息队列的差异</p>
-<pre><code>1. 功能差异
-
-    在架构上，RPC和Message的差异点是，Message有一个中间结点Message Queue，可以把消息存储。
-    消息的特点
-    1. Message Queue把请求的压力保存一下，逐渐释放出来，让处理者按照自己的节奏来处理。
-    2. Message Queue引入一下新的结点，系统的可靠性会受Message Queue结点的影响。
-    3. Message Queue是异步单向的消息。发送消息设计成是不需要等待消息处理的完成。
-    所以对于有同步返回需求，用Message Queue则变得麻烦了。
-RPC的特点
-    同步调用，对于要等待返回结果/处理结果的场景，RPC是可以非常自然直觉的使用方式(RPC也可以是异步调用)。
-    由于等待结果，Consumer（Client）会有线程消耗。如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息/请求，压力会直接传导到服务Provider。
-    2. 适用场合差异
-        1. 希望同步得到结果的场合，RPC合适。
-        2. 希望使用简单，则RPC；RPC操作基于接口，使用简单，使用方式模拟本地调用。异步的方式编程比较复杂。
-        3. 不希望发送端（RPC Consumer、Message Sender）受限于处理端（RPC Provider、Message Receiver）的速度时，使用Message Queue。
-        随着业务增长，有的处理端处理量会成为瓶颈，会进行同步调用到异步消息的改造。这样的改造实际上有调整业务的使用方式。比如原来一个操作页面提交后就下一个页面会看到处理结果；改造后异步消息后，下一个页面就会变成“操作已提交，完成后会得到通知”。
-    3. 不适用场合说明
-        1. RPC同步调用使用Message Queue来传输调用信息。 上面分析可以知道，这样的做法，发送端是在等待，同时占用一个中间点的资源。变得复杂了，但没有对等的收益。
-        2. 对于返回值是void的调用，可以这样做，因为实际上这个调用业务上往往不需要同步得到处理结果的，只要保证会处理即可。（RPC的方式可以保证调用返回即处理完成，使用消息方式后这一点不能保证了。）
-        3. 返回值是void的调用，使用消息，效果上是把消息的使用方式Wrap成了服务调用（服务调用使用方式成简单，基于业务接口）。
-</code></pre><p>五、RPC框架的核心技术点</p>
-<pre><code>RPC框架实现的几个核心技术点：
-
-（1）服务暴露：
-
-    远程提供者需要以某种形式提供服务调用相关的信息，包括但不限于服务接口定义、数据结构、或者中间态的服务定义文件。例如Facebook的Thrift的IDL文件，Web service的WSDL文件；服务的调用者需要通过一定的途径获取远程服务调用相关的信息。
-
-    目前，大部分跨语言平台 RPC 框架采用根据 IDL 定义通过 code generator 去生成 stub 代码，这种方式下实际导入的过程就是通过代码生成器在编译期完成的。代码生成的方式对跨语言平台 RPC 框架而言是必然的选择，而对于同一语言平台的 RPC 则可以通过共享接口定义来实现。这里的导入方式本质也是一种代码生成技术，只不过是在运行时生成，比静态编译期的代码生成看起来更简洁些。
-
-    java 中还有一种比较特殊的调用就是多态，也就是一个接口可能有多个实现，那么远程调用时到底调用哪个？这个本地调用的语义是通过 jvm 提供的引用多态性隐式实现的，那么对于 RPC 来说跨进程的调用就没法隐式实现了。如果前面DemoService 接口有 2 个实现，那么在导出接口时就需要特殊标记不同的实现需要，那么远程调用时也需要传递该标记才能调用到正确的实现类，这样就解决了多态调用的语义问题。
-
-（2）远程代理对象：
-
-    服务调用者用的服务实际是远程服务的本地代理。说白了就是通过动态代理来实现。
-
-    java 里至少提供了两种技术来提供动态代码生成，一种是 jdk 动态代理，另外一种是字节码生成。动态代理相比字节码生成使用起来更方便，但动态代理方式在性能上是要逊色于直接的字节码生成的，而字节码生成在代码可读性上要差很多。两者权衡起来，个人认为牺牲一些性能来获得代码可读性和可维护性显得更重要。
-
-（3）通信：
-
-    RPC框架与具体的协议无关。RPC 可基于 HTTP 或 TCP 协议，Web Service 就是基于 HTTP 协议的 RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。
-
-    1. TCP/HTTP：众所周知，TCP 是传输层协议，HTTP 是应用层协议，而传输层较应用层更加底层，在数据传输方面，越底层越快，因此，在一般情况下，TCP 一定比 HTTP 快。
-
-    2. 消息ID：RPC 的应用场景实质是一种可靠的请求应答消息流，和 HTTP 类似。因此选择长连接方式的 TCP 协议会更高效，与 HTTP 不同的是在协议层面我们定义了每个消息的唯一 id，因此可以更容易的复用连接。
-
-    3. IO方式：为了支持高并发，传统的阻塞式 IO 显然不太合适，因此我们需要异步的 IO，即 NIO。Java 提供了 NIO 的解决方案，Java 7 也提供了更优秀的 NIO.2 支持。
-
-    4. 多连接：既然使用长连接，那么第一个问题是到底 client 和 server 之间需要多少根连接？实际上单连接和多连接在使用上没有区别，对于数据传输量较小的应用类型，单连接基本足够。单连接和多连接最大的区别在于，每根连接都有自己私有的发送和接收缓冲区，因此大数据量传输时分散在不同的连接缓冲区会得到更好的吞吐效率。所以，如果你的数据传输量不足以让单连接的缓冲区一直处于饱和状态的话，那么使用多连接并不会产生任何明显的提升，反而会增加连接管理的开销。
-    5. 心跳：连接是由 client 端发起建立并维持。如果 client 和 server 之间是直连的，那么连接一般不会中断（当然物理链路故障除外）。如果 client 和 server 连接经过一些负载中转设备，有可能连接一段时间不活跃时会被这些中间设备中断。为了保持连接有必要定时为每个连接发送心跳数据以维持连接不中断。心跳消息是 RPC 框架库使用的内部消息，在前文协议头结构中也有一个专门的心跳位，就是用来标记心跳消息的，它对业务应用透明。
-
-（4）序列化：
-
-    两方面会直接影响 RPC 的性能，一是传输方式，二是序列化。
-
-    1. 序列化方式：毕竟是远程通信，需要将对象转化成二进制流进行传输。不同的RPC框架应用的场景不同，在序列化上也会采取不同的技术。 就序列化而言，Java 提供了默认的序列化方式，但在高并发的情况下，这种方式将会带来一些性能上的瓶颈，于是市面上出现了一系列优秀的序列化框架，比如：Protobuf、Kryo、Hessian、Jackson 等，它们可以取代 Java 默认的序列化，从而提供更高效的性能。
-
-    2. 编码内容：出于效率考虑，编码的信息越少越好（传输数据少），编码的规则越简单越好（执行效率高）。如下是编码需要具备的信息：
-
-    -- 调用编码 --  
-    1. 接口方法  
-       包括接口名、方法名  
-    2. 方法参数  
-       包括参数类型、参数值  
-    3. 调用属性  
-       包括调用属性信息，例如调用附件隐式参数、调用超时时间等  
-
-    -- 返回编码 --  
-    1. 返回结果  
-       接口方法中定义的返回值  
-    2. 返回码  
-       异常返回码  
-    3. 返回异常信息  
-       调用异常信息 
-
-    除了以上这些必须的调用信息，我们可能还需要一些元信息以方便程序编解码以及未来可能的扩展。这样我们的编码消息里面就分成了两部分，一部分是元信息、另一部分是调用的必要信息。如果设计一种 RPC 协议消息的话，元信息我们把它放在协议消息头中，而必要信息放在协议消息体中。下面给出一种概念上的 RPC 协议消息设计格式：
-
-    -- 消息头 --  
-    magic      : 协议魔数，为解码设计  
-    header size: 协议头长度，为扩展设计  
-    version    : 协议版本，为兼容设计  
-    st         : 消息体序列化类型  
-    hb         : 心跳消息标记，为长连接传输层心跳设计  
-    ow         : 单向消息标记，  
-    rp         : 响应消息标记，不置位默认是请求消息  
-    status code: 响应消息状态码  
-    reserved   : 为字节对齐保留  
-    message id : 消息 id  
-    body size  : 消息体长度  
-
-    -- 消息体 --  
-    采用序列化编码，常见有以下格式  
-    xml   : 如 webservie soap  
-    json  : 如 JSON-RPC  
-    binary: 如 thrift; hession; kryo 等  
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2019/01/01/RPC入门总结  RPC定义和原理/">
-    <time datetime="2018-12-31T16:00:00.000Z" class="entry-date">
-        2019-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Springboot-BindingResult-Validation" class="post-Springboot-BindingResult-Validation post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/12/17/Springboot-BindingResult-Validation/">Springboot 使用注解@Validated和BindingResult校验参数</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="clesbyv0q0010psial9o02ofx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="1、创建一个参数对象"><a href="#1、创建一个参数对象" class="headerlink" title="1、创建一个参数对象"></a>1、创建一个参数对象</h2><pre><code># Validation
-package common.validate.type
-    public class Validation {
-
-    /**查询*/
-    public interface Select {
-    }
-    /**更新*/
-    public interface Update {
-    }
-    /**插入*/
-    public interface Insert {
-    }
-    /**删除*/
-    public interface Delete {
-    }
-
-    /**查询详情*/
-    public interface SelectDetail {
-    }
-
-}
-
-import java.util.List;
-import common.validate.type.Validation;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-
-public class Parameter {
-
-    @NotEmpty(message=&quot;姓名不能为空&quot;, groups = Validation.Update.class)
-    private String name;
-
-    @Min(value = 18, message = &quot;年龄必须大于18岁&quot;, groups = Validation.Update.class)
-    private int age;
-
-    @NotEmpty(message=&quot;hobbies不能为空&quot;, groups = Validation.Update.class)
-    private List&lt;String&gt; hobbies;
-
-    @NotBlank(message=&quot;账号不能为空&quot;, groups = Validation.Update.class)
-    private String account;
-
-    @Size(min=5,max=10,message=&quot;密码的长度应该在5和10之间&quot;, groups = Validation.Update.class) 
-    private String password;
-
-    @Email(message=&quot;邮箱格式错误&quot;, groups = Validation.Update.class)
-    private String email;
-
-    // Getter and Setter
-    // ... 
-
-}
-</code></pre><h2 id="2、controller控制层写参数接收的入口"><a href="#2、controller控制层写参数接收的入口" class="headerlink" title="2、controller控制层写参数接收的入口"></a>2、controller控制层写参数接收的入口</h2><pre><code>public class BaseController {
-    /**
-    * 正常的返回值
-    *
-    * @param outPutBean
-    */
-    protected void setSuccess(BaseVO outPutBean) {
-        outPutBean.setResultCode(ConstantsRecruit.ResultCode.SUCCESS);
-    }
-
-    /**
-    * 处理参数异常
-    *
-    * @param bindingResult
-    */
-    protected void paramaterVidation(BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors()) {
-            StringBuilder errorMesssage = new StringBuilder(&quot;参数异常:&quot;);
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                errorMesssage.append(fieldError.getField());
-                errorMesssage.append(&quot;:&quot;);
-                errorMesssage.append(fieldError.getDefaultMessage());
-                errorMesssage.append(&quot;; &quot;);
-            }
-            throw new TestAplException(ConstantsRecruit.ResultCode.PARAM_ERR, errorMesssage.toString());
-        }
-    }
-}
-
-
-# 注意：BindingResult需要放到@Validated后面
-
-public class TestController extends BaseController{
-
-    @ApiOperation(value = &quot;测试&quot;, notes = &quot;更新&quot;)
-    @PostMapping(value = &quot;/update&quot;)
-    public BaseVO update(@RequestBody @Validated(Validation.Update.class) Parameter input,BindingResult bindingResult){
-        paramaterVidation(bindingResult);
-        BaseVO vo = new BaseVO();
-        commonService.update();
-        setSuccess(vo);
-        return vo;
-    }
-}
-</code></pre><h2 id="3、常用校验注解"><a href="#3、常用校验注解" class="headerlink" title="3、常用校验注解"></a>3、常用校验注解</h2><p>@Null 只能是null<br>@NotNull 不能为null 注意用在基本类型上无效，基本类型有默认初始值<br>@AssertFalse 必须为false<br>@AssertTrue 必须是true</p>
-<p>字符串/数组/集合检查：(字符串本身就是个数组)<br>@Pattern(regexp=”reg”) 验证字符串满足正则<br>@Size(max, min) 验证字符串、数组、集合长度范围<br>@NotEmpty 验证字符串不为空或者null<br>@NotBlank 验证字符串不为null或者trim()后不为空</p>
-<p>数值检查：同时能验证一个字符串是否是满足限制的数字的字符串<br>@Max 规定值得上限int<br>@Min 规定值得下限<br>@DecimalMax(“10.8”) 以传入字符串构建一个BigDecimal，规定值要小于这个值<br>@DecimalMin 可以用来限制浮点数大小<br>@Digits(int1, int2) 限制一个小数，整数精度小于int1；小数部分精度小于int2<br>@Digits 无参数，验证字符串是否合法<br>@Range(min=long1,max=long2) 检查数字是否在范围之间<br>这些都包括边界值</p>
-<p>日期检查：Date/Calendar<br>@Post 限定一个日期，日期必须是过去的日期<br>@Future 限定一个日期，日期必须是未来的日期</p>
-<p>其他验证：<br>@Vaild 递归验证，用于对象、数组和集合，会对对象的元素、数组的元素进行一一校验<br>@Email 用于验证一个字符串是否是一个合法的右键地址，空字符串或null算验证通过<br>@URL(protocol=,host=,port=,regexp=,flags=) 用于校验一个字符串是否是合法URL</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/12/17/Springboot-BindingResult-Validation/">
-    <time datetime="2018-12-16T16:00:00.000Z" class="entry-date">
-        2018-12-17
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Springboot/">Springboot</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Maven-Install-And-Settings" class="post-Maven-Install-And-Settings post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/06/13/Maven-Install-And-Settings/">Maven 安装和配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="clesbyv0b000dpsiamqj4dk6x" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Maven-资料"><a href="#Maven-资料" class="headerlink" title="Maven 资料"></a>Maven 资料</h2><ul>
-<li>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></li>
-<li>官网下载：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></li>
-<li>历史版本下载：<a href="https://archive.apache.org/dist/maven/binaries/" target="_blank" rel="noopener">https://archive.apache.org/dist/maven/binaries/</a></li>
-</ul>
-<h2 id="Maven-安装（bash-环境）"><a href="#Maven-安装（bash-环境）" class="headerlink" title="Maven 安装（bash 环境）"></a>Maven 安装（bash 环境）</h2><ul>
-<li>Maven 3.3 的 JDK 最低要求是 JDK 7</li>
-<li>下载压缩包：<code>wget http://mirrors.cnnic.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz</code></li>
-<li>解压：<code>tar zxvf apache-maven-3.3.9-bin.tar.gz</code></li>
-<li>修改目录名，默认的太长了：<code>mv apache-maven-3.3.9/ maven3.3.9/</code></li>
-<li>移到我个人习惯的安装目录下：<code>mv maven3.3.9/ /usr/local</code></li>
-<li>环境变量设置：<code>vim /etc/profile</code></li>
-<li>在文件最尾巴添加下面内容：</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Maven</span></span><br><span class="line"><span class="attr">MAVEN_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">M3_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">PATH</span>=<span class="variable">$PATH</span>:<span class="variable">$M3_HOME</span>/bin</span><br><span class="line"><span class="attr">MAVEN_OPTS</span>=<span class="string">"-Xms256m -Xmx356m"</span></span><br><span class="line">export M3_HOME</span><br><span class="line">export MAVEN_HOME</span><br><span class="line">export PATH</span><br><span class="line">export MAVEN_OPTS</span><br></pre></td></tr></table></figure>
-<ul>
-<li>刷新配置文件：<code>source /etc/profile</code></li>
-<li>测试是否安装成功：<code>mvn -version</code></li>
-</ul>
-<h2 id="Maven-配置"><a href="#Maven-配置" class="headerlink" title="Maven 配置"></a>Maven 配置</h2><ul>
-<li>创建本地参数：<code>mkdir -p /opt/maven-repository</code></li>
-<li>配置项目连接上私服</li>
-<li>编辑配置文件：<code>vim /usr/local/maven3.3.9/conf/settings.xml</code></li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--本地仓库位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/opt/maven-repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">proxies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--设置 Nexus 认证信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--有自己的 nexus 改为自己的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
-<li><a href="http://maven.apache.org/install.html" target="_blank" rel="noopener">http://maven.apache.org/install.html</a></li>
-<li><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html</a></li>
-<li><a href="http://maven.apache.org/guides/getting-started/index.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/index.html</a></li>
-<li><a href="http://maven.apache.org/general.html" target="_blank" rel="noopener">http://maven.apache.org/general.html</a></li>
-<li><a href="http://blog.csdn.net/sxyx2008/article/details/7975129" target="_blank" rel="noopener">http://blog.csdn.net/sxyx2008/article/details/7975129</a></li>
-<li><a href="http://blog.csdn.net/xuke6677/article/details/8482472" target="_blank" rel="noopener">http://blog.csdn.net/xuke6677/article/details/8482472</a></li>
-</ul>
-<h2 id="Maven-deploy-file-上传-pom"><a href="#Maven-deploy-file-上传-pom" class="headerlink" title="Maven deploy file 上传 pom"></a>Maven deploy file 上传 pom</h2><h2 id="mvn-deploy-deploy-file-DgroupId-DartifactId-Dversion-Dpackaging-jar-Dfile-lt-Path-TO-JAR-OR-WAR-gt-DrepositoryId-lt-RepositoryId-defined-in-settings-xml-gt-Durl-DgeneratePom-true-DpomFile-lt-PATH-TO-POM-gt"><a href="#mvn-deploy-deploy-file-DgroupId-DartifactId-Dversion-Dpackaging-jar-Dfile-lt-Path-TO-JAR-OR-WAR-gt-DrepositoryId-lt-RepositoryId-defined-in-settings-xml-gt-Durl-DgeneratePom-true-DpomFile-lt-PATH-TO-POM-gt" class="headerlink" title="mvn deploy:deploy-file -DgroupId= -DartifactId= -Dversion= -Dpackaging=jar -Dfile=&lt;Path_TO_JAR_OR_WAR&gt; -DrepositoryId=&lt;RepositoryId_defined_in_settings_xml&gt; -Durl= -DgeneratePom=true -DpomFile=&lt;PATH_TO_POM&gt;"></a>mvn deploy:deploy-file -DgroupId=<groupid> -DartifactId=<artifactid> -Dversion=<version> -Dpackaging=jar -Dfile=&lt;Path_TO_JAR_OR_WAR&gt; -DrepositoryId=&lt;RepositoryId_defined_in_settings_xml&gt; -Durl=<url> -DgeneratePom=true -DpomFile=&lt;PATH_TO_POM&gt;</url></version></artifactid></groupid></h2><h2 id="Maven-deploy-file-上传-jar"><a href="#Maven-deploy-file-上传-jar" class="headerlink" title="Maven deploy file 上传 jar"></a>Maven deploy file 上传 jar</h2><h2 id="mvn-install-install-file-Dfile-E-jar-org-apache-poi-xwpf-converter-xhtml-1-0-5-jar-DgroupId-fr-opensagres-xdocreport-DartifactId-org-apache-poi-xwpf-converter-xhtml-Dversion-1-0-5-Dpackaging-jar"><a href="#mvn-install-install-file-Dfile-E-jar-org-apache-poi-xwpf-converter-xhtml-1-0-5-jar-DgroupId-fr-opensagres-xdocreport-DartifactId-org-apache-poi-xwpf-converter-xhtml-Dversion-1-0-5-Dpackaging-jar" class="headerlink" title="mvn install:install-file -Dfile=E:\jar\org.apache.poi.xwpf.converter.xhtml-1.0.5.jar -DgroupId=fr.opensagres.xdocreport -DartifactId=org.apache.poi.xwpf.converter.xhtml -Dversion=1.0.5 -Dpackaging=jar"></a>mvn install:install-file -Dfile=E:\jar\org.apache.poi.xwpf.converter.xhtml-1.0.5.jar -DgroupId=fr.opensagres.xdocreport -DartifactId=org.apache.poi.xwpf.converter.xhtml -Dversion=1.0.5 -Dpackaging=jar</h2><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="deploy-pom"><a href="#deploy-pom" class="headerlink" title="deploy pom"></a>deploy pom</h3><p>mvn deploy:deploy-file -DgroupId=com.huapisong.parent -DartifactId=com_base_parent -Dversion=1.0.0-RELEASE -Dpackaging=pom -Dfile=E:\com_base_parent-1.0.0-RELEASE.pom -DrepositoryId=huapisong -Durl=<a href="http://localhost:9090/repository/huapisong/" target="_blank" rel="noopener">http://localhost:9090/repository/huapisong/</a> -DgeneratePom=true</p>
-<h3 id="deploy-jar"><a href="#deploy-jar" class="headerlink" title="deploy jar"></a>deploy jar</h3><p>mvn deploy:deploy-file -DgroupId=com.huapisong.common -DartifactId=com_base_common -Dversion=1.0.0-RELEASE -Dpackaging=jar -Dfile=E:\com_base_common-1.0.0-RELEASE.jar -DrepositoryId=huapisong -Durl=<a href="http://localhost:9090/repository/huapisong/" target="_blank" rel="noopener">http://localhost:9090/repository/huapisong/</a></p>
-<p>install 命令，file 参数是必选的，但是如果在本地库里面没有 groupId、artifactId 和 version 对应的目录，那么 maven 会要求传入这些参数，packaging 则根据需要上传的文件类型指定。<br>deploy 命令 file、repositoryId 和 url 是必选的。其中 DrepositoryId 是指远程 maven 库的 id，一般会配置在 setting.xml 文件里面，是在<server>标签下的那个 id。url 比较重要，如果错误的话，是无法上传的，一般来说我们可以在 setting.xml 文件的<server>标签下找到，但是这个<server>下的这个 url 不一定就是真正的 maven 库地址，如果这个 url 不行，那么可以尝试把这个 url 中的最后一个路径替换成<server>标签下<id>自标签的内容，一般来说是可以行的</id></server></server></server></server></p>
-<h2 id="Maven-命令参数"><a href="#Maven-命令参数" class="headerlink" title="Maven 命令参数"></a>Maven 命令参数</h2><p>备注<br>    mvn -v –version 显示版本信息;<br>    mvn -V –show-version 显示版本信息后继续执行Maven其他目标;<br>    mvn -h –help 显示帮助信息;<br>    mvn -e –errors 控制Maven的日志级别,产生执行错误相关消息;<br>    mvn -X –debug 控制Maven的日志级别,产生执行调试信息;<br>    mvn -q –quiet 控制Maven的日志级别,仅仅显示错误;<br>    mvn -Pxxx  激活 id 为 xxx的profile (如有多个，用逗号隔开);<br>    mvn -Dxxx=yyy  指定Java全局属性;<br>    mvn -o –offline 运行offline模式,不联网更新依赖;<br>    mvn -N –non-recursive 仅在当前项目模块执行命令,不构建子模块;<br>    mvn -pl –module_name 在指定模块上执行命令;<br>    mvn -ff –fail-fast 遇到构建失败就直接退出;<br>    mvn -fn –fail-never 无论项目结果如何,构建从不失败;<br>    mvn -fae –fail-at-end 仅影响构建结果,允许不受影响的构建继续;<br>    mvn -C –strict-checksums 如果校验码不匹配的话,构建失败;<br>    mvn -c –lax-checksums 如果校验码不匹配的话,产生告警;<br>    mvn -U 强制更新snapshot类型的插件或依赖库(否则maven一天只会更新一次snapshot依赖);<br>    mvn -npu –no-plugin-s 对任何相关的注册插件,不进行最新检查(使用该选项使Maven表现出稳定行为，该稳定行为基于本地仓库当前可用的所有插件版本);<br>    mvn -cpu –check-plugin-updates 对任何相关的注册插件,强制进行最新检查(即使项目POM里明确规定了Maven插件版本,还是会强制更新);<br>    mvn -up –update-plugins [mvn -cpu]的同义词;<br>    mvn -B –batch-mode 在非交互（批处理）模式下运行(该模式下,当Mven需要输入时,它不会停下来接受用户的输入,而是使用合理的默认值);<br>    mvn -f –file <file> 强制使用备用的POM文件;<br>    mvn -s –settings <arg> 用户配置文件的备用路径;<br>    mvn -gs –global-settings <file> 全局配置文件的备用路径;<br>    mvn -emp –encrypt-master-password <password> 加密主安全密码,存储到Maven settings文件里;<br>    mvn -ep –encrypt-password <password> 加密服务器密码,存储到Maven settings文件里;<br>    mvn -npr –no-plugin-registry 对插件版本不使用~/.m2/plugin-registry.xml(插件注册表)里的配置;</password></password></file></arg></file></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/06/13/Maven-Install-And-Settings/">
-    <time datetime="2018-06-12T16:00:00.000Z" class="entry-date">
-        2018-06-13
-    </time>
-</a>
-    
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-Node-Install-And-Usage" class="post-Node-Install-And-Usage post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/06/06/Node-Install-And-Usage/">Node 安装和配置</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="clesbyv0q000npsiaztf0419p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="Node-安装"><a href="#Node-安装" class="headerlink" title="Node 安装"></a>Node 安装</h2><ul>
-<li>官网：<a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a></li>
-<li>官网下载：<a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/</a></li>
-<li>历史版本下载：<a href="https://nodejs.org/zh-cn/download/releases/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/releases/</a></li>
-<li>官网安装教程：<a href="https://nodejs.org/en/download/package-manager/" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/</a></li>
-<li>官网 CentOS 系统下的安装教程：<a href="https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora</a></li>
-<li>官网文档复制过来就是：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果你是要安装 node 8 系列，下载这个 yum 源</span></span><br><span class="line">curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你是要安装 node 9 系列，下载这个 yum 源</span></span><br><span class="line">curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -</span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后通过 yum 开始安装（软件大小：51M 左右）</span></span><br><span class="line">sudo yum -y install nodejs</span><br></pre></td></tr></table></figure>
-<ul>
-<li>验证：<code>node -v</code></li>
-<li>注意:因为网络原因，最好先把脚本下载到本地，再用代理进行安装</li>
-</ul>
-<h2 id="nrm-快速切换-NPM-源"><a href="#nrm-快速切换-NPM-源" class="headerlink" title="nrm 快速切换 NPM 源"></a>nrm 快速切换 NPM 源</h2><ul>
-<li>安装：<code>npm install -g nrm</code></li>
-<li>列表源：<code>nrm ls</code></li>
-<li>使用源：<code>nrm use taobao</code></li>
-<li>更多使用方法：<a href="https://segmentfault.com/a/1190000000473869" target="_blank" rel="noopener">https://segmentfault.com/a/1190000000473869</a></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/06/06/Node-Install-And-Usage/">
-    <time datetime="2018-06-05T16:00:00.000Z" class="entry-date">
-        2018-06-06
-    </time>
-</a>
-    
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1481,7 +1706,7 @@ public class TestController extends BaseController{
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-mysql2/">node mysql2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1493,23 +1718,23 @@ public class TestController extends BaseController{
       <ul>
         
           <li>
-            <a href="/2023/03/03/前端学习/">前端学习</a>
+            <a href="/2023/07/27/制作npm/">生成npm包</a>
           </li>
         
           <li>
-            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2023/07/19/indexedDB/">windows indexedDB</a>
           </li>
         
           <li>
-            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+            <a href="/2023/07/19/webpack4 thread-loader cache/">webpack vue-cli 启动编译慢</a>
           </li>
         
           <li>
-            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+            <a href="/2023/07/19/webpack/">terser-webpack-plugin的使用:删除注释和console</a>
           </li>
         
           <li>
-            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+            <a href="/2023/03/23/node mysql2/">node mysql2</a>
           </li>
         
       </ul>

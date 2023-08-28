@@ -62,6 +62,651 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-console" class="post-console post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/console/">(Javascript %s or %d represents string?)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="cllu7jat6001c4kia2ugacra8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>What you are seeing there is the string substitution patterns that are built into console.log() or console.debug().</p>
+<p>The pattern goes as I have presented below:</p>
+<p>%s for a String</p>
+<p>%d or %i for Number</p>
+<p>%f for Floating points</p>
+<p>%o for an Object</p>
+<p>%j for an JSON</p>
+<p>So essentially you are replacing the specifier with the values supplied as so:</p>
+<p>var name = ‘Chris’;<br>console.log(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
+<p>console.debug(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
+<p><a href="https://nodejs.org/api/util.html#util_util_format_format_args" target="_blank" rel="noopener">https://nodejs.org/api/util.html#util_util_format_format_args</a></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/console/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/console/">console</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/01/01/curl/">curl(选项)(参数)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="cllu7jauh00524kia6fbzsk15" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>举个栗子
+
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;{&quot;serviceType&quot;:&quot;3&quot;}&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceType=3&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
+</code></pre><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>curl(选项)(参数)
+</code></pre><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><pre><code>-a/--append  上传文件时，附加到目标文件
+-A/--user-agent &lt;string&gt;  设置用户代理发送给服务器
+-anyauth  可以使用“任何”身份验证方法
+-b/--cookie &lt;name=string/file&gt;  cookie字符串或文件读取位置
+   --basic  使用HTTP基本验证
+-B/--use-ascii  使用ASCII /文本传输
+-c/--cookie-jar &lt;file&gt;  操作结束后把cookie写入到这个文件中
+-C/--continue-at &lt;offset&gt;  断点续转
+-d/--data &lt;data&gt;  HTTP POST方式传送数据
+   --data-ascii &lt;data&gt;  以ascii的方式post数据
+   --data-binary &lt;data&gt;  以二进制的方式post数据
+   --negotiate  使用HTTP身份验证
+   --digest  使用数字身份验证
+   --disable-eprt  禁止使用EPRT或LPRT
+   --disable-epsv  禁止使用EPSV
+-D/--dump-header &lt;file&gt;  把header信息写入到该文件中
+   --egd-file &lt;file&gt;  为随机数据(SSL)设置EGD socket路径
+   --tcp-nodelay  使用TCP_NODELAY选项
+-e/--referer  来源网址
+-E/--cert &lt;cert[:passwd]&gt;  客户端证书文件和密码 (SSL)
+   --cert-type &lt;type&gt;  证书文件类型 (DER/PEM/ENG) (SSL)
+   --key &lt;key&gt;  私钥文件名 (SSL)
+   --key-type &lt;type&gt;  私钥文件类型 (DER/PEM/ENG) (SSL)
+   --pass &lt;pass&gt;  私钥密码 (SSL)
+   --engine &lt;eng&gt;  加密引擎使用 (SSL). &quot;--engine list&quot; for list
+   --cacert &lt;file&gt;  CA证书 (SSL)
+   --capath &lt;directory&gt;  CA目录 (made using c_rehash) to verify peer against (SSL)
+   --ciphers &lt;list&gt;  SSL密码
+   --compressed  要求返回是压缩的形势 (using deflate or gzip)
+   --connect-timeout &lt;seconds&gt;  设置最大请求时间
+   --create-dirs  建立本地目录的目录层次结构
+   --crlf  上传是把LF转变成CRLF
+-f/--fail  连接失败时不显示http错误
+   --ftp-create-dirs  如果远程目录不存在，创建远程目录
+   --ftp-method [multicwd/nocwd/singlecwd]  控制CWD的使用
+   --ftp-pasv  使用 PASV/EPSV 代替端口
+   --ftp-skip-pasv-ip  使用PASV的时候,忽略该IP地址
+   --ftp-ssl  尝试用 SSL/TLS 来进行ftp数据传输
+   --ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输
+-F/--form &lt;name=content&gt;  模拟http表单提交数据
+   --form-string &lt;name=string&gt;  模拟http表单提交数据
+-g/--globoff  禁用网址序列和范围使用{}和[]
+-G/--get  以get的方式来发送数据
+-H/--header &lt;line&gt;  自定义头信息传递给服务器
+   --ignore-content-length  忽略的HTTP头信息的长度
+-i/--include  输出时包括protocol头信息
+-I/--head  只显示请求头信息
+-j/--junk-session-cookies  读取文件进忽略session cookie
+   --interface &lt;interface&gt;  使用指定网络接口/地址
+   --krb4 &lt;level&gt;  使用指定安全级别的krb4
+-k/--insecure  允许不使用证书到SSL站点
+-K/--config  指定的配置文件读取
+-l/--list-only  列出ftp目录下的文件名称
+   --limit-rate &lt;rate&gt;  设置传输速度
+   --local-port&lt;NUM&gt;  强制使用本地端口号
+-m/--max-time &lt;seconds&gt;  设置最大传输时间
+   --max-redirs &lt;num&gt;  设置最大读取的目录数
+   --max-filesize &lt;bytes&gt;  设置最大下载的文件总量
+-M/--manual  显示全手动
+-n/--netrc  从netrc文件中读取用户名和密码
+   --netrc-optional  使用 .netrc 或者 URL来覆盖-n
+   --ntlm  使用 HTTP NTLM 身份验证
+-N/--no-buffer  禁用缓冲输出
+-o/--output  把输出写到该文件中
+-O/--remote-name  把输出写到该文件中，保留远程文件的文件名
+-p/--proxytunnel  使用HTTP代理
+   --proxy-anyauth  选择任一代理身份验证方法
+   --proxy-basic  在代理上使用基本身份验证
+   --proxy-digest  在代理上使用数字身份验证
+   --proxy-ntlm  在代理上使用ntlm身份验证
+-P/--ftp-port &lt;address&gt;  使用端口地址，而不是使用PASV
+-q  作为第一个参数，关闭 .curlrc
+-Q/--quote &lt;cmd&gt;  文件传输前，发送命令到服务器
+-r/--range &lt;range&gt;  检索来自HTTP/1.1或FTP服务器字节范围
+--range-file  读取（SSL）的随机文件
+-R/--remote-time  在本地生成文件时，保留远程文件时间
+   --retry &lt;num&gt;  传输出现问题时，重试的次数
+   --retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间
+   --retry-max-time &lt;seconds&gt;  传输出现问题时，设置最大重试时间
+-s/--silent  静默模式。不输出任何东西
+-S/--show-error  显示错误
+   --socks4 &lt;host[:port]&gt;  用socks4代理给定主机和端口
+   --socks5 &lt;host[:port]&gt;  用socks5代理给定主机和端口
+   --stderr &lt;file&gt;   
+-t/--telnet-option &lt;OPT=val&gt;  Telnet选项设置
+   --trace &lt;file&gt;  对指定文件进行debug
+   --trace-ascii &lt;file&gt;  Like --跟踪但没有hex输出
+   --trace-time  跟踪/详细输出时，添加时间戳
+-T/--upload-file &lt;file&gt;  上传文件
+   --url &lt;URL&gt;  Spet URL to work with
+-u/--user &lt;user[:password]&gt;  设置服务器的用户和密码
+-U/--proxy-user &lt;user[:password]&gt;  设置代理用户名和密码
+-w/--write-out [format]  什么输出完成后
+-x/--proxy &lt;host[:port]&gt;  在给定的端口上使用HTTP代理
+-X/--request &lt;command&gt;  指定什么命令
+-y/--speed-time  放弃限速所要的时间，默认为30
+-Y/--speed-limit  停止传输速度的限制，速度时间
+</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>文件下载
+
+  curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout，将进度信息输出到stderr，不显示进度信息使用--silent选项。
+
+  curl URL --silent
+
+  这条命令是将下载文件输出到终端，所有下载的数据都被写入到stdout。
+
+  使用选项-O将下载的数据写入到文件，必须使用文件的绝对地址：
+
+  curl http://man.linuxde.net/text.iso --silent -O
+
+  选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：
+
+  curl http://man.linuxde.net/test.iso -o filename.iso --progress
+  ######################################### 100.0%
+
+ 断点续传
+
+  curl能够从特定的文件偏移处继续下载，它可以通过指定一个便宜量来下载部分文件：
+
+  curl URL/File -C 偏移量
+
+  #偏移量是以字节为单位的整数，如果让curl自动推断出正确的续传位置使用-C -：
+  curl -C -URL
+
+使用curl设置参照页字符串
+
+  参照页是位于HTTP头部中的一个字符串，用来表示用户是从哪个页面到达当前页面的，如果用户点击网页A中的某个连接，那么用户就会跳转到B网页，网页B头部的参照页字符串就包含网页A的URL。
+
+  使用--referer选项指定参照页字符串：
+
+  curl --referer http://www.google.com http://man.linuxde.net
+
+用curl设置cookies
+
+  使用--cookie &quot;COKKIES&quot;选项来指定cookie，多个cookie使用分号分隔：
+
+  curl http://man.linuxde.net --cookie &quot;user=root;pass=123456&quot;
+
+  将cookie另存为一个文件，使用--cookie-jar选项：
+
+  curl URL --cookie-jar cookie_file
+
+用curl设置用户代理字符串
+
+  有些网站访问会提示只能使用IE浏览器来访问，这是因为这些网站设置了检查用户代理，可以使用curl把用户代理设置为IE，这样就可以访问了。使用--user-agent或者-A选项：
+
+  curl URL --user-agent &quot;Mozilla/5.0&quot;
+  curl URL -A &quot;Mozilla/5.0&quot;
+
+  其他HTTP头部信息也可以使用curl来发送，使用-H&quot;头部信息&quot; 传递多个头部信息，例如：
+
+  curl -H &quot;Host:man.linuxde.net&quot; -H &quot;accept-language:zh-cn&quot; URL
+
+ curl的带宽控制和下载配额
+
+  使用--limit-rate限制curl的下载速度：
+
+  curl URL --limit-rate 50k
+
+  命令中用k（千字节）和m（兆字节）指定下载速度限制。
+
+  使用--max-filesize指定可下载的最大文件大小：
+
+  curl URL --max-filesize bytes
+
+  如果文件大小超出限制，命令则返回一个非0退出码，如果命令正常则返回0。
+
+用curl进行认证
+
+  使用curl选项 -u 可以完成HTTP或者FTP的认证，可以指定密码，也可以不指定密码在后续操作中输入密码：
+
+  curl -u user:pwd http://man.linuxde.net
+  curl -u user http://man.linuxde.net
+
+只打印响应头部信息
+
+    通过-I或者-head可以只打印出HTTP头部信息：
+
+    [root@localhost text]# curl -I http://man.linuxde.net
+      HTTP/1.1 200 OK
+      Server: nginx/1.2.5
+      date: Mon, 10 Dec 2012 09:24:34 GMT
+      Content-Type: text/html; charset=UTF-8
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Pingback: http://man.linuxde.net/xmlrpc.php
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/01/01/curl/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-SVN-error" class="post-SVN-error post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/27/SVN-error/">svn error - unable to connect to a repository at url 问题解决</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="cllu7jasq000t4kiat7b6a7m1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <pre><code>C:\Users\dell\AppData\Roaming\Subversion
+# 打开文件
+servers
+# 删除
+proxy settings
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/27/SVN-error/">
+    <time datetime="2017-12-26T16:00:00.000Z" class="entry-date">
+        2017-12-27
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/SVN/">SVN</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-node" class="post-node post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/15/node/">node.js yeoman grunt 快速构建项目</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="cllu7jatm002j4kiaymlwo9pp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h4 id="1-node-js-安装"><a href="#1-node-js-安装" class="headerlink" title="1. node.js 安装"></a>1. node.js 安装</h4><h4 id="2-yeoman-grunt安装"><a href="#2-yeoman-grunt安装" class="headerlink" title="2. yeoman grunt安装"></a>2. yeoman grunt安装</h4><pre><code>npm install -g bower
+npm install --global yo
+npm install -g grunt-cli
+yo --version &amp;&amp; bower --version &amp;&amp; grunt --version
+npm install -g generator-angular@0.7.1
+</code></pre><h4 id="3-创建项目-安装bower、node、grunt"><a href="#3-创建项目-安装bower、node、grunt" class="headerlink" title="3. 创建项目 安装bower、node、grunt"></a>3. 创建项目 安装bower、node、grunt</h4><pre><code>$ cd d:
+$ mkdir myApp
+$ cd mytodo
+$ yo angular
+# 报错少 grunt-contrib-imagemin
+# 安装 grunt-contrib-imagemin
+$ npm install grunt-contrib-imagemin --save-dev
+
+$ npm install
+$ bower install
+$ npm install grunt --save-dev
+# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
+</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code># Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
+$ npm install -g cordova
+</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
+#要知道这个命令完整的选项，键入cordova help create。
+$ cordova create MyApp
+</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code># 在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
+# 为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
+# 为了知道你可以添加的平台，你可以运行cordova platform。
+$ cd MyApp 
+# browser andriod ios
+$ cordova platform add browser
+# $ cordova platform remove android
+</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
+# browser andriod ios
+$ cordova run browser
+</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用-。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用-。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用 。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用 <strong>。</strong></h4><pre><code># 
+$ cordova build android
+</code></pre><h4 id="6、进行仿真模拟器"><a href="#6、进行仿真模拟器" class="headerlink" title="6、进行仿真模拟器"></a>6、进行仿真模拟器</h4><pre><code># 
+$ cordova emulate android
+</code></pre><h4 id="7-添加插件"><a href="#7-添加插件" class="headerlink" title="7. 添加插件"></a>7. 添加插件</h4><p>可以用CLI搜索可用的插件：</p>
+<pre><code>cordova plugin search bar code
+</code></pre><p>安装插件，比如:</p>
+<pre><code>cordova plugin add org.apache.cordova.device                   //设备API
+
+cordova plugin add org.apache.cordova.network-information  //网络（事件）
+
+cordova plugin add org.apache.cordova.battery-status      //电池（事件）
+
+cordova plugin add org.apache.cordova.device-motion     //加速器
+
+cordova plugin add org.apache.cordova.device-orientation     //罗盘
+
+cordova plugin add org.apache.cordova.geolocation         //定位
+
+cordova plugin add org.apache.cordova.camera                 //摄像头
+
+cordova plugin add org.apache.cordova.media-capture     //媒体文件处理
+
+cordova plugin add org.apache.cordova.media                   //媒体文件处理
+
+cordova plugin add org.apache.cordova.file                        //文件访问
+
+cordova plugin add org.apache.cordova.file-transfer          //文件传输
+
+cordova plugin add org.apache.cordova.dialogs                 //对话框
+
+cordova plugin add org.apache.cordova.vibration              //震动
+
+cordova plugin add org.apache.cordova.contacts               //联系人
+
+cordova plugin add org.apache.cordova.globalization       //全球化
+
+cordova plugin add org.apache.cordova.splashscreen       //闪屏
+
+cordova plugin add org.apache.cordova.inappbrowser             //打开新的浏览器窗口
+
+cordova plugin add org.apache.cordova.console                //调试控制台
+</code></pre><p>你可以用以下命令查看所有已经安装的插件</p>
+<pre><code>cordova plugin ls
+</code></pre><p>使用以下命令删除插件：</p>
+<pre><code>cordova plugin rm org.apache.cordova.console
+</code></pre><p>或者通过地址来添加插件：</p>
+<pre><code>cordova plugin add https://github.com/apache/cordova-plugin-console.git
+</code></pre><h3 id="Android-SDK"><a href="#Android-SDK" class="headerlink" title="Android SDK"></a>Android SDK</h3><p>Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
+<p>1、中科院开源协会镜像站地址:</p>
+<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
+<p>2、北京化工大学镜像服务器地址：</p>
+<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
+<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
+<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>   端口：80</p>
+<p>3、大连东软信息学院镜像服务器地址:<br><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
+<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
+# npm update -g cordova ionic
+$ npm install -g ionic
+$ ionic start myApp tabs
+# demo
+$ ionic start myproject --type ionic1
+# 启动
+$ ionic serve
+# 启动 指定IP地址
+$ ionic serve --address 192.168.20.45
+</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>#
+$ cd myApp
+$ ionic platform add android
+$ ionic build android
+$ ionic emulate android
+</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>#
+$ cd myApp
+$ ionic platform add ios
+$ ionic build ios
+$ ionic emulate ios
+</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>#
+$ ionic serve
+</code></pre><p>通过Ionic创建一个项目</p>
+<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
+<pre><code>ionic start myApp blank  创建一个空白的app项目 
+
+ionic start myApp tabs 创建一个带有tabs项目
+
+ionic start myApp sidemenu 创建一个带有滑动的项目
+</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
+<pre><code>npm install -g ios-sim
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/15/node/">
+    <time datetime="2017-12-14T16:00:00.000Z" class="entry-date">
+        2017-12-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Node/">Node</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-oracle-expdp-impdp" class="post-oracle-expdp-impdp post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/01/oracle-expdp-impdp/">oracle expdp / impdp</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="cllu7jatm002m4kia8ju01fsn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="expdp-导出"><a href="#expdp-导出" class="headerlink" title="expdp 导出"></a>expdp 导出</h3><pre><code>expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp;
+</code></pre><h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><pre><code>-- 删除用户
+drop user BOSYUNTEST cascade;
+-- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id
+SELECT SID,SERIAL# FROM V$SESSION WHERE USERNAME=&apos;TQBAY&apos;;
+-- 再一个个kill掉该用户的会话再执行drop user
+ALTER SYSTEM KILL SESSION &apos;24,25341&apos;;
+</code></pre><h3 id="查询表空间路径"><a href="#查询表空间路径" class="headerlink" title="查询表空间路径"></a>查询表空间路径</h3><pre><code>select * from dba_data_files;
+</code></pre><h3 id="删除表空间和文件"><a href="#删除表空间和文件" class="headerlink" title="删除表空间和文件"></a>删除表空间和文件</h3><pre><code>-- 删除临时表空间和文件
+drop tablespace BOSYUN_TEST_TEMP including contents and datafiles;
+-- 删除数据表空间和文件
+drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
+drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
+</code></pre><h3 id="创建表空间"><a href="#创建表空间" class="headerlink" title="创建表空间"></a>创建表空间</h3><pre><code>-- 创建临时表空间
+CREATE SMALLFILE TEMPORARY TABLESPACE BOSYUN_TEST_TEMP TEMPFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_TEMP&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
+-- 创建数据表空间
+CREATE SMALLFILE TABLESPACE BOSYUN_TEST_DATA DATAFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_DATA&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED LOGGING EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
+-- 创建用户
+CREATE USER BOSYUNTEST PROFILE &quot;DEFAULT&quot; IDENTIFIED BY BOSYUNTEST DEFAULT TABLESPACE BOSYUN_TEST_DATA TEMPORARY TABLESPACE BOSYUN_TEST_TEMP ACCOUNT UNLOCK;
+-- 用户授权
+GRANT CONNECT TO BOSYUNTEST WITH ADMIN OPTION;
+GRANT DBA TO BOSYUNTEST;
+GRANT RESOURCE TO BOSYUNTEST;
+</code></pre><h3 id="可通过以下命令查看数据库已有的目录-："><a href="#可通过以下命令查看数据库已有的目录-：" class="headerlink" title="可通过以下命令查看数据库已有的目录 ："></a>可通过以下命令查看数据库已有的目录 <strong>：</strong></h3><pre><code># 查询 DATA_PUMP_DIR
+select * from DBA_DIRECTORIES;
+ /home/oracle/oradata/bosyun/dpdump/        DATA_PUMP_DIR
+
+-- 创建 DATA_PUMP_DIR目录
+create or replace directory DATA_PUMP_DIR as &apos;D:\app\Administrator\admin\orcl\dpdump&apos;;
+1.修改/data/oracle/product/11.2.0/db_1/network/admin/tnsnames.ora 
+2.把dmp文件放到DATA_PUMP_DIR目录下 （预先将dmp文件放置到指定的directory目录下，
+
+-- DATA_PUMP_DIR 需要预先将目录权限赋予该用户。
+grant read,write on directory DATA_PUMP_DIR to TQBAY_TEST;
+</code></pre><h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><pre><code>impdp TQBAY_TEST/TQBAY_TEST@bosyun directory=DATA_PUMP_DIR dumpfile=TQBAY_20170519.dump REMAP_SCHEMA=TQBAY:TQBAY_TEST;
+
+# 上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。  在后面加上 ignore=y 就可以了。
+# 基本上上面的导入导出够用了。不少情况要先是将表彻底删除，然后导入。
+</code></pre><h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><pre><code>select * from DBA_DIRECTORIES; --查询表 DATA_PUMP_DIR
+select * from product_component_version;  --查询oracle版本
+
+ --------oracle 解锁用户-------
+su - oracle
+sqlplus / as sysdba  --执行
+sql : alter user QICOLOR account unlock; --QICOLOR 用户解锁
+alter user QICOLOR_FORMAL account unlock;
+
+select userenv(&apos;language&apos;) from dual;-- 字符集
+------------------------------
+</code></pre><h3 id="数据库重启"><a href="#数据库重启" class="headerlink" title="数据库重启"></a>数据库重启</h3><pre><code>#关闭数据库存
+$export ORACLE_SID=QICOLOR
+$su - oracle
+$sqlplus / as sysdba
+$shutdown immediate
+$lsnrctl stop
+
+$export ORACLE_SID=TQBAY
+$su - oracle
+$sqlplus / as sysdba
+$shutdown immediate
+$lsnrctl stop
+
+#启动数据库
+$su - oracle
+$sqlplus / as sysdba
+$startup
+$lsnrctl start
+</code></pre><h3 id="oracle-管理员不用密码登录"><a href="#oracle-管理员不用密码登录" class="headerlink" title="oracle 管理员不用密码登录"></a>oracle 管理员不用密码登录</h3><pre><code>（1） 以oracle身份登录数据库，命令：su - oracle
+（2） 进入Sqlplus控制台，命令：sqlplus /nolog
+（3） 以系统管理员登录，命令：connect / as sysdba
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/01/oracle-expdp-impdp/">
+    <time datetime="2017-08-31T16:00:00.000Z" class="entry-date">
+        2017-09-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-1.ssh用户权限配置" class="post-1.ssh用户权限配置 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +722,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="clesbyv0b0004psiab1ct0ksc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/1.ssh用户权限配置/" data-id="cllu7jasg00004kiavvf4gr8q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -163,7 +808,7 @@ service sshd restart
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="clesbyv18001ypsiauwf41o1t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/linux 内存清理释放命令/" data-id="cllu7jat600254kiagk81eowg" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -245,7 +890,7 @@ free——未使用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="clesbyv0b0007psia5kvgukdw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/02/06/File-Extract-Compress/" data-id="cllu7jasq00074kiaidqo4thh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -406,7 +1051,7 @@ free——未使用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="clesbyuzv0000psia5t2ds76v" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/2.在Centos7下的nginx编译安装/" data-id="cllu7jask00014kiak8vyw9cy" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -716,7 +1361,7 @@ rm /usr/share/man/man1/nginx.1.gz
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="clesbyv180021psiad3ywjtsu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/linux安装JDK/" data-id="cllu7jat600204kia873m8xxq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -793,718 +1438,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
 
 
   
-    <article id="post-Off-line-Yum-Install" class="post-Off-line-Yum-Install post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/06/Off-line-Yum-Install/">Yum 下载安装包及对应依赖包</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/06/Off-line-Yum-Install/" data-id="clesbyv0q000qpsiaatlvwdkf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <hr>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
-<li><p>安装该软件：<code>yum install -y yum-plugin-downloadonly</code></p>
-</li>
-<li><p>以下载 openssh-server 为例：</p>
-<ul>
-<li><code>yum install -y openssh-server --downloadonly --downloaddir=/opt/ssh</code></li>
-<li>在 /opt/ssh 目录下有如下内容：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r--. 1 root root 280524 Aug 13  2015 openssh-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 448872 Aug 13  2015 openssh-clients-5.3p1-112.el6_7.x86_64.rpm</span><br><span class="line">-rw-r--r--. 1 root root 331544 Aug 13  2015 openssh-server-5.3p1-112.el6_7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<ul>
-<li>安装下载的 rpm 文件：<code>sudo rpm -ivh *.rpm</code></li>
-<li>利用 yum 安装 rpm 文件，并自动满足依赖的 rpm 文件：<code>sudo yum localinstall *.rpm</code></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/06/Off-line-Yum-Install/">
-    <time datetime="2017-01-05T16:00:00.000Z" class="entry-date">
-        2017-01-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-4.使用Lets Encrypt为站点快速部署SSL证书" class="post-4.使用Lets Encrypt为站点快速部署SSL证书 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">使用Lets Encrypt为站点快速部署SSL证书</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/" data-id="clesbyv0b0005psiasvngjxs4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>4.1.使用背景</p>
-<pre><code>时常搜索”免费ssl证书”，申请和验证步骤很麻烦，审核时间也不定，”Lets Encrypt“是一个倡导互联网上所有网站都该使用https的组织，提供免费的ssl证书服务。
-</code></pre><p>4.2.下载安装脚本</p>
-<pre><code>下载Github上贡献者做好的安装脚本，如下：
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.conf
-wget https://raw.githubusercontent.com/xdtianyu/scripts/master/lets-encrypt/letsencrypt.sh
-
-# 赋予执行权限
-chmod +x letsencrypt.sh
-</code></pre><p>4.3.配置相关信息</p>
-<pre><code>使用vi letsencrypt.conf打开配置文件，将里面的 example.com 换成自己的域名，如下：
-# only modify the values, key files will be generated automaticly.
-ACCOUNT_KEY=&quot;letsencrypt-account.key&quot;
-DOMAIN_KEY=&quot;tiger.com.key&quot;
-DOMAIN_DIR=&quot;/usr/local/openresty/nginx/html&quot;
-DOMAINS=&quot;DNS:test.tiger.com&quot;
-#ECC=TRUE
-#LIGHTTPD=TRUE
-</code></pre><p>按以往免费申请ssl的经历，通常都需要验证域名的所属权，不是通过配置二级域名验证就是需要在网站根目录上传验证文件，经过试用 Lets Encrypt，发现它使用的是第二种方式。</p>
-<p>所以在使用nginx做动态代理时，需要先注释掉，使用基本的静态文件方式配置nginx的虚拟主机以便 Lets Encrypt 去做验证，等ssl安装好之后在配置成动态代理即可。<br>所以上述配置文件中的 DOMAIN_DIR 很重要，否则会执行失败</p>
-<p>4.4.执行证书生成</p>
-<pre><code>./letsencrypt.sh ./letsencrypt.conf
-</code></pre><p>没有什么错误就会生成如下的几个文件，其中tiger.chained.crt和tiger.com.key就是需要的文件。</p>
-<pre><code>letsencrypt-account.key
-tiger.crt
-tiger.csr
-tiger.chained.crt
-tiger.com.key
-</code></pre><p>4.5.配置证书安装</p>
-<p>这里使用nginx进行证书安装的服务器</p>
-<pre><code>server {
-        listen       443;
-        server_name  test.tiger.com;
-
-    ssl on;
-    ssl_certificate tiger.chained.crt;
-    ssl_certificate_key tiger.com.key;
-    ssl_session_timeout 5m;
-
-    location / {
-        root html;
-        index  index.html index.htm;
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/01/4.使用Lets Encrypt为站点快速部署SSL证书/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-3.服务器上的iptables防火墙应该如何配置才能更安全" class="post-3.服务器上的iptables防火墙应该如何配置才能更安全 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">服务器上的iptables防火墙应该如何配置才能更安全</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/" data-id="clesbyv0b0001psiarhjql8kd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>3.1 背景</p>
-<pre><code>新入网的服务器在不做任何配置的情况下将会出现很多安全问题。端口肆意暴露、来源请求不明，恶意的数据包源源不断的流入服务器中。
-    公有云或许会控制非常用端口的访问，只开通如22、80、8080或者8443这样的常用端口，尽管屏蔽了大多数端口，但有效的做好防火墙规则仍然很重要。
-    下面流程化说明防火墙配置步骤
-</code></pre><p>3.2 封口</p>
-<p>将输入、输出、转向的数据包丢弃，对服务器进行彻底隔离，在封闭的环境中配置规则。这里值得提醒的是此操作需要在本机执行，因为 telnet 或者 ssh 的连接会当即断开。</p>
-<pre><code> # 丢弃输入数据流向
-iptables -P INPUT DROP
- # 丢弃输出数据流向
-iptables -P OUTPUT DROP
-# 丢弃转向数据流向
-iptables -P FORWARD DROP
-</code></pre><p>首先确保 ssh 远程连接开放，添加对 ssh 服务的出入站规则，正常端口为 22（端口应该更换成非 22）</p>
-<pre><code># 允许任务来源接入服务器的22端口
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-# 允许服务器通过22端口向任何来源发送数据包
-iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT
-做好以上的 ssh 服务规则后，任何来源等可以连接，若要求更高级的安全则可以添加准入IP，可以添加多条，其他服务同理。
-# 允许来源IP为221.4.12.28的地址访问服务器的22端口，即ssh服务
-iptables -I INPUT -s 221.4.12.28 -p tcp --dport 22 -j ACCEPT
-</code></pre><p>3.4 启用 Ping 命令</p>
-<p>当执行 ping 命令时，其实是向目标地址发送 icmp 的数据包并得到回显信息。在服务器内部 ping 外部地址时，属于 OUTPUT，由于服务器的输出已经被 DROP 掉，所以服务器目前 ping 不通任何外部 IP 地址，考虑到运维的需要，添加允许 ping 外部 IP 的规则。</p>
-<pre><code># 允许服务器向外部发送icmp的数据包
-iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
-# 允许服务器接收来自外部服务器返回的icmp数据包
-iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
-</code></pre><p>目前服务器可以 ping 外部 IP 地址了，但外部来源 ping 服务器是不通的。选择不开放来自外部的 ping 请求或许是一个好想法，这样可以迷惑扫描工具避免暴露主机的存活性(高级的扫描工具除外，如 nmap)。<br>下面是服务器接收和响应 ping 请求的出入站规则</p>
-<pre><code># 允许任何来源向服务器发送icmp的数据包
-iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-# 允许服务器向任何来源回显icmp的数据包
-iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
-</code></pre><p>3.5 启用 DNS 服务<br>服务器 ping 外部 IP 地址正常了，但 ping 外部的域名时则会显示 unknown host 的错误，这是因为 DNS 服务的 53 端口没有配置出入站规则。<br>下面是 DNS 服务的规则:</p>
-<pre><code>iptables -A INPUT -p udp -i eth0 --sport 53 -j ACCEPT
-iptables -A OUTPUT -p udp -o eth0 --dport 53 -j ACCEPT
-</code></pre><p>3.6 下载软件<br>现在服务器需要从外部下载某些软件，通常我们会使用 wget 或者 curl 这样的工具，执行时发现一直卡着不动。这是因为服务器访问外网的 80 端口出站和入站规则没有配置，需要添加，如下：</p>
-<pre><code>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --sport 80 -j ACCEPT
-</code></pre><p>备注：使用类似与 nginx 代理转发到内网主机上某个服务时，同样也需要添加如上规则。如转发到内网 192.168.1.22 上的 48443 的服务，规则如下：<br>iptables -A OUTPUT -p tcp –dport 48843 -j ACCEPT<br>iptables -A INPUT -p tcp –sport 48843 -j ACCEPT<br>3.7 启用本地回路 loopback<br>本地回路即 localhost，运维时通常会使用本地回路判断某些服务是否正常，这个必要有。</p>
-<pre><code>iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-</code></pre><p>当需要开放本地端口，如 127.0.0.1 或者 localhost 的端口时，可以使用以下命令使 通过 127.0.0.1 的访问全部通过<br>iptables -A INPUT -i lo -j ACCEPT<br>3.8 应用端规则<br>应用端规则指的是如 nginx、apache 等应用，启动后，默认情况下外网是不能访问的。如需要开通 nginx 的 80 和 443 端口，其他应用类似。</p>
-<pre><code>iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-iptables -A OUTPUT -p tcp --sport 443 -j ACCEPT
-</code></pre><p>3.9 删除规则</p>
-<pre><code>iptables -L -n --line-number
-iptables -D INPUT 15
-iptables -D OUTPUT 13
-</code></pre><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><pre><code>systemctl stop firewalld.service
-# 防火墙开机不启动
-systemctl disable firewalld
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/01/01/3.服务器上的iptables防火墙应该如何配置才能更安全/">
-    <time datetime="2016-12-31T16:00:00.000Z" class="entry-date">
-        2017-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-java中set接口的用法" class="post-java中set接口的用法 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/06/03/java中set接口的用法/">java中set接口的用法</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java中set接口的用法/" data-id="clesbyv2f004tpsiakvue1fyp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="java中的set接口有如下的特点"><a href="#java中的set接口有如下的特点" class="headerlink" title="java中的set接口有如下的特点"></a>java中的set接口有如下的特点</h2><pre><code>不允许出现重复元素；
-集合中的元素位置无顺序；
-有且只有一个值为null的元素。
-</code></pre><p>因为java中的set接口模仿了数学上的set抽象，所以，对应的数学上set的特性为：</p>
-<pre><code>互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。
-
-无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按照序关系排序。但就集合本身的特性而言，元素之间没有必然的序。
-
-空集的性质：空集是一切集合的子集
-
-
-
-  Set不保存重复的元素。Set中最常被使用的是测试归属性，你可以很容易的询问某个对象是否在某个Set中。Set具有与Collection完全一样的接口，因此没有任何额外的功能。实际上Set就是Collection，只是行为不同。
-</code></pre><p>实现了Set接口的主要有HashSet、TreeSet、LinkedHashSet这几个共同点就是每个相同的项只保存一份。他们也有不同点，区别如下：</p>
-<h2 id="1-HashSet"><a href="#1-HashSet" class="headerlink" title="1. HashSet"></a>1. HashSet</h2><p>HashSet使用的是相当复杂的方式来存储元素的，使用HashSet能够最快的获取集合中的元素，效率非常高（以空间换时间）。会根据hashcode和equals来庞端是否是同一个对象，如果hashcode一样，并且equals返回true，则是同一个对象，不能重复存放。</p>
-<pre><code>package cn.set;
-
-import java.util.HashSet;
-import java.util.Set;
-
-class Student{
-    int id;
-    public Student(int id) {
-        this.id = id;
-    }
-    @Override
-    public String toString() {
-        return this.id+&quot;&quot;;
-    }
-    @Override
-    public int hashCode() {
-        return this.id;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Student){
-            Student  stu = (Student) obj;
-            if (stu.id == this.id)
-                return true;
-        }
-        return false;
-    }
-}
-public class HashSetTest {
-    public static void main(String[] args) {
-        Set&lt;Student&gt; set = new HashSet&lt;Student&gt;();
-        Student s1 = new Student(1);
-        Student s2 = new Student(1);
-        Student s3 = new Student(2);
-        set.add(s1);
-        set.add(s2);
-        set.add(s3);
-        for (Student s : set) {
-            System.out.println(s);
-        }
-    }
-}
-</code></pre><p>正如上例所示，重写了hashCode()和equals()方法来区分同意对象后，就不能存放同以对象了。如果注释这两个方法，则所有Student对象视为不同对象，都可以存放。</p>
-<h2 id="2-TreeSet"><a href="#2-TreeSet" class="headerlink" title="2.TreeSet"></a>2.TreeSet</h2><p>　　TreeSet也不能存放重复对象，但是TreeSet会自动排序，如果存放的对象不能排序则会报错，所以存放的对象必须指定排序规则。排序规则包括自然排序和客户排序。</p>
-<p>　　①自然排序：TreeSet要添加哪个对象就在哪个对象类上面实现java.lang.Comparable接口，并且重写comparaTo()方法，返回0则表示是同一个对象，否则为不同对象。</p>
-<p>　　②客户排序：建立一个第三方类并实现java.util.Comparator接口。并重写方法。定义集合形式为TreeSet ts = new TreeSet(new 第三方类());</p>
-<p>下面一个例子用TreeSet存放自然排序的对象：</p>
-<pre><code>package cn.set;
-
-import java.util.Set;
-import java.util.TreeSet;
-
-class Student1 implements Comparable&lt;Student1&gt;{
-    int id;
-    public Student1(int id) {
-        this.id = id;
-    }
-    @Override
-    public String toString() {
-        return this.id+&quot;&quot;;
-    }
-    @Override
-    public int hashCode() {
-        return this.id;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Student1){
-            Student1  stu = (Student1) obj;
-            if (stu.id == this.id)
-                return true;
-        }
-        return false;
-    }
-    public int compareTo(Student1 o) {
-        return (this.id-o.id);
-    }
-}
-
-public class TreeSetTest {
-    public static void main(String[] args) {
-        Set&lt;Student1&gt; set = new TreeSet&lt;Student1&gt;();
-        Student1 s1 = new Student1(5);
-        Student1 s2 = new Student1(1);
-        Student1 s3 = new Student1(2);
-        Student1 s4 = new Student1(4);
-        Student1 s5 = new Student1(3);
-        set.add(s1);
-        set.add(s2);
-        set.add(s3);
-        set.add(s4);
-        set.add(s5);
-        for (Student1 s : set) {
-            System.out.println(s);
-        }
-    }
-
-}
-</code></pre><p>输出结果为：<br>    1<br>    2<br>    3<br>    4<br>    5</p>
-<p>下面一个例子用TreeSet存放客户排序的对象：</p>
-<pre><code>package com.set;
-
-import java.util.Set;
-import java.util.TreeSet;
-
-class Student1 implements Comparable&lt;Student1&gt;{
-    int id;
-    public Student1(int id) {
-        this.id = id;
-    }
-    @Override
-    public String toString() {
-        return this.id+&quot;&quot;;
-    }
-    @Override
-    public int hashCode() {
-        return this.id;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Student1){
-            Student1  stu = (Student1) obj;
-            if (stu.id == this.id)
-                return true;
-        }
-        return false;
-    }
-    public int compareTo(Student1 o) {
-        return (this.id-o.id);
-    }
-}
-
-public class TreeSetTest {
-    public static void main(String[] args) {
-        Set&lt;Student1&gt; set = new TreeSet&lt;Student1&gt;();
-        Student1 s1 = new Student1(5);
-        Student1 s2 = new Student1(1);
-        Student1 s3 = new Student1(2);
-        Student1 s4 = new Student1(4);
-        Student1 s5 = new Student1(3);
-        set.add(s1);
-        set.add(s2);
-        set.add(s3);
-        set.add(s4);
-        set.add(s5);
-        for (Student1 s : set) {
-            System.out.println(s);
-        }
-    }
-
-}
-</code></pre><p>输出结果为：</p>
-<pre><code>5
-4
-3
-2
-1
-</code></pre><p>大家都知道List存放时按照插入顺序排序的，其实也可以用自然排序和客户排序对List集合排序，大家请看：</p>
-<pre><code>package cn.set;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-class MySort1 implements java.util.Comparator&lt;Student3&gt;{
-    public int compare(Student3 o1, Student3 o2) {
-        return o2.id-o1.id;
-    }
-}
-class Student3 implements Comparable&lt;Student3&gt;{
-    int id;
-    public Student3(int id) {
-        this.id = id;
-    }
-    @Override
-    public String toString() {
-        return this.id+&quot;&quot;;
-    }
-    public int compareTo(Student3 o) {
-        return (this.id-o.id);
-    }
-}
-
-public class ListSort {
-    public static void main(String[] args) {
-        List&lt;Student3&gt; list = new ArrayList&lt;Student3&gt;();
-        Student3 s1 = new Student3(5);
-        Student3 s2 = new Student3(1);
-        Student3 s3 = new Student3(2);
-        Student3 s4 = new Student3(4);
-        Student3 s5 = new Student3(3);
-        list.add(s1);
-        list.add(s2);
-        list.add(s3);
-        list.add(s4);
-        list.add(s5);
-        System.out.println(list);
-        //自然排序：
-        Collections.sort(list);
-        System.out.println(list);
-        //客户排序
-        Collections.sort(list, new MySort1());
-        System.out.println(list);
-    }
-}
-</code></pre><p>输出结果为：</p>
-<pre><code>[5, 1, 2, 4, 3]
-[1, 2, 3, 4, 5]
-[5, 4, 3, 2, 1]
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2016/06/03/java中set接口的用法/">
-    <time datetime="2016-06-02T16:00:00.000Z" class="entry-date">
-        2016-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-java 正则表达式 手机号 邮箱" class="post-java 正则表达式 手机号 邮箱 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/06/03/java 正则表达式 手机号 邮箱/">java 正则表达式 手机号 邮箱</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/03/java 正则表达式 手机号 邮箱/" data-id="clesbyv0q001hpsiair6zv8j8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="java-正则表达式-手机号-邮箱"><a href="#java-正则表达式-手机号-邮箱" class="headerlink" title="java 正则表达式 手机号 邮箱"></a>java 正则表达式 手机号 邮箱</h2><pre><code>import java.util.regex.Pattern;
-/**
- * 账户相关属性验证工具
- *
- */
-public class AccountValidatorUtil {
-    /**
-     * 正则表达式：验证用户名
-     */
-    public static final String REGEX_USERNAME = &quot;^[a-zA-Z]\\w{5,20}$&quot;;
-
-    /**
-     * 正则表达式：验证密码
-     */
-    public static final String REGEX_PASSWORD = &quot;^[a-zA-Z0-9]{6,20}$&quot;;
-
-    /**
-     * 正则表达式：验证手机号
-     */
-    public static final String REGEX_MOBILE = &quot;^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$&quot;;
-
-    /**
-     * 正则表达式：验证邮箱
-     */
-    public static final String REGEX_EMAIL = &quot;^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$&quot;;
-
-    /**
-     * 正则表达式：验证汉字
-     */
-    public static final String REGEX_CHINESE = &quot;^[\u4e00-\u9fa5],{0,}$&quot;;
-
-    /**
-     * 正则表达式：验证身份证
-     */
-    public static final String REGEX_ID_CARD = &quot;(^\\d{18}$)|(^\\d{15}$)&quot;;
-
-    /**
-     * 正则表达式：验证URL
-     */
-    public static final String REGEX_URL = &quot;http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&amp;=]*)?&quot;;
-
-    /**
-     * 正则表达式：验证IP地址
-     */
-    public static final String REGEX_IP_ADDR = &quot;(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)&quot;;
-
-    /**
-     * 校验用户名
-     * 
-     * @param username
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isUsername(String username) {
-        return Pattern.matches(REGEX_USERNAME, username);
-    }
-
-    /**
-     * 校验密码
-     * 
-     * @param password
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isPassword(String password) {
-        return Pattern.matches(REGEX_PASSWORD, password);
-    }
-
-    /**
-     * 校验手机号
-     * 
-     * @param mobile
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isMobile(String mobile) {
-        return Pattern.matches(REGEX_MOBILE, mobile);
-    }
-
-    /**
-     * 校验邮箱
-     * 
-     * @param email
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isEmail(String email) {
-        return Pattern.matches(REGEX_EMAIL, email);
-    }
-
-    /**
-     * 校验汉字
-     * 
-     * @param chinese
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isChinese(String chinese) {
-        return Pattern.matches(REGEX_CHINESE, chinese);
-    }
-
-    /**
-     * 校验身份证
-     * 
-     * @param idCard
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isIDCard(String idCard) {
-        return Pattern.matches(REGEX_ID_CARD, idCard);
-    }
-
-    /**
-     * 校验URL
-     * 
-     * @param url
-     * @return 校验通过返回true，否则返回false
-     */
-    public static boolean isUrl(String url) {
-        return Pattern.matches(REGEX_URL, url);
-    }
-
-    /**
-     * 校验IP地址
-     * 
-     * @param ipAddr
-     * @return
-     */
-    public static boolean isIPAddr(String ipAddr) {
-        return Pattern.matches(REGEX_IP_ADDR, ipAddr);
-    }
-}
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2016/06/03/java 正则表达式 手机号 邮箱/">
-    <time datetime="2016-06-02T16:00:00.000Z" class="entry-date">
-        2016-06-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -1529,7 +1462,7 @@ public class AccountValidatorUtil {
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-mysql2/">node mysql2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1541,23 +1474,23 @@ public class AccountValidatorUtil {
       <ul>
         
           <li>
-            <a href="/2023/03/03/前端学习/">前端学习</a>
+            <a href="/2023/07/27/制作npm/">生成npm包</a>
           </li>
         
           <li>
-            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2023/07/19/indexedDB/">windows indexedDB</a>
           </li>
         
           <li>
-            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+            <a href="/2023/07/19/webpack4 thread-loader cache/">webpack vue-cli 启动编译慢</a>
           </li>
         
           <li>
-            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+            <a href="/2023/07/19/webpack/">terser-webpack-plugin的使用:删除注释和console</a>
           </li>
         
           <li>
-            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+            <a href="/2023/03/23/node mysql2/">node mysql2</a>
           </li>
         
       </ul>

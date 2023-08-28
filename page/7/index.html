@@ -62,6 +62,594 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-vue组件之间通信" class="post-vue组件之间通信 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/03/26/vue组件之间通信/">vue组件之间的通信</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/03/26/vue组件之间通信/" data-id="cllu7jatm00384kiae0x7nv2t" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h3 id="安装-vue-bus"><a href="#安装-vue-bus" class="headerlink" title="安装 vue-bus"></a>安装 vue-bus</h3><pre><code>npm install vue-bus --save-dev
+</code></pre><h3 id="创建-vue-bus"><a href="#创建-vue-bus" class="headerlink" title="创建 vue-bus"></a>创建 vue-bus</h3><pre><code>/**
+* 组件之间的通信
+* @param Vue
+*/
+const install = (Vue) =&gt;{
+  const Bus = new Vue({
+      methods:{
+          emit(event, ...args){
+              this.$emit(event, ...args)
+          },
+          on (event, callback){
+              this.$on(event, callback)
+          },
+          off(event, callback){
+              this.$off(event, callback)
+          }
+      }
+  })
+  Vue.prototype.$bus = Bus
+}
+export default install
+</code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code>import VueBus from &apos;@/common/vue-bus&apos;
+Vue.use(VueBus)
+</code></pre><h3 id="组件a-调用-组件b"><a href="#组件a-调用-组件b" class="headerlink" title="组件a 调用 组件b"></a>组件a 调用 组件b</h3><pre><code># 组件 a
+let num = Math.floor(Math.random() * 100 + 1);
+this.$bus.$emit(&apos;getMenu&apos;, num);
+
+# 组件 b
+,created() {
+    this.$bus.$on(&apos;getMenu&apos;, target =&gt; {
+        // console.log(target);
+        this.getMenus();
+    });
+}
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/03/26/vue组件之间通信/">
+    <time datetime="2019-03-25T16:00:00.000Z" class="entry-date">
+        2019-03-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-RPC入门总结  RPC定义和原理" class="post-RPC入门总结  RPC定义和原理 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/01/01/RPC入门总结  RPC定义和原理/">RPC入门总结 RPC定义和原理</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2019/01/01/RPC入门总结  RPC定义和原理/" data-id="cllu7jauh004w4kiaz1ej1f40" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>一、RPC</p>
+<pre><code>1. RPC是什么
+
+    RPC（Remote Procedure Call Protocol）——远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。RPC协议假定某些传输协议的存在，如TCP或UDP，为通信程序之间携带信息数据。在OSI网络通信模型中，RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易。
+
+RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。首先，客户机调用进程发送一个有进程参数的调用信息到服务进程，然后等待应答信息。在服务器端，进程保持睡眠状态直到调用信息到达为止。当一个调用信息到达，服务器获得进程参数，计算结果，发送答复信息，然后等待下一个调用信息，最后，客户端调用进程接收答复信息，获得进程结果，然后调用执行继续进行。
+2. 为什么要用RPC？ 
+其实这是应用开发到一定的阶段的强烈需求驱动的。
+
+    1. 如果我们开发简单的单一应用，逻辑简单、用户不多、流量不大，那我们用不着；
+
+    2. 当我们的系统访问量增大、业务增多时，我们会发现一台单机运行此系统已经无法承受。此时，我们可以将业务拆分成几个互不关联的应用，分别部署在各自机器上，以划清逻辑并减小压力。此时，我们也可以不需要RPC，因为应用之间是互不关联的。
+    3. 当我们的业务越来越多、应用也越来越多时，自然的，我们会发现有些功能已经不能简单划分开来或者划分不出来。此时，可以将公共业务逻辑抽离出来，将之组成独立的服务Service应用 。而原有的、新增的应用都可以与那些独立的Service应用 交互，以此来完成完整的业务功能。所以此时，我们急需一种高效的应用程序之间的通讯手段来完成这种需求，所以你看，RPC大显身手的时候来了！
+    其实3描述的场景也是服务化 、微服务 和分布式系统架构 的基础场景。即RPC框架就是实现以上结构的有力方式。
+</code></pre><p>二、RPC的原理和框架</p>
+<pre><code>Nelson 的论文中指出实现 RPC 的程序包括 5 个部分：
+
+1. User
+
+2. User-stub
+
+3. RPCRuntime
+
+4. Server-stub
+
+5. Server
+
+    这里 user 就是 client 端，当 user 想发起一个远程调用时，它实际是通过本地调用user-stub。user-stub 负责将调用的接口、方法和参数通过约定的协议规范进行编码并通过本地的 RPCRuntime 实例传输到远端的实例。远端 RPCRuntime 实例收到请求后交给 server-stub 进行解码后发起本地端调用，调用结果再返回给 user 端。
+    RPC 服务方通过 RpcServer 去导出（export）远程接口方法，而客户方通过 RpcClient 去引入（import）远程接口方法。客户方像调用本地方法一样去调用远程接口方法，RPC 框架提供接口的代理实现，实际的调用将委托给代理RpcProxy 。代理封装调用信息并将调用转交给RpcInvoker 去实际执行。在客户端的RpcInvoker 通过连接器RpcConnector 去维持与服务端的通道RpcChannel，并使用RpcProtocol 执行协议编码（encode）并将编码后的请求消息通过通道发送给服务方。
+    RPC 服务端接收器 RpcAcceptor 接收客户端的调用请求，同样使用RpcProtocol 执行协议解码（decode）。解码后的调用信息传递给RpcProcessor 去控制处理调用过程，最后再委托调用给RpcInvoker 去实际执行并返回调用结果。如下是各个部分的详细职责：
+    1. RpcServer  
+       负责导出（export）远程接口  
+    2. RpcClient  
+       负责导入（import）远程接口的代理实现  
+    3. RpcProxy  
+       远程接口的代理实现  
+    4. RpcInvoker  
+       客户方实现：负责编码调用信息和发送调用请求到服务方并等待调用结果返回  
+       服务方实现：负责调用服务端接口的具体实现并返回调用结果  
+    5. RpcProtocol  
+       负责协议编/解码  
+    6. RpcConnector  
+       负责维持客户方和服务方的连接通道和发送数据到服务方  
+    7. RpcAcceptor  
+       负责接收客户方请求并返回请求结果  
+    8. RpcProcessor  
+       负责在服务方控制调用过程，包括管理调用线程池、超时时间等  
+    9. RpcChannel  
+       数据传输通道  
+</code></pre><p>三、Java中常用的RPC框架</p>
+<pre><code>目前常用的RPC框架如下：
+
+1. Thrift：thrift是一个软件框架，用来进行可扩展且跨语言的服务的开发。它结合了功能强大的软件堆栈和代码生成引擎，以构建在 C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, JavaScript, Node.js, Smalltalk, and OCaml 这些编程语言间无缝结合的、高效的服务。
+
+2. Dubbo：Dubbo是一个分布式服务框架，以及SOA治理方案。其功能主要包括：高性能NIO通讯及多协议集成，服务动态寻址与路由，软负载均衡与容错，依赖分析与降级等。 Dubbo是阿里巴巴内部的SOA服务化治理方案的核心框架，Dubbo自2011年开源后，已被许多非阿里系公司使用。 
+
+3. Spring Cloud：Spring Cloud由众多子项目组成，如Spring Cloud Config、Spring Cloud Netflix、Spring Cloud Consul 等，提供了搭建分布式系统及微服务常用的工具，如配置管理、服务发现、断路器、智能路由、微代理、控制总线、一次性token、全局锁、选主、分布式会话和集群状态等，满足了构建微服务所需的所有解决方案。Spring Cloud基于Spring Boot, 使得开发部署极其简单。
+</code></pre><p>四、RPC和消息队列的差异</p>
+<pre><code>1. 功能差异
+
+    在架构上，RPC和Message的差异点是，Message有一个中间结点Message Queue，可以把消息存储。
+    消息的特点
+    1. Message Queue把请求的压力保存一下，逐渐释放出来，让处理者按照自己的节奏来处理。
+    2. Message Queue引入一下新的结点，系统的可靠性会受Message Queue结点的影响。
+    3. Message Queue是异步单向的消息。发送消息设计成是不需要等待消息处理的完成。
+    所以对于有同步返回需求，用Message Queue则变得麻烦了。
+RPC的特点
+    同步调用，对于要等待返回结果/处理结果的场景，RPC是可以非常自然直觉的使用方式(RPC也可以是异步调用)。
+    由于等待结果，Consumer（Client）会有线程消耗。如果以异步RPC的方式使用，Consumer（Client）线程消耗可以去掉。但不能做到像消息一样暂存消息/请求，压力会直接传导到服务Provider。
+    2. 适用场合差异
+        1. 希望同步得到结果的场合，RPC合适。
+        2. 希望使用简单，则RPC；RPC操作基于接口，使用简单，使用方式模拟本地调用。异步的方式编程比较复杂。
+        3. 不希望发送端（RPC Consumer、Message Sender）受限于处理端（RPC Provider、Message Receiver）的速度时，使用Message Queue。
+        随着业务增长，有的处理端处理量会成为瓶颈，会进行同步调用到异步消息的改造。这样的改造实际上有调整业务的使用方式。比如原来一个操作页面提交后就下一个页面会看到处理结果；改造后异步消息后，下一个页面就会变成“操作已提交，完成后会得到通知”。
+    3. 不适用场合说明
+        1. RPC同步调用使用Message Queue来传输调用信息。 上面分析可以知道，这样的做法，发送端是在等待，同时占用一个中间点的资源。变得复杂了，但没有对等的收益。
+        2. 对于返回值是void的调用，可以这样做，因为实际上这个调用业务上往往不需要同步得到处理结果的，只要保证会处理即可。（RPC的方式可以保证调用返回即处理完成，使用消息方式后这一点不能保证了。）
+        3. 返回值是void的调用，使用消息，效果上是把消息的使用方式Wrap成了服务调用（服务调用使用方式成简单，基于业务接口）。
+</code></pre><p>五、RPC框架的核心技术点</p>
+<pre><code>RPC框架实现的几个核心技术点：
+
+（1）服务暴露：
+
+    远程提供者需要以某种形式提供服务调用相关的信息，包括但不限于服务接口定义、数据结构、或者中间态的服务定义文件。例如Facebook的Thrift的IDL文件，Web service的WSDL文件；服务的调用者需要通过一定的途径获取远程服务调用相关的信息。
+
+    目前，大部分跨语言平台 RPC 框架采用根据 IDL 定义通过 code generator 去生成 stub 代码，这种方式下实际导入的过程就是通过代码生成器在编译期完成的。代码生成的方式对跨语言平台 RPC 框架而言是必然的选择，而对于同一语言平台的 RPC 则可以通过共享接口定义来实现。这里的导入方式本质也是一种代码生成技术，只不过是在运行时生成，比静态编译期的代码生成看起来更简洁些。
+
+    java 中还有一种比较特殊的调用就是多态，也就是一个接口可能有多个实现，那么远程调用时到底调用哪个？这个本地调用的语义是通过 jvm 提供的引用多态性隐式实现的，那么对于 RPC 来说跨进程的调用就没法隐式实现了。如果前面DemoService 接口有 2 个实现，那么在导出接口时就需要特殊标记不同的实现需要，那么远程调用时也需要传递该标记才能调用到正确的实现类，这样就解决了多态调用的语义问题。
+
+（2）远程代理对象：
+
+    服务调用者用的服务实际是远程服务的本地代理。说白了就是通过动态代理来实现。
+
+    java 里至少提供了两种技术来提供动态代码生成，一种是 jdk 动态代理，另外一种是字节码生成。动态代理相比字节码生成使用起来更方便，但动态代理方式在性能上是要逊色于直接的字节码生成的，而字节码生成在代码可读性上要差很多。两者权衡起来，个人认为牺牲一些性能来获得代码可读性和可维护性显得更重要。
+
+（3）通信：
+
+    RPC框架与具体的协议无关。RPC 可基于 HTTP 或 TCP 协议，Web Service 就是基于 HTTP 协议的 RPC，它具有良好的跨平台性，但其性能却不如基于 TCP 协议的 RPC。
+
+    1. TCP/HTTP：众所周知，TCP 是传输层协议，HTTP 是应用层协议，而传输层较应用层更加底层，在数据传输方面，越底层越快，因此，在一般情况下，TCP 一定比 HTTP 快。
+
+    2. 消息ID：RPC 的应用场景实质是一种可靠的请求应答消息流，和 HTTP 类似。因此选择长连接方式的 TCP 协议会更高效，与 HTTP 不同的是在协议层面我们定义了每个消息的唯一 id，因此可以更容易的复用连接。
+
+    3. IO方式：为了支持高并发，传统的阻塞式 IO 显然不太合适，因此我们需要异步的 IO，即 NIO。Java 提供了 NIO 的解决方案，Java 7 也提供了更优秀的 NIO.2 支持。
+
+    4. 多连接：既然使用长连接，那么第一个问题是到底 client 和 server 之间需要多少根连接？实际上单连接和多连接在使用上没有区别，对于数据传输量较小的应用类型，单连接基本足够。单连接和多连接最大的区别在于，每根连接都有自己私有的发送和接收缓冲区，因此大数据量传输时分散在不同的连接缓冲区会得到更好的吞吐效率。所以，如果你的数据传输量不足以让单连接的缓冲区一直处于饱和状态的话，那么使用多连接并不会产生任何明显的提升，反而会增加连接管理的开销。
+    5. 心跳：连接是由 client 端发起建立并维持。如果 client 和 server 之间是直连的，那么连接一般不会中断（当然物理链路故障除外）。如果 client 和 server 连接经过一些负载中转设备，有可能连接一段时间不活跃时会被这些中间设备中断。为了保持连接有必要定时为每个连接发送心跳数据以维持连接不中断。心跳消息是 RPC 框架库使用的内部消息，在前文协议头结构中也有一个专门的心跳位，就是用来标记心跳消息的，它对业务应用透明。
+
+（4）序列化：
+
+    两方面会直接影响 RPC 的性能，一是传输方式，二是序列化。
+
+    1. 序列化方式：毕竟是远程通信，需要将对象转化成二进制流进行传输。不同的RPC框架应用的场景不同，在序列化上也会采取不同的技术。 就序列化而言，Java 提供了默认的序列化方式，但在高并发的情况下，这种方式将会带来一些性能上的瓶颈，于是市面上出现了一系列优秀的序列化框架，比如：Protobuf、Kryo、Hessian、Jackson 等，它们可以取代 Java 默认的序列化，从而提供更高效的性能。
+
+    2. 编码内容：出于效率考虑，编码的信息越少越好（传输数据少），编码的规则越简单越好（执行效率高）。如下是编码需要具备的信息：
+
+    -- 调用编码 --  
+    1. 接口方法  
+       包括接口名、方法名  
+    2. 方法参数  
+       包括参数类型、参数值  
+    3. 调用属性  
+       包括调用属性信息，例如调用附件隐式参数、调用超时时间等  
+
+    -- 返回编码 --  
+    1. 返回结果  
+       接口方法中定义的返回值  
+    2. 返回码  
+       异常返回码  
+    3. 返回异常信息  
+       调用异常信息 
+
+    除了以上这些必须的调用信息，我们可能还需要一些元信息以方便程序编解码以及未来可能的扩展。这样我们的编码消息里面就分成了两部分，一部分是元信息、另一部分是调用的必要信息。如果设计一种 RPC 协议消息的话，元信息我们把它放在协议消息头中，而必要信息放在协议消息体中。下面给出一种概念上的 RPC 协议消息设计格式：
+
+    -- 消息头 --  
+    magic      : 协议魔数，为解码设计  
+    header size: 协议头长度，为扩展设计  
+    version    : 协议版本，为兼容设计  
+    st         : 消息体序列化类型  
+    hb         : 心跳消息标记，为长连接传输层心跳设计  
+    ow         : 单向消息标记，  
+    rp         : 响应消息标记，不置位默认是请求消息  
+    status code: 响应消息状态码  
+    reserved   : 为字节对齐保留  
+    message id : 消息 id  
+    body size  : 消息体长度  
+
+    -- 消息体 --  
+    采用序列化编码，常见有以下格式  
+    xml   : 如 webservie soap  
+    json  : 如 JSON-RPC  
+    binary: 如 thrift; hession; kryo 等  
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2019/01/01/RPC入门总结  RPC定义和原理/">
+    <time datetime="2018-12-31T16:00:00.000Z" class="entry-date">
+        2019-01-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/随记/">随记</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Springboot-BindingResult-Validation" class="post-Springboot-BindingResult-Validation post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/12/17/Springboot-BindingResult-Validation/">Springboot 使用注解@Validated和BindingResult校验参数</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/12/17/Springboot-BindingResult-Validation/" data-id="cllu7jasq00144kiaa3n4a4i0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1、创建一个参数对象"><a href="#1、创建一个参数对象" class="headerlink" title="1、创建一个参数对象"></a>1、创建一个参数对象</h2><pre><code># Validation
+package common.validate.type
+    public class Validation {
+
+    /**查询*/
+    public interface Select {
+    }
+    /**更新*/
+    public interface Update {
+    }
+    /**插入*/
+    public interface Insert {
+    }
+    /**删除*/
+    public interface Delete {
+    }
+
+    /**查询详情*/
+    public interface SelectDetail {
+    }
+
+}
+
+import java.util.List;
+import common.validate.type.Validation;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+public class Parameter {
+
+    @NotEmpty(message=&quot;姓名不能为空&quot;, groups = Validation.Update.class)
+    private String name;
+
+    @Min(value = 18, message = &quot;年龄必须大于18岁&quot;, groups = Validation.Update.class)
+    private int age;
+
+    @NotEmpty(message=&quot;hobbies不能为空&quot;, groups = Validation.Update.class)
+    private List&lt;String&gt; hobbies;
+
+    @NotBlank(message=&quot;账号不能为空&quot;, groups = Validation.Update.class)
+    private String account;
+
+    @Size(min=5,max=10,message=&quot;密码的长度应该在5和10之间&quot;, groups = Validation.Update.class) 
+    private String password;
+
+    @Email(message=&quot;邮箱格式错误&quot;, groups = Validation.Update.class)
+    private String email;
+
+    // Getter and Setter
+    // ... 
+
+}
+</code></pre><h2 id="2、controller控制层写参数接收的入口"><a href="#2、controller控制层写参数接收的入口" class="headerlink" title="2、controller控制层写参数接收的入口"></a>2、controller控制层写参数接收的入口</h2><pre><code>public class BaseController {
+    /**
+    * 正常的返回值
+    *
+    * @param outPutBean
+    */
+    protected void setSuccess(BaseVO outPutBean) {
+        outPutBean.setResultCode(ConstantsRecruit.ResultCode.SUCCESS);
+    }
+
+    /**
+    * 处理参数异常
+    *
+    * @param bindingResult
+    */
+    protected void paramaterVidation(BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMesssage = new StringBuilder(&quot;参数异常:&quot;);
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorMesssage.append(fieldError.getField());
+                errorMesssage.append(&quot;:&quot;);
+                errorMesssage.append(fieldError.getDefaultMessage());
+                errorMesssage.append(&quot;; &quot;);
+            }
+            throw new TestAplException(ConstantsRecruit.ResultCode.PARAM_ERR, errorMesssage.toString());
+        }
+    }
+}
+
+
+# 注意：BindingResult需要放到@Validated后面
+
+public class TestController extends BaseController{
+
+    @ApiOperation(value = &quot;测试&quot;, notes = &quot;更新&quot;)
+    @PostMapping(value = &quot;/update&quot;)
+    public BaseVO update(@RequestBody @Validated(Validation.Update.class) Parameter input,BindingResult bindingResult){
+        paramaterVidation(bindingResult);
+        BaseVO vo = new BaseVO();
+        commonService.update();
+        setSuccess(vo);
+        return vo;
+    }
+}
+</code></pre><h2 id="3、常用校验注解"><a href="#3、常用校验注解" class="headerlink" title="3、常用校验注解"></a>3、常用校验注解</h2><p>@Null 只能是null<br>@NotNull 不能为null 注意用在基本类型上无效，基本类型有默认初始值<br>@AssertFalse 必须为false<br>@AssertTrue 必须是true</p>
+<p>字符串/数组/集合检查：(字符串本身就是个数组)<br>@Pattern(regexp=”reg”) 验证字符串满足正则<br>@Size(max, min) 验证字符串、数组、集合长度范围<br>@NotEmpty 验证字符串不为空或者null<br>@NotBlank 验证字符串不为null或者trim()后不为空</p>
+<p>数值检查：同时能验证一个字符串是否是满足限制的数字的字符串<br>@Max 规定值得上限int<br>@Min 规定值得下限<br>@DecimalMax(“10.8”) 以传入字符串构建一个BigDecimal，规定值要小于这个值<br>@DecimalMin 可以用来限制浮点数大小<br>@Digits(int1, int2) 限制一个小数，整数精度小于int1；小数部分精度小于int2<br>@Digits 无参数，验证字符串是否合法<br>@Range(min=long1,max=long2) 检查数字是否在范围之间<br>这些都包括边界值</p>
+<p>日期检查：Date/Calendar<br>@Post 限定一个日期，日期必须是过去的日期<br>@Future 限定一个日期，日期必须是未来的日期</p>
+<p>其他验证：<br>@Vaild 递归验证，用于对象、数组和集合，会对对象的元素、数组的元素进行一一校验<br>@Email 用于验证一个字符串是否是一个合法的右键地址，空字符串或null算验证通过<br>@URL(protocol=,host=,port=,regexp=,flags=) 用于校验一个字符串是否是合法URL</p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/12/17/Springboot-BindingResult-Validation/">
+    <time datetime="2018-12-16T16:00:00.000Z" class="entry-date">
+        2018-12-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Springboot/">Springboot</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Maven-Install-And-Settings" class="post-Maven-Install-And-Settings post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/06/13/Maven-Install-And-Settings/">Maven 安装和配置</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/13/Maven-Install-And-Settings/" data-id="cllu7jasq000i4kiay0lotcju" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Maven-资料"><a href="#Maven-资料" class="headerlink" title="Maven 资料"></a>Maven 资料</h2><ul>
+<li>官网：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></li>
+<li>官网下载：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></li>
+<li>历史版本下载：<a href="https://archive.apache.org/dist/maven/binaries/" target="_blank" rel="noopener">https://archive.apache.org/dist/maven/binaries/</a></li>
+</ul>
+<h2 id="Maven-安装（bash-环境）"><a href="#Maven-安装（bash-环境）" class="headerlink" title="Maven 安装（bash 环境）"></a>Maven 安装（bash 环境）</h2><ul>
+<li>Maven 3.3 的 JDK 最低要求是 JDK 7</li>
+<li>下载压缩包：<code>wget http://mirrors.cnnic.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz</code></li>
+<li>解压：<code>tar zxvf apache-maven-3.3.9-bin.tar.gz</code></li>
+<li>修改目录名，默认的太长了：<code>mv apache-maven-3.3.9/ maven3.3.9/</code></li>
+<li>移到我个人习惯的安装目录下：<code>mv maven3.3.9/ /usr/local</code></li>
+<li>环境变量设置：<code>vim /etc/profile</code></li>
+<li>在文件最尾巴添加下面内容：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Maven</span></span><br><span class="line"><span class="attr">MAVEN_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">M3_HOME</span>=/usr/local/maven3.<span class="number">3.9</span></span><br><span class="line"><span class="attr">PATH</span>=<span class="variable">$PATH</span>:<span class="variable">$M3_HOME</span>/bin</span><br><span class="line"><span class="attr">MAVEN_OPTS</span>=<span class="string">"-Xms256m -Xmx356m"</span></span><br><span class="line">export M3_HOME</span><br><span class="line">export MAVEN_HOME</span><br><span class="line">export PATH</span><br><span class="line">export MAVEN_OPTS</span><br></pre></td></tr></table></figure>
+<ul>
+<li>刷新配置文件：<code>source /etc/profile</code></li>
+<li>测试是否安装成功：<code>mvn -version</code></li>
+</ul>
+<h2 id="Maven-配置"><a href="#Maven-配置" class="headerlink" title="Maven 配置"></a>Maven 配置</h2><ul>
+<li>创建本地参数：<code>mkdir -p /opt/maven-repository</code></li>
+<li>配置项目连接上私服</li>
+<li>编辑配置文件：<code>vim /usr/local/maven3.3.9/conf/settings.xml</code></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--本地仓库位置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>/opt/maven-repository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginGroups</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">proxies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">proxies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--设置 Nexus 认证信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--有自己的 nexus 改为自己的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-releases<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyun-snapshots<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
+<li><a href="http://maven.apache.org/install.html" target="_blank" rel="noopener">http://maven.apache.org/install.html</a></li>
+<li><a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html</a></li>
+<li><a href="http://maven.apache.org/guides/getting-started/index.html" target="_blank" rel="noopener">http://maven.apache.org/guides/getting-started/index.html</a></li>
+<li><a href="http://maven.apache.org/general.html" target="_blank" rel="noopener">http://maven.apache.org/general.html</a></li>
+<li><a href="http://blog.csdn.net/sxyx2008/article/details/7975129" target="_blank" rel="noopener">http://blog.csdn.net/sxyx2008/article/details/7975129</a></li>
+<li><a href="http://blog.csdn.net/xuke6677/article/details/8482472" target="_blank" rel="noopener">http://blog.csdn.net/xuke6677/article/details/8482472</a></li>
+</ul>
+<h2 id="Maven-deploy-file-上传-pom"><a href="#Maven-deploy-file-上传-pom" class="headerlink" title="Maven deploy file 上传 pom"></a>Maven deploy file 上传 pom</h2><h2 id="mvn-deploy-deploy-file-DgroupId-DartifactId-Dversion-Dpackaging-jar-Dfile-lt-Path-TO-JAR-OR-WAR-gt-DrepositoryId-lt-RepositoryId-defined-in-settings-xml-gt-Durl-DgeneratePom-true-DpomFile-lt-PATH-TO-POM-gt"><a href="#mvn-deploy-deploy-file-DgroupId-DartifactId-Dversion-Dpackaging-jar-Dfile-lt-Path-TO-JAR-OR-WAR-gt-DrepositoryId-lt-RepositoryId-defined-in-settings-xml-gt-Durl-DgeneratePom-true-DpomFile-lt-PATH-TO-POM-gt" class="headerlink" title="mvn deploy:deploy-file -DgroupId= -DartifactId= -Dversion= -Dpackaging=jar -Dfile=&lt;Path_TO_JAR_OR_WAR&gt; -DrepositoryId=&lt;RepositoryId_defined_in_settings_xml&gt; -Durl= -DgeneratePom=true -DpomFile=&lt;PATH_TO_POM&gt;"></a>mvn deploy:deploy-file -DgroupId=<groupid> -DartifactId=<artifactid> -Dversion=<version> -Dpackaging=jar -Dfile=&lt;Path_TO_JAR_OR_WAR&gt; -DrepositoryId=&lt;RepositoryId_defined_in_settings_xml&gt; -Durl=<url> -DgeneratePom=true -DpomFile=&lt;PATH_TO_POM&gt;</url></version></artifactid></groupid></h2><h2 id="Maven-deploy-file-上传-jar"><a href="#Maven-deploy-file-上传-jar" class="headerlink" title="Maven deploy file 上传 jar"></a>Maven deploy file 上传 jar</h2><h2 id="mvn-install-install-file-Dfile-E-jar-org-apache-poi-xwpf-converter-xhtml-1-0-5-jar-DgroupId-fr-opensagres-xdocreport-DartifactId-org-apache-poi-xwpf-converter-xhtml-Dversion-1-0-5-Dpackaging-jar"><a href="#mvn-install-install-file-Dfile-E-jar-org-apache-poi-xwpf-converter-xhtml-1-0-5-jar-DgroupId-fr-opensagres-xdocreport-DartifactId-org-apache-poi-xwpf-converter-xhtml-Dversion-1-0-5-Dpackaging-jar" class="headerlink" title="mvn install:install-file -Dfile=E:\jar\org.apache.poi.xwpf.converter.xhtml-1.0.5.jar -DgroupId=fr.opensagres.xdocreport -DartifactId=org.apache.poi.xwpf.converter.xhtml -Dversion=1.0.5 -Dpackaging=jar"></a>mvn install:install-file -Dfile=E:\jar\org.apache.poi.xwpf.converter.xhtml-1.0.5.jar -DgroupId=fr.opensagres.xdocreport -DartifactId=org.apache.poi.xwpf.converter.xhtml -Dversion=1.0.5 -Dpackaging=jar</h2><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="deploy-pom"><a href="#deploy-pom" class="headerlink" title="deploy pom"></a>deploy pom</h3><p>mvn deploy:deploy-file -DgroupId=com.huapisong.parent -DartifactId=com_base_parent -Dversion=1.0.0-RELEASE -Dpackaging=pom -Dfile=E:\com_base_parent-1.0.0-RELEASE.pom -DrepositoryId=huapisong -Durl=<a href="http://localhost:9090/repository/huapisong/" target="_blank" rel="noopener">http://localhost:9090/repository/huapisong/</a> -DgeneratePom=true</p>
+<h3 id="deploy-jar"><a href="#deploy-jar" class="headerlink" title="deploy jar"></a>deploy jar</h3><p>mvn deploy:deploy-file -DgroupId=com.huapisong.common -DartifactId=com_base_common -Dversion=1.0.0-RELEASE -Dpackaging=jar -Dfile=E:\com_base_common-1.0.0-RELEASE.jar -DrepositoryId=huapisong -Durl=<a href="http://localhost:9090/repository/huapisong/" target="_blank" rel="noopener">http://localhost:9090/repository/huapisong/</a></p>
+<p>install 命令，file 参数是必选的，但是如果在本地库里面没有 groupId、artifactId 和 version 对应的目录，那么 maven 会要求传入这些参数，packaging 则根据需要上传的文件类型指定。<br>deploy 命令 file、repositoryId 和 url 是必选的。其中 DrepositoryId 是指远程 maven 库的 id，一般会配置在 setting.xml 文件里面，是在<server>标签下的那个 id。url 比较重要，如果错误的话，是无法上传的，一般来说我们可以在 setting.xml 文件的<server>标签下找到，但是这个<server>下的这个 url 不一定就是真正的 maven 库地址，如果这个 url 不行，那么可以尝试把这个 url 中的最后一个路径替换成<server>标签下<id>自标签的内容，一般来说是可以行的</id></server></server></server></server></p>
+<h2 id="Maven-命令参数"><a href="#Maven-命令参数" class="headerlink" title="Maven 命令参数"></a>Maven 命令参数</h2><p>备注<br>    mvn -v –version 显示版本信息;<br>    mvn -V –show-version 显示版本信息后继续执行Maven其他目标;<br>    mvn -h –help 显示帮助信息;<br>    mvn -e –errors 控制Maven的日志级别,产生执行错误相关消息;<br>    mvn -X –debug 控制Maven的日志级别,产生执行调试信息;<br>    mvn -q –quiet 控制Maven的日志级别,仅仅显示错误;<br>    mvn -Pxxx  激活 id 为 xxx的profile (如有多个，用逗号隔开);<br>    mvn -Dxxx=yyy  指定Java全局属性;<br>    mvn -o –offline 运行offline模式,不联网更新依赖;<br>    mvn -N –non-recursive 仅在当前项目模块执行命令,不构建子模块;<br>    mvn -pl –module_name 在指定模块上执行命令;<br>    mvn -ff –fail-fast 遇到构建失败就直接退出;<br>    mvn -fn –fail-never 无论项目结果如何,构建从不失败;<br>    mvn -fae –fail-at-end 仅影响构建结果,允许不受影响的构建继续;<br>    mvn -C –strict-checksums 如果校验码不匹配的话,构建失败;<br>    mvn -c –lax-checksums 如果校验码不匹配的话,产生告警;<br>    mvn -U 强制更新snapshot类型的插件或依赖库(否则maven一天只会更新一次snapshot依赖);<br>    mvn -npu –no-plugin-s 对任何相关的注册插件,不进行最新检查(使用该选项使Maven表现出稳定行为，该稳定行为基于本地仓库当前可用的所有插件版本);<br>    mvn -cpu –check-plugin-updates 对任何相关的注册插件,强制进行最新检查(即使项目POM里明确规定了Maven插件版本,还是会强制更新);<br>    mvn -up –update-plugins [mvn -cpu]的同义词;<br>    mvn -B –batch-mode 在非交互（批处理）模式下运行(该模式下,当Mven需要输入时,它不会停下来接受用户的输入,而是使用合理的默认值);<br>    mvn -f –file <file> 强制使用备用的POM文件;<br>    mvn -s –settings <arg> 用户配置文件的备用路径;<br>    mvn -gs –global-settings <file> 全局配置文件的备用路径;<br>    mvn -emp –encrypt-master-password <password> 加密主安全密码,存储到Maven settings文件里;<br>    mvn -ep –encrypt-password <password> 加密服务器密码,存储到Maven settings文件里;<br>    mvn -npr –no-plugin-registry 对插件版本不使用~/.m2/plugin-registry.xml(插件注册表)里的配置;</password></password></file></arg></file></p>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/06/13/Maven-Install-And-Settings/">
+    <time datetime="2018-06-12T16:00:00.000Z" class="entry-date">
+        2018-06-13
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Node-Install-And-Usage" class="post-Node-Install-And-Usage post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/06/06/Node-Install-And-Usage/">Node 安装和配置</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/06/06/Node-Install-And-Usage/" data-id="cllu7jasq000m4kiaaidxzc65" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Node-安装"><a href="#Node-安装" class="headerlink" title="Node 安装"></a>Node 安装</h2><ul>
+<li>官网：<a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a></li>
+<li>官网下载：<a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/</a></li>
+<li>历史版本下载：<a href="https://nodejs.org/zh-cn/download/releases/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/releases/</a></li>
+<li>官网安装教程：<a href="https://nodejs.org/en/download/package-manager/" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/</a></li>
+<li>官网 CentOS 系统下的安装教程：<a href="https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora</a></li>
+<li>官网文档复制过来就是：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如果你是要安装 node 8 系列，下载这个 yum 源</span></span><br><span class="line">curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果你是要安装 node 9 系列，下载这个 yum 源</span></span><br><span class="line">curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -</span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后通过 yum 开始安装（软件大小：51M 左右）</span></span><br><span class="line">sudo yum -y install nodejs</span><br></pre></td></tr></table></figure>
+<ul>
+<li>验证：<code>node -v</code></li>
+<li>注意:因为网络原因，最好先把脚本下载到本地，再用代理进行安装</li>
+</ul>
+<h2 id="nrm-快速切换-NPM-源"><a href="#nrm-快速切换-NPM-源" class="headerlink" title="nrm 快速切换 NPM 源"></a>nrm 快速切换 NPM 源</h2><ul>
+<li>安装：<code>npm install -g nrm</code></li>
+<li>列表源：<code>nrm ls</code></li>
+<li>使用源：<code>nrm use taobao</code></li>
+<li>更多使用方法：<a href="https://segmentfault.com/a/1190000000473869" target="_blank" rel="noopener">https://segmentfault.com/a/1190000000473869</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2018/06/06/Node-Install-And-Usage/">
+    <time datetime="2018-06-05T16:00:00.000Z" class="entry-date">
+        2018-06-06
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-String-Reverse" class="post-String-Reverse post type-post status-publish format-standard hentry">
     <!---->
 
@@ -77,7 +665,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="clesbyv0q0012psiacaumv2u7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/02/06/String-Reverse/" data-id="cllu7jasq000z4kiaalbmwsg4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -232,7 +820,7 @@ public class Reverse {
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="clesbyv190023psiao8z6ul14" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/29/maven-instruction/" data-id="cllu7jat600274kia10dfbjsn" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -339,110 +927,6 @@ project
 
 
   
-    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="clesbyv1v003jpsia4fgsgpkp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/右键添加Notepad2/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="clesbyv1u003fpsiajijhil9e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>刷新 DNS 解析缓存</p>
-<pre><code># cmd 执行 
-ipconfig /flushdns
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/刷新 DNS 解析缓存/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/随记/">随记</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-javamelody" class="post-javamelody post type-post status-publish format-standard hentry">
     <!---->
 
@@ -458,7 +942,7 @@ ipconfig /flushdns
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="clesbyv0q001opsiaoiuuronq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/javamelody/" data-id="cllu7jat6001q4kiaw7gpetq1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -536,7 +1020,7 @@ jrobin-1.5.14.jar
 
 
   
-    <article id="post-console" class="post-console post type-post status-publish format-standard hentry">
+    <article id="post-刷新 DNS 解析缓存" class="post-刷新 DNS 解析缓存 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -544,270 +1028,22 @@ jrobin-1.5.14.jar
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/console/">(Javascript %s or %d represents string?)</a>
+      <a class="article-title" href="/2018/01/01/刷新 DNS 解析缓存/">刷新 DNS 解析缓存</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/console/" data-id="clesbyv0q001dpsia8m59zc7u" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/刷新 DNS 解析缓存/" data-id="cllu7jau1003k4kiao2p5y5uo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>What you are seeing there is the string substitution patterns that are built into console.log() or console.debug().</p>
-<p>The pattern goes as I have presented below:</p>
-<p>%s for a String</p>
-<p>%d or %i for Number</p>
-<p>%f for Floating points</p>
-<p>%o for an Object</p>
-<p>%j for an JSON</p>
-<p>So essentially you are replacing the specifier with the values supplied as so:</p>
-<p>var name = ‘Chris’;<br>console.log(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
-<p>console.debug(‘Hi, my name is %s.’, name);<br>// Hi, my name is Chris.</p>
-<p><a href="https://nodejs.org/api/util.html#util_util_format_format_args" target="_blank" rel="noopener">https://nodejs.org/api/util.html#util_util_format_format_args</a></p>
-
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2018/01/01/console/">
-    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
-        2018-01-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/console/">console</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-curl" class="post-curl post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2018/01/01/curl/">curl(选项)(参数)</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/curl/" data-id="clesbyv2c004ppsiavobfn7hq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <pre><code>举个栗子
-
-curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;{&quot;serviceType&quot;:&quot;3&quot;}&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
-curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceType=3&apos; http://10.43.22.175:8661/scf/main/api/getSubMenu
-</code></pre><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><pre><code>curl(选项)(参数)
-</code></pre><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><pre><code>-a/--append  上传文件时，附加到目标文件
--A/--user-agent &lt;string&gt;  设置用户代理发送给服务器
--anyauth  可以使用“任何”身份验证方法
--b/--cookie &lt;name=string/file&gt;  cookie字符串或文件读取位置
-   --basic  使用HTTP基本验证
--B/--use-ascii  使用ASCII /文本传输
--c/--cookie-jar &lt;file&gt;  操作结束后把cookie写入到这个文件中
--C/--continue-at &lt;offset&gt;  断点续转
--d/--data &lt;data&gt;  HTTP POST方式传送数据
-   --data-ascii &lt;data&gt;  以ascii的方式post数据
-   --data-binary &lt;data&gt;  以二进制的方式post数据
-   --negotiate  使用HTTP身份验证
-   --digest  使用数字身份验证
-   --disable-eprt  禁止使用EPRT或LPRT
-   --disable-epsv  禁止使用EPSV
--D/--dump-header &lt;file&gt;  把header信息写入到该文件中
-   --egd-file &lt;file&gt;  为随机数据(SSL)设置EGD socket路径
-   --tcp-nodelay  使用TCP_NODELAY选项
--e/--referer  来源网址
--E/--cert &lt;cert[:passwd]&gt;  客户端证书文件和密码 (SSL)
-   --cert-type &lt;type&gt;  证书文件类型 (DER/PEM/ENG) (SSL)
-   --key &lt;key&gt;  私钥文件名 (SSL)
-   --key-type &lt;type&gt;  私钥文件类型 (DER/PEM/ENG) (SSL)
-   --pass &lt;pass&gt;  私钥密码 (SSL)
-   --engine &lt;eng&gt;  加密引擎使用 (SSL). &quot;--engine list&quot; for list
-   --cacert &lt;file&gt;  CA证书 (SSL)
-   --capath &lt;directory&gt;  CA目录 (made using c_rehash) to verify peer against (SSL)
-   --ciphers &lt;list&gt;  SSL密码
-   --compressed  要求返回是压缩的形势 (using deflate or gzip)
-   --connect-timeout &lt;seconds&gt;  设置最大请求时间
-   --create-dirs  建立本地目录的目录层次结构
-   --crlf  上传是把LF转变成CRLF
--f/--fail  连接失败时不显示http错误
-   --ftp-create-dirs  如果远程目录不存在，创建远程目录
-   --ftp-method [multicwd/nocwd/singlecwd]  控制CWD的使用
-   --ftp-pasv  使用 PASV/EPSV 代替端口
-   --ftp-skip-pasv-ip  使用PASV的时候,忽略该IP地址
-   --ftp-ssl  尝试用 SSL/TLS 来进行ftp数据传输
-   --ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输
--F/--form &lt;name=content&gt;  模拟http表单提交数据
-   --form-string &lt;name=string&gt;  模拟http表单提交数据
--g/--globoff  禁用网址序列和范围使用{}和[]
--G/--get  以get的方式来发送数据
--H/--header &lt;line&gt;  自定义头信息传递给服务器
-   --ignore-content-length  忽略的HTTP头信息的长度
--i/--include  输出时包括protocol头信息
--I/--head  只显示请求头信息
--j/--junk-session-cookies  读取文件进忽略session cookie
-   --interface &lt;interface&gt;  使用指定网络接口/地址
-   --krb4 &lt;level&gt;  使用指定安全级别的krb4
--k/--insecure  允许不使用证书到SSL站点
--K/--config  指定的配置文件读取
--l/--list-only  列出ftp目录下的文件名称
-   --limit-rate &lt;rate&gt;  设置传输速度
-   --local-port&lt;NUM&gt;  强制使用本地端口号
--m/--max-time &lt;seconds&gt;  设置最大传输时间
-   --max-redirs &lt;num&gt;  设置最大读取的目录数
-   --max-filesize &lt;bytes&gt;  设置最大下载的文件总量
--M/--manual  显示全手动
--n/--netrc  从netrc文件中读取用户名和密码
-   --netrc-optional  使用 .netrc 或者 URL来覆盖-n
-   --ntlm  使用 HTTP NTLM 身份验证
--N/--no-buffer  禁用缓冲输出
--o/--output  把输出写到该文件中
--O/--remote-name  把输出写到该文件中，保留远程文件的文件名
--p/--proxytunnel  使用HTTP代理
-   --proxy-anyauth  选择任一代理身份验证方法
-   --proxy-basic  在代理上使用基本身份验证
-   --proxy-digest  在代理上使用数字身份验证
-   --proxy-ntlm  在代理上使用ntlm身份验证
--P/--ftp-port &lt;address&gt;  使用端口地址，而不是使用PASV
--q  作为第一个参数，关闭 .curlrc
--Q/--quote &lt;cmd&gt;  文件传输前，发送命令到服务器
--r/--range &lt;range&gt;  检索来自HTTP/1.1或FTP服务器字节范围
---range-file  读取（SSL）的随机文件
--R/--remote-time  在本地生成文件时，保留远程文件时间
-   --retry &lt;num&gt;  传输出现问题时，重试的次数
-   --retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间
-   --retry-max-time &lt;seconds&gt;  传输出现问题时，设置最大重试时间
--s/--silent  静默模式。不输出任何东西
--S/--show-error  显示错误
-   --socks4 &lt;host[:port]&gt;  用socks4代理给定主机和端口
-   --socks5 &lt;host[:port]&gt;  用socks5代理给定主机和端口
-   --stderr &lt;file&gt;   
--t/--telnet-option &lt;OPT=val&gt;  Telnet选项设置
-   --trace &lt;file&gt;  对指定文件进行debug
-   --trace-ascii &lt;file&gt;  Like --跟踪但没有hex输出
-   --trace-time  跟踪/详细输出时，添加时间戳
--T/--upload-file &lt;file&gt;  上传文件
-   --url &lt;URL&gt;  Spet URL to work with
--u/--user &lt;user[:password]&gt;  设置服务器的用户和密码
--U/--proxy-user &lt;user[:password]&gt;  设置代理用户名和密码
--w/--write-out [format]  什么输出完成后
--x/--proxy &lt;host[:port]&gt;  在给定的端口上使用HTTP代理
--X/--request &lt;command&gt;  指定什么命令
--y/--speed-time  放弃限速所要的时间，默认为30
--Y/--speed-limit  停止传输速度的限制，速度时间
-</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><pre><code>文件下载
-
-  curl命令可以用来执行下载、发送各种HTTP请求，指定HTTP头部等操作。如果系统没有curl可以使用yum install curl安装，也可以下载安装。curl是将下载文件输出到stdout，将进度信息输出到stderr，不显示进度信息使用--silent选项。
-
-  curl URL --silent
-
-  这条命令是将下载文件输出到终端，所有下载的数据都被写入到stdout。
-
-  使用选项-O将下载的数据写入到文件，必须使用文件的绝对地址：
-
-  curl http://man.linuxde.net/text.iso --silent -O
-
-  选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：
-
-  curl http://man.linuxde.net/test.iso -o filename.iso --progress
-  ######################################### 100.0%
-
- 断点续传
-
-  curl能够从特定的文件偏移处继续下载，它可以通过指定一个便宜量来下载部分文件：
-
-  curl URL/File -C 偏移量
-
-  #偏移量是以字节为单位的整数，如果让curl自动推断出正确的续传位置使用-C -：
-  curl -C -URL
-
-使用curl设置参照页字符串
-
-  参照页是位于HTTP头部中的一个字符串，用来表示用户是从哪个页面到达当前页面的，如果用户点击网页A中的某个连接，那么用户就会跳转到B网页，网页B头部的参照页字符串就包含网页A的URL。
-
-  使用--referer选项指定参照页字符串：
-
-  curl --referer http://www.google.com http://man.linuxde.net
-
-用curl设置cookies
-
-  使用--cookie &quot;COKKIES&quot;选项来指定cookie，多个cookie使用分号分隔：
-
-  curl http://man.linuxde.net --cookie &quot;user=root;pass=123456&quot;
-
-  将cookie另存为一个文件，使用--cookie-jar选项：
-
-  curl URL --cookie-jar cookie_file
-
-用curl设置用户代理字符串
-
-  有些网站访问会提示只能使用IE浏览器来访问，这是因为这些网站设置了检查用户代理，可以使用curl把用户代理设置为IE，这样就可以访问了。使用--user-agent或者-A选项：
-
-  curl URL --user-agent &quot;Mozilla/5.0&quot;
-  curl URL -A &quot;Mozilla/5.0&quot;
-
-  其他HTTP头部信息也可以使用curl来发送，使用-H&quot;头部信息&quot; 传递多个头部信息，例如：
-
-  curl -H &quot;Host:man.linuxde.net&quot; -H &quot;accept-language:zh-cn&quot; URL
-
- curl的带宽控制和下载配额
-
-  使用--limit-rate限制curl的下载速度：
-
-  curl URL --limit-rate 50k
-
-  命令中用k（千字节）和m（兆字节）指定下载速度限制。
-
-  使用--max-filesize指定可下载的最大文件大小：
-
-  curl URL --max-filesize bytes
-
-  如果文件大小超出限制，命令则返回一个非0退出码，如果命令正常则返回0。
-
-用curl进行认证
-
-  使用curl选项 -u 可以完成HTTP或者FTP的认证，可以指定密码，也可以不指定密码在后续操作中输入密码：
-
-  curl -u user:pwd http://man.linuxde.net
-  curl -u user http://man.linuxde.net
-
-只打印响应头部信息
-
-    通过-I或者-head可以只打印出HTTP头部信息：
-
-    [root@localhost text]# curl -I http://man.linuxde.net
-      HTTP/1.1 200 OK
-      Server: nginx/1.2.5
-      date: Mon, 10 Dec 2012 09:24:34 GMT
-      Content-Type: text/html; charset=UTF-8
-      Connection: keep-alive
-      Vary: Accept-Encoding
-      X-Pingback: http://man.linuxde.net/xmlrpc.php
+        <p>刷新 DNS 解析缓存</p>
+<pre><code># cmd 执行 
+ipconfig /flushdns
 </code></pre>
       
     </div><!-- .entry-content -->
@@ -816,7 +1052,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2018/01/01/curl/">
+    <a href="/2018/01/01/刷新 DNS 解析缓存/">
     <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
         2018-01-01
     </time>
@@ -837,7 +1073,7 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
 
 
   
-    <article id="post-SVN-error" class="post-SVN-error post type-post status-publish format-standard hentry">
+    <article id="post-右键添加Notepad2" class="post-右键添加Notepad2 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -845,25 +1081,21 @@ curl -l -H &quot;Content-type: application/json&quot; -X POST -d &apos;serviceTy
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/12/27/SVN-error/">svn error - unable to connect to a repository at url 问题解决</a>
+      <a class="article-title" href="/2018/01/01/右键添加Notepad2/">右键添加Notepad2</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/27/SVN-error/" data-id="clesbyv0q000vpsia4cn2aec5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2018/01/01/右键添加Notepad2/" data-id="cllu7jau1003t4kia4oqpbo1i" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <pre><code>C:\Users\dell\AppData\Roaming\Subversion
-# 打开文件
-servers
-# 删除
-proxy settings
-</code></pre>
+        <p>1、  首先打开注册表，windows+ R运行，在运行窗口中输入regedit，进入注册表编辑器<br>2、  在左边的导航中找到路径：HKEY_CLASSES_ROOT*\shell<br>3、  在shell上右键，新建项，命名为Notepad2<br>4、  在新建的项Notepad2上右键，然后新建一个项，命名为command，新建了command之后选中command项会发现右边有相应的值，双击默认进行修改<br>5、  双击默认后对其值进行修改，先写Notepad2的路径，然后写上“%1”，点击确定 例：”E:\software\TortoiseGit\bin\notepad2.exe” “%1”</p>
+
       
     </div><!-- .entry-content -->
     <!-- busuanzi  start -->
@@ -871,304 +1103,15 @@ proxy settings
     <!-- busuanzi  end -->
 
     <footer class="entry-meta">
-    <a href="/2017/12/27/SVN-error/">
-    <time datetime="2017-12-26T16:00:00.000Z" class="entry-date">
-        2017-12-27
+    <a href="/2018/01/01/右键添加Notepad2/">
+    <time datetime="2017-12-31T16:00:00.000Z" class="entry-date">
+        2018-01-01
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/SVN/">SVN</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-node" class="post-node post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/12/15/node/">node.js yeoman grunt 快速构建项目</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/12/15/node/" data-id="clesbyv1e002fpsiaiv0wc9x6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h4 id="1-node-js-安装"><a href="#1-node-js-安装" class="headerlink" title="1. node.js 安装"></a>1. node.js 安装</h4><h4 id="2-yeoman-grunt安装"><a href="#2-yeoman-grunt安装" class="headerlink" title="2. yeoman grunt安装"></a>2. yeoman grunt安装</h4><pre><code>npm install -g bower
-npm install --global yo
-npm install -g grunt-cli
-yo --version &amp;&amp; bower --version &amp;&amp; grunt --version
-npm install -g generator-angular@0.7.1
-</code></pre><h4 id="3-创建项目-安装bower、node、grunt"><a href="#3-创建项目-安装bower、node、grunt" class="headerlink" title="3. 创建项目 安装bower、node、grunt"></a>3. 创建项目 安装bower、node、grunt</h4><pre><code>$ cd d:
-$ mkdir myApp
-$ cd mytodo
-$ yo angular
-# 报错少 grunt-contrib-imagemin
-# 安装 grunt-contrib-imagemin
-$ npm install grunt-contrib-imagemin --save-dev
-
-$ npm install
-$ bower install
-$ npm install grunt --save-dev
-# 初步这样也就行了，但是/bower_components这个目录有点让人不习惯，我想把东西下载到我习惯的目录里。需要加一个.bowerrc文件。注意，不需要名字什么的，只要新增一个.bowerrc就行了。
-</code></pre><h3 id="cordova-快速构建-ios、andriod、browser-项目app"><a href="#cordova-快速构建-ios、andriod、browser-项目app" class="headerlink" title="cordova 快速构建 ios、andriod、browser 项目app"></a>cordova 快速构建 ios、andriod、browser 项目app</h3><h4 id="1-安装Cordova"><a href="#1-安装Cordova" class="headerlink" title="1.安装Cordova"></a>1.安装Cordova</h4><pre><code># Cordova的命令行运行在Node.js 上面并且可以通过NPM安装。 根据 平台具体指导 安装相应平台的依赖。打开命令提示符或终端，然后键入npm install -g cordova.
-$ npm install -g cordova
-</code></pre><h4 id="2-创建一个项目"><a href="#2-创建一个项目" class="headerlink" title="2. 创建一个项目"></a>2. 创建一个项目</h4><pre><code>#使用命令行创建一个空的Cordova项目。导航到你希望创建项目的目录，然后键入 cordova create &lt;path&gt;。
-#要知道这个命令完整的选项，键入cordova help create。
-$ cordova create MyApp
-</code></pre><h4 id="3-添加一个平台"><a href="#3-添加一个平台" class="headerlink" title="3. 添加一个平台"></a>3. 添加一个平台</h4><pre><code># 在创建完一个Cordova项目后，导航到项目目录。在项目目录中，你需要添加你想构建app的平台
-# 为了添加平台， 键入 cordova platform add &lt;platform name&gt;。
-# 为了知道你可以添加的平台，你可以运行cordova platform。
-$ cd MyApp 
-# browser andriod ios
-$ cordova platform add browser
-# $ cordova platform remove android
-</code></pre><h4 id="4-运行App"><a href="#4-运行App" class="headerlink" title="4.运行App"></a>4.运行App</h4><pre><code>#在命令中,键入cordova run &lt;platform name&gt;。
-# browser andriod ios
-$ cordova run browser
-</code></pre><h4 id="5、开发完成后，使用cordova-打包项目成目标平台的应用-。"><a href="#5、开发完成后，使用cordova-打包项目成目标平台的应用-。" class="headerlink" title="5、开发完成后，使用cordova 打包项目成目标平台的应用 。"></a>5、开发完成后，使用cordova 打包项目成目标平台的应用 <strong>。</strong></h4><pre><code># 
-$ cordova build android
-</code></pre><h4 id="6、进行仿真模拟器"><a href="#6、进行仿真模拟器" class="headerlink" title="6、进行仿真模拟器"></a>6、进行仿真模拟器</h4><pre><code># 
-$ cordova emulate android
-</code></pre><h4 id="7-添加插件"><a href="#7-添加插件" class="headerlink" title="7. 添加插件"></a>7. 添加插件</h4><p>可以用CLI搜索可用的插件：</p>
-<pre><code>cordova plugin search bar code
-</code></pre><p>安装插件，比如:</p>
-<pre><code>cordova plugin add org.apache.cordova.device                   //设备API
-
-cordova plugin add org.apache.cordova.network-information  //网络（事件）
-
-cordova plugin add org.apache.cordova.battery-status      //电池（事件）
-
-cordova plugin add org.apache.cordova.device-motion     //加速器
-
-cordova plugin add org.apache.cordova.device-orientation     //罗盘
-
-cordova plugin add org.apache.cordova.geolocation         //定位
-
-cordova plugin add org.apache.cordova.camera                 //摄像头
-
-cordova plugin add org.apache.cordova.media-capture     //媒体文件处理
-
-cordova plugin add org.apache.cordova.media                   //媒体文件处理
-
-cordova plugin add org.apache.cordova.file                        //文件访问
-
-cordova plugin add org.apache.cordova.file-transfer          //文件传输
-
-cordova plugin add org.apache.cordova.dialogs                 //对话框
-
-cordova plugin add org.apache.cordova.vibration              //震动
-
-cordova plugin add org.apache.cordova.contacts               //联系人
-
-cordova plugin add org.apache.cordova.globalization       //全球化
-
-cordova plugin add org.apache.cordova.splashscreen       //闪屏
-
-cordova plugin add org.apache.cordova.inappbrowser             //打开新的浏览器窗口
-
-cordova plugin add org.apache.cordova.console                //调试控制台
-</code></pre><p>你可以用以下命令查看所有已经安装的插件</p>
-<pre><code>cordova plugin ls
-</code></pre><p>使用以下命令删除插件：</p>
-<pre><code>cordova plugin rm org.apache.cordova.console
-</code></pre><p>或者通过地址来添加插件：</p>
-<pre><code>cordova plugin add https://github.com/apache/cordova-plugin-console.git
-</code></pre><h3 id="Android-SDK"><a href="#Android-SDK" class="headerlink" title="Android SDK"></a>Android SDK</h3><p>Android SDK的国内镜像服务器来下载安装，这里推荐几个：</p>
-<p>1、中科院开源协会镜像站地址:</p>
-<p>IPV4/IPV6 : <a href="http://mirrors.opencas.ac.cn" target="_blank" rel="noopener">http://mirrors.opencas.ac.cn</a> 端口：80</p>
-<p>2、北京化工大学镜像服务器地址：</p>
-<p>IPv4: <a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>  端口：80</p>
-<p>IPv4: <a href="http://ubuntu.buct.cn/" target="_blank" rel="noopener">http://ubuntu.buct.cn/</a>  端口：80</p>
-<p>IPv6: <a href="http://ubuntu.buct6.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct6.edu.cn/</a>   端口：80</p>
-<p>3、大连东软信息学院镜像服务器地址:<br><a href="http://mirrors.neusoft.edu.cn" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn</a>  端口：80</p>
-<h3 id="ionic"><a href="#ionic" class="headerlink" title="ionic"></a>ionic</h3><pre><code># 更新 cordova ionic
-# npm update -g cordova ionic
-$ npm install -g ionic
-$ ionic start myApp tabs
-# demo
-$ ionic start myproject --type ionic1
-# 启动
-$ ionic serve
-# 启动 指定IP地址
-$ ionic serve --address 192.168.20.45
-</code></pre><h4 id="1-创建Android应用"><a href="#1-创建Android应用" class="headerlink" title="1.创建Android应用"></a>1.创建Android应用</h4><pre><code>#
-$ cd myApp
-$ ionic platform add android
-$ ionic build android
-$ ionic emulate android
-</code></pre><h4 id="2-创建iOS应用"><a href="#2-创建iOS应用" class="headerlink" title="2.创建iOS应用"></a>2.创建iOS应用</h4><pre><code>#
-$ cd myApp
-$ ionic platform add ios
-$ ionic build ios
-$ ionic emulate ios
-</code></pre><h4 id="3-启动"><a href="#3-启动" class="headerlink" title="3. 启动"></a>3. 启动</h4><pre><code>#
-$ ionic serve
-</code></pre><p>通过Ionic创建一个项目</p>
-<p>使用Ionic官方提供的现成的应用程序模板，或一个空白的项目创建一个Ionic应用。</p>
-<pre><code>ionic start myApp blank  创建一个空白的app项目 
-
-ionic start myApp tabs 创建一个带有tabs项目
-
-ionic start myApp sidemenu 创建一个带有滑动的项目
-</code></pre><p>如果出现”ios-sim was not found.”错误，可以执行以下命令：</p>
-<pre><code>npm install -g ios-sim
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/12/15/node/">
-    <time datetime="2017-12-14T16:00:00.000Z" class="entry-date">
-        2017-12-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Node/">Node</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-oracle-expdp-impdp" class="post-oracle-expdp-impdp post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/09/01/oracle-expdp-impdp/">oracle expdp / impdp</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2017/09/01/oracle-expdp-impdp/" data-id="clesbyv1e002ipsia61gk0yg1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h3 id="expdp-导出"><a href="#expdp-导出" class="headerlink" title="expdp 导出"></a>expdp 导出</h3><pre><code>expdp TQBAY/TQBAY schemas=TQBAY dumpfile=TQBAY_20170519.dmp;
-</code></pre><h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><pre><code>-- 删除用户
-drop user BOSYUNTEST cascade;
--- 删除用户时若报错：ORA-01940: cannot drop a user that is currently connected，则先查会话id
-SELECT SID,SERIAL# FROM V$SESSION WHERE USERNAME=&apos;TQBAY&apos;;
--- 再一个个kill掉该用户的会话再执行drop user
-ALTER SYSTEM KILL SESSION &apos;24,25341&apos;;
-</code></pre><h3 id="查询表空间路径"><a href="#查询表空间路径" class="headerlink" title="查询表空间路径"></a>查询表空间路径</h3><pre><code>select * from dba_data_files;
-</code></pre><h3 id="删除表空间和文件"><a href="#删除表空间和文件" class="headerlink" title="删除表空间和文件"></a>删除表空间和文件</h3><pre><code>-- 删除临时表空间和文件
-drop tablespace BOSYUN_TEST_TEMP including contents and datafiles;
--- 删除数据表空间和文件
-drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
-drop tablespace BOSYUN_TEST_DATA including contents and datafiles;
-</code></pre><h3 id="创建表空间"><a href="#创建表空间" class="headerlink" title="创建表空间"></a>创建表空间</h3><pre><code>-- 创建临时表空间
-CREATE SMALLFILE TEMPORARY TABLESPACE BOSYUN_TEST_TEMP TEMPFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_TEMP&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M;
--- 创建数据表空间
-CREATE SMALLFILE TABLESPACE BOSYUN_TEST_DATA DATAFILE &apos;/u01/app/oracle/oradata/XE/BOSYUN_TEST_DATA&apos; SIZE 2048M AUTOEXTEND ON NEXT 512M MAXSIZE UNLIMITED LOGGING EXTENT MANAGEMENT LOCAL SEGMENT SPACE MANAGEMENT AUTO;
--- 创建用户
-CREATE USER BOSYUNTEST PROFILE &quot;DEFAULT&quot; IDENTIFIED BY BOSYUNTEST DEFAULT TABLESPACE BOSYUN_TEST_DATA TEMPORARY TABLESPACE BOSYUN_TEST_TEMP ACCOUNT UNLOCK;
--- 用户授权
-GRANT CONNECT TO BOSYUNTEST WITH ADMIN OPTION;
-GRANT DBA TO BOSYUNTEST;
-GRANT RESOURCE TO BOSYUNTEST;
-</code></pre><h3 id="可通过以下命令查看数据库已有的目录-："><a href="#可通过以下命令查看数据库已有的目录-：" class="headerlink" title="可通过以下命令查看数据库已有的目录 ："></a>可通过以下命令查看数据库已有的目录 <strong>：</strong></h3><pre><code># 查询 DATA_PUMP_DIR
-select * from DBA_DIRECTORIES;
- /home/oracle/oradata/bosyun/dpdump/        DATA_PUMP_DIR
-
--- 创建 DATA_PUMP_DIR目录
-create or replace directory DATA_PUMP_DIR as &apos;D:\app\Administrator\admin\orcl\dpdump&apos;;
-1.修改/data/oracle/product/11.2.0/db_1/network/admin/tnsnames.ora 
-2.把dmp文件放到DATA_PUMP_DIR目录下 （预先将dmp文件放置到指定的directory目录下，
-
--- DATA_PUMP_DIR 需要预先将目录权限赋予该用户。
-grant read,write on directory DATA_PUMP_DIR to TQBAY_TEST;
-</code></pre><h3 id="数据的导入"><a href="#数据的导入" class="headerlink" title="数据的导入"></a>数据的导入</h3><pre><code>impdp TQBAY_TEST/TQBAY_TEST@bosyun directory=DATA_PUMP_DIR dumpfile=TQBAY_20170519.dump REMAP_SCHEMA=TQBAY:TQBAY_TEST;
-
-# 上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。  在后面加上 ignore=y 就可以了。
-# 基本上上面的导入导出够用了。不少情况要先是将表彻底删除，然后导入。
-</code></pre><h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><pre><code>select * from DBA_DIRECTORIES; --查询表 DATA_PUMP_DIR
-select * from product_component_version;  --查询oracle版本
-
- --------oracle 解锁用户-------
-su - oracle
-sqlplus / as sysdba  --执行
-sql : alter user QICOLOR account unlock; --QICOLOR 用户解锁
-alter user QICOLOR_FORMAL account unlock;
-
-select userenv(&apos;language&apos;) from dual;-- 字符集
-------------------------------
-</code></pre><h3 id="数据库重启"><a href="#数据库重启" class="headerlink" title="数据库重启"></a>数据库重启</h3><pre><code>#关闭数据库存
-$export ORACLE_SID=QICOLOR
-$su - oracle
-$sqlplus / as sysdba
-$shutdown immediate
-$lsnrctl stop
-
-$export ORACLE_SID=TQBAY
-$su - oracle
-$sqlplus / as sysdba
-$shutdown immediate
-$lsnrctl stop
-
-#启动数据库
-$su - oracle
-$sqlplus / as sysdba
-$startup
-$lsnrctl start
-</code></pre><h3 id="oracle-管理员不用密码登录"><a href="#oracle-管理员不用密码登录" class="headerlink" title="oracle 管理员不用密码登录"></a>oracle 管理员不用密码登录</h3><pre><code>（1） 以oracle身份登录数据库，命令：su - oracle
-（2） 进入Sqlplus控制台，命令：sqlplus /nolog
-（3） 以系统管理员登录，命令：connect / as sysdba
-</code></pre>
-      
-    </div><!-- .entry-content -->
-    <!-- busuanzi  start -->
-    
-    <!-- busuanzi  end -->
-
-    <footer class="entry-meta">
-    <a href="/2017/09/01/oracle-expdp-impdp/">
-    <time datetime="2017-08-31T16:00:00.000Z" class="entry-date">
-        2017-09-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/数据库/">数据库</a>
+  <a class="article-category-link" href="/categories/随记/">随记</a>
   </div>
 
     
@@ -1205,7 +1148,7 @@ $lsnrctl start
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-mysql2/">node mysql2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
     </div>
   </aside>
 
@@ -1217,23 +1160,23 @@ $lsnrctl start
       <ul>
         
           <li>
-            <a href="/2023/03/03/前端学习/">前端学习</a>
+            <a href="/2023/07/27/制作npm/">生成npm包</a>
           </li>
         
           <li>
-            <a href="/2021/11/10/关于Java 23种设计模式/">关于Java 23种设计模式</a>
+            <a href="/2023/07/19/indexedDB/">windows indexedDB</a>
           </li>
         
           <li>
-            <a href="/2021/11/10/java生命周期/">java生命周期</a>
+            <a href="/2023/07/19/webpack4 thread-loader cache/">webpack vue-cli 启动编译慢</a>
           </li>
         
           <li>
-            <a href="/2020/09/03/webpack-spritesmith/">webpack中如何使用雪碧图</a>
+            <a href="/2023/07/19/webpack/">terser-webpack-plugin的使用:删除注释和console</a>
           </li>
         
           <li>
-            <a href="/2020/08/13/work-wechat-start/">企业微信小程序开发流程</a>
+            <a href="/2023/03/23/node mysql2/">node mysql2</a>
           </li>
         
       </ul>

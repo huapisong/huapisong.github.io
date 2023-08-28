@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="场景：webpack vue-cli 启动编译慢# 耗时时间
+npm install speed-measure-webpack-plugin --save-dev
+# 配置 vue.config.js
+module.exports = {
+    chainWebpack: (config) =&amp;">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>webpack vue-cli 启动编译慢 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="场景：webpack vue-cli 启动编译慢# 耗时时间 npm install speed-measure-webpack-plugin --save-dev # 配置 vue.config.js module.exports = {     chainWebpack: (config) =&amp;gt; {         config.plugin(&amp;apos;xcTime&amp;apos;).us">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack vue-cli 启动编译慢">
+<meta property="og:url" content="http://yoursite.com/2023/07/19/webpack4 thread-loader cache/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="场景：webpack vue-cli 启动编译慢# 耗时时间 npm install speed-measure-webpack-plugin --save-dev # 配置 vue.config.js module.exports = {     chainWebpack: (config) =&amp;gt; {         config.plugin(&amp;apos;xcTime&amp;apos;).us">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-08-25T08:25:40.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack vue-cli 启动编译慢">
+<meta name="twitter:description" content="场景：webpack vue-cli 启动编译慢# 耗时时间 npm install speed-measure-webpack-plugin --save-dev # 配置 vue.config.js module.exports = {     chainWebpack: (config) =&amp;gt; {         config.plugin(&amp;apos;xcTime&amp;apos;).us">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-webpack4 thread-loader cache" class="post-webpack4 thread-loader cache post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      webpack vue-cli 启动编译慢
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2023/07/19/webpack4 thread-loader cache/" data-id="cllu7jauh005k4kiaq1yecisx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="场景：webpack-vue-cli-启动编译慢"><a href="#场景：webpack-vue-cli-启动编译慢" class="headerlink" title="场景：webpack vue-cli 启动编译慢"></a>场景：webpack vue-cli 启动编译慢</h2><pre><code># 耗时时间
+npm install speed-measure-webpack-plugin --save-dev
+# 配置 vue.config.js
+module.exports = {
+    chainWebpack: (config) =&gt; {
+        config.plugin(&apos;xcTime&apos;).use(SpeedMeasurePlugin);
+    })
+};
+# 耗时详情
+    DONE  Compiled successfully in 132420ms
+
+    SMP  ?
+    General output time took 2 mins, 12.39 secs   
+
+    SMP  ?  Loaders
+    @dcloudio/vue-cli-plugin-uni, and
+    css-loader, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    postcss-loader, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    unplugin took 1 min, 43.082 secs
+    module count = 266
+    modules with no loaders took 1 min, 34.62 secs
+    module count = 871
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    eslint-loader, and
+    unplugin took 1 min, 34.5 secs
+    module count = 272
+    babel-loader, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    eslint-loader, and
+    unplugin took 53.99 secs
+    module count = 195
+    url-loader took 36.37 secs
+    module count = 77
+    babel-loader, and
+    ts-loader, and
+    @dcloudio/vue-cli-plugin-uni, and
+    eslint-loader, and
+    unplugin took 32.92 secs
+    module count = 15
+    babel-loader, and
+    @dcloudio/vue-cli-plugin-uni took 14.12 secs
+    module count = 51
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    css-loader, and
+    @dcloudio/vue-cli-plugin-uni, and
+    postcss-loader, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni took 10.3 secs
+    module count = 12
+    @dcloudio/vue-cli-plugin-uni, and
+    @dcloudio/vue-cli-plugin-uni took 6.16 secs
+</code></pre><h2 id="thread-loader的使用"><a href="#thread-loader的使用" class="headerlink" title="thread-loader的使用"></a>thread-loader的使用</h2><pre><code># 多核编译
+npm install thread-loader --save-dev
+# 配置 vue.config.js
+
+    const ThreadLoader = require(&apos;thread-loader&apos;);
+    const SpeedMeasurePlugin = require(&apos;speed-measure-webpack-plugin&apos;);
+
+    const os = require(&apos;os&apos;);
+    // cpu核数
+    const threads = os.cpus().length;
+
+    const options = {
+    // 产生的 worker 的数量，默认是 (cpu 核心数 - 1)，或者，
+    // 在 require(&apos;os&apos;).cpus() 是 undefined 时回退至 1
+    workers: threads - 1,
+
+    // 一个 worker 进程中并行执行工作的数量
+    // 默认为 20
+    workerParallelJobs: 50,
+
+    // 额外的 node.js 参数
+    workerNodeArgs: [&apos;--max-old-space-size=1024&apos;],
+
+    // 允许重新生成一个僵死的 work 池
+    // 这个过程会降低整体编译速度
+    // 并且开发环境应该设置为 false
+    poolRespawn: false,
+
+    // 闲置时定时删除 worker 进程
+    // 默认为 500（ms）
+    // 可以设置为无穷大，这样在监视模式(--watch)下可以保持 worker 持续存在
+    poolTimeout: 2000,
+
+    // 池分配给 worker 的工作数量
+    // 默认为 200
+    // 降低这个数值会降低总体的效率，但是会提升工作分布更均一
+    poolParallelJobs: 50,
+
+    // 池的名称
+    // 可以修改名称来创建其余选项都一样的池
+    name: &apos;my-pool&apos;,
+    };
+    ThreadLoader.warmup(options, [
+    // 加载模块
+    // 可以是任意模块，例如
+    &apos;babel-loader&apos;,
+    &apos;ts-loader&apos;,
+    &apos;css-loader&apos;,
+    &apos;eslint-loader&apos;,
+    &apos;url-loader&apos;,
+    &apos;postcss-loader&apos;,
+    ]);
+    module.exports = {
+        configureWebpack: {
+            devtool: process.env.DODE_ENV === &apos;production&apos; ? &apos;source-map&apos; : &apos;eval-cheap-source-map&apos;,
+        },
+        chainWebpack: (config) =&gt; {
+        [
+            // &apos;mjs&apos;,
+            // &apos;vue&apos;, // error: compiler.parseComponent is not a function
+            // &apos;images&apos;, // error: this.emitFile is not a function
+            &apos;svg&apos;,
+            &apos;media&apos;,
+            &apos;fonts&apos;,
+            // &apos;pug&apos;,
+            // &apos;css&apos;,
+            // &apos;postcss&apos;,
+            // &apos;scss&apos;,
+            // &apos;sass&apos;,
+            // &apos;less&apos;,
+            // &apos;stylus&apos;,
+            // &apos;js&apos;, // error: Cannot read property &apos;options&apos; of undefined
+            &apos;eslint&apos;,
+            &apos;ts&apos;, // error: Cannot read property &apos;options&apos; of undefined
+            &apos;tsx&apos;,
+            // &apos;jsx&apos;,
+            ].forEach((rule) =&gt; {
+            // 多核编译
+            const originUse = config.module.rule(rule).toConfig().use;
+            if (originUse) {
+                // 2、添加 loader
+                const newLoader = [
+                { loader: &apos;thread-loader&apos;, options },
+                { loader: &apos;cache-loader&apos; },
+                // ...originUse,
+                ...originUse.map((item) =&gt; {
+                    if (item.loader.includes(&apos;ts-loader&apos;)) {
+                    item.options.happyPackMode = true;
+                    item.options.transpileOnly = true;
+                    return item;
+                    }
+                    return item;
+                }),
+                ];
+                // originUse.unshift(newLoader);
+                // 3、清空原来的 loader
+                config.module.rule(rule).uses.clear();
+                // 4、重新设置新的 loader
+                config.module.rule(rule).merge({ use: newLoader });
+            }
+            });
+            config.plugin(&apos;xcTime&apos;).use(SpeedMeasurePlugin);
+
+            // production only
+            config.when(process.env.NODE_ENV === &apos;production&apos;, (config_) =&gt; {
+            // terser-webpack-plugin
+            config_.optimization.minimizer(&apos;terser&apos;).tap((args) =&gt; {
+                args[0].parallel = threads &gt; 1; // 多线程压缩js
+                args[0].cache = true;
+                args[0].terserOptions.nameCache = &apos;terser-cache&apos;;
+                args[0].terserOptions.compress.warnings = true;
+                args[0].terserOptions.compress.drop_debugger = true;
+                args[0].terserOptions.compress.drop_console = true;
+                return args;
+            });
+            });
+        })
+    };
+</code></pre><h2 id="优化后耗时"><a href="#优化后耗时" class="headerlink" title="优化后耗时"></a>优化后耗时</h2><pre><code># 提升30s， 只做了 &apos;eslint-loader&apos;, &apos;url-loader&apos; 多线程编译优化
+
+DONE  Compiled successfully in 102831ms  
+
+#  .vue .js/ts 报错大概和其它冲突（没有搞定），这部分优化后速度应该大幅度提升
+&apos;vue&apos;, // error: compiler.parseComponent is not a function
+&apos;js&apos;, // error: Cannot read property &apos;options&apos; of undefined
+&apos;ts&apos;, // error: Cannot read property &apos;options&apos; of undefined
+</code></pre><h2 id="cache-优化，首次编译启动慢一点，后面差量编译"><a href="#cache-优化，首次编译启动慢一点，后面差量编译" class="headerlink" title="cache 优化，首次编译启动慢一点，后面差量编译"></a>cache 优化，首次编译启动慢一点，后面差量编译</h2><pre><code># 耗时
+DONE  Compiled successfully in 4011ms    
+
+
+# 详细
+1. npm install hard-source-webpack-plugin
+2. vue.config.js 
+
+ const HardSourceWebpackPlugin = require(&apos;hard-source-webpack-plugin&apos;);
+
+ module.exports = {
+   configureWebpack: (config) =&gt; {
+     config.devtool =
+       process.env.DODE_ENV === &apos;production&apos;
+         ? &apos;cheap-module-source-map&apos;
+         : &apos;cheap-module-eval-source-map&apos;;
+     config.module.noParse =
+       /^(vu|vue-router|vuex|vuex-router-sync|lodash|echarts|axios|element-ui)$/;
+   },
+   chainWebpack: (config) =&gt; {
+     config.when(process.env.NODE_ENV !== &apos;production&apos;, (config_) =&gt; {
+       config_.plugin(&apos;hard-source&apos;).use(
+         new HardSourceWebpackPlugin({
+           root: process.cwd(),
+           directories: [],
+           environmentHash: {
+             root: process.cwd(),
+             directories: [],
+             files: [&apos;package.json&apos;, &apos;yarn.lock&apos;, &apos;package-lock.json&apos;],
+           },
+         }),
+       );
+       config_.plugin(&apos;hard-source-exclude&apos;).use(
+         new HardSourceWebpackPlugin.ExcludeModulePlugin([
+           {
+             test: /mini-css-extract-plugin[\\/]dist[\\/]loader/,
+           },
+         ]),
+       );
+     });
+   },
+ };
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2023/07/19/webpack4 thread-loader cache/">
+    <time datetime="2023-07-18T16:00:00.000Z" class="entry-date">
+        2023-07-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2023/07/19/indexedDB/" rel="prev"><span class="meta-nav">←</span> windows indexedDB</a></span>
+    
+    
+        <span class="nav-next"><a href="/2023/07/19/webpack/" rel="next">terser-webpack-plugin的使用:删除注释和console <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-mysql2/">node mysql2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/27/制作npm/">生成npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/indexedDB/">windows indexedDB</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/webpack4 thread-loader cache/">webpack vue-cli 启动编译慢</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/webpack/">terser-webpack-plugin的使用:删除注释和console</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/23/node mysql2/">node mysql2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

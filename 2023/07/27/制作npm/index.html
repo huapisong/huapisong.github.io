@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="生成npm包   将写好的插件生成npm包的方法也简单，分为以下几步：
+1、登录npm官网，注册一个npm账号  前往npm官网注册一个npm账号:  导航到 http://npmjs.com 并单击注册。
+2、制作一个npm的包  将写好的插件生成一个简单的npm包：
+创建一个空文件夹,名称即为你">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>生成npm包 | 随记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="生成npm包   将写好的插件生成npm包的方法也简单，分为以下几步： 1、登录npm官网，注册一个npm账号  前往npm官网注册一个npm账号:  导航到 http://npmjs.com 并单击注册。 2、制作一个npm的包  将写好的插件生成一个简单的npm包： 创建一个空文件夹,名称即为你的npm包的名称，注意名称不要与现有的npm包重复；     mkdir npmDemo 切到该文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生成npm包">
+<meta property="og:url" content="http://yoursite.com/2023/07/27/制作npm/index.html">
+<meta property="og:site_name" content="随记">
+<meta property="og:description" content="生成npm包   将写好的插件生成npm包的方法也简单，分为以下几步： 1、登录npm官网，注册一个npm账号  前往npm官网注册一个npm账号:  导航到 http://npmjs.com 并单击注册。 2、制作一个npm的包  将写好的插件生成一个简单的npm包： 创建一个空文件夹,名称即为你的npm包的名称，注意名称不要与现有的npm包重复；     mkdir npmDemo 切到该文件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-27T06:47:00.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="生成npm包">
+<meta name="twitter:description" content="生成npm包   将写好的插件生成npm包的方法也简单，分为以下几步： 1、登录npm官网，注册一个npm账号  前往npm官网注册一个npm账号:  导航到 http://npmjs.com 并单击注册。 2、制作一个npm的包  将写好的插件生成一个简单的npm包： 创建一个空文件夹,名称即为你的npm包的名称，注意名称不要与现有的npm包重复；     mkdir npmDemo 切到该文件">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="随记" rel="home">随记</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-制作npm" class="post-制作npm post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      生成npm包
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2023/07/27/制作npm/" data-id="cllu7jau1003l4kial8uhx341" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="生成npm包"><a href="#生成npm包" class="headerlink" title="生成npm包"></a>生成npm包</h2><p>   将写好的插件生成npm包的方法也简单，分为以下几步：</p>
+<h2 id="1、登录npm官网，注册一个npm账号"><a href="#1、登录npm官网，注册一个npm账号" class="headerlink" title="1、登录npm官网，注册一个npm账号"></a>1、登录npm官网，注册一个npm账号</h2><p>  前往npm官网注册一个npm账号:  导航到 <a href="http://npmjs.com" target="_blank" rel="noopener">http://npmjs.com</a> 并单击注册。</p>
+<h2 id="2、制作一个npm的包"><a href="#2、制作一个npm的包" class="headerlink" title="2、制作一个npm的包"></a>2、制作一个npm的包</h2><p>  将写好的插件生成一个简单的npm包：</p>
+<pre><code>创建一个空文件夹,名称即为你的npm包的名称，注意名称不要与现有的npm包重复；
+    mkdir npmDemo
+切到该文件夹下，输入‘npm init&apos;命令生成一个package.json文件，内部信息自定义；
+将写好的插件js文件拷到该文件夹下，重命名为index.js；
+在根目录下创建README.md文件，添加关于包的介绍信息（非必需）；
+</code></pre><h2 id="3、将包上传或更新到-npm"><a href="#3、将包上传或更新到-npm" class="headerlink" title="3、将包上传或更新到 npm"></a>3、将包上传或更新到 npm</h2><p>   发布创建好的包：</p>
+<pre><code>1. 若第一次发布包，执行‘ npm adduser&apos;命令，输入前面注册好的npm账号，密码和邮箱；
+2. 若不是第一次发布包，执行‘ npm login&apos;命令进行登录，同样输入npm账号，密码和邮箱；
+3.  登录成功以后，在刚才的文件夹下，执行‘npm publish&apos;命令，即可发布该npm包；
+4.  若要更新之前的包，只需要更改版本号，再执行‘npm publish&apos;命令即可；
+至此一个简单的vue插件就生成了一个npm包了，以后使用就不需要加载js文件，可以直接通过npm的方式引入了，其它的小伙伴也可以一起愉快的玩耍了
+</code></pre>
+      
+    </div><!-- .entry-content -->
+    <!-- busuanzi  start -->
+    
+    <!-- busuanzi  end -->
+
+    <footer class="entry-meta">
+    <a href="/2023/07/27/制作npm/">
+    <time datetime="2023-07-26T16:00:00.000Z" class="entry-date">
+        2023-07-27
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/npm/">npm</a>
+  </div>
+
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2023/07/19/indexedDB/" rel="next">windows indexedDB <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AES/">AES</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maven/">Maven</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Openoffice/">Openoffice</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/POI/">POI</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Shell/">Shell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud-Spring-Boot-微服务/">Spring Cloud Spring Boot 微服务</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Springboot/">Springboot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WeCaht/">WeCaht</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/console/">console</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/github/">github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/node-mysql2/">node mysql2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vscode/">vscode</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端学习/">前端学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密算法/">加密算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随记/">随记</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2023/07/27/制作npm/">生成npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/indexedDB/">windows indexedDB</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/webpack4 thread-loader cache/">webpack vue-cli 启动编译慢</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/19/webpack/">terser-webpack-plugin的使用:删除注释和console</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/23/node mysql2/">node mysql2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2023 花皮松
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <!-- busuanzi start -->
+    
+    <!-- busuanzi end -->
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
